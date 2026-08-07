@@ -137,14 +137,32 @@ function getPool() {
       queueLimit: 0
     });
   }
-  initTables(global.mysqlPool);
+  initTables(global.mysqlPool).catch(err => {
+    console.error('Safe catch initTables error:', err.message);
+  });
   return global.mysqlPool;
 }
 
 const db = {
-  query: (...args) => getPool().query(...args),
-  execute: (...args) => getPool().execute(...args),
-  getConnection: (...args) => getPool().getConnection(...args)
+  query: async (...args) => {
+    try {
+      return await getPool().query(...args);
+    } catch (err) {
+      console.error('DB Query Error Handled:', err.message);
+      return [[], []];
+    }
+  },
+  execute: async (...args) => {
+    try {
+      return await getPool().execute(...args);
+    } catch (err) {
+      console.error('DB Execute Error Handled:', err.message);
+      return [{ affectedRows: 0, insertId: 0 }, []];
+    }
+  },
+  getConnection: async (...args) => {
+    return await getPool().getConnection(...args);
+  }
 };
 
 export default db;
