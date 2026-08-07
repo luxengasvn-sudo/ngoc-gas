@@ -177,78 +177,12 @@ export default function HeroSection({ initialSettings }) {
                   <span>{settings.hero_btn1_text || 'Xem sản phẩm'}</span>
                   <ArrowRight size={18} />
                 </Link>
-                {settings.hero_show_btn2 !== '0' && (
-                  <button onClick={triggerDemo} className="btn btn-outline btn-lg" disabled={animationState !== 'idle'}>
-                    <span>{animationState === 'idle' ? (settings.hero_btn2_text || 'Thử đặt gas nhanh (Demo)') : 'Đang thực hiện...'}</span>
-                  </button>
-                )}
+                <Link href="/lien-he" className="btn btn-outline btn-lg">
+                  <span>Liên hệ ngay</span>
+                </Link>
               </div>
             </div>
           )}
-          
-          <div className="hero-image-container">
-            <div className="hero-animation-canvas">
-              {/* Phone call notification popup */}
-              <div className={`phone-call-popup glass ${animationState === 'calling' ? 'show' : ''} ${animationState === 'loading' || animationState === 'delivering' ? 'fade-out' : ''}`}>
-                <div className="phone-icon-circle ringing">
-                  <Phone size={18} />
-                </div>
-                <div className="phone-call-info">
-                  <strong>{settings.hero_call_title}</strong>
-                  <span>{settings.hero_call_desc}</span>
-                </div>
-              </div>
-
-              {/* Delivery success badge (appears after bike leaves) */}
-              <div className={`delivery-status-badge glass ${animationState === 'delivering' ? 'show' : ''}`}>
-                <div className="success-icon-circle">
-                  <Check size={18} />
-                </div>
-                <div className="status-info">
-                  <strong>{settings.hero_delivery_title}</strong>
-                  <span>{settings.hero_delivery_desc}</span>
-                </div>
-              </div>
-
-              {/* Background road */}
-              <div className="animation-road"></div>
-              
-              {/* Motorcycle Group */}
-              <div 
-                className={`motorcycle-group ${animationState === 'delivering' ? 'drive-away' : ''} ${animationState === 'resetting' ? 'fade-in' : ''} ${!isMounted ? 'no-transition' : ''}`}
-                style={{ position: 'absolute', bottom: '24px', left: '10px', width: '220px', height: '150px', zIndex: 20 }}
-              >
-                <img 
-                  src="/images/delivery-motorcycle.jpg" 
-                  alt="Delivery Motorcycle" 
-                  className={`motorcycle-img ${animationState === 'idle' || animationState === 'calling' || animationState === 'loading' ? 'engine-idle' : ''}`} 
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                />
-              </div>
-
-              {/* Gas Cylinder */}
-              <div 
-                className={`gas-cylinder-item 
-                  ${animationState === 'loading' ? 'loaded' : ''} 
-                  ${animationState === 'delivering' ? 'loaded drive-away' : ''}
-                  ${animationState === 'resetting' ? 'fade-in' : ''}
-                  ${!isMounted ? 'no-transition' : ''}
-                `}
-                style={
-                  animationState === 'loading' || animationState === 'delivering'
-                    ? { position: 'absolute', bottom: '95px', left: '20px', width: '60px', height: '85px', zIndex: 30, transform: 'scale(0.85)' }
-                    : { position: 'absolute', bottom: '28px', left: '350px', width: '60px', height: '85px', zIndex: 30 }
-                }
-              >
-                <img 
-                  src="/images/gas-cylinder.jpg" 
-                  alt="Gas Cylinder" 
-                  className={`cylinder-img ${animationState === 'idle' || animationState === 'calling' ? 'cylinder-float' : ''}`} 
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
