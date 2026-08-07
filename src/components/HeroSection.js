@@ -157,6 +157,22 @@ export default function HeroSection({ initialSettings }) {
           )}
           <div className="hero-gradient-overlay"></div>
         </div>
+
+        {/* Slide Indicator Dots */}
+        {settings.hero_mode === 'slide' && slides.length > 1 && (
+          <div className="hero-slide-dots">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                className={`slide-dot ${idx === activeSlide ? 'active' : ''}`}
+                onClick={() => setActiveSlide(idx)}
+                aria-label={`Slide ${idx + 1}`}
+                title={`Xem slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+
         <div className={`container hero-container ${settings.hero_show_text_block === '0' ? 'text-hidden' : ''}`}>
           {settings.hero_show_text_block !== '0' && (
             <div className="hero-content animate-fade-in-up">
@@ -189,6 +205,39 @@ export default function HeroSection({ initialSettings }) {
       <style jsx global>{`
         .no-transition {
           transition: none !important;
+        }
+
+        .hero-slide-dots {
+          position: absolute;
+          bottom: 24px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          z-index: 10;
+        }
+
+        .slide-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.4);
+          border: 2px solid transparent;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          padding: 0;
+        }
+
+        .slide-dot:hover {
+          background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .slide-dot.active {
+          width: 32px;
+          border-radius: 6px;
+          background-color: #FF6B00;
+          box-shadow: 0 0 10px rgba(255, 107, 0, 0.6);
         }
 
         .hero {

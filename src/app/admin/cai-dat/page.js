@@ -1170,7 +1170,7 @@ export default function AdminSettingsPage() {
                   )}
 
                   {settings.hero_mode === 'slide' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '10px' }}>
                       <div className="form-group" style={{ marginBottom: 0 }}>
                         <label className="form-label-new">Hình ảnh Slide 1</label>
                         <div style={{ display: 'flex', gap: '15px' }}>
@@ -1193,6 +1193,20 @@ export default function AdminSettingsPage() {
                               disabled={uploading} 
                             />
                           </label>
+                        </div>
+                        {/* Slide 1 Image Preview */}
+                        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '12px', padding: '10px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                          <img 
+                            src={settings.hero_slide_1 || '/images/delivery-motorcycle.jpg'} 
+                            alt="Slide 1 Preview" 
+                            style={{ width: '120px', height: '65px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #CBD5E1' }}
+                          />
+                          <div>
+                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', display: 'block' }}>Xem trước Slide 1</span>
+                            <span style={{ fontSize: '12px', color: '#64748B' }}>
+                              {settings.hero_slide_1 ? 'Đang dùng ảnh tải lên' : 'Đang dùng ảnh mặc định hệ thống (/images/delivery-motorcycle.jpg)'}
+                            </span>
+                          </div>
                         </div>
                       </div>
 
@@ -1219,6 +1233,20 @@ export default function AdminSettingsPage() {
                             />
                           </label>
                         </div>
+                        {/* Slide 2 Image Preview */}
+                        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '12px', padding: '10px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                          <img 
+                            src={settings.hero_slide_2 || '/images/gas-cylinder.jpg'} 
+                            alt="Slide 2 Preview" 
+                            style={{ width: '120px', height: '65px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #CBD5E1' }}
+                          />
+                          <div>
+                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', display: 'block' }}>Xem trước Slide 2</span>
+                            <span style={{ fontSize: '12px', color: '#64748B' }}>
+                              {settings.hero_slide_2 ? 'Đang dùng ảnh tải lên' : 'Đang dùng ảnh mặc định hệ thống (/images/gas-cylinder.jpg)'}
+                            </span>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="form-group" style={{ marginBottom: 0 }}>
@@ -1244,6 +1272,22 @@ export default function AdminSettingsPage() {
                             />
                           </label>
                         </div>
+                        {/* Slide 3 Image Preview */}
+                        {settings.hero_slide_3 ? (
+                          <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '12px', padding: '10px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                            <img 
+                              src={settings.hero_slide_3} 
+                              alt="Slide 3 Preview" 
+                              style={{ width: '120px', height: '65px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #CBD5E1' }}
+                            />
+                            <div>
+                              <span style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', display: 'block' }}>Xem trước Slide 3</span>
+                              <span style={{ fontSize: '12px', color: '#64748B' }}>Đang dùng ảnh tùy chỉnh</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <span style={{ fontSize: '12px', color: '#94A3B8', marginTop: '6px', display: 'block' }}>Chưa thiết lập (Slide 3 hiện đang ẩn)</span>
+                        )}
                       </div>
                     </div>
                   )}
