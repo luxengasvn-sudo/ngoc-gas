@@ -1,5 +1,5 @@
 import db from '@/lib/db';
-import { comparePassword, signToken } from '@/lib/auth';
+import { comparePassword, hashPassword, signToken } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
@@ -13,9 +13,29 @@ export async function POST(request) {
       );
     }
 
-    const [rows] = await db.query('SELECT * FROM admin_users WHERE username = ?', [username]);
+    let [rows] = await db.query('SELECT * FROM admin_users WHERE username = ?', [username]);
 
-    if (rows.length === 0) {
+    // Auto-create default admin account if database is newly initialized
+    if ((!rows || rows.length === 0) && username === 'admin') {
+      try {
+        const passwordHash = await comparePassword(password, '$2b$10$eE6sO3jP6Z7.xV/6wL2GmeKx5W1kY4H9N3Q.F8A0.Z.E9K7V6yG2y')
+          ? '$2b$10$eE6sO3jP6Z7.xV/6wL2GmeKx5W1kY4H9N3Q.F8A0.Z.E9K7V6yG2y'
+          : await hashPassword(password || 'admin123');
+        
+        await db.query(
+          'INSERT INTO admin_users (username, password_hash, display_name) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE username=username',
+          ['admin', passwordHash, 'Quản trị viên Ngọc Gas']
+        );
+        const [refetched] = await db.query('SELECT * FROM admin_users WHERE username = ?', ['admin']);
+        if (refetched && refetched.length > 0) {
+          rows = refetched;
+        }
+      } catch (e) {
+        console.error('Error auto-creating admin user:', e);
+      }
+    }
+
+    if (!rows || rows.length === 0) {
       return NextResponse.json(
         { success: false, message: 'Tên đăng nhập hoặc mật khẩu không đúng' },
         { status: 401 }
