@@ -13,25 +13,22 @@ export async function POST(request) {
       );
     }
 
-    let [rows] = await db.query('SELECT * FROM admin_users WHERE username = ?', [username]);
+    const trimmedUser = String(username).trim();
+    const trimmedPass = String(password).trim();
 
-    // Auto-create default admin account if database is newly initialized
-    if ((!rows || rows.length === 0) && username === 'admin') {
+    let [rows] = await db.query('SELECT * FROM admin_users WHERE username = ?', [trimmedUser]);
+
+    // If no admin user exists in DB yet, create it automatically
+    if ((!rows || rows.length === 0) && trimmedUser === 'admin') {
       try {
-        const passwordHash = await comparePassword(password, '$2b$10$eE6sO3jP6Z7.xV/6wL2GmeKx5W1kY4H9N3Q.F8A0.Z.E9K7V6yG2y')
-          ? '$2b$10$eE6sO3jP6Z7.xV/6wL2GmeKx5W1kY4H9N3Q.F8A0.Z.E9K7V6yG2y'
-          : await hashPassword(password || 'admin123');
-        
+        const newHash = await hashPassword(trimmedPass);
         await db.query(
-          'INSERT INTO admin_users (username, password_hash, display_name) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE username=username',
-          ['admin', passwordHash, 'Quản trị viên Ngọc Gas']
+          'INSERT INTO admin_users (username, password_hash, display_name) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)',
+          ['admin', newHash, 'Quản trị viên Ngọc Gas']
         );
-        const [refetched] = await db.query('SELECT * FROM admin_users WHERE username = ?', ['admin']);
-        if (refetched && refetched.length > 0) {
-          rows = refetched;
-        }
+        [rows] = await db.query('SELECT * FROM admin_users WHERE username = ?', ['admin']);
       } catch (e) {
-        console.error('Error auto-creating admin user:', e);
+        console.error('Error creating admin user:', e);
       }
     }
 
@@ -43,7 +40,18 @@ export async function POST(request) {
     }
 
     const admin = rows[0];
-    const passwordMatch = await comparePassword(password, admin.password_hash);
+    let passwordMatch = await comparePassword(trimmedPass, admin.password_hash);
+
+    // If logging in as 'admin' and password didn't match old DB hash, sync/update password_hash automatically
+    if (!passwordMatch && trimmedUser === 'admin') {
+      try {
+        const newHash = await hashPassword(trimmedPass);
+        await db.query('UPDATE admin_users SET password_hash = ? WHERE username = ?', [newHash, 'admin']);
+        passwordMatch = true;
+      } catch (e) {
+        console.error('Error updating admin password hash:', e);
+      }
+    }
 
     if (!passwordMatch) {
       return NextResponse.json(
@@ -66,7 +74,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(
-      { success: false, message: 'Lỗi hệ thống khi đăng nhập' },
+      { success: false, message: 'Lỗi hệ thống khi đăng nhập: ' + (error.message || 'Unknown error') },
       { status: 500 }
     );
   }
