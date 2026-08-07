@@ -683,7 +683,7 @@ export default function AdminPostsPage() {
                           className="form-control-new font-sm-input"
                           value={formData.meta_keywords}
                           onChange={handleChange}
-                          placeholder="gas phu quoc, giao gas nhanh, dao ngoc gas"
+                          placeholder="gas ngoc gas, giao gas nhanh, gas binh duong, gas tp hcm"
                         />
                         <span style={{ fontSize: '11px', color: 'var(--text-secondary)', display: 'block', marginTop: '4px' }}>Các từ khóa phân tách nhau bằng dấu phẩy.</span>
                       </div>

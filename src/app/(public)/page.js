@@ -55,7 +55,7 @@ export default async function HomePage() {
     home_news_subtitle: 'Cập nhật tin tức khuyến mãi mới nhất và cẩm nang hướng dẫn sử dụng gas an toàn trong nhà bếp.',
     
     home_cta_title: 'Bạn Cần Hỗ Trợ Tư Vấn Hoặc Báo Giá Hệ Thống Gas?',
-    home_cta_desc: 'Ngọc Gas cung cấp dịch vụ khảo sát và thiết kế hệ thống gas công nghiệp miễn phí tại TP. HCM (Bình Dương cũ).',
+    home_cta_desc: 'Ngọc Gas cung cấp dịch vụ khảo sát và thiết kế hệ thống gas công nghiệp miễn phí tại TP. HCM & Bình Dương.',
     home_cta_phone: '19009396',
     phone: '19009396', // fallback phone number
     featured_product_ids: '',

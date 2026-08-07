@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dao-ngoc-gas-secret-key-2024';
+const JWT_SECRET = process.env.JWT_SECRET || 'ngoc-gas-secret-key-2026';
 
 export function signToken(payload) {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });

@@ -10,7 +10,7 @@ export default function Footer({ initialSettings }) {
     const init = initialSettings || {};
     return {
       logo_url: init.logo_url || '',
-      address: init.address || 'Đường Song Hành, Quận 12, TP. Hồ Chí Minh (Bình Dương cũ)',
+      address: init.address || '7 Nguyễn Trung Trực, Dĩ An, TP. Hồ Chí Minh',
       phone: init.phone || '19009396',
       email: init.email || 'contact@ngocgas.com',
       working_hours: init.working_hours || '06:00 - 22:00 (Thứ 2 - Chủ nhật)',
@@ -61,7 +61,7 @@ export default function Footer({ initialSettings }) {
           <div className="footer-col brand-col">
             <Link href="/" className="footer-logo">
               {settings.logo_url ? (
-                <img src={settings.logo_url} alt="Đảo Ngọc Gas Logo" className="logo-img" />
+                <img src={settings.logo_url} alt="Ngọc Gas Logo" className="logo-img" />
               ) : (
                 <Flame className="footer-logo-icon" size={32} />
               )}

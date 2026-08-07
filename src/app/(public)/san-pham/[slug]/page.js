@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
       const product = rows[0];
       return {
         title: `${product.name} - NGỌC GAS`,
-        description: product.short_description || `Mua ${product.name} chính hãng, giá tốt tại Ngọc Gas TP. HCM (Bình Dương cũ). Giao gas siêu tốc 15 phút.`,
+        description: product.short_description || `Mua ${product.name} chính hãng, giá tốt tại Ngọc Gas TP. HCM & Bình Dương. Giao gas siêu tốc 15 phút.`,
         keywords: `${product.name}, ngoc gas tp hcm, ngoc gas binh duong`
       };
     }
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
   
   return {
     title: 'Sản phẩm gas chất lượng - NGỌC GAS',
-    description: 'Danh sách sản phẩm bình gas gia đình, gas công nghiệp và phụ kiện bếp gas chính hãng tại TP. HCM (Bình Dương cũ).'
+    description: 'Danh sách sản phẩm bình gas gia đình, gas công nghiệp và phụ kiện bếp gas chính hãng tại TP. HCM & Bình Dương.'
   };
 }
 

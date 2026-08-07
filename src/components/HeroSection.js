@@ -9,7 +9,7 @@ export default function HeroSection({ initialSettings }) {
     const init = initialSettings || {};
     return {
       company_name: init.company_name || 'NGỌC GAS',
-      slogan: init.slogan || 'Nhà cung cấp gas chuyên nghiệp, uy tín tại TP. HCM (Bình Dương cũ). Chuyên thiết kế, thi công hệ thống gas công nghiệp và giao lẻ gas dân dụng chính hãng, an toàn tuyệt đối.',
+      slogan: init.slogan || 'Nhà cung cấp gas chuyên nghiệp, uy tín tại TP. HCM & Bình Dương. Chuyên thiết kế, thi công hệ thống gas công nghiệp và giao lẻ gas dân dụng chính hãng, an toàn tuyệt đối.',
       logo_url: init.logo_url || '',
       hero_call_title: init.hero_call_title || 'Khách gọi đặt gas...',
       hero_call_desc: init.hero_call_desc || 'Bình Sopet 12kg Xám',
@@ -45,7 +45,7 @@ export default function HeroSection({ initialSettings }) {
         if (data.success && data.data) {
           setSettings({
             company_name: data.data.company_name || 'NGỌC GAS',
-            slogan: data.data.slogan || 'Nhà cung cấp gas chuyên nghiệp, uy tín tại TP. HCM (Bình Dương cũ). Chuyên thiết kế, thi công hệ thống gas công nghiệp và giao lẻ gas dân dụng chính hãng, an toàn tuyệt đối.',
+            slogan: data.data.slogan || 'Nhà cung cấp gas chuyên nghiệp, uy tín tại TP. HCM & Bình Dương. Chuyên thiết kế, thi công hệ thống gas công nghiệp và giao lẻ gas dân dụng chính hãng, an toàn tuyệt đối.',
             logo_url: data.data.logo_url || '',
             hero_call_title: data.data.hero_call_title || 'Khách gọi đặt gas...',
             hero_call_desc: data.data.hero_call_desc || 'Bình Sopet 12kg Xám',

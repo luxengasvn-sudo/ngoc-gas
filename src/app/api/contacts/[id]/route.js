@@ -12,7 +12,7 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
     const { is_read } = await request.json();
 
     const [result] = await db.query(
@@ -50,7 +50,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     const [result] = await db.query('DELETE FROM contacts WHERE id = ?', [id]);
 

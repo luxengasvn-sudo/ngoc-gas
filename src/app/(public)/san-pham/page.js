@@ -56,7 +56,7 @@ export default async function ProductsPage({ searchParams }) {
           </div>
           <h1 className="products-hero-title">Sản Phẩm Của Chúng Tôi</h1>
           <p className="products-hero-desc">
-            Cung cấp đầy đủ bình gas chính hãng dân dụng, công nghiệp và phụ kiện gas an toàn tại TP. HCM (Bình Dương cũ).
+            Cung cấp đầy đủ bình gas chính hãng dân dụng, công nghiệp và phụ kiện gas an toàn tại TP. HCM & Bình Dương.
           </p>
         </div>
       </section>

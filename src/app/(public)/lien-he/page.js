@@ -7,7 +7,7 @@ export const revalidate = 0; // Fresh database query always
 
 export default async function ContactPage() {
   let settings = {
-    address: 'Đường Song Hành, Quận 12, TP. Hồ Chí Minh (Bình Dương cũ)',
+    address: '7 Nguyễn Trung Trực, Dĩ An, TP. Hồ Chí Minh',
     phone: '19009396',
     email: 'contact@ngocgas.com',
     working_hours: '06:00 - 22:00 (Thứ 2 - Chủ nhật)',
