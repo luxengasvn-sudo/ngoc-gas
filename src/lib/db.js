@@ -1,19 +1,22 @@
 import mysql from 'mysql2/promise';
 
-let pool;
-
-if (!global.mysqlPool) {
-  const connectionString = process.env.DATABASE_URL;
-  if (!connectionString) {
-    throw new Error('DATABASE_URL environment variable is not defined');
+function getPool() {
+  if (!global.mysqlPool) {
+    const connectionString = process.env.DATABASE_URL || 'mysql://localhost:3306/ngoc_gas';
+    global.mysqlPool = mysql.createPool({
+      uri: connectionString,
+      connectionLimit: 10,
+      waitForConnections: true,
+      queueLimit: 0
+    });
   }
-  global.mysqlPool = mysql.createPool({
-    uri: connectionString,
-    connectionLimit: 10,
-    waitForConnections: true,
-    queueLimit: 0
-  });
+  return global.mysqlPool;
 }
-pool = global.mysqlPool;
 
-export default pool;
+const db = {
+  query: (...args) => getPool().query(...args),
+  execute: (...args) => getPool().execute(...args),
+  getConnection: (...args) => getPool().getConnection(...args)
+};
+
+export default db;
