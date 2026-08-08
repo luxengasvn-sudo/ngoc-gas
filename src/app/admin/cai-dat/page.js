@@ -1460,12 +1460,13 @@ export default function AdminSettingsPage() {
                     {(() => {
                       let order = [];
                       try {
-                        order = JSON.parse(settings.home_sections_order || '["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]');
+                        order = JSON.parse(settings.home_sections_order || '["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]');
                       } catch(e) {
-                        order = ["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
+                        order = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
                       }
 
                       const names = {
+                        'gas-price-widget': 'Khối Bảng giá Gas Niêm Yết Tháng',
                         'intro-features': 'Khối Đặc điểm nổi bật (An toàn, Chất lượng, Giao nhanh)',
                         'featured-products': 'Khối Sản phẩm nổi bật',
                         'stats-counter': 'Khối Chỉ số thống kê (Số năm kinh nghiệm, khách hàng...)',
@@ -1474,6 +1475,7 @@ export default function AdminSettingsPage() {
                       };
 
                       const statusKeys = {
+                        'gas-price-widget': 'show_home_gas_price',
                         'intro-features': 'show_home_features',
                         'featured-products': 'show_home_products',
                         'stats-counter': 'show_home_stats',

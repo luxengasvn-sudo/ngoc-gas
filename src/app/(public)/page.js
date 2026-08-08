@@ -111,70 +111,103 @@ export default async function HomePage() {
 
   const rawPhone = settings.phone.replace(/[^0-9]/g, '');
 
+  // Parse section order dynamically from Admin Settings
+  let sectionOrder = [];
+  try {
+    sectionOrder = JSON.parse(settings.home_sections_order || '["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]');
+  } catch (e) {
+    sectionOrder = ["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
+  }
+
+  // Ensure gas-price-widget is included if not present
+  if (!sectionOrder.includes('gas-price-widget')) {
+    sectionOrder.unshift('gas-price-widget');
+  }
+
+  const renderSection = (sectionId) => {
+    switch (sectionId) {
+      case 'gas-price-widget':
+        if (settings.show_home_gas_price === '0') return null;
+        return <GasPriceWidget key="gas-price-widget" />;
+
+      case 'intro-features':
+        if (settings.show_home_features === '0') return null;
+        return <SafetyFAQSection key="intro-features" />;
+
+      case 'featured-products':
+        if (settings.show_home_products === '0') return null;
+        return (
+          <section key="featured-products" className="section-padding bg-warm">
+            <div className="container">
+              <FeaturedProductsTabs 
+                gasProducts={featuredGasProducts} 
+                otherProducts={featuredOtherProducts} 
+              />
+            </div>
+          </section>
+        );
+
+      case 'stats-counter':
+        if (settings.show_home_stats === '0') return null;
+        return <TestimonialsSection key="stats-counter" />;
+
+      case 'latest-news':
+        if (settings.show_home_news === '0' || !latestPosts || latestPosts.length === 0) return null;
+        return (
+          <section key="latest-news" className="section-padding bg-warm">
+            <div className="container">
+              <div className="section-header text-center">
+                <span className="section-subtitle">TIN TỨC & KINH NGHIỆM</span>
+                <h2 className="section-title">Cẩm Nang An Toàn & Khuyến Mãi Gas</h2>
+                <p className="section-desc">Cập nhật thông tin giá gas mới nhất, kinh nghiệm chọn gas chính hãng và mẹo sử dụng gas an toàn tiết kiệm.</p>
+              </div>
+              
+              <div className="grid-3 posts-grid">
+                {latestPosts.map(post => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
+
+              <div className="text-center" style={{ marginTop: '40px' }}>
+                <Link href="/tin-tuc" className="btn btn-outline">
+                  Xem tất cả bài viết
+                </Link>
+              </div>
+            </div>
+          </section>
+        );
+
+      case 'cta-section':
+        if (settings.show_home_cta === '0') return null;
+        return (
+          <section key="cta-section" className="cta-banner">
+            <div className="container text-center">
+              <h2 className="cta-title">Cần Giao Gas Nhanh Tận Nhà Tại Dĩ An & Thuận An?</h2>
+              <p className="cta-desc">Đội ngũ Ngọc Gas túc trực 24/7. Gọi ngay tổng đài để được phục vụ trong 15-30 phút!</p>
+              <div className="cta-buttons">
+                <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
+                  Gọi Hotline {settings.phone}
+                </a>
+                <Link href="/lien-he" className="btn btn-outline-white btn-lg">
+                  Địa chỉ & Trạm giao gas
+                </Link>
+              </div>
+            </div>
+          </section>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
-      {/* Hero Banner Section */}
+      {/* Hero Banner Section (Always Top) */}
       <HeroSection settings={settings} />
 
-      {/* Monthly Gas Price List Section */}
-      <GasPriceWidget />
-
-      {/* Featured Products Tabs Section */}
-      <section className="section-padding bg-warm">
-        <div className="container">
-          <FeaturedProductsTabs 
-            gasProducts={featuredGasProducts} 
-            otherProducts={featuredOtherProducts} 
-          />
-        </div>
-      </section>
-
-      {/* Safety & FAQ Accordion Section */}
-      <SafetyFAQSection />
-
-      {/* Customer Testimonials Section */}
-      <TestimonialsSection />
-
-      {/* Latest SEO News & Articles Section */}
-      {latestPosts.length > 0 && (
-        <section className="section-padding bg-warm">
-          <div className="container">
-            <div className="section-header text-center">
-              <span className="section-subtitle">TIN TỨC & KINH NGHIỆM</span>
-              <h2 className="section-title">Cẩm Nang An Toàn & Khuyến Mãi Gas</h2>
-              <p className="section-desc">Cập nhật thông tin giá gas mới nhất, kinh nghiệm chọn gas chính hãng và mẹo sử dụng gas an toàn tiết kiệm.</p>
-            </div>
-            
-            <div className="grid-3 posts-grid">
-              {latestPosts.map(post => (
-                <PostCard key={post.id} post={post} />
-              ))}
-            </div>
-
-            <div className="text-center" style={{ marginTop: '40px' }}>
-              <Link href="/tin-tuc" className="btn btn-outline">
-                Xem tất cả bài viết
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Floating Hotline Banner */}
-      <section className="cta-banner">
-        <div className="container text-center">
-          <h2 className="cta-title">Cần Giao Gas Nhanh Tận Nhà Tại Dĩ An & Thuận An?</h2>
-          <p className="cta-desc">Đội ngũ Ngọc Gas túc trực 24/7. Gọi ngay tổng đài để được phục vụ trong 15-30 phút!</p>
-          <div className="cta-buttons">
-            <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
-              Gọi Hotline {settings.phone}
-            </a>
-            <Link href="/lien-he" className="btn btn-outline-white btn-lg">
-              Địa chỉ & Trạm giao gas
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Dynamic Sections ordered and toggled by Admin Settings */}
+      {sectionOrder.map(sectionId => renderSection(sectionId))}
     </>
   );
 }

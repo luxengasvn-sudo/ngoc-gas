@@ -40,7 +40,7 @@ export default function GasPriceWidget({ products = [] }) {
             <div className="price-badges-group">
               <div className="trust-badge">
                 <ShieldCheck size={16} />
-                <span>100% Chính Hãng Sopet Vil</span>
+                <span>100% Chính Hãng Sopet, Phoenix, Luxen</span>
               </div>
               <div className="trust-badge">
                 <Clock size={16} />
