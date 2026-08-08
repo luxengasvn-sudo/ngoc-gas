@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2 } from 'lucide-react';
+import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function GasPriceWidget({ products = [] }) {
@@ -14,6 +14,9 @@ export default function GasPriceWidget({ products = [] }) {
   const [selectedGasType, setSelectedGasType] = useState('all');
   const [historyData, setHistoryData] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
+
+  // Mobile Active Tab State (0: Luxen 12kg, 1: Phổ Thông 12kg, 2: Công Nghiệp 45kg)
+  const [activeMobileTab, setActiveMobileTab] = useState(0);
 
   const fetchHistory = async () => {
     setLoadingHistory(true);
@@ -224,6 +227,7 @@ export default function GasPriceWidget({ products = [] }) {
     <section className="gas-price-section">
       <div className="container">
         <div className="price-card-wrapper glass">
+          {/* Section Header */}
           <div className="price-header">
             <div className="price-title-box">
               <div className="flame-icon-bg">
@@ -242,23 +246,79 @@ export default function GasPriceWidget({ products = [] }) {
                 className="btn-history-trigger"
               >
                 <BarChart2 size={16} />
-                <span>Xem Lịch Sử Biến Động Giá</span>
+                <span>Lịch Sử Biến Động Giá</span>
               </button>
               
-              <div className="trust-badge">
+              <div className="trust-badge desktop-only-badge">
                 <ShieldCheck size={16} />
                 <span>100% Chính Hãng Sopet, Phoenix, Luxen</span>
-              </div>
-              <div className="trust-badge">
-                <Clock size={16} />
-                <span>Giao Nhanh 15-30 Phút</span>
               </div>
             </div>
           </div>
 
+          {/* MOBILE 1-SCREEN COMPACT SUMMARY TABLE & TAB BAR (Visible on Mobile) */}
+          <div className="mobile-1screen-summary-box">
+            <div className="mobile-summary-header">
+              <span>⚡ XEM NHANH GIÁ 3 LOẠI GAS (1 MÀN HÌNH)</span>
+            </div>
+
+            <div className="mobile-compact-rows">
+              {priceCards.map((card, idx) => (
+                <div 
+                  key={card.id} 
+                  className={`mobile-compact-row-item ${activeMobileTab === idx ? 'selected' : ''}`}
+                  onClick={() => setActiveMobileTab(idx)}
+                >
+                  <div className="mobile-row-info">
+                    <span className="mobile-row-badge" style={{ backgroundColor: card.badgeColor }}>
+                      {card.badge}
+                    </span>
+                    <strong className="mobile-row-title">{card.title}</strong>
+                  </div>
+                  <div className="mobile-row-price-call">
+                    <span className="mobile-row-price">{formatVND(card.sale_price || card.price)}</span>
+                    <a href="tel:19009396" className="mobile-row-call-btn" onClick={(e) => e.stopPropagation()}>
+                      <PhoneCall size={12} />
+                      <span>Gọi</span>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile Tab Pills for Full Card Detail */}
+            <div className="mobile-card-tab-pills">
+              <button 
+                type="button" 
+                className={`mobile-pill-btn ${activeMobileTab === 0 ? 'active' : ''}`}
+                onClick={() => setActiveMobileTab(0)}
+              >
+                Gas 12kg Luxen
+              </button>
+              <button 
+                type="button" 
+                className={`mobile-pill-btn ${activeMobileTab === 1 ? 'active' : ''}`}
+                onClick={() => setActiveMobileTab(1)}
+              >
+                Gas 12kg Phổ Thông
+              </button>
+              <button 
+                type="button" 
+                className={`mobile-pill-btn ${activeMobileTab === 2 ? 'active' : ''}`}
+                onClick={() => setActiveMobileTab(2)}
+              >
+                Gas 45kg Công Nghiệp
+              </button>
+            </div>
+          </div>
+
+          {/* DESKTOP 3-CARD GRID & MOBILE ACTIVE CARD */}
           <div className="price-grid-3">
-            {priceCards.map((card) => (
-              <div key={card.id} className="price-item-card-3">
+            {priceCards.map((card, idx) => (
+              <div 
+                key={card.id} 
+                className={`price-item-card-3 ${activeMobileTab === idx ? 'mobile-active-card' : 'mobile-hidden-card'}`}
+              >
                 <div className="card-top-tag" style={{ backgroundColor: card.badgeColor }}>
                   <Sparkles size={12} />
                   <span>{card.badge}</span>
@@ -280,8 +340,8 @@ export default function GasPriceWidget({ products = [] }) {
                     )}
                   </div>
                   <ul className="item-features-3">
-                    {card.features.map((feat, idx) => (
-                      <li key={idx}><CheckCircle2 size={14} /> {feat}</li>
+                    {card.features.map((feat, fIdx) => (
+                      <li key={fIdx}><CheckCircle2 size={14} /> {feat}</li>
                     ))}
                   </ul>
                 </div>
@@ -536,6 +596,126 @@ export default function GasPriceWidget({ products = [] }) {
           border-radius: 20px;
           font-size: 13px;
           font-weight: 600;
+        }
+
+        /* Mobile 1-Screen Summary Box (Hidden on Desktop) */
+        .mobile-1screen-summary-box {
+          display: none;
+          background: #F8FAFC;
+          border: 1px solid #E2E8F0;
+          border-radius: 12px;
+          padding: 12px;
+          margin-bottom: 16px;
+        }
+
+        .mobile-summary-header {
+          font-size: 11px;
+          font-weight: 800;
+          color: #FF6B00;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .mobile-compact-rows {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-bottom: 12px;
+        }
+
+        .mobile-compact-row-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          padding: 10px 12px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .mobile-compact-row-item.selected {
+          border-color: #FF6B00;
+          background: #FFF7ED;
+        }
+
+        .mobile-row-info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .mobile-row-badge {
+          font-size: 9.5px;
+          font-weight: 800;
+          color: #FFFFFF;
+          padding: 2px 6px;
+          border-radius: 8px;
+          width: fit-content;
+          text-transform: uppercase;
+        }
+
+        .mobile-row-title {
+          font-size: 13px;
+          font-weight: 700;
+          color: #0F172A;
+        }
+
+        .mobile-row-price-call {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .mobile-row-price {
+          font-size: 16px;
+          font-weight: 800;
+          color: #E11D48;
+        }
+
+        .mobile-row-call-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: linear-gradient(135deg, #FF6B00 0%, #FF2E00 100%);
+          color: #FFFFFF;
+          padding: 6px 12px;
+          border-radius: 8px;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
+        }
+
+        .mobile-card-tab-pills {
+          display: flex;
+          gap: 6px;
+          overflow-x: auto;
+          padding-bottom: 2px;
+        }
+
+        .mobile-pill-btn {
+          flex: 1;
+          padding: 8px 6px;
+          border-radius: 8px;
+          border: 1px solid #CBD5E1;
+          background: #FFFFFF;
+          color: #475569;
+          font-size: 11.5px;
+          font-weight: 700;
+          white-space: nowrap;
+          text-align: center;
+          cursor: pointer;
+        }
+
+        .mobile-pill-btn.active {
+          background: #0F172A;
+          color: #FFFFFF;
+          border-color: #0F172A;
         }
 
         .price-grid-3 {
@@ -873,21 +1053,46 @@ export default function GasPriceWidget({ products = [] }) {
         }
 
         @media (max-width: 992px) {
-          .price-grid-3 {
-            grid-template-columns: repeat(1, 1fr);
+          .gas-price-section {
+            padding: 24px 0;
           }
 
           .price-card-wrapper {
-            padding: 20px;
+            padding: 16px;
           }
 
           .price-header {
             flex-direction: column;
             align-items: flex-start;
+            gap: 12px;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
           }
 
           .price-header h2 {
-            font-size: 20px;
+            font-size: 18px;
+          }
+
+          .desktop-only-badge {
+            display: none;
+          }
+
+          .mobile-1screen-summary-box {
+            display: block;
+          }
+
+          .price-grid-3 {
+            display: block;
+            margin-bottom: 12px;
+          }
+
+          .mobile-hidden-card {
+            display: none !important;
+          }
+
+          .mobile-active-card {
+            display: flex !important;
+            margin-top: 8px;
           }
         }
       `}</style>
