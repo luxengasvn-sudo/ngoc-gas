@@ -1485,6 +1485,44 @@ export default function AdminSettingsPage() {
                   </div>
                 </CollapsibleSection>
 
+                {/* Section: Quản lý Nhật Ký Biến Động Giá Gas */}
+                <CollapsibleSection
+                  id="home_gas_price"
+                  title="Khối Bảng Giá Gas & Nhật Ký Biến Động Giá"
+                  subtitle="Thiết lập trạng thái hiển thị và tự động đồng bộ lịch sử tăng/giảm giá gas ngoài trang chủ."
+                  isOpen={!!openSections.home_gas_price}
+                  onToggle={() => toggleSection('home_gas_price')}
+                  toggleSwitch={(
+                    <label className="toggle-switch-wrapper-new">
+                      <input 
+                        type="checkbox" 
+                        name="show_home_gas_price" 
+                        checked={settings.show_home_gas_price !== '0'} 
+                        onChange={(e) => setSettings(prev => ({ ...prev, show_home_gas_price: e.target.checked ? '1' : '0' }))} 
+                      />
+                      <span className="toggle-slider-new"></span>
+                      <span className="toggle-label-text-new">
+                        {settings.show_home_gas_price !== '0' ? 'Đang hiển thị' : 'Đang ẩn'}
+                      </span>
+                    </label>
+                  )}
+                >
+                  <div className="form-card-sub-new">
+                    <strong className="sub-card-header-new">📝 Nhật ký điều chỉnh giá gas tự động</strong>
+                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+                      Khi bạn cập nhật giá bán mới của các sản phẩm bình gas trong mục <strong>Quản lý Sản phẩm</strong>, hệ thống sẽ tự động cập nhật mức giá thấp nhất lên Bảng Giá Niêm Yết và vẽ biểu đồ tăng/giảm giá theo thời gian.
+                    </p>
+                    <div style={{ padding: '12px 16px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <span style={{ fontSize: '13px', fontWeight: '700', color: '#0F172A' }}>💡 Tính năng nổi bật:</span>
+                      <ul style={{ margin: '6px 0 0 18px', padding: 0, fontSize: '13px', color: '#475569', lineHeight: 1.6 }}>
+                        <li>Tự động phân nhóm 3 loại: <strong>Gas Cao Cấp 12kg (Luxen)</strong>, <strong>Gas Phổ Thông 12kg (Sopet/Phoenix)</strong>, <strong>Gas Công Nghiệp 45kg</strong>.</li>
+                        <li>Hiển thị biểu đồ dạng đường SVG ngoài trang chủ khi khách bấm <em>"Xem Lịch Sử Biến Động Giá"</em>.</li>
+                        <li>Minh bạch lịch sử biến động đ/bình qua các tháng tạo độ tin cậy tuyệt đối cho khách hàng.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CollapsibleSection>
+
                 {/* Section 1: Đặc điểm giới thiệu */}
                 <CollapsibleSection
                   id="home_features"
