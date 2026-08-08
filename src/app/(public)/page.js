@@ -2,6 +2,9 @@ import db from '@/lib/db';
 import HeroSection from '@/components/HeroSection';
 import FeaturedProductsTabs from '@/components/FeaturedProductsTabs';
 import PostCard from '@/components/PostCard';
+import GasPriceWidget from '@/components/GasPriceWidget';
+import SafetyFAQSection from '@/components/SafetyFAQSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
 import { Users, Flame, Award, Clock } from 'lucide-react';
@@ -267,20 +270,24 @@ export default async function HomePage() {
               );
             case 'cta-section':
               return settings.show_home_cta !== '0' && (
-                <section key="cta-section" className="cta-section">
-                  <div className="container cta-container">
-                    <h2 className="cta-title">{settings.home_cta_title}</h2>
-                    <p className="cta-desc">{settings.home_cta_desc}</p>
-                    <div className="cta-actions">
-                      <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
-                        Gọi ngay: {settings.home_cta_phone}
-                      </a>
-                      <Link href="/lien-he" className="btn btn-white-outline btn-lg">
-                        Gửi form liên hệ
-                      </Link>
+                <div key="cta-group">
+                  <SafetyFAQSection />
+                  <TestimonialsSection />
+                  <section className="cta-section">
+                    <div className="container cta-container">
+                      <h2 className="cta-title">{settings.home_cta_title}</h2>
+                      <p className="cta-desc">{settings.home_cta_desc}</p>
+                      <div className="cta-actions">
+                        <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
+                          Gọi ngay: {settings.home_cta_phone}
+                        </a>
+                        <Link href="/lien-he" className="btn btn-white-outline btn-lg">
+                          Gửi form liên hệ
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
               );
             default:
               return null;

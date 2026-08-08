@@ -73,10 +73,11 @@ export default function MobileContactWidget({ phone: initialPhone }) {
           z-index: 1500;
         }
 
-        /* Hide on Desktop screens */
+        /* Visible on desktop & mobile with sleek styling */
         @media (min-width: 1024px) {
           .mobile-contact-widget {
-            display: none;
+            bottom: 30px;
+            right: 25px;
           }
         }
 
