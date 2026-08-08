@@ -9,56 +9,57 @@ import { Flame, ShieldCheck } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
-// Helper function to build 100% Google Keyword-Trust Article structure with dedicated sections for each local keyword
+// Helper function to build humanized, 100% Google Keyword-Trust Article structure with branch linking
 const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc) => {
   return `
-<h2>Chuyên Bài Viết SEO - Dịch Vụ Giao Gas Nhanh ${productName}</h2>
-<p>Chào mừng quý khách đến với đại lý Ngọc Gas (Địa chỉ chính thức: <em>7 Nguyễn Trung Trực, TP. Dĩ An, Bình Dương</em>). Bài viết này phân tích chi tiết về <strong>${productName}</strong> và hệ thống dịch vụ <strong>giao gas nhanh</strong> tận nơi cho quý khách hàng tại Dĩ An, Thuận An, VietSing, TP.HCM và Bình Dương.</p>
+<h2>Thông Tin & Hướng Dẫn Đổi ${productName} Tận Nhà</h2>
+<p>Chào anh chị, Ngọc Gas xin gửi tới anh chị những thông tin chi tiết nhất về sản phẩm <strong>${productName}</strong>. Là đơn vị chuyên cung cấp gas chính hãng nhiều năm qua tại khu vực Dĩ An, Thuận An, KDC VietSing cũng như khắp Bình Dương và TP.HCM, chúng tôi luôn thấu hiểu rằng một bình gas an toàn, ngọn lửa xanh đều và dịch vụ phục vụ chu đáo chính là điều quan trọng nhất đối với mỗi căn bếp gia đình hay nhà hàng.</p>
 
 <img src="${imageSrc}" alt="${productName} giao gas nhanh tại Dĩ An Thuận An VietSing TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 24px auto; display: block; box-shadow: 0 4px 16px rgba(0,0,0,0.12);" />
 
-<h3>1. Tổng Quan Về Sản Phẩm ${productName}</h3>
+<h3>1. Đánh Giá Thực Tế Về ${productName}</h3>
 <p>${productTypeDesc}</p>
 <ul>
-  <li><strong>Khí gas tinh khiết:</strong> Ngọn lửa cháy xanh đều, đốt cháy hoàn toàn nhiên liệu, tiết kiệm gas tối đa và không bám đen đáy nồi.</li>
-  <li><strong>Tiêu chuẩn an toàn vỏ bình:</strong> Đúc từ thép chịu lực cao cấp, kiểm định PCCC hợp quy định.</li>
-  <li><strong>Tem niêm phong chính hãng:</strong> Cổ van bình luôn được bọc màng co nguyên vẹn bảo vệ chống hàng giả hàng nhái.</li>
+  <li><strong>Lửa xanh tiết kiệm:</strong> Khí gas tinh khiết được lọc kỹ, cho ngọn lửa xanh cháy đều, đun nấu nhanh chín mà không sợ đen đít nồi.</li>
+  <li><strong>Vỏ bình dày dặn, an toàn:</strong> Đạt tiêu chuẩn kiểm định PCCC, sơn tĩnh điện chống rỉ sét và chịu lực va đập cực tốt.</li>
+  <li><strong>Nguyên màng co niêm phong:</strong> Mỗi bình gas xuất kho đều được bọc màng co bảo vệ cổ van cẩn thận, đảm bảo hàng mới 100%.</li>
 </ul>
 
 <hr style="margin: 30px 0; border: none; border-top: 1px solid #E2E8F0;" />
 
 <!-- SECTION 1: KEYWORD TRUST - GIAO GAS NHANH -->
-<h3>2. Dịch Vụ Giao Gas Nhanh - Cam Kết Có Mặt Trong 15-30 Phút</h3>
-<p>Dịch vụ <strong>giao gas nhanh</strong> của Ngọc Gas được thiết kế chuyên biệt nhằm giải quyết triệt để sự cố hết gas đột ngột khi quý khách đang nấu nướng. Với đội ngũ kỹ thuật viên túc trực 24/7, chúng tôi cam kết <strong>giao gas nhanh</strong> tận bếp, không để bữa ăn gia đình hay hoạt động kinh doanh nhà hàng bị gián đoạn. Đội ngũ <strong>giao gas nhanh</strong> luôn mang theo đầy đủ dụng cụ đo kiểm tra an toàn van dây gas miễn phí khi lắp đặt.</p>
+<h3>2. Dịch Vụ Giao Gas Nhanh - Có Mặt Ngay Sau 15-30 Phút</h3>
+<p>Đang nấu dở bữa cơm hay đang chuẩn bị món ăn cho khách mà hết gas đột ngột thì thật bất tiện! Hiểu được điều đó, dịch vụ <strong>giao gas nhanh</strong> của Ngọc Gas luôn sẵn sàng 24/7. Ngay khi nhận được cuộc gọi, đội ngũ anh em giao gas sẽ lập tức lên đường chở bình <strong>${productName}</strong> đến tận bếp nhà mình. Không chỉ <strong>giao gas nhanh</strong>, các anh em kỹ thuật còn nhiệt tình cân gas tại chỗ trước mặt anh chị và kiểm tra lại toàn bộ van dây gas xem có bị rò rỉ hay không rồi mới bàn giao.</p>
 
 <!-- SECTION 2: KEYWORD TRUST - GIAO GAS NHANH TẠI DĨ AN -->
-<h3>3. Giao Gas Nhanh Tại Dĩ An - Phục Vụ Tận Nhà 24/7 Các Phường</h3>
-<p>Dịch vụ <strong>giao gas nhanh tại Dĩ An</strong> phủ sóng toàn bộ địa bàn TP. Dĩ An bao gồm các phường: Dĩ An, An Bình, Tân Đông Hiệp, Đông Hòa, Bình An, Bình Thắng và Tân Bình. Đại lý chính thức tại <em>7 Nguyễn Trung Trực, Dĩ An</em> giúp việc <strong>giao gas nhanh tại Dĩ An</strong> diễn ra tức thì trong 15 phút. Khách hàng gọi <strong>giao gas nhanh tại Dĩ An</strong> sẽ được nhân viên cân bình gas trực tiếp tại nhà để kiểm tra đủ ký trước khi bàn giao.</p>
+<h3>3. Giao Gas Nhanh Tại Dĩ An - Phục Vụ Tận Tình Mọi Phường Xã</h3>
+<p>Nếu anh chị đang sinh sống tại TP. Dĩ An (phường Dĩ An, An Bình, Tân Đông Hiệp, Đông Hòa, Bình An, Bình Thắng, Tân Bình), dịch vụ <strong>giao gas nhanh tại Dĩ An</strong> của chúng tôi sẽ có mặt chỉ sau 15 phút. Cửa hàng nằm ngay số <em>7 Nguyễn Trung Trực, Dĩ An</em> nên việc <strong>giao gas nhanh tại Dĩ An</strong> vô cùng thuận tiện. Anh em <strong>giao gas nhanh tại Dĩ An</strong> luôn mang theo cân điện tử để anh chị tự tay kiểm tra đủ 12kg gas ruột mới yên tâm thanh toán.</p>
 
 <!-- SECTION 3: KEYWORD TRUST - GIAO GAS NHANH TẠI THUẬN AN -->
-<h3>4. Giao Gas Nhanh Tại Thuận An - Phục Vụ Siêu Tốc Hộ Gia Đình & Quán Ăn</h3>
-<p>Nhu cầu <strong>giao gas nhanh tại Thuận An</strong> luôn rất cao tại các khu vực sầm uất như phường An Phú, Thuận Giao, Lái Thiêu, An Thạnh, Bình Chuẩn. Trạm vận chuyển <strong>giao gas nhanh tại Thuận An</strong> của Ngọc Gas đảm bảo tiếp ứng bình gas chính hãng <strong>${productName}</strong> chỉ trong ít phút. Khách hàng lựa chọn <strong>giao gas nhanh tại Thuận An</strong> hoàn toàn yên tâm về chất lượng bình gas mới 100%, vỏ bình dày dặn đạt chuẩn PCCC.</p>
+<h3>4. Giao Gas Nhanh Tại Thuận An - Đồng Hành Cùng Các Bếp Gia Đình & Quán Ăn</h3>
+<p>Tại khu vực Thuận An (phường An Phú, Thuận Giao, Lái Thiêu, An Thạnh, Bình Chuẩn), nhu cầu đun nấu hàng ngày rất lớn. Dịch vụ <strong>giao gas nhanh tại Thuận An</strong> của Ngọc Gas luôn đảm bảo cung cấp bình gas chính hãng <strong>${productName}</strong> chất lượng cao. Khi gọi <strong>giao gas nhanh tại Thuận An</strong>, anh chị không chỉ được phục vụ siêu tốc mà còn được nhân viên hỗ trợ vệ sinh kiềng bếp và tư vấn cách dùng gas sao cho tiết kiệm và an toàn nhất. Đội ngũ <strong>giao gas nhanh tại Thuận An</strong> luôn xem sự hài lòng của gia đình anh chị là niềm vui lớn nhất.</p>
 
 <!-- SECTION 4: KEYWORD TRUST - GIAO GAS NHANH TẠI VIETSING -->
-<h3>5. Giao Gas Nhanh Tại VietSing - Tận Căn Hộ, Nhà Trọ & KCN VSIP 1</h3>
-<p>Khu dân cư VietSing (KCN VSIP 1) là khu vực mật độ dân cư và quán ăn dày đặc. Dịch vụ <strong>giao gas nhanh tại VietSing</strong> của Ngọc Gas đáp ứng nhu cầu đổi gas khẩn cấp cho căn hộ, nhà trọ và bếp ăn công nghiệp. Khi đặt <strong>giao gas nhanh tại VietSing</strong>, quý khách sẽ được kỹ thuật viên hỗ trợ bê bình gas tận tầng, lắp đặt van ngắt tự động và hướng dẫn sử dụng gas an toàn tiết kiệm nhất. Đặt <strong>giao gas nhanh tại VietSing</strong> qua hotline 19009396 ngay hôm nay.</p>
+<h3>5. Giao Gas Nhanh Tại VietSing - Tận Căn Hộ, Nhà Trọ & Bếp Ăn KCN VSIP 1</h3>
+<p>Khu dân cư VietSing (VSIP 1) có nhiều chung cư, nhà trọ cũng như quán ăn buôn bán tấp nập. Dịch vụ <strong>giao gas nhanh tại VietSing</strong> của chúng tôi chuyên phục vụ các căn hộ cao tầng, phòng trọ và quán ăn khu vực này. Khi anh chị cần <strong>giao gas nhanh tại VietSing</strong>, các anh em giao gas sẵn sàng bê bình gas lên tận tầng, hỗ trợ lắp đặt gọn gàng và cẩn thận. Gọi <strong>giao gas nhanh tại VietSing</strong> qua tổng đài 19009396 để được hỗ trợ tức thì.</p>
 
 <!-- SECTION 5: KEYWORD TRUST - GIAO GAS NHANH TẠI TP.HCM -->
-<h3>6. Giao Gas Nhanh Tại TP.HCM - Đáp Ứng Nhu Cầu Năng Lượng Đô Thị</h3>
-<p>Đối với các khu vực giáp ranh TP. Hồ Chí Minh như TP. Thủ Đức, Quận 12, Bình Thạnh..., Ngọc Gas duy trì trạm trung chuyển <strong>giao gas nhanh tại TP.HCM</strong> nhằm mang đến nguồn gas sạch, lửa xanh tiết kiệm. Dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> cam kết bình gas được kiểm định định kỳ, nguyên màng co niêm phong và bảo hành sự cố trong suốt quá trình sử dụng. Quý khách hàng cần <strong>giao gas nhanh tại TP.HCM</strong> chỉ cần gọi tổng đài 19009396.</p>
+<h3>6. Giao Gas Nhanh Tại TP.HCM - Phục Vụ Nhanh Chóng Các Khu Vực Giáp Ranh</h3>
+<p>Bên cạnh Bình Dương, Ngọc Gas cũng mở rộng dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> cho các khu vực giáp ranh như TP. Thủ Đức, Quận 12, Bình Thạnh... Khách hàng khi cần <strong>giao gas nhanh tại TP.HCM</strong> luôn đánh giá cao sự đúng giờ và tinh thần trách nhiệm của đội ngũ nhân viên. Mọi bình gas trong dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> đều có tem nhãn rõ ràng và được bảo hành chu đáo trong suốt quá trình đun nấu.</p>
 
 <!-- SECTION 6: KEYWORD TRUST - GIAO GAS NHANH TẠI BÌNH DƯƠNG -->
-<h3>7. Giao Gas Nhanh Tại Bình Dương - Giải Pháp Năng Lượng An Toàn Toàn Tỉnh</h3>
-<p>Ngọc Gas tự hào là thương hiệu cung cấp giải pháp <strong>giao gas nhanh tại Bình Dương</strong> uy tín cho hàng nghìn hộ gia đình, chuỗi nhà hàng và xưởng sản xuất. Dịch vụ <strong>giao gas nhanh tại Bình Dương</strong> không chỉ đáp ứng tiêu chí giao hàng tốc độ mà còn cam kết kiểm tra an toàn PCCC toàn diện cho giàn gas, dây dẫn và van khóa. Khách hàng chọn <strong>giao gas nhanh tại Bình Dương</strong> luôn nhận được mức giá niêm yết cạnh tranh và dịch vụ hậu mãi chu đáo nhất.</p>
+<h3>7. Giao Gas Nhanh Tại Bình Dương - Hệ Thống Cửa Hàng Phủ Sóng Khắp Tỉnh</h3>
+<p>Với định hướng trở thành người bạn đồng hành tin cậy của mọi căn bếp, giải pháp <strong>giao gas nhanh tại Bình Dương</strong> của Ngọc Gas đã và đang phục vụ cho hàng ngàn hộ gia đình, quán ăn và doanh nghiệp. Hệ thống <strong>giao gas nhanh tại Bình Dương</strong> không chỉ đáp ứng tiêu chuẩn giao hàng nhanh chóng mà còn coi trọng yếu tố an toàn cháy nổ lên hàng đầu. Khách hàng lựa chọn <strong>giao gas nhanh tại Bình Dương</strong> hoàn toàn yên tâm về giá cả niêm yết rõ ràng, không lo tráo đổi bình gas kém chất lượng.</p>
 
 <hr style="margin: 30px 0; border: none; border-top: 1px solid #E2E8F0;" />
 
-<h3>8. Hướng Dẫn Đặt Gas & Liên Hệ Hotline</h3>
-<p>Để nhận ưu đãi và trải nghiệm dịch vụ <strong>giao gas nhanh</strong> uy tín nhất, quý khách vui lòng liên hệ:</p>
-<ul>
-  <li><strong>Hotline Đặt Gas 24/7:</strong> <a href="tel:19009396" style="color: #FF6B00; font-weight: bold; font-size: 18px;">19009396</a></li>
-  <li><strong>Địa chỉ đại lý chính thức:</strong> 7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương</li>
-  <li><strong>Website chính thức:</strong> <a href="https://ngoc-gas.tinhgon.xyz" target="_blank">ngoc-gas.tinhgon.xyz</a></li>
+<h3>8. Hệ Thống Cửa Hàng & Tổng Đài Đổi Gas Ngay</h3>
+<p>Để tìm cửa hàng trạm gas gần nhất hoặc xem danh sách toàn bộ các chi nhánh của công ty, anh chị có thể bấm xem tại đây: <a href="/cua-hang" style="color: #FF6B00; font-weight: bold; text-decoration: underline;">Danh Sách Cửa Hàng & Chi Nhánh Trạm Gas Ngọc Gas</a>.</p>
+
+<p>Khi cần đổi gas hoặc gặp bất kỳ thắc mắc nào về an toàn bếp gas, anh chị hãy gọi ngay cho chúng tôi nhé:</p>
+<ul style="list-style: none; padding-left: 0; line-height: 2;">
+  <li>📞 <strong>Hotline Hỗ Trợ 24/7:</strong> <a href="tel:19009396" style="color: #FF6B00; font-weight: bold; font-size: 20px;">19009396</a></li>
+  <li>📍 <strong>Trụ sở chính:</strong> 7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương</li>
 </ul>
 `;
 };
@@ -285,7 +286,7 @@ export default async function ProductDetailPage({ params }) {
     }
   }
 
-  // Always enforce the Keyword Trust SEO Article structure for maximum Google ranking authority
+  // Enforce humanized Keyword Trust SEO Article structure for maximum Google ranking authority
   const foundFallback = allFallbackProducts.find(p => p.slug === slug);
   if (foundFallback && (!product.description || product.description.length < 300)) {
     product.description = foundFallback.description;
@@ -405,7 +406,7 @@ export default async function ProductDetailPage({ params }) {
             </div>
           </div>
 
-          {/* Long Description Section - 100% Keyword Trust Authority SEO Article */}
+          {/* Long Description Section - Humanized Keyword Trust Article */}
           {product.description && (
             <div className="product-long-description-section card" style={{ marginTop: '40px', padding: '36px', background: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
               <div className="product-desc-content" dangerouslySetInnerHTML={{ __html: product.description }} />
