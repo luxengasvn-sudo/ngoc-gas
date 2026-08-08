@@ -208,12 +208,12 @@ const allFallbackProducts = [
     short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & VietSing. Bình gas Luxen Gas 12kg vỏ xám tiêu chuẩn, an toàn PCCC.', 
     description: createKeywordTrustSEOArticle(
       'Bình Gas Luxen Gas 12kg (Xám)', 
-      '/images/luxen-gas.png', 
+      '/images/luxen-xam-12kg.png', 
       'Bình Gas Luxen Gas 12kg vỏ màu xám tiêu chuẩn chính hãng Luxen Gas Bình Dương, vỏ bình chắc chắn, ngọn lửa xanh xoáy đun nấu cực kỳ tiết kiệm.'
     ),
     price: 415000, 
     sale_price: 390000, 
-    image_url: '/images/luxen-gas.png', 
+    image_url: '/images/luxen-xam-12kg.png', 
     category_id: 1, 
     is_featured: 1, 
     is_active: 1 
@@ -242,12 +242,12 @@ const allFallbackProducts = [
     short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1, Dĩ An & Thuận An. Bình gas công nghiệp Luxen 45kg màu xám tiêu chuẩn.', 
     description: createKeywordTrustSEOArticle(
       'Bình Gas Luxen Gas 45kg (Xám)', 
-      '/images/luxen-45.png', 
+      '/images/luxen-xam-45.png', 
       'Bình Gas Luxen Gas 45kg vỏ màu xám công nghiệp dung tích lớn, vỏ đúc chịu áp suất cực cao, chuyên dùng cho bếp ăn công nghiệp, nhà hàng, khách sạn và quán ăn lớn.'
     ),
     price: 1540000, 
     sale_price: 1440000, 
-    image_url: '/images/luxen-45.png', 
+    image_url: '/images/luxen-xam-45.png', 
     category_id: 1, 
     is_featured: 1, 
     is_active: 1 
