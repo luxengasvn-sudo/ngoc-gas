@@ -9,43 +9,71 @@ import { Flame, ShieldCheck } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
+// Helper function to build 100% Google Keyword-Trust Article structure with dedicated sections for each local keyword
+const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc) => {
+  return `
+<h2>Chuyên Bài Viết SEO - Dịch Vụ Giao Gas Nhanh ${productName}</h2>
+<p>Chào mừng quý khách đến với đại lý Ngọc Gas (Địa chỉ chính thức: <em>7 Nguyễn Trung Trực, TP. Dĩ An, Bình Dương</em>). Bài viết này phân tích chi tiết về <strong>${productName}</strong> và hệ thống dịch vụ <strong>giao gas nhanh</strong> tận nơi cho quý khách hàng tại Dĩ An, Thuận An, VietSing, TP.HCM và Bình Dương.</p>
+
+<img src="${imageSrc}" alt="${productName} giao gas nhanh tại Dĩ An Thuận An VietSing TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 24px auto; display: block; box-shadow: 0 4px 16px rgba(0,0,0,0.12);" />
+
+<h3>1. Tổng Quan Về Sản Phẩm ${productName}</h3>
+<p>${productTypeDesc}</p>
+<ul>
+  <li><strong>Khí gas tinh khiết:</strong> Ngọn lửa cháy xanh đều, đốt cháy hoàn toàn nhiên liệu, tiết kiệm gas tối đa và không bám đen đáy nồi.</li>
+  <li><strong>Tiêu chuẩn an toàn vỏ bình:</strong> Đúc từ thép chịu lực cao cấp, kiểm định PCCC hợp quy định.</li>
+  <li><strong>Tem niêm phong chính hãng:</strong> Cổ van bình luôn được bọc màng co nguyên vẹn bảo vệ chống hàng giả hàng nhái.</li>
+</ul>
+
+<hr style="margin: 30px 0; border: none; border-top: 1px solid #E2E8F0;" />
+
+<!-- SECTION 1: KEYWORD TRUST - GIAO GAS NHANH -->
+<h3>2. Dịch Vụ Giao Gas Nhanh - Cam Kết Có Mặt Trong 15-30 Phút</h3>
+<p>Dịch vụ <strong>giao gas nhanh</strong> của Ngọc Gas được thiết kế chuyên biệt nhằm giải quyết triệt để sự cố hết gas đột ngột khi quý khách đang nấu nướng. Với đội ngũ kỹ thuật viên túc trực 24/7, chúng tôi cam kết <strong>giao gas nhanh</strong> tận bếp, không để bữa ăn gia đình hay hoạt động kinh doanh nhà hàng bị gián đoạn. Đội ngũ <strong>giao gas nhanh</strong> luôn mang theo đầy đủ dụng cụ đo kiểm tra an toàn van dây gas miễn phí khi lắp đặt.</p>
+
+<!-- SECTION 2: KEYWORD TRUST - GIAO GAS NHANH TẠI DĨ AN -->
+<h3>3. Giao Gas Nhanh Tại Dĩ An - Phục Vụ Tận Nhà 24/7 Các Phường</h3>
+<p>Dịch vụ <strong>giao gas nhanh tại Dĩ An</strong> phủ sóng toàn bộ địa bàn TP. Dĩ An bao gồm các phường: Dĩ An, An Bình, Tân Đông Hiệp, Đông Hòa, Bình An, Bình Thắng và Tân Bình. Đại lý chính thức tại <em>7 Nguyễn Trung Trực, Dĩ An</em> giúp việc <strong>giao gas nhanh tại Dĩ An</strong> diễn ra tức thì trong 15 phút. Khách hàng gọi <strong>giao gas nhanh tại Dĩ An</strong> sẽ được nhân viên cân bình gas trực tiếp tại nhà để kiểm tra đủ ký trước khi bàn giao.</p>
+
+<!-- SECTION 3: KEYWORD TRUST - GIAO GAS NHANH TẠI THUẬN AN -->
+<h3>4. Giao Gas Nhanh Tại Thuận An - Phục Vụ Siêu Tốc Hộ Gia Đình & Quán Ăn</h3>
+<p>Nhu cầu <strong>giao gas nhanh tại Thuận An</strong> luôn rất cao tại các khu vực sầm uất như phường An Phú, Thuận Giao, Lái Thiêu, An Thạnh, Bình Chuẩn. Trạm vận chuyển <strong>giao gas nhanh tại Thuận An</strong> của Ngọc Gas đảm bảo tiếp ứng bình gas chính hãng <strong>${productName}</strong> chỉ trong ít phút. Khách hàng lựa chọn <strong>giao gas nhanh tại Thuận An</strong> hoàn toàn yên tâm về chất lượng bình gas mới 100%, vỏ bình dày dặn đạt chuẩn PCCC.</p>
+
+<!-- SECTION 4: KEYWORD TRUST - GIAO GAS NHANH TẠI VIETSING -->
+<h3>5. Giao Gas Nhanh Tại VietSing - Tận Căn Hộ, Nhà Trọ & KCN VSIP 1</h3>
+<p>Khu dân cư VietSing (KCN VSIP 1) là khu vực mật độ dân cư và quán ăn dày đặc. Dịch vụ <strong>giao gas nhanh tại VietSing</strong> của Ngọc Gas đáp ứng nhu cầu đổi gas khẩn cấp cho căn hộ, nhà trọ và bếp ăn công nghiệp. Khi đặt <strong>giao gas nhanh tại VietSing</strong>, quý khách sẽ được kỹ thuật viên hỗ trợ bê bình gas tận tầng, lắp đặt van ngắt tự động và hướng dẫn sử dụng gas an toàn tiết kiệm nhất. Đặt <strong>giao gas nhanh tại VietSing</strong> qua hotline 19009396 ngay hôm nay.</p>
+
+<!-- SECTION 5: KEYWORD TRUST - GIAO GAS NHANH TẠI TP.HCM -->
+<h3>6. Giao Gas Nhanh Tại TP.HCM - Đáp Ứng Nhu Cầu Năng Lượng Đô Thị</h3>
+<p>Đối với các khu vực giáp ranh TP. Hồ Chí Minh như TP. Thủ Đức, Quận 12, Bình Thạnh..., Ngọc Gas duy trì trạm trung chuyển <strong>giao gas nhanh tại TP.HCM</strong> nhằm mang đến nguồn gas sạch, lửa xanh tiết kiệm. Dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> cam kết bình gas được kiểm định định kỳ, nguyên màng co niêm phong và bảo hành sự cố trong suốt quá trình sử dụng. Quý khách hàng cần <strong>giao gas nhanh tại TP.HCM</strong> chỉ cần gọi tổng đài 19009396.</p>
+
+<!-- SECTION 6: KEYWORD TRUST - GIAO GAS NHANH TẠI BÌNH DƯƠNG -->
+<h3>7. Giao Gas Nhanh Tại Bình Dương - Giải Pháp Năng Lượng An Toàn Toàn Tỉnh</h3>
+<p>Ngọc Gas tự hào là thương hiệu cung cấp giải pháp <strong>giao gas nhanh tại Bình Dương</strong> uy tín cho hàng nghìn hộ gia đình, chuỗi nhà hàng và xưởng sản xuất. Dịch vụ <strong>giao gas nhanh tại Bình Dương</strong> không chỉ đáp ứng tiêu chí giao hàng tốc độ mà còn cam kết kiểm tra an toàn PCCC toàn diện cho giàn gas, dây dẫn và van khóa. Khách hàng chọn <strong>giao gas nhanh tại Bình Dương</strong> luôn nhận được mức giá niêm yết cạnh tranh và dịch vụ hậu mãi chu đáo nhất.</p>
+
+<hr style="margin: 30px 0; border: none; border-top: 1px solid #E2E8F0;" />
+
+<h3>8. Hướng Dẫn Đặt Gas & Liên Hệ Hotline</h3>
+<p>Để nhận ưu đãi và trải nghiệm dịch vụ <strong>giao gas nhanh</strong> uy tín nhất, quý khách vui lòng liên hệ:</p>
+<ul>
+  <li><strong>Hotline Đặt Gas 24/7:</strong> <a href="tel:19009396" style="color: #FF6B00; font-weight: bold; font-size: 18px;">19009396</a></li>
+  <li><strong>Địa chỉ đại lý chính thức:</strong> 7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương</li>
+  <li><strong>Website chính thức:</strong> <a href="https://ngoc-gas.tinhgon.xyz" target="_blank">ngoc-gas.tinhgon.xyz</a></li>
+</ul>
+`;
+};
+
 const allFallbackProducts = [
   { 
     id: 1, 
     name: 'Bình Gas Sopet Vil 12kg (Xám)', 
     slug: 'binh-gas-sopet-vil-12kg-xam', 
     short_description: 'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An & VietSing. Bình gas Sopet Vil 12kg xám tiêu chuẩn chính hãng, lửa xanh tiết kiệm.', 
-    description: `<h2>Dịch Vụ Giao Gas Nhanh Bình Gas Sopet Vil 12kg Xám Tận Nhà</h2>
-<p>Bạn đang có nhu cầu sử dụng dịch vụ <strong>giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing</strong> hay các địa bàn lân cận như <strong>giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>? Ngọc Gas (Địa chỉ chính thức: <em>7 Nguyễn Trung Trực, Dĩ An</em>) chuyên phân phối bình gas Sopet Vil 12kg vỏ xám chính hãng với cam kết giao tận nơi chỉ trong 15-30 phút.</p>
-
-<img src="/images/sopet-xam.png" alt="Bình Gas Sopet Vil 12kg Xám giao gas nhanh tại Dĩ An Thuận An VietSing TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Đặc Điểm Nổi Bật Của Bình Gas Sopet Vil 12kg Vỏ Xám</h3>
-<p>Bình gas Sopet Vil 12kg vỏ màu xám được sản xuất theo công nghệ Nhật Bản hiện đại, đáp ứng các tiêu chuẩn an toàn PCCC khắt khe:</p>
-<ul>
-  <li><strong>Khí gas tinh khiết:</strong> Ngọn lửa cháy xanh đều, đốt cháy hoàn toàn nhiên liệu, không làm đen đáy nồi chảo.</li>
-  <li><strong>Vỏ bình chịu áp lực tốt:</strong> Được làm từ thép nhập khẩu cao cấp, phun sơn tĩnh điện chống ăn mòn hóa chất.</li>
-  <li><strong>Tem chống hàng giả:</strong> Cổ van được bọc màng co nguyên vẹn có mã QR code truy xuất nguồn gốc rõ ràng.</li>
-</ul>
-
-<h3>2. Phạm Vi Phục Vụ Giao Gas Nhanh Ngọc Gas</h3>
-<h4>4 Khu Vực Trọng Điểm Giao Gas Siêu Tốc:</h4>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An:</strong> Phường Dĩ An, An Bình, Tân Đông Hiệp, Đông Hòa, Bình An.</li>
-  <li><strong>Giao gas nhanh tại Thuận An:</strong> Phường An Phú, Thuận Giao, Lái Thiêu, Bình Chuẩn.</li>
-  <li><strong>Giao gas nhanh tại VietSing:</strong> Khu dân cư VietSing (VSIP 1) và các tuyến đường lân cận.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Giao hàng 24/7 tận căn hộ chung cư, nhà phố và quán ăn.</li>
-</ul>
-
-<h3>3. Quy Trình Phục Vụ Giao Gas Nhanh Đạt Chuẩn An Toàn</h3>
-<ol>
-  <li>Khách hàng gọi điện tới hotline <strong>19009396</strong>.</li>
-  <li>Kỹ thuật viên xuất phát giao gas nhanh tận bếp trong 15-30 phút.</li>
-  <li>Cân thử bình gas trực tiếp tại chỗ trước sự chứng kiến của khách hàng để đảm bảo đủ 12kg ruột gas.</li>
-  <li>Kiểm tra rò rỉ van gas và vệ sinh bếp gas miễn phí.</li>
-</ol>
-
-<p>👉 Liên hệ ngay hotline chính thức <strong>19009396</strong> để trải nghiệm dịch vụ <strong>giao gas nhanh tại Dĩ An, Thuận An, VietSing, TP.HCM & Bình Dương</strong>!</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Sopet Vil 12kg (Xám)', 
+      '/images/sopet-xam.png', 
+      'Bình Gas Sopet Vil 12kg màu xám là dòng gas dân dụng sản xuất theo công nghệ Nhật Bản tiên tiến, mang lại ngọn lửa xanh sạch và hiệu suất truyền nhiệt vượt trội.'
+    ),
     price: 420000, 
     sale_price: 395000, 
     image_url: '/images/sopet-xam.png', 
@@ -58,30 +86,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Sopet Vil 12kg (Xanh Đen)', 
     slug: 'binh-gas-sopet-vil-12kg-xanh-den', 
     short_description: 'Dịch vụ giao gas nhanh tại Thuận An & VietSing. Bình gas Sopet Vil 12kg vỏ xanh đen cao cấp, kiểm định an toàn PCCC.', 
-    description: `<h2>Dịch Vụ Giao Gas Nhanh Bình Gas Sopet Vil 12kg Xanh Đen</h2>
-<p>Sản phẩm bình gas Sopet Vil 12kg vỏ xanh đen sở hữu nước sơn tĩnh điện láng mịn, vỏ bình dày chịu nhiệt chịu áp suất cao. Ngọc Gas túc trực 24/7 mang đến dịch vụ <strong>giao gas nhanh tại VietSing, giao gas nhanh tại Thuận An, giao gas nhanh tại Dĩ An, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/sopet-xanh-den.png" alt="Bình Gas Sopet Vil 12kg Xanh Đen giao gas nhanh tại VietSing Thuận An Dĩ An TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Lý Do Bình Gas Sopet Vil 12kg Xanh Đen Được Ưa Chuộng</h3>
-<ul>
-  <li><strong>Thiết kế sang trọng:</strong> Màu xanh đen hiện đại, sạch sẽ cho không gian bếp.</li>
-  <li><strong>Khí gas cháy kiệt:</strong> Tiết kiệm từ 10-15% chi phí nhiên liệu hàng tháng.</li>
-  <li><strong>Độ an toàn cao:</strong> Trang bị van khóa tự động ngắt gas khi phát hiện sự cố rò rỉ.</li>
-</ul>
-
-<h3>2. Dịch Vụ Giao Gas Nhanh Chuyên Nghiệp Từ Ngọc Gas</h3>
-<h4>Ưu Điểm Khi Đổi Gas Tại Ngọc Gas (7 Nguyễn Trung Trực, Dĩ An):</h4>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An & Thuận An:</strong> Đội ngũ nhân viên thông thuộc mọi tuyến đường địa phương.</li>
-  <li><strong>Giao gas nhanh tại VietSing:</strong> Giao tận căn hộ, phòng trọ, quán ăn KDC VietSing.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Phục vụ xuyên suốt từ 6h00 đến 22h00 kể cả ngày nghỉ lễ.</li>
-</ul>
-
-<h3>3. Cam Kết Của Ngọc Gas Với Khách Hàng</h3>
-<p>Chúng tôi cam kết 100% bình gas Sopet Vil 12kg Xanh Đen giao tới tay khách hàng đều đủ trọng lượng, nguyên tem niêm phong và được kiểm định PCCC hợp pháp.</p>
-
-<p>👉 Đổi gas dễ dàng, gọi ngay hotline: <strong>19009396</strong>.</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Sopet Vil 12kg (Xanh Đen)', 
+      '/images/sopet-xanh-den.png', 
+      'Bình Gas Sopet Vil 12kg vỏ xanh đen sang trọng, sở hữu nước sơn tĩnh điện chịu nhiệt cao, tích hợp van điều áp tự động ngắt gas khẩn cấp khi gặp sự cố.'
+    ),
     price: 425000, 
     sale_price: 400000, 
     image_url: '/images/sopet-xanh-den.png', 
@@ -94,35 +103,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Sopet Vil 12kg (Xanh)', 
     slug: 'binh-gas-sopet-vil-12kg-xanh', 
     short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Sopet Vil 12kg vỏ xanh tiêu chuẩn gia đình.', 
-    description: `<h2>Giao Gas Nhanh Bình Gas Sopet Vil 12kg Vỏ Xanh Tiêu Chuẩn</h2>
-<p>Bình gas Sopet Vil 12kg màu xanh lá thân thuộc là bạn đồng hành nấu nướng tin cậy của hàng vạn gia đình. Ngọc Gas chuyên dịch vụ <strong>giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/sopet-xanh.png" alt="Bình Gas Sopet Vil 12kg Xanh giao gas nhanh tại TP.HCM Bình Dương Dĩ An Thuận An VietSing" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Thông Số Kỹ Thuật Bình Gas Sopet Vil 12kg Vỏ Xanh</h3>
-<ul>
-  <li>Trọng lượng ruột gas: 12kg LPG tinh khiết.</li>
-  <li>Màu sắc vỏ bình: Xanh lá cây tươi sáng.</li>
-  <li>Tiêu chuẩn sản xuất: Công nghệ Sopet Vil Nhật Bản.</li>
-</ul>
-
-<h3>2. Địa Bàn Phục Vụ Giao Gas Nhanh</h3>
-<h4>Phủ Sóng Rộng Khắp Các Khu Vực:</h4>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An:</strong> Tiếp cận nhanh mọi phường và khu dân cư.</li>
-  <li><strong>Giao gas nhanh tại Thuận An & VietSing:</strong> Giao hàng tốc độ cho nhà hàng, quán ăn, hộ gia đình.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Đảm bảo nguồn năng lượng nấu nướng không bị gián đoạn.</li>
-</ul>
-
-<h3>3. Hướng Dẫn Kiểm Tra Bình Gas Chính Hãng</h3>
-<h4>3 Bước Nhận Biết Bình Gas Đạt Chuẩn:</h4>
-<ol>
-  <li>Kiểm tra màng co bọc van còn nguyên vẹn tem thương hiệu.</li>
-  <li>Cân tổng trọng lượng bình (Tổng cân = Trọng lượng vỏ in trên bình + 12kg ruột).</li>
-  <li>Yêu cầu nhân viên giao gas bật bếp thử ngọn lửa xanh trước khi thanh toán.</li>
-</ol>
-
-<p>👉 Tổng đài hỗ trợ <strong>giao gas nhanh</strong> chính thức: <strong>19009396</strong>.</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Sopet Vil 12kg (Xanh)', 
+      '/images/sopet-xanh.png', 
+      'Bình Gas Sopet Vil 12kg vỏ xanh tiêu chuẩn là sự lựa chọn quen thuộc của hàng nghìn căn bếp gia đình tại Việt Nam nhờ lửa xanh khỏe và tiết kiệm nhiên liệu.'
+    ),
     price: 420000, 
     sale_price: 395000, 
     image_url: '/images/sopet-xanh.png', 
@@ -135,27 +120,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Sopet Vil 12kg (Đỏ)', 
     slug: 'binh-gas-sopet-vil-12kg-do', 
     short_description: 'Dịch vụ giao gas nhanh tại Dĩ An. Bình gas Sopet Vil 12kg vỏ đỏ chính hãng, an toàn tuyệt đối.', 
-    description: `<h2>Dịch Vụ Giao Gas Nhanh Bình Gas Sopet Vil 12kg Màu Đỏ</h2>
-<p>Bình gas Sopet Vil 12kg màu đỏ có thiết kế nổi bật, vỏ bình chống va đập cực tốt. Ngọc Gas hân hạnh cung cấp dịch vụ <strong>giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/sopet.png" alt="Bình Gas Sopet Vil 12kg Đỏ giao gas nhanh tại Dĩ An Thuận An VietSing TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Điểm Tựa An Toàn Cho Căn Bếp Nấu Nướng</h3>
-<ul>
-  <li>Chất lượng gas đạt tiêu chuẩn quốc tế, cho hiệu suất nhiệt cao.</li>
-  <li>Hệ thống van bảo vệ chống rò rỉ tối đa.</li>
-  <li>Vỏ bình dập nổi thương hiệu Sopet Vil rõ nét, không sợ hàng giả.</li>
-</ul>
-
-<h3>2. Vì Sao Nên Chọn Dịch Vụ Giao Gas Nhanh Ngọc Gas?</h3>
-<p>Đại lý Ngọc Gas tại <em>7 Nguyễn Trung Trực, TP. Dĩ An</em> cam kết đem lại trải nghiệm giao gas tốt nhất:</p>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An:</strong> Đến nhà trong 15-20 phút.</li>
-  <li><strong>Giao gas nhanh tại Thuận An & VietSing:</strong> Nhân viên tận tâm, bê bình gas tận nơi.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Kiểm tra an toàn dây dẫn gas miễn phí.</li>
-</ul>
-
-<p>👉 Đặt gas ngay qua hotline: <strong>19009396</strong>.</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Sopet Vil 12kg (Đỏ)', 
+      '/images/sopet.png', 
+      'Bình Gas Sopet Vil 12kg vỏ đỏ nổi bật với kết cấu thép đúc siêu bền, bề mặt dập nổi logo Sopet Vil chính hãng đảm bảo an toàn tuyệt đối cho người sử dụng.'
+    ),
     price: 430000, 
     sale_price: 405000, 
     image_url: '/images/sopet.png', 
@@ -168,26 +137,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Phoenix Gas 12kg (Xám)', 
     slug: 'binh-gas-phoenix-gas-12kg-xam', 
     short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & Thuận An. Bình gas Phoenix 12kg vỏ xám tiết kiệm cho hộ gia đình.', 
-    description: `<h2>Giao Gas Nhanh Bình Gas Phoenix Gas 12kg Xám Chuyên Nghiệp</h2>
-<p>Bình Gas Phoenix Gas 12kg màu xám là dòng sản phẩm gas tiết kiệm ngân sách tiêu dùng cho mọi gia đình và nhà hàng. Ngọc Gas cung cấp dịch vụ <strong>giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/phoenix-xam.png" alt="Bình Gas Phoenix Gas 12kg Xám giao gas nhanh tại Dĩ An Thuận An VietSing TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Đặc Tính Kỹ Thuật Sản Phẩm Phoenix Gas 12kg Xám</h3>
-<ul>
-  <li>Trọng lượng LPG: 12kg (chênh lệch tiêu chuẩn ±200g).</li>
-  <li>Áp suất vận hành ổn định, ngọn lửa xanh không gây mùi cay mắt.</li>
-  <li>Giá thành hợp lý, phù hợp nhu cầu đun nấu liên tục.</li>
-</ul>
-
-<h3>2. Trạm Giao Gas Nhanh Phục Vụ Liên Tục</h3>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An:</strong> Túc trực 24/7 tại khu vực Trung tâm Dĩ An.</li>
-  <li><strong>Giao gas nhanh tại Thuận An & VietSing:</strong> Đổi gas nhanh chóng cho các hộ gia đình và bếp ăn.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Giao nhận tận nơi với đầy đủ hóa đơn chứng từ.</li>
-</ul>
-
-<p>👉 Hãy liên hệ tổng đài <strong>19009396</strong> để được giao gas nhanh nhất!</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Phoenix Gas 12kg (Xám)', 
+      '/images/phoenix-xam.png', 
+      'Bình Gas Phoenix Gas 12kg vỏ xám mang đến giải pháp nhiên liệu đun nấu tiết kiệm chi phí nhưng vẫn đảm bảo áp suất gas ổn định và an toàn PCCC.'
+    ),
     price: 410000, 
     sale_price: 385000, 
     image_url: '/images/phoenix-xam.png', 
@@ -200,27 +154,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Phoenix Gas 12kg (Xanh)', 
     slug: 'binh-gas-phoenix-gas-12kg-xanh', 
     short_description: 'Dịch vụ giao gas nhanh tại KDC VietSing. Bình gas Phoenix 12kg vỏ xanh lá chính hãng Phoenix Gas.', 
-    description: `<h2>Dịch Vụ Giao Gas Nhanh Bình Gas Phoenix Gas 12kg Xanh</h2>
-<p>Thương hiệu Phoenix Gas màu xanh lá tươi sáng được thị trường đánh giá cao nhờ chất lượng gas ổn định. Ngọc Gas chuyên nhận <strong>giao gas nhanh tại VietSing, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/phoenix-lg-xanh.png" alt="Bình Gas Phoenix Gas 12kg Xanh giao gas nhanh tại VietSing Dĩ An Thuận An TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Ưu Điểm Khi Sử Dụng Phoenix Gas 12kg Xanh</h3>
-<ul>
-  <li>Khí gas hóa lỏng đạt chuẩn chất lượng cao.</li>
-  <li>Ngọn lửa xoáy xanh giúp đun sôi thức ăn nhanh chóng.</li>
-  <li>Vỏ bình sơn tĩnh điện chống va đập và móp méo.</li>
-</ul>
-
-<h3>2. Ngọc Gas - Địa Chỉ Đổi Gas Nhanh Uy Tín Tại Bình Dương</h3>
-<p>Trạm giao gas Ngọc Gas tại <em>7 Nguyễn Trung Trực, Dĩ An</em> luôn có sẵn lực lượng giao hàng đông đảo:</p>
-<ul>
-  <li><strong>Giao gas nhanh tại VietSing:</strong> Tiếp cận mọi ngõ ngách khu dân cư VietSing chỉ trong 15 phút.</li>
-  <li><strong>Giao gas nhanh tại Dĩ An & Thuận An:</strong> Luôn có kỹ thuật viên kiểm tra rò rỉ gas bằng thiết bị chuyên dụng.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Thái độ phục vụ niềm nở, tận tình.</li>
-</ul>
-
-<p>👉 Hotline hỗ trợ giao gas: <strong>19009396</strong>.</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Phoenix Gas 12kg (Xanh)', 
+      '/images/phoenix-lg-xanh.png', 
+      'Bình Gas Phoenix Gas 12kg vỏ xanh lá tươi sáng, được kiểm định chất lượng khí gas tinh khiết không tạo cặn bẩn hay làm đen kiềng bếp nấu.'
+    ),
     price: 415000, 
     sale_price: 390000, 
     image_url: '/images/phoenix-lg-xanh.png', 
@@ -233,26 +171,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Phoenix Gas 12kg (Đỏ)', 
     slug: 'binh-gas-phoenix-gas-12kg-do', 
     short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Phoenix 12kg vỏ đỏ nổi bật, áp suất ổn định.', 
-    description: `<h2>Giao Gas Nhanh Bình Gas Phoenix Gas 12kg Màu Đỏ</h2>
-<p>Sản phẩm bình gas Phoenix Gas 12kg màu đỏ có kết cấu vỏ thép kiên cố, áp suất gas ổn định tuyệt đối. Đội ngũ Ngọc Gas cam kết <strong>giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing</strong>.</p>
-
-<img src="/images/phoenix-do.png" alt="Bình Gas Phoenix Gas 12kg Đỏ giao gas nhanh tại TP.HCM Bình Dương Dĩ An Thuận An VietSing" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Sự Lựa Chọn Hoàn Hảo Cho Bếp Ăn Gia Đình</h3>
-<ul>
-  <li>Ngọn lửa cháy đều, nhiệt lượng tỏa ra mạnh mẽ.</li>
-  <li>Không tạo cặn hay bẩn kiềng bếp.</li>
-  <li>Kiểm định an toàn vỏ bình đầy đủ hạn sử dụng.</li>
-</ul>
-
-<h3>2. Dịch Vụ Khách Hàng Chu Đáo Của Ngọc Gas</h3>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An:</strong> Giao hàng miễn phí tận nhà.</li>
-  <li><strong>Giao gas nhanh tại Thuận An & VietSing:</strong> Cân gas trực tiếp tại chỗ.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Sẵn sàng phục vụ từ sáng sớm tới đêm muộn.</li>
-</ul>
-
-<p>👉 Liên hệ tổng đài: <strong>19009396</strong>.</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Phoenix Gas 12kg (Đỏ)', 
+      '/images/phoenix-do.png', 
+      'Bình Gas Phoenix Gas 12kg màu đỏ nổi bật với áp suất duy trì đều đặn từ lúc bắt đầu cho tới khi hết bình gas, giúp món ăn đun nấu nhanh chín thơm ngon.'
+    ),
     price: 420000, 
     sale_price: 395000, 
     image_url: '/images/phoenix-do.png', 
@@ -265,27 +188,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Luxen Gas 12kg', 
     slug: 'binh-gas-luxen-gas-12kg', 
     short_description: 'Dịch vụ giao gas nhanh tại VietSing & Thuận An. Bình gas Luxen Gas 12kg chất lượng cao, vỏ bình chịu lực tiêu chuẩn.', 
-    description: `<h2>Dịch Vụ Giao Gas Nhanh Bình Gas Luxen Gas 12kg Chính Hãng</h2>
-<p>Bình Gas Luxen Gas 12kg là thương hiệu gas địa phương uy tín hàng đầu tại tỉnh Bình Dương. Ngọc Gas chuyên cung cấp dịch vụ <strong>giao gas nhanh tại VietSing, giao gas nhanh tại Thuận An, giao gas nhanh tại Dĩ An, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/luxen-gas.png" alt="Bình Gas Luxen Gas 12kg giao gas nhanh tại VietSing Thuận An Dĩ An TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Đặc Điểm Nổi Bật Của Luxen Gas 12kg</h3>
-<ul>
-  <li>Chất lượng LPG đạt độ tinh khiết cao, cháy không tạo khói độc.</li>
-  <li>Vỏ bình đúc chuẩn thông số kỹ thuật PCCC.</li>
-  <li>Tương thích tốt với mọi dòng bếp gas đơn, bếp gas đôi hiện nay.</li>
-</ul>
-
-<h3>2. Mạng Lưới Giao Gas Nhanh Tận Nơi</h3>
-<p>Với tổng kho địa chỉ tại <em>7 Nguyễn Trung Trực, Dĩ An</em>, Ngọc Gas cam kết:</p>
-<ul>
-  <li><strong>Giao gas nhanh tại Dĩ An & Thuận An:</strong> Chỉ từ 15-25 phút.</li>
-  <li><strong>Giao gas nhanh tại VietSing:</strong> Tận tâm lắp đặt cho hộ gia đình và nhà trọ.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Kiểm tra rò rỉ khí gas bằng máy đo chuyên dụng.</li>
-</ul>
-
-<p>👉 Đổi gas Luxen chính hãng ngay: <strong>19009396</strong>.</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Luxen Gas 12kg', 
+      '/images/luxen-gas.png', 
+      'Bình Gas Luxen Gas 12kg là thương hiệu gas uy tín sản xuất ngay tại tỉnh Bình Dương, có vỏ bình đúc dày chịu lực tốt và ngọn lửa xanh cực mạnh.'
+    ),
     price: 420000, 
     sale_price: 395000, 
     image_url: '/images/luxen-gas.png', 
@@ -298,28 +205,11 @@ const allFallbackProducts = [
     name: 'Bình Gas Luxen Gas 45kg (Công Nghiệp)', 
     slug: 'binh-gas-luxen-gas-45kg-cong-nghiep', 
     short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1 & Dĩ An. Bình gas công nghiệp Luxen 45kg chuyên dùng cho Nhà hàng, Bếp ăn.', 
-    description: `<h2>Dịch Vụ Giao Gas Nhanh Bình Gas Công Nghiệp Luxen Gas 45kg</h2>
-<p>Bình Gas Luxen Gas 45kg (Bình gas bò công nghiệp) là giải pháp cung cấp nhiên liệu công suất lớn dành cho các nhà hàng, khách sạn, bếp ăn tập thể KCN và xưởng sản xuất. Ngọc Gas là đơn vị chuyên nghiệp hỗ trợ <strong>giao gas nhanh tại KCN VSIP 1, giao gas nhanh tại VietSing, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương</strong>.</p>
-
-<img src="/images/luxen-45.png" alt="Bình Gas Luxen Gas 45kg công nghiệp giao gas nhanh tại KCN VSIP 1 VietSing Dĩ An Thuận An TP.HCM Bình Dương" style="width: 100%; max-width: 500px; height: auto; border-radius: 12px; margin: 20px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<h3>1. Ưu Điểm Khi Sử Dụng Bình Gas Công Nghiệp Luxen 45kg</h3>
-<ul>
-  <li><strong>Dung tích cực đại 45kg:</strong> Duy trì áp suất ngọn lửa cháy lớn liên tục cho các dòng bếp khè, bếp âu, bếp á.</li>
-  <li><strong>Tối ưu chi phí:</strong> Mức giá chiết khấu ưu đãi hấp dẫn dành cho hợp đồng tiêu thụ số lượng lớn.</li>
-  <li><strong>Kiểm định PCCC nghiêm ngặt:</strong> Đảm bảo vỏ bình chịu được áp suất cao trong môi trường bếp đun nấu công nghiệp.</li>
-</ul>
-
-<h3>2. Giải Pháp Thi Công Giàn Gom Gas Chuyên Nghiệp</h3>
-<h4>Ngọc Gas Hỗ Trợ Kỹ Thuật Toàn Diện:</h4>
-<ul>
-  <li>Tư vấn và thiết kế hệ thống giàn gom gas công nghiệp 2-4-8-12 bình chuẩn PCCC.</li>
-  <li>Thi công đường ống dẫn gas bằng inox/đồng chất lượng cao.</li>
-  <li><strong>Giao gas nhanh tại Dĩ An, Thuận An, VietSing:</strong> Thay thế bình gas hết nhanh chóng, không để bếp bị gián đoạn giờ phục vụ khách.</li>
-  <li><strong>Giao gas nhanh tại TP.HCM & Bình Dương:</strong> Kiểm tra và bảo dưỡng hệ thống van điều áp định kỳ miễn phí.</li>
-</ul>
-
-<p>👉 Quý khách hàng nhà hàng, quán ăn cần khảo sát và nhận báo giá gas công nghiệp 45kg, vui lòng gọi hotline: <strong>19009396</strong> (Ngọc Gas 7 Nguyễn Trung Trực, Dĩ An).</p>`,
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Luxen Gas 45kg (Công Nghiệp)', 
+      '/images/luxen-45.png', 
+      'Bình Gas Luxen Gas 45kg công nghiệp (Bình bò) dung tích cực lớn chuyên dùng cho các giàn gom bếp khè nhà hàng, khách sạn và bếp ăn công nghiệp KCN VSIP 1.'
+    ),
     price: 1550000, 
     sale_price: 1450000, 
     image_url: '/images/luxen-45.png', 
@@ -337,7 +227,7 @@ export async function generateMetadata({ params }) {
     if (rows && rows.length > 0) {
       const product = rows[0];
       return {
-        title: `${product.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing - NGỌC GAS`,
+        title: `${product.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing, TP.HCM - NGỌC GAS`,
         description: product.short_description || `Mua ${product.name} chính hãng, giá tốt tại Ngọc Gas TP. HCM & Bình Dương. Giao gas nhanh.`,
         keywords: `${product.name}, giao gas nhanh, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương, ngoc gas`
       };
@@ -349,7 +239,7 @@ export async function generateMetadata({ params }) {
   const fallbackObj = allFallbackProducts.find(p => p.slug === slug);
   if (fallbackObj) {
     return {
-      title: `${fallbackObj.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing - NGỌC GAS`,
+      title: `${fallbackObj.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing, TP.HCM - NGỌC GAS`,
       description: fallbackObj.short_description,
       keywords: `${fallbackObj.name}, giao gas nhanh, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương, ngoc gas`
     };
@@ -395,9 +285,9 @@ export default async function ProductDetailPage({ params }) {
     }
   }
 
-  // Ensure rich description with H2/H3/H4/Img Alt/Keywords if DB description is short or missing
+  // Always enforce the Keyword Trust SEO Article structure for maximum Google ranking authority
   const foundFallback = allFallbackProducts.find(p => p.slug === slug);
-  if (foundFallback && (!product.description || product.description.length < 100)) {
+  if (foundFallback && (!product.description || product.description.length < 300)) {
     product.description = foundFallback.description;
   }
 
@@ -515,9 +405,9 @@ export default async function ProductDetailPage({ params }) {
             </div>
           </div>
 
-          {/* Long Description Section - High-Grade SEO Article with H2, H3, H4, Img Alt */}
+          {/* Long Description Section - 100% Keyword Trust Authority SEO Article */}
           {product.description && (
-            <div className="product-long-description-section card" style={{ marginTop: '40px', padding: '32px' }}>
+            <div className="product-long-description-section card" style={{ marginTop: '40px', padding: '36px', background: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
               <div className="product-desc-content" dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
           )}
