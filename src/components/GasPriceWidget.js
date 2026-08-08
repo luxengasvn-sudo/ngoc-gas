@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2, ChevronRight } from 'lucide-react';
+import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function GasPriceWidget({ products = [] }) {
@@ -223,6 +223,9 @@ export default function GasPriceWidget({ products = [] }) {
     );
   };
 
+  // Sort history data in descending order of ID for mobile (most recent month on top)
+  const sortedHistoryData = [...historyData].reverse();
+
   return (
     <section className="gas-price-section">
       <div className="container">
@@ -373,8 +376,8 @@ export default function GasPriceWidget({ products = [] }) {
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <BarChart2 size={24} color="#FF6B00" />
                 <div>
-                  <h3 style={{ margin: 0, fontSize: '20px', fontWeight: '800', color: '#0F172A' }}>Lịch Sử & Biểu Đồ Biến Động Giá Gas</h3>
-                  <p style={{ margin: 0, fontSize: '13px', color: '#64748B' }}>Theo dõi xu hướng tăng giảm giá gas qua các tháng tại Ngọc Gas</p>
+                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800', color: '#0F172A' }}>Lịch Sử & Biểu Đồ Biến Động Giá Gas</h3>
+                  <p style={{ margin: 0, fontSize: '12px', color: '#64748B' }}>Theo dõi xu hướng tăng giảm giá gas qua các tháng</p>
                 </div>
               </div>
               <button onClick={() => setIsHistoryModalOpen(false)} className="modal-close-icon-btn">
@@ -397,42 +400,103 @@ export default function GasPriceWidget({ products = [] }) {
                   onClick={() => setSelectedGasType('luxen-12kg')} 
                   className={`filter-tab-btn ${selectedGasType === 'luxen-12kg' ? 'active' : ''}`}
                 >
-                  Gas Cao Cấp 12kg
+                  Gas 12kg Luxen
                 </button>
                 <button 
                   type="button" 
                   onClick={() => setSelectedGasType('phothong-12kg')} 
                   className={`filter-tab-btn ${selectedGasType === 'phothong-12kg' ? 'active' : ''}`}
                 >
-                  Gas Phổ Thông 12kg
+                  Gas 12kg Phổ Thông
                 </button>
                 <button 
                   type="button" 
                   onClick={() => setSelectedGasType('congnghiep-45kg')} 
                   className={`filter-tab-btn ${selectedGasType === 'congnghiep-45kg' ? 'active' : ''}`}
                 >
-                  Gas Công Nghiệp 45kg
+                  Gas 45kg Công Nghiệp
                 </button>
               </div>
 
-              {/* Chart Visualizing Trend */}
+              {/* Chart Visualizing Trend (Fits on 1 Screen Top) */}
               <div className="history-chart-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <span style={{ fontSize: '13px', fontWeight: '700', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    📈 Biểu Đồ Xu Hướng Giá (6 Tháng Gần Nhất)
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '12px', fontWeight: '700', color: '#475569', textTransform: 'uppercase' }}>
+                    📈 Biểu Đồ Xu Hướng Giá (6 Tháng)
                   </span>
-                  <span style={{ fontSize: '12px', color: '#FF6B00', fontWeight: '600' }}>Cập nhật chuẩn theo thị trường</span>
+                  <span style={{ fontSize: '11px', color: '#FF6B00', fontWeight: '600' }}>Cập nhật tự động</span>
                 </div>
 
                 {loadingHistory ? (
-                  <div style={{ textAlign: 'center', padding: '40px 0', color: '#64748B' }}>Đang nạp dữ liệu lịch sử giá...</div>
+                  <div style={{ textAlign: 'center', padding: '30px 0', color: '#64748B' }}>Đang nạp dữ liệu...</div>
                 ) : (
                   renderChartSVG()
                 )}
               </div>
 
-              {/* Table of Detailed Logs */}
-              <div className="history-table-container">
+              {/* MOBILE MONTHLY TIMELINE LIST (Kéo xuống xem các Tháng thể hiện Tăng/Giảm) */}
+              <div className="mobile-monthly-timeline-section">
+                <div className="timeline-section-title">
+                  <span>📅 NHẬT KÝ THEO THÁNG (KÉO XUỐNG XEM CHI TIẾT)</span>
+                </div>
+
+                <div className="mobile-timeline-cards-list">
+                  {sortedHistoryData && sortedHistoryData.length > 0 ? (
+                    sortedHistoryData.map((item) => {
+                      const isUp = item.change_type === 'up';
+                      const isDown = item.change_type === 'down';
+                      const changeVal = Number(item.change_amount || 0);
+
+                      return (
+                        <div key={item.id} className="mobile-timeline-card-item">
+                          <div className="timeline-card-top">
+                            <div className="timeline-month-badge">
+                              <Calendar size={13} />
+                              <span>{item.effective_month}</span>
+                            </div>
+
+                            {/* Trend Badge Tăng / Giảm / Giữ giá */}
+                            {isUp ? (
+                              <span className="trend-badge-up">
+                                <TrendingUp size={13} /> TĂNG +{formatVND(changeVal)}
+                              </span>
+                            ) : isDown ? (
+                              <span className="trend-badge-down">
+                                <TrendingDown size={13} /> GIẢM {formatVND(changeVal)}
+                              </span>
+                            ) : (
+                              <span className="trend-badge-same">
+                                <Minus size={13} /> Giữ giá
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="timeline-card-body">
+                            <strong className="timeline-gas-name">{item.gas_name}</strong>
+                            <div className="timeline-price-value">
+                              <span>Giá bán:</span>
+                              <strong className="timeline-price-num">{formatVND(item.sale_price || item.price)}</strong>
+                            </div>
+                          </div>
+
+                          {item.notes && (
+                            <div className="timeline-card-note">
+                              💡 <em>{item.notes}</em>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div style={{ textAlign: 'center', padding: '20px 0', color: '#94A3B8', fontSize: '13px' }}>
+                      Chưa có nhật ký giá cho loại gas này.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* DESKTOP TABLE OF DETAILED LOGS (Hidden on Mobile) */}
+              <div className="history-table-container desktop-table-only">
                 <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#0F172A', margin: '0 0 12px 0' }}>Chi Tiết Nhật Ký Tăng Giảm Theo Tháng</h4>
                 <table className="history-table">
                   <thead>
@@ -917,9 +981,12 @@ export default function GasPriceWidget({ products = [] }) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 20px 24px;
+          padding: 18px 20px;
           border-bottom: 1px solid #E2E8F0;
           background: #F8FAFC;
+          position: sticky;
+          top: 0;
+          z-index: 10;
         }
 
         .modal-close-icon-btn {
@@ -942,25 +1009,27 @@ export default function GasPriceWidget({ products = [] }) {
         }
 
         .history-modal-body {
-          padding: 24px;
+          padding: 20px;
         }
 
         .history-filter-tabs {
           display: flex;
-          gap: 10px;
-          margin-bottom: 20px;
-          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 16px;
+          overflow-x: auto;
+          padding-bottom: 4px;
         }
 
         .filter-tab-btn {
-          padding: 8px 16px;
+          padding: 7px 14px;
           border-radius: 20px;
           border: 1px solid #E2E8F0;
           background: #F8FAFC;
           color: #475569;
           font-weight: 600;
-          font-size: 13px;
+          font-size: 12.5px;
           cursor: pointer;
+          white-space: nowrap;
           transition: all 0.2s;
         }
 
@@ -980,14 +1049,98 @@ export default function GasPriceWidget({ products = [] }) {
           background: #F8FAFC;
           border: 1px solid #E2E8F0;
           border-radius: 12px;
-          padding: 18px;
-          margin-bottom: 24px;
+          padding: 14px;
+          margin-bottom: 20px;
         }
 
         .price-chart-svg {
           width: 100%;
-          height: 180px;
+          height: 160px;
           display: block;
+        }
+
+        /* Mobile Monthly Timeline Section */
+        .mobile-monthly-timeline-section {
+          display: none;
+        }
+
+        .timeline-section-title {
+          font-size: 11px;
+          font-weight: 800;
+          color: #FF6B00;
+          letter-spacing: 0.5px;
+          margin-bottom: 10px;
+        }
+
+        .mobile-timeline-cards-list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .mobile-timeline-card-item {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 12px;
+          padding: 12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .timeline-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 6px;
+          border-bottom: 1px dashed #F1F5F9;
+        }
+
+        .timeline-month-badge {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 12.5px;
+          font-weight: 800;
+          color: #0F172A;
+          background: #F1F5F9;
+          padding: 4px 8px;
+          border-radius: 8px;
+        }
+
+        .timeline-card-body {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .timeline-gas-name {
+          font-size: 13px;
+          font-weight: 700;
+          color: #334155;
+        }
+
+        .timeline-price-value {
+          display: flex;
+          align-items: baseline;
+          gap: 4px;
+          font-size: 12px;
+          color: #64748B;
+        }
+
+        .timeline-price-num {
+          font-size: 15px;
+          font-weight: 800;
+          color: #E11D48;
+        }
+
+        .timeline-card-note {
+          font-size: 11.5px;
+          color: #64748B;
+          background: #F8FAFC;
+          padding: 6px 10px;
+          border-radius: 6px;
         }
 
         .history-table-container {
@@ -1025,7 +1178,7 @@ export default function GasPriceWidget({ products = [] }) {
           color: #E11D48;
           border-radius: 12px;
           font-weight: 700;
-          font-size: 12px;
+          font-size: 11.5px;
         }
 
         .trend-badge-down {
@@ -1037,7 +1190,7 @@ export default function GasPriceWidget({ products = [] }) {
           color: #059669;
           border-radius: 12px;
           font-weight: 700;
-          font-size: 12px;
+          font-size: 11.5px;
         }
 
         .trend-badge-same {
@@ -1049,7 +1202,7 @@ export default function GasPriceWidget({ products = [] }) {
           color: #64748B;
           border-radius: 12px;
           font-weight: 600;
-          font-size: 12px;
+          font-size: 11.5px;
         }
 
         @media (max-width: 992px) {
@@ -1093,6 +1246,32 @@ export default function GasPriceWidget({ products = [] }) {
           .mobile-active-card {
             display: flex !important;
             margin-top: 8px;
+          }
+
+          /* History Modal Mobile Adjustments */
+          .price-history-modal-overlay {
+            padding: 10px;
+          }
+
+          .price-history-modal-content {
+            max-height: 95vh;
+            border-radius: 14px;
+          }
+
+          .history-modal-body {
+            padding: 14px;
+          }
+
+          .price-chart-svg {
+            height: 130px;
+          }
+
+          .desktop-table-only {
+            display: none;
+          }
+
+          .mobile-monthly-timeline-section {
+            display: block;
           }
         }
       `}</style>
