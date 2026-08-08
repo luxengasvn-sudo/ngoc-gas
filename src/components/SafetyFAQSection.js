@@ -64,9 +64,9 @@ export default function SafetyFAQSection() {
               <AlertTriangle size={24} className="alert-icon" />
               <div>
                 <span>Hỗ trợ kỹ thuật & Sự cố rò rỉ Gas 24/7:</span>
-                <a href="tel:0900000000" className="emergency-phone">
+                <a href="tel:19009396" className="emergency-phone">
                   <PhoneCall size={18} />
-                  <span>Gọi Hotline Khẩn Cấp</span>
+                  <span>Gọi Hotline 1900.9396</span>
                 </a>
               </div>
             </div>

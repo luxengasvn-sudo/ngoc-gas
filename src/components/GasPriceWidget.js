@@ -69,7 +69,7 @@ export default function GasPriceWidget({ products = [] }) {
                   </ul>
                 </div>
                 <div className="price-item-footer">
-                  <a href="tel:0900000000" className="btn-call-mini">
+                  <a href="tel:19009396" className="btn-call-mini">
                     <PhoneCall size={14} />
                     <span>Gọi Đặt Ngay</span>
                   </a>
