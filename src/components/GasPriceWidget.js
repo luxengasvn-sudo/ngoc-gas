@@ -1,6 +1,6 @@
 'use client';
 
-import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall } from 'lucide-react';
+import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default function GasPriceWidget({ products = [] }) {
@@ -8,15 +8,113 @@ export default function GasPriceWidget({ products = [] }) {
   const currentMonth = currentDate.getMonth() + 1;
   const currentYear = currentDate.getFullYear();
 
-  // Pick gas products if passed, or default gas items
-  const displayGasItems = products.length > 0
-    ? products.filter(p => p.category_id === 1 || p.name.toLowerCase().includes('gas') || p.name.toLowerCase().includes('bình')).slice(0, 4)
-    : [
-        { id: 1, name: 'Bình Gas Sopet 12kg (Xám)', price: 420000, sale_price: 395000, slug: 'binh-gas-sopet-12kg-xam' },
-        { id: 2, name: 'Bình Gas Sopet 12kg (Đỏ)', price: 430000, sale_price: 405000, slug: 'binh-gas-sopet-12kg-do' },
-        { id: 3, name: 'Bình Gas 12kg Van Khè (Công Nghiệp)', price: 450000, sale_price: 420000, slug: 'binh-gas-12kg-van-khe' },
-        { id: 4, name: 'Bình Gas Bò 45kg (Cho Nhà Hàng/Quán Ăn)', price: 1550000, sale_price: 1450000, slug: 'binh-gas-45kg-bo' },
-      ];
+  // Helper to get minimum price in a category of products
+  const getMinPriceProduct = (filterFn, defaultName, defaultPrice, defaultSalePrice, defaultSlug) => {
+    const matched = products.filter(filterFn);
+    if (!matched || matched.length === 0) {
+      return {
+        name: defaultName,
+        price: defaultPrice,
+        sale_price: defaultSalePrice,
+        slug: defaultSlug
+      };
+    }
+
+    // Find product with lowest price (checking sale_price first, then price)
+    let minProd = matched[0];
+    let minEffectivePrice = minProd.sale_price && Number(minProd.sale_price) > 0 ? Number(minProd.sale_price) : Number(minProd.price || 9999999);
+
+    for (let i = 1; i < matched.length; i++) {
+      const p = matched[i];
+      const effPrice = p.sale_price && Number(p.sale_price) > 0 ? Number(p.sale_price) : Number(p.price || 9999999);
+      if (effPrice < minEffectivePrice) {
+        minEffectivePrice = effPrice;
+        minProd = p;
+      }
+    }
+
+    return {
+      name: defaultName,
+      price: minProd.price,
+      sale_price: minProd.sale_price || minProd.price,
+      slug: minProd.slug
+    };
+  };
+
+  // 1. Gas Cao Cấp 12kg (Luxen Gas 12kg)
+  const luxen12kg = getMinPriceProduct(
+    p => (p.name.toLowerCase().includes('luxen') && p.name.includes('12kg')),
+    'Gas Cao Cấp 12kg (Luxen Gas)',
+    420000,
+    390000,
+    'binh-gas-luxen-gas-12kg-xam'
+  );
+
+  // 2. Gas Phổ Thông 12kg (Sopet & Phoenix 12kg)
+  const phoThong12kg = getMinPriceProduct(
+    p => (p.name.includes('12kg') && (p.name.toLowerCase().includes('sopet') || p.name.toLowerCase().includes('phoenix'))),
+    'Gas Phổ Thông 12kg (Sopet & Phoenix)',
+    410000,
+    385000,
+    'binh-gas-phoenix-gas-12kg-xam'
+  );
+
+  // 3. Gas Công Nghiệp 45kg (Luxen 45kg)
+  const congNghiep45kg = getMinPriceProduct(
+    p => p.name.includes('45kg'),
+    'Gas Công Nghiệp 45kg (Cho Nhà Hàng/Bếp Ăn)',
+    1550000,
+    1450000,
+    'binh-gas-luxen-gas-45kg-cong-nghiep'
+  );
+
+  const priceCards = [
+    {
+      id: 'luxen-12kg',
+      badge: 'CHẤT LƯỢNG CAO',
+      badgeColor: '#FF6B00',
+      title: 'Gas Cao Cấp 12kg',
+      subTitle: 'Thương hiệu Luxen Gas Bình Dương',
+      price: luxen12kg.price,
+      sale_price: luxen12kg.sale_price,
+      slug: luxen12kg.slug,
+      features: [
+        'Lửa xanh siêu xoáy & tiết kiệm gas',
+        'Vỏ bình đúc thép chịu lực chuẩn PCCC',
+        'Cân đúng 12kg đủ ký tận nhà'
+      ]
+    },
+    {
+      id: 'phothong-12kg',
+      badge: 'TIẾT KIỆM GIA ĐÌNH',
+      badgeColor: '#10B981',
+      title: 'Gas Phổ Thông 12kg',
+      subTitle: 'Thương hiệu Sopet & Phoenix Gas',
+      price: phoThong12kg.price,
+      sale_price: phoThong12kg.sale_price,
+      slug: phoThong12kg.slug,
+      features: [
+        'Giá mềm tiết kiệm chi phí đun nấu',
+        'Khí gas lọc sạch không đen đít nồi',
+        'Cân đúng 12kg đủ ký tận nhà'
+      ]
+    },
+    {
+      id: 'congnghiep-45kg',
+      badge: 'BÌNH BÒ CÔNG NGHIỆP',
+      badgeColor: '#6366F1',
+      title: 'Gas Công Nghiệp 45kg',
+      subTitle: 'Chuyên dùng cho Nhà hàng & Bếp ăn KCN',
+      price: congNghiep45kg.price,
+      sale_price: congNghiep45kg.sale_price,
+      slug: congNghiep45kg.slug,
+      features: [
+        'Dung tích lớn 45kg đun nấu liên tục',
+        'Áp suất gas mạnh mẽ cho bếp khè',
+        'Hỗ trợ kỹ thuật & giao nhận tận nơi'
+      ]
+    }
+  ];
 
   const formatVND = (price) => {
     if (!price) return 'Liên hệ';
@@ -33,7 +131,7 @@ export default function GasPriceWidget({ products = [] }) {
                 <Flame size={28} />
               </div>
               <div>
-                <span className="price-tag-badge">Bảng Giá Niêm Yết</span>
+                <span className="price-tag-badge">Bảng Giá Niêm Yết Giá Thấp Nhất</span>
                 <h2>BẢNG GIÁ GAS THÁNG {currentMonth}/{currentYear}</h2>
               </div>
             </div>
@@ -49,31 +147,42 @@ export default function GasPriceWidget({ products = [] }) {
             </div>
           </div>
 
-          <div className="price-grid">
-            {displayGasItems.map((item) => (
-              <div key={item.id} className="price-item-card">
-                <div className="price-item-header">
-                  <Flame size={18} className="item-flame" />
-                  <h4>{item.name}</h4>
+          <div className="price-grid-3">
+            {priceCards.map((card) => (
+              <div key={card.id} className="price-item-card-3">
+                <div className="card-top-tag" style={{ backgroundColor: card.badgeColor }}>
+                  <Sparkles size={12} />
+                  <span>{card.badge}</span>
                 </div>
-                <div className="price-item-body">
-                  <div className="price-values">
-                    <span className="current-price">{formatVND(item.sale_price || item.price)}</span>
-                    {item.sale_price && item.price > item.sale_price && (
-                      <span className="old-price">{formatVND(item.price)}</span>
+                
+                <div className="price-item-header-3">
+                  <Flame size={20} className="item-flame-3" />
+                  <div>
+                    <h4>{card.title}</h4>
+                    <span className="card-subtitle-3">{card.subTitle}</span>
+                  </div>
+                </div>
+
+                <div className="price-item-body-3">
+                  <div className="price-values-3">
+                    <span className="current-price-3">{formatVND(card.sale_price || card.price)}</span>
+                    {card.sale_price && card.price > card.sale_price && (
+                      <span className="old-price-3">{formatVND(card.price)}</span>
                     )}
                   </div>
-                  <ul className="item-features">
-                    <li><CheckCircle2 size={14} /> Cân đúng ký tại nhà</li>
-                    <li><CheckCircle2 size={14} /> Kiểm tra rò rỉ van gas miễn phí</li>
+                  <ul className="item-features-3">
+                    {card.features.map((feat, idx) => (
+                      <li key={idx}><CheckCircle2 size={14} /> {feat}</li>
+                    ))}
                   </ul>
                 </div>
-                <div className="price-item-footer">
-                  <a href="tel:19009396" className="btn-call-mini">
+
+                <div className="price-item-footer-3">
+                  <a href="tel:19009396" className="btn-call-mini-3">
                     <PhoneCall size={14} />
                     <span>Gọi Đặt Ngay</span>
                   </a>
-                  <Link href={`/san-pham/${item.slug || '#'}`} className="btn-detail-mini">
+                  <Link href={`/san-pham/${card.slug || '#'}`} className="btn-detail-mini-3">
                     Chi tiết
                   </Link>
                 </div>
@@ -82,7 +191,7 @@ export default function GasPriceWidget({ products = [] }) {
           </div>
 
           <div className="price-footer-note">
-            <p>💡 <em>* Giá gas được cập nhật chuẩn theo biến động thị trường. Đã bao gồm thuế VAT, giao hàng và lắp đặt tận nơi tại Dĩ An, Thuận An, TP. Hồ Chí Minh.</em></p>
+            <p>💡 <em>* Giá gas được cập nhật tự động theo giá tốt nhất thị trường. Đã bao gồm thuế VAT, giao hàng và cân thử tại nhà ở Dĩ An, Thuận An, VietSing, TP. Hồ Chí Minh & Bình Dương.</em></p>
           </div>
         </div>
       </div>
@@ -165,98 +274,128 @@ export default function GasPriceWidget({ products = [] }) {
           font-weight: 600;
         }
 
-        .price-grid {
+        .price-grid-3 {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 20px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
           margin-bottom: 24px;
         }
 
-        .price-item-card {
+        .price-item-card-3 {
+          position: relative;
           background: #FFFFFF;
           border: 1px solid #E2E8F0;
-          border-radius: 12px;
-          padding: 20px;
+          border-radius: 14px;
+          padding: 24px 20px 20px 20px;
           transition: all 0.3s ease;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .price-item-card:hover {
-          transform: translateY(-4px);
+        .price-item-card-3:hover {
+          transform: translateY(-5px);
           border-color: #FF6B00;
-          box-shadow: 0 12px 24px rgba(255, 107, 0, 0.12);
+          box-shadow: 0 16px 32px rgba(255, 107, 0, 0.14);
         }
 
-        .price-item-header {
+        .card-top-tag {
+          position: absolute;
+          top: -12px;
+          left: 20px;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 3px 10px;
+          color: #FFFFFF;
+          font-size: 11px;
+          font-weight: 800;
+          border-radius: 12px;
+          letter-spacing: 0.5px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .price-item-header-3 {
           display: flex;
           align-items: flex-start;
-          gap: 8px;
-          margin-bottom: 14px;
+          gap: 10px;
+          margin-top: 6px;
+          margin-bottom: 16px;
         }
 
-        .item-flame {
+        .item-flame-3 {
           color: #FF6B00;
           flex-shrink: 0;
-          margin-top: 2px;
+          margin-top: 3px;
         }
 
-        .price-item-header h4 {
-          font-size: 15px;
-          font-weight: 700;
-          color: #1E293B;
-          margin: 0;
-          line-height: 1.4;
+        .price-item-header-3 h4 {
+          font-size: 17px;
+          font-weight: 800;
+          color: #0F172A;
+          margin: 0 0 2px 0;
+          line-height: 1.3;
         }
 
-        .price-values {
+        .card-subtitle-3 {
+          font-size: 12.5px;
+          color: #64748B;
+          font-weight: 500;
+          display: block;
+        }
+
+        .price-values-3 {
           display: flex;
           align-items: baseline;
           gap: 10px;
-          margin-bottom: 12px;
+          margin-bottom: 14px;
+          padding: 8px 12px;
+          background: #F8FAFC;
+          border-radius: 8px;
         }
 
-        .current-price {
-          font-size: 22px;
+        .current-price-3 {
+          font-size: 24px;
           font-weight: 800;
           color: #E11D48;
         }
 
-        .old-price {
+        .old-price-3 {
           font-size: 14px;
           color: #94A3B8;
           text-decoration: line-through;
         }
 
-        .item-features {
+        .item-features-3 {
           list-style: none;
           padding: 0;
-          margin: 0 0 18px 0;
+          margin: 0 0 20px 0;
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 8px;
         }
 
-        .item-features li {
-          font-size: 13px;
-          color: #64748B;
+        .item-features-3 li {
+          font-size: 13.5px;
+          color: #334155;
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px;
+          font-weight: 500;
         }
 
-        .item-features li :global(svg) {
+        .item-features-3 li :global(svg) {
           color: #10B981;
           flex-shrink: 0;
         }
 
-        .price-item-footer {
+        .price-item-footer-3 {
           display: flex;
-          gap: 8px;
+          gap: 10px;
         }
 
-        .btn-call-mini {
+        .btn-call-mini-3 {
           flex: 1;
           display: inline-flex;
           align-items: center;
@@ -264,30 +403,32 @@ export default function GasPriceWidget({ products = [] }) {
           gap: 6px;
           background: linear-gradient(135deg, #FF6B00 0%, #FF2E00 100%);
           color: #FFFFFF;
-          padding: 10px;
-          border-radius: 8px;
+          padding: 11px;
+          border-radius: 10px;
           font-weight: 700;
-          font-size: 13px;
+          font-size: 14px;
           text-decoration: none;
-          transition: opacity 0.2s;
+          transition: opacity 0.2s, transform 0.2s;
+          box-shadow: 0 4px 12px rgba(255, 107, 0, 0.25);
         }
 
-        .btn-call-mini:hover {
-          opacity: 0.9;
+        .btn-call-mini-3:hover {
+          opacity: 0.95;
+          transform: translateY(-1px);
         }
 
-        .btn-detail-mini {
-          padding: 10px 14px;
+        .btn-detail-mini-3 {
+          padding: 11px 16px;
           background: #F1F5F9;
           color: #475569;
-          border-radius: 8px;
-          font-size: 13px;
+          border-radius: 10px;
+          font-size: 13.5px;
           font-weight: 600;
           text-decoration: none;
           transition: background 0.2s;
         }
 
-        .btn-detail-mini:hover {
+        .btn-detail-mini-3:hover {
           background: #E2E8F0;
         }
 
@@ -295,12 +436,16 @@ export default function GasPriceWidget({ products = [] }) {
           text-align: center;
           font-size: 13px;
           color: #64748B;
-          margin-top: 16px;
+          margin-top: 18px;
           padding-top: 16px;
           border-top: 1px solid #F1F5F9;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
+          .price-grid-3 {
+            grid-template-columns: repeat(1, 1fr);
+          }
+
           .price-card-wrapper {
             padding: 20px;
           }

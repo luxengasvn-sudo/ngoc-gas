@@ -234,6 +234,23 @@ const allFallbackProducts = [
     category_id: 1, 
     is_featured: 1, 
     is_active: 1 
+  },
+  { 
+    id: 11, 
+    name: 'Bình Gas Luxen Gas 45kg (Xám)', 
+    slug: 'binh-gas-luxen-gas-45kg-xam', 
+    short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1, Dĩ An & Thuận An. Bình gas công nghiệp Luxen 45kg màu xám tiêu chuẩn.', 
+    description: createKeywordTrustSEOArticle(
+      'Bình Gas Luxen Gas 45kg (Xám)', 
+      '/images/luxen-45.png', 
+      'Bình Gas Luxen Gas 45kg vỏ màu xám công nghiệp dung tích lớn, vỏ đúc chịu áp suất cực cao, chuyên dùng cho bếp ăn công nghiệp, nhà hàng, khách sạn và quán ăn lớn.'
+    ),
+    price: 1540000, 
+    sale_price: 1440000, 
+    image_url: '/images/luxen-45.png', 
+    category_id: 1, 
+    is_featured: 1, 
+    is_active: 1 
   }
 ];
 
