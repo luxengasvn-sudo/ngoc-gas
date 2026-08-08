@@ -191,7 +191,7 @@ export default function GasPriceWidget({ products = [] }) {
           </div>
 
           <div className="price-footer-note">
-            <p>💡 <em>* Giá gas được cập nhật tự động theo giá tốt nhất thị trường. Đã bao gồm thuế VAT, giao hàng và cân thử tại nhà ở Dĩ An, Thuận An, VietSing, TP. Hồ Chí Minh & Bình Dương.</em></p>
+            <p>💡 <em>* Giá gas được cập nhật tự động theo giá ưu đãi thị trường. Đã bao gồm thuế VAT, giao hàng và cân thử tại nhà ở Dĩ An, Thuận An, VietSing, TP. Hồ Chí Minh & Bình Dương.</em></p>
           </div>
         </div>
       </div>

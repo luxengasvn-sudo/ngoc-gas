@@ -198,7 +198,7 @@ async function initTables(pool) {
               <li><strong>Thi công đường ống inox đạt chuẩn PCCC:</strong> Đội ngũ kỹ sư Ngọc Gas hỗ trợ khảo sát và lắp đặt hệ thống giàn gom gas an toàn.</li>
             </ul>
 
-            <p>Liên hệ ngay hotline chính thức <strong>19009396</strong> để được giao gas nhanh và tư vấn báo giá tốt nhất.</p>`,
+            <p>Liên hệ ngay hotline chính thức <strong>19009396</strong> để được giao gas nhanh và tư vấn báo giá ưu đãi.</p>`,
             '/images/luxen-45.png',
             'Giao Gas Nhanh Cho Nhà Hàng - Bình Gas Luxen 45kg Dĩ An & VietSing',
             'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An, VietSing. Phân phối bình gas công nghiệp Luxen 45kg, Sopet 45kg cho nhà hàng. Gọi 19009396.',

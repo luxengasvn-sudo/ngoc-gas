@@ -14,7 +14,7 @@ export default async function AboutPage() {
     about_intro_partner_title: 'Đối tác năng lượng',
     about_intro_partner_desc: 'Chúng tôi là đối tác tin cậy cung cấp hệ thống gas công nghiệp cho hàng trăm nhà hàng, khách sạn lớn tại TP. HCM & Bình Dương.',
     about_vision_title: 'Tầm Nhìn',
-    about_vision: 'Trở thành thương hiệu cung cấp sản phẩm gas và giải pháp thi công hệ thống gas hàng đầu tại TP. HCM & Bình Dương, được khách hàng tin tưởng lựa chọn nhờ sự uy tín, chuyên nghiệp và tiêu chuẩn an toàn cao nhất.',
+    about_vision: 'Trở thành thương hiệu cung cấp sản phẩm gas và giải pháp thi công hệ thống gas uy tín tại TP. HCM & Bình Dương, được khách hàng tin tưởng lựa chọn nhờ sự uy tín, chuyên nghiệp và tiêu chuẩn an toàn cao nhất.',
     about_mission_title: 'Sứ Mệnh',
     about_mission: 'Cung cấp giải pháp năng lượng hiệu quả, sạch và an toàn cho cộng đồng. Góp phần vào sự phát triển bền vững của TP. HCM & Bình Dương bằng cách nâng cao tiêu chuẩn an toàn sử dụng gas trong sinh hoạt và sản xuất kinh doanh.',
     about_value_title: 'Giá Trị Cốt Lõi',
