@@ -189,7 +189,7 @@ async function initTables(pool) {
             'bang-gia-gas-cong-nghiep-45kg-di-an-thuan-an-vietsing',
             'Ngọc Gas chuyên dịch vụ giao gas nhanh tại Dĩ An & VietSing cho nhà hàng, quán ăn, bếp ăn công nghiệp. Phân phối bình gas công nghiệp Luxen 45kg, Sopet 45kg chính hãng.',
             `<h2>Dịch Vụ Giao Gas Nhanh Cho Nhà Hàng, Quán Ăn Tại VietSing & Dĩ An</h2>
-            <p>Đối với các nhà hàng, quán ăn, bếp ăn tập thể tại <strong>Khu Dân Cư VietSing, KCN VSIP 1, Dĩ An & Thuận An</strong>, dịch vụ <strong>giao gas nhanh tại chỗ</strong> là ưu tiên hàng đầu để không làm gián đoạn việc nấu nướng giờ cao điểm.</p>
+            <p>Đối với các nhà hàng, quán ăn, bếp ăn tập thể tại <strong>Khu Dân Cư VietSing, KCN VSIP 1, Dĩ An & Thuận An</strong>, dịch vụ <strong>giao gas nhanh tại chỗ</strong> là ưu tiên tối quan trọng để không làm gián đoạn việc nấu nướng giờ cao điểm.</p>
 
             <h3>Ưu Điểm Của Bình Gas Công Nghiệp Luxen 45kg & Sopet 45kg</h3>
             <ul>
