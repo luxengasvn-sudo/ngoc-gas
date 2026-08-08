@@ -167,42 +167,44 @@ export default function Header({ initialSettings }) {
       </header>
 
       {/* Mobile Nav Overlay */}
-      <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-nav-content">
-          <div className="mobile-nav-header">
-            <Link href="/" className="logo" onClick={() => setIsMobileMenuOpen(false)}>
-              {settings.logo_url ? (
-                <img src={settings.logo_url} alt="Ngọc Gas Logo" className="logo-img" />
-              ) : (
-                <Flame className="logo-icon" size={32} />
-              )}
-              <div className="logo-text">
-                <span className="brand-name" style={{ color: '#FFFFFF' }}>NGỌC</span>
-                <span className="brand-sub">GAS</span>
-              </div>
-            </Link>
-            <button className="close-btn" onClick={() => setIsMobileMenuOpen(false)}>
-              <X size={24} />
-            </button>
-          </div>
-          <nav className="mobile-nav-links">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`mobile-nav-link ${isActive(link.path) ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
+      {isMobileMenuOpen && (
+        <div className="mobile-nav-overlay open">
+          <div className="mobile-nav-content">
+            <div className="mobile-nav-header">
+              <Link href="/" className="logo" onClick={() => setIsMobileMenuOpen(false)}>
+                {settings.logo_url ? (
+                  <img src={settings.logo_url} alt="Ngọc Gas Logo" className="logo-img" />
+                ) : (
+                  <Flame className="logo-icon" size={32} />
+                )}
+                <div className="logo-text">
+                  <span className="brand-name" style={{ color: '#FFFFFF' }}>NGỌC</span>
+                  <span className="brand-sub">GAS</span>
+                </div>
               </Link>
-            ))}
-            <a href={`tel:${cleanPhone}`} className="mobile-hotline-btn" onClick={() => { trackClick('hotline_click', settings.phone); setIsMobileMenuOpen(false); }}>
-              <Phone size={18} />
-              <span>Gọi ngay: {settings.phone}</span>
-            </a>
-          </nav>
+              <button className="close-btn" onClick={() => setIsMobileMenuOpen(false)}>
+                <X size={24} />
+              </button>
+            </div>
+            <nav className="mobile-nav-links">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`mobile-nav-link ${isActive(link.path) ? 'active' : ''}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <a href={`tel:${cleanPhone}`} className="mobile-hotline-btn" onClick={() => { trackClick('hotline_click', settings.phone); setIsMobileMenuOpen(false); }}>
+                <Phone size={18} />
+                <span>Gọi ngay: {settings.phone}</span>
+              </a>
+            </nav>
+          </div>
         </div>
-      </div>
+      )}
 
       {showPopup && settings.promo_popup_image && (
         <div className="promo-popup-overlay" onClick={handleClosePopup}>
@@ -498,7 +500,7 @@ export default function Header({ initialSettings }) {
             display: none;
           }
           .mobile-menu-btn {
-            display: none;
+            display: flex;
           }
           .hotline-btn {
             display: none;
