@@ -239,9 +239,10 @@ const allFallbackProducts = [
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
+  const normSlug = slug.replace(/-sopet-vil-/g, '-sopet-');
   
   try {
-    const [rows] = await db.query('SELECT name, short_description FROM products WHERE slug = ?', [slug]);
+    const [rows] = await db.query('SELECT name, short_description FROM products WHERE slug = ? OR slug = ?', [slug, normSlug]);
     if (rows && rows.length > 0) {
       const product = rows[0];
       return {
@@ -254,7 +255,7 @@ export async function generateMetadata({ params }) {
     console.error('Error generating product metadata:', e.message);
   }
 
-  const fallbackObj = allFallbackProducts.find(p => p.slug === slug);
+  const fallbackObj = allFallbackProducts.find(p => p.slug === slug || p.slug === normSlug || p.slug.replace(/-sopet-/, '-sopet-vil-') === slug);
   if (fallbackObj) {
     return {
       title: `${fallbackObj.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing, TP.HCM - NGỌC GAS`,
@@ -271,6 +272,7 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductDetailPage({ params }) {
   const { slug } = await params;
+  const normSlug = slug.replace(/-sopet-vil-/g, '-sopet-');
 
   let product = null;
   let relatedProducts = [];
@@ -280,8 +282,8 @@ export default async function ProductDetailPage({ params }) {
       SELECT p.*, c.name AS category_name 
       FROM products p 
       LEFT JOIN categories c ON p.category_id = c.id 
-      WHERE p.slug = ? AND p.is_active = 1
-    `, [slug]);
+      WHERE (p.slug = ? OR p.slug = ?) AND p.is_active = 1
+    `, [slug, normSlug]);
 
     if (prodRows && prodRows.length > 0) {
       product = prodRows[0];
@@ -292,7 +294,7 @@ export default async function ProductDetailPage({ params }) {
 
   // Fallback to default product list if DB is offline or slug missing in DB
   if (!product) {
-    const foundFallback = allFallbackProducts.find(p => p.slug === slug);
+    const foundFallback = allFallbackProducts.find(p => p.slug === slug || p.slug === normSlug || p.slug.replace(/-sopet-/, '-sopet-vil-') === slug);
     if (foundFallback) {
       product = {
         ...foundFallback,
@@ -304,7 +306,7 @@ export default async function ProductDetailPage({ params }) {
   }
 
   // Enforce humanized Keyword Trust SEO Article structure for maximum Google ranking authority
-  const foundFallback = allFallbackProducts.find(p => p.slug === slug);
+  const foundFallback = allFallbackProducts.find(p => p.slug === product.slug || p.slug === normSlug || p.slug.replace(/-sopet-/, '-sopet-vil-') === slug);
   if (foundFallback && (!product.description || product.description.length < 300)) {
     product.description = foundFallback.description;
   }
@@ -330,7 +332,7 @@ export default async function ProductDetailPage({ params }) {
   } catch (e) {}
 
   if (!relatedProducts || relatedProducts.length === 0) {
-    relatedProducts = allFallbackProducts.filter(p => p.slug !== slug).slice(0, 3);
+    relatedProducts = allFallbackProducts.filter(p => p.slug !== product.slug).slice(0, 3);
   }
 
   // Fetch hotline settings
