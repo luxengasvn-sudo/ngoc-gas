@@ -107,7 +107,7 @@ export default async function HomePage() {
     }
     gasQuery += ` LIMIT 4`;
     const [gasRows] = await db.query(gasQuery);
-    featuredGasProducts = gasRows;
+    featuredGasProducts = gasRows || [];
 
     // Group 2: Other/Accessory Products (Category Name NOT like '%gas%' and Category ID NOT IN 1, 2, 4)
     let otherQuery = `
@@ -126,7 +126,7 @@ export default async function HomePage() {
     }
     otherQuery += ` LIMIT 4`;
     const [otherRows] = await db.query(otherQuery);
-    featuredOtherProducts = otherRows;
+    featuredOtherProducts = otherRows || [];
 
     // 3. Fetch posts
     const [postRows] = await db.query(`
@@ -135,9 +135,29 @@ export default async function HomePage() {
       ORDER BY created_at DESC 
       LIMIT 3
     `);
-    latestPosts = postRows;
+    latestPosts = postRows || [];
   } catch (error) {
     console.error('Error fetching homepage data:', error);
+  }
+
+  // Fallback products if DB is empty
+  const allFallback = [
+    { id: 1, name: 'Bình Gas Sopet Vil 12kg (Xám)', slug: 'binh-gas-sopet-vil-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An & VietSing. Bình gas Sopet Vil 12kg xám tiêu chuẩn chính hãng, lửa xanh tiết kiệm.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xam.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 2, name: 'Bình Gas Sopet Vil 12kg (Xanh Đen)', slug: 'binh-gas-sopet-vil-12kg-xanh-den', short_description: 'Dịch vụ giao gas nhanh tại Thuận An & VietSing. Bình gas Sopet Vil 12kg vỏ xanh đen cao cấp, kiểm định an toàn PCCC.', price: 425000, sale_price: 400000, image_url: '/images/sopet-xanh-den.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 3, name: 'Bình Gas Sopet Vil 12kg (Xanh)', slug: 'binh-gas-sopet-vil-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Sopet Vil 12kg vỏ xanh tiêu chuẩn gia đình.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xanh.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 4, name: 'Bình Gas Sopet Vil 12kg (Đỏ)', slug: 'binh-gas-sopet-vil-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An. Bình gas Sopet Vil 12kg vỏ đỏ chính hãng, an toàn tuyệt đối.', price: 430000, sale_price: 405000, image_url: '/images/sopet.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 5, name: 'Bình Gas Phoenix Gas 12kg (Xám)', slug: 'binh-gas-phoenix-gas-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & Thuận An. Bình gas Phoenix 12kg vỏ xám tiết kiệm cho hộ gia đình.', price: 410000, sale_price: 385000, image_url: '/images/phoenix-xam.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 6, name: 'Bình Gas Phoenix Gas 12kg (Xanh)', slug: 'binh-gas-phoenix-gas-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại KDC VietSing. Bình gas Phoenix 12kg vỏ xanh lá chính hãng Phoenix Gas.', price: 415000, sale_price: 390000, image_url: '/images/phoenix-lg-xanh.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 7, name: 'Bình Gas Phoenix Gas 12kg (Đỏ)', slug: 'binh-gas-phoenix-gas-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Phoenix 12kg vỏ đỏ nổi bật, áp suất ổn định.', price: 420000, sale_price: 395000, image_url: '/images/phoenix-do.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 8, name: 'Bình Gas Luxen Gas 12kg', slug: 'binh-gas-luxen-gas-12kg', short_description: 'Dịch vụ giao gas nhanh tại VietSing & Thuận An. Bình gas Luxen Gas 12kg chất lượng cao, vỏ bình chịu lực tiêu chuẩn.', price: 420000, sale_price: 395000, image_url: '/images/luxen-gas.png', category_id: 1, is_featured: 1, is_active: 1 },
+    { id: 9, name: 'Bình Gas Luxen Gas 45kg (Công Nghiệp)', slug: 'binh-gas-luxen-gas-45kg-cong-nghiep', short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1 & Dĩ An. Bình gas công nghiệp Luxen 45kg chuyên dùng cho Nhà hàng, Bếp ăn.', price: 1550000, sale_price: 1450000, image_url: '/images/luxen-45.png', category_id: 1, is_featured: 1, is_active: 1 }
+  ];
+
+  if (!featuredGasProducts || featuredGasProducts.length === 0) {
+    featuredGasProducts = allFallback.slice(0, 4);
+  }
+  if (!featuredOtherProducts || featuredOtherProducts.length === 0) {
+    featuredOtherProducts = allFallback.slice(4, 8);
   }
 
   const rawPhone = settings.phone.replace(/[^0-9]/g, '');
