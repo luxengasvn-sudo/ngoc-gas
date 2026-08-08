@@ -12,8 +12,8 @@ export default function GasPriceWidget({ products = [] }) {
   const displayGasItems = products.length > 0
     ? products.filter(p => p.category_id === 1 || p.name.toLowerCase().includes('gas') || p.name.toLowerCase().includes('bình')).slice(0, 4)
     : [
-        { id: 1, name: 'Bình Gas Sopet Vil 12kg (Xám)', price: 420000, sale_price: 395000, slug: 'binh-gas-sopet-vil-12kg-xam' },
-        { id: 2, name: 'Bình Gas Sopet Vil 12kg (Đỏ)', price: 430000, sale_price: 405000, slug: 'binh-gas-sopet-vil-12kg-do' },
+        { id: 1, name: 'Bình Gas Sopet 12kg (Xám)', price: 420000, sale_price: 395000, slug: 'binh-gas-sopet-12kg-xam' },
+        { id: 2, name: 'Bình Gas Sopet 12kg (Đỏ)', price: 430000, sale_price: 405000, slug: 'binh-gas-sopet-12kg-do' },
         { id: 3, name: 'Bình Gas 12kg Van Khè (Công Nghiệp)', price: 450000, sale_price: 420000, slug: 'binh-gas-12kg-van-khe' },
         { id: 4, name: 'Bình Gas Bò 45kg (Cho Nhà Hàng/Quán Ăn)', price: 1550000, sale_price: 1450000, slug: 'binh-gas-45kg-bo' },
       ];
