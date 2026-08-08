@@ -1414,40 +1414,6 @@ export default function AdminSettingsPage() {
                   )}
                 </CollapsibleSection>
 
-                {/* Section 0: Banner Hero & Hoạt cảnh giao gas */}
-                <CollapsibleSection
-                  id="home_hero_anim"
-                  title="Khối Banner Hero & Hoạt cảnh giao gas"
-                  isOpen={!!openSections.home_hero_anim}
-                  onToggle={() => toggleSection('home_hero_anim')}
-                >
-                  <div className="settings-grid-2">
-                    <div className="form-card-sub-new">
-                      <strong className="sub-card-header-new">Trạng thái 1: Khách gọi điện</strong>
-                      <div className="form-group">
-                        <label className="form-label-new">Tiêu đề thông báo gọi điện</label>
-                        <input type="text" name="hero_call_title" className="form-control-new" value={settings.hero_call_title} onChange={handleChange} placeholder="vd: Khách gọi đặt gas..." />
-                      </div>
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Nội dung chi tiết (Tên bình gas)</label>
-                        <input type="text" name="hero_call_desc" className="form-control-new" value={settings.hero_call_desc} onChange={handleChange} placeholder="vd: Bình Ngọc Gas 12kg Xám" />
-                      </div>
-                    </div>
-
-                    <div className="form-card-sub-new">
-                      <strong className="sub-card-header-new">Trạng thái 2: Đang đi giao gas</strong>
-                      <div className="form-group">
-                        <label className="form-label-new">Tiêu đề thông báo giao gas</label>
-                        <input type="text" name="hero_delivery_title" className="form-control-new" value={settings.hero_delivery_title} onChange={handleChange} placeholder="vd: Đang giao gas..." />
-                      </div>
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Nội dung chi tiết (Thời gian dự kiến)</label>
-                        <input type="text" name="hero_delivery_desc" className="form-control-new" value={settings.hero_delivery_desc} onChange={handleChange} placeholder="vd: Dự kiến đến trong 15 phút" />
-                      </div>
-                    </div>
-                  </div>
-                </CollapsibleSection>
-
                 {/* Sắp xếp thứ tự hiển thị các khối */}
                 <CollapsibleSection
                   id="home_order"
