@@ -87,6 +87,89 @@ export default function AdminSettingsPage() {
   const [activeTab, setActiveTab] = useState('general'); // general | homepage | about
   const [allProducts, setAllProducts] = useState([]);
 
+  // Price History & Notes Management State
+  const [priceHistoryList, setPriceHistoryList] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+  const [newPriceEntry, setNewPriceEntry] = useState({
+    gas_type: 'luxen-12kg',
+    effective_month: `Tháng ${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
+    price: 420000,
+    sale_price: 395000,
+    change_type: 'same',
+    change_amount: 0,
+    notes: ''
+  });
+
+  const fetchPriceHistory = async () => {
+    setLoadingHistory(true);
+    try {
+      const res = await fetch('/api/gas-price-history');
+      const data = await res.json();
+      if (data.success) {
+        setPriceHistoryList(data.data);
+      }
+    } catch (e) {
+      console.error('Error fetching price history:', e);
+    } finally {
+      setLoadingHistory(false);
+    }
+  };
+
+  const handleAddPriceEntry = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    try {
+      const gasNameMap = {
+        'luxen-12kg': 'Gas Cao Cấp 12kg (Luxen Gas)',
+        'phothong-12kg': 'Gas Phổ Thông 12kg (Sopet & Phoenix)',
+        'congnghiep-45kg': 'Gas Công Nghiệp 45kg (Luxen 45kg)'
+      };
+
+      const res = await fetch('/api/gas-price-history', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          ...newPriceEntry,
+          gas_name: gasNameMap[newPriceEntry.gas_type] || 'Gas Dân Dụng 12kg'
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSuccess('Đã lưu nhật ký và ghi chú điều chỉnh giá gas thành công!');
+        fetchPriceHistory();
+        setNewPriceEntry(prev => ({ ...prev, notes: '' }));
+        setTimeout(() => setSuccess(''), 3000);
+      } else {
+        setError(data.message || 'Lỗi thêm nhật ký giá');
+      }
+    } catch (err) {
+      setError('Lỗi kết nối khi lưu nhật ký giá');
+    }
+  };
+
+  const handleDeletePriceEntry = async (id) => {
+    if (!window.confirm('Bạn có chắc muốn xóa dòng nhật ký lịch sử giá này?')) return;
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    try {
+      const res = await fetch(`/api/gas-price-history?id=${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccess('Đã xóa dòng nhật ký giá.');
+        fetchPriceHistory();
+        setTimeout(() => setSuccess(''), 3000);
+      }
+    } catch (err) {
+      setError('Lỗi khi xóa nhật ký giá');
+    }
+  };
+
   const [settings, setSettings] = useState({
     // Promo announcement bar
     show_promo_bar: '0',
@@ -308,6 +391,7 @@ export default function AdminSettingsPage() {
     };
 
     fetchSettings();
+    fetchPriceHistory();
   }, []);
 
   const getFeaturesList = () => {
@@ -1507,18 +1591,144 @@ export default function AdminSettingsPage() {
                     </label>
                   )}
                 >
+                  <div className="form-card-sub-new" style={{ marginBottom: '20px' }}>
+                    <strong className="sub-card-header-new">➕ Thêm Nhật Ký & Ghi Chú Biến Động Giá Mới</strong>
+                    <form onSubmit={handleAddPriceEntry} style={{ marginTop: '12px' }}>
+                      <div className="settings-grid-2" style={{ marginBottom: '12px' }}>
+                        <div className="form-group">
+                          <label className="form-label-new">Chủng loại Gas</label>
+                          <select 
+                            className="form-control-new" 
+                            value={newPriceEntry.gas_type}
+                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, gas_type: e.target.value }))}
+                          >
+                            <option value="luxen-12kg">Gas Cao Cấp 12kg (Luxen Gas)</option>
+                            <option value="phothong-12kg">Gas Phổ Thông 12kg (Sopet & Phoenix)</option>
+                            <option value="congnghiep-45kg">Gas Công Nghiệp 45kg (Luxen 45kg)</option>
+                          </select>
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label-new">Thời gian áp dụng (Tháng/Năm)</label>
+                          <input 
+                            type="text" 
+                            className="form-control-new" 
+                            value={newPriceEntry.effective_month}
+                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, effective_month: e.target.value }))}
+                            placeholder="vd: Tháng 9/2026"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="settings-grid-3" style={{ marginBottom: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                        <div className="form-group">
+                          <label className="form-label-new">Giá bán niêm yết (VNĐ)</label>
+                          <input 
+                            type="number" 
+                            className="form-control-new" 
+                            value={newPriceEntry.sale_price}
+                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, sale_price: e.target.value, price: e.target.value }))}
+                            placeholder="vd: 395000"
+                            required
+                          />
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label-new">Biến động giá</label>
+                          <select 
+                            className="form-control-new" 
+                            value={newPriceEntry.change_type}
+                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, change_type: e.target.value }))}
+                          >
+                            <option value="up">🔺 Tăng giá (+)</option>
+                            <option value="down">🔻 Giảm giá (-)</option>
+                            <option value="same">➖ Giữ nguyên giá</option>
+                          </select>
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label-new">Mức tăng/giảm (VNĐ)</label>
+                          <input 
+                            type="number" 
+                            className="form-control-new" 
+                            value={newPriceEntry.change_amount}
+                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, change_amount: e.target.value }))}
+                            placeholder="vd: 5000"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="form-group" style={{ marginBottom: '16px' }}>
+                        <label className="form-label-new">📝 Ghi chú điều chỉnh giá (Hiển thị ngoài trang chủ & modal)</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={newPriceEntry.notes}
+                          onChange={(e) => setNewPriceEntry(prev => ({ ...prev, notes: e.target.value }))}
+                          placeholder="vd: Áp dụng chương trình trợ giá hè / Điều chỉnh nhẹ theo giá CP thế giới..."
+                        />
+                      </div>
+
+                      <button type="submit" className="btn-primary-new" style={{ padding: '8px 18px', fontSize: '13px' }}>
+                        <Plus size={14} />
+                        <span>Lưu Nhật Ký & Ghi Chú Mới</span>
+                      </button>
+                    </form>
+                  </div>
+
                   <div className="form-card-sub-new">
-                    <strong className="sub-card-header-new">📝 Nhật ký điều chỉnh giá gas tự động</strong>
-                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
-                      Khi bạn cập nhật giá bán mới của các sản phẩm bình gas trong mục <strong>Quản lý Sản phẩm</strong>, hệ thống sẽ tự động cập nhật mức giá thấp nhất lên Bảng Giá Niêm Yết và vẽ biểu đồ tăng/giảm giá theo thời gian.
-                    </p>
-                    <div style={{ padding: '12px 16px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-                      <span style={{ fontSize: '13px', fontWeight: '700', color: '#0F172A' }}>💡 Tính năng nổi bật:</span>
-                      <ul style={{ margin: '6px 0 0 18px', padding: 0, fontSize: '13px', color: '#475569', lineHeight: 1.6 }}>
-                        <li>Tự động phân nhóm 3 loại: <strong>Gas Cao Cấp 12kg (Luxen)</strong>, <strong>Gas Phổ Thông 12kg (Sopet/Phoenix)</strong>, <strong>Gas Công Nghiệp 45kg</strong>.</li>
-                        <li>Hiển thị biểu đồ dạng đường SVG ngoài trang chủ khi khách bấm <em>"Xem Lịch Sử Biến Động Giá"</em>.</li>
-                        <li>Minh bạch lịch sử biến động đ/bình qua các tháng tạo độ tin cậy tuyệt đối cho khách hàng.</li>
-                      </ul>
+                    <strong className="sub-card-header-new">📋 Danh sách Nhật ký & Ghi chú giá gas hiện tại</strong>
+                    <div style={{ overflowX: 'auto', marginTop: '12px' }}>
+                      <table className="admin-table-new" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                        <thead>
+                          <tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
+                            <th style={{ padding: '10px' }}>Tháng</th>
+                            <th style={{ padding: '10px' }}>Loại Gas</th>
+                            <th style={{ padding: '10px' }}>Giá Bán</th>
+                            <th style={{ padding: '10px' }}>Biến Động</th>
+                            <th style={{ padding: '10px' }}>Ghi Chú</th>
+                            <th style={{ padding: '10px', textAlign: 'center' }}>Thao tác</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {priceHistoryList && priceHistoryList.length > 0 ? (
+                            [...priceHistoryList].reverse().map(item => (
+                              <tr key={item.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                                <td style={{ padding: '10px', fontWeight: '700' }}>{item.effective_month}</td>
+                                <td style={{ padding: '10px' }}>{item.gas_name}</td>
+                                <td style={{ padding: '10px', fontWeight: '700', color: '#E11D48' }}>
+                                  {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.sale_price || item.price)}
+                                </td>
+                                <td style={{ padding: '10px' }}>
+                                  {item.change_type === 'up' ? (
+                                    <span style={{ color: '#E11D48', fontWeight: '700' }}>🔺 +{item.change_amount?.toLocaleString()}đ</span>
+                                  ) : item.change_type === 'down' ? (
+                                    <span style={{ color: '#059669', fontWeight: '700' }}>🔻 -{Math.abs(item.change_amount)?.toLocaleString()}đ</span>
+                                  ) : (
+                                    <span style={{ color: '#64748B' }}>➖ Giữ giá</span>
+                                  )}
+                                </td>
+                                <td style={{ padding: '10px', color: '#475569' }}>{item.notes || '—'}</td>
+                                <td style={{ padding: '10px', textAlign: 'center' }}>
+                                  <button 
+                                    type="button" 
+                                    onClick={() => handleDeletePriceEntry(item.id)}
+                                    style={{ background: 'none', border: 'none', color: '#E11D48', cursor: 'pointer' }}
+                                    title="Xóa nhật ký này"
+                                  >
+                                    <Trash2 size={16} />
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan="6" style={{ padding: '20px', textAlign: 'center', color: '#94A3B8' }}>Chưa có dữ liệu nhật ký giá.</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </CollapsibleSection>

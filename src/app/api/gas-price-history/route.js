@@ -4,7 +4,7 @@ import { verifyToken } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
-const defaultPriceHistory = [
+let defaultPriceHistory = [
   // Gas Cao Cấp 12kg (Luxen Gas)
   { id: 1, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 410000, sale_price: 380000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: 'Ổn định giá đầu vụ' },
   { id: 2, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 415000, sale_price: 385000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 4/2026', notes: 'Điều chỉnh nhẹ theo thị trường CP thế giới' },
@@ -88,25 +88,73 @@ export async function POST(request) {
       return NextResponse.json({ success: false, message: 'Thông tin biến động giá thiếu các trường bắt buộc' }, { status: 400 });
     }
 
+    const newObj = {
+      id: Date.now(),
+      gas_type,
+      gas_name: gas_name || (gas_type === 'luxen-12kg' ? 'Gas Cao Cấp 12kg (Luxen Gas)' : gas_type === 'phothong-12kg' ? 'Gas Phổ Thông 12kg (Sopet & Phoenix)' : 'Gas Công Nghiệp 45kg (Luxen 45kg)'),
+      price: Number(price),
+      sale_price: Number(sale_price || price),
+      change_type: change_type || 'same',
+      change_amount: Number(change_amount || 0),
+      effective_month,
+      notes: notes || ''
+    };
+
     try {
       const [result] = await db.query(
         `INSERT INTO gas_price_history (gas_type, gas_name, price, sale_price, change_type, change_amount, effective_month, notes)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [gas_type, gas_name, price, sale_price || price, change_type || 'same', change_amount || 0, effective_month, notes || '']
+        [newObj.gas_type, newObj.gas_name, newObj.price, newObj.sale_price, newObj.change_type, newObj.change_amount, newObj.effective_month, newObj.notes]
       );
 
-      return NextResponse.json({
-        success: true,
-        data: { id: result.insertId, ...body }
-      });
+      if (result && result.insertId) {
+        newObj.id = result.insertId;
+      }
     } catch (dbErr) {
-      return NextResponse.json({
-        success: true,
-        data: { id: Date.now(), ...body }
-      });
+      console.error('DB Insert error in POST /api/gas-price-history:', dbErr.message);
     }
+
+    defaultPriceHistory.push(newObj);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Đã thêm nhật ký biến động giá thành công',
+      data: newObj
+    });
   } catch (error) {
     console.error('POST /api/gas-price-history error:', error);
     return NextResponse.json({ success: false, message: 'Lỗi server khi ghi lịch sử giá' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.split(' ')[1];
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return NextResponse.json({ success: false, message: 'Không có quyền truy cập' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ success: false, message: 'Thiếu ID nhật ký giá' }, { status: 400 });
+    }
+
+    try {
+      await db.query(`DELETE FROM gas_price_history WHERE id = ?`, [id]);
+    } catch (e) {}
+
+    defaultPriceHistory = defaultPriceHistory.filter(item => String(item.id) !== String(id));
+
+    return NextResponse.json({
+      success: true,
+      message: 'Đã xóa nhật ký giá thành công'
+    });
+  } catch (error) {
+    console.error('DELETE /api/gas-price-history error:', error);
+    return NextResponse.json({ success: false, message: 'Lỗi server khi xóa nhật ký giá' }, { status: 500 });
   }
 }
