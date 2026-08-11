@@ -1659,26 +1659,15 @@ export default function AdminSettingsPage() {
                         </div>
                       </div>
 
-                      <div className="form-group" style={{ marginBottom: '16px' }}>
-                        <label className="form-label-new">📝 Ghi chú điều chỉnh giá (Hiển thị ngoài trang chủ & modal)</label>
-                        <input 
-                          type="text" 
-                          className="form-control-new" 
-                          value={newPriceEntry.notes}
-                          onChange={(e) => setNewPriceEntry(prev => ({ ...prev, notes: e.target.value }))}
-                          placeholder="vd: Áp dụng chương trình trợ giá hè / Điều chỉnh nhẹ theo giá CP thế giới..."
-                        />
-                      </div>
-
                       <button type="submit" className="btn-primary-new" style={{ padding: '8px 18px', fontSize: '13px' }}>
                         <Plus size={14} />
-                        <span>Lưu Nhật Ký & Ghi Chú Mới</span>
+                        <span>Lưu Nhật Ký Giá Mới</span>
                       </button>
                     </form>
                   </div>
 
                   <div className="form-card-sub-new">
-                    <strong className="sub-card-header-new">📋 Danh sách Nhật ký & Ghi chú giá gas hiện tại</strong>
+                    <strong className="sub-card-header-new">📋 Danh sách Nhật ký biến động giá gas hiện tại</strong>
                     <div style={{ overflowX: 'auto', marginTop: '12px' }}>
                       <table className="admin-table-new" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                         <thead>
@@ -1687,7 +1676,6 @@ export default function AdminSettingsPage() {
                             <th style={{ padding: '10px' }}>Loại Gas</th>
                             <th style={{ padding: '10px' }}>Giá Bán</th>
                             <th style={{ padding: '10px' }}>Biến Động</th>
-                            <th style={{ padding: '10px' }}>Ghi Chú</th>
                             <th style={{ padding: '10px', textAlign: 'center' }}>Thao tác</th>
                           </tr>
                         </thead>
@@ -1709,7 +1697,6 @@ export default function AdminSettingsPage() {
                                     <span style={{ color: '#64748B' }}>➖ Giữ giá</span>
                                   )}
                                 </td>
-                                <td style={{ padding: '10px', color: '#475569' }}>{item.notes || '—'}</td>
                                 <td style={{ padding: '10px', textAlign: 'center' }}>
                                   <button 
                                     type="button" 
@@ -1724,7 +1711,7 @@ export default function AdminSettingsPage() {
                             ))
                           ) : (
                             <tr>
-                              <td colSpan="6" style={{ padding: '20px', textAlign: 'center', color: '#94A3B8' }}>Chưa có dữ liệu nhật ký giá.</td>
+                              <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#94A3B8' }}>Chưa có dữ liệu nhật ký giá.</td>
                             </tr>
                           )}
                         </tbody>

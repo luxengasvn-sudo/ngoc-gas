@@ -478,12 +478,6 @@ export default function GasPriceWidget({ products = [] }) {
                               <strong className="timeline-price-num">{formatVND(item.sale_price || item.price)}</strong>
                             </div>
                           </div>
-
-                          {item.notes && (
-                            <div className="timeline-card-note">
-                              💡 <em>{item.notes}</em>
-                            </div>
-                          )}
                         </div>
                       );
                     })
@@ -505,7 +499,6 @@ export default function GasPriceWidget({ products = [] }) {
                       <th>Loại Gas</th>
                       <th style={{ textAlign: 'right' }}>Giá Khuyến Mãi</th>
                       <th style={{ textAlign: 'center' }}>Biến động</th>
-                      <th>Ghi chú điều chỉnh</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -542,13 +535,12 @@ export default function GasPriceWidget({ products = [] }) {
                                 </span>
                               )}
                             </td>
-                            <td style={{ fontSize: '13px', color: '#64748B' }}>{item.notes || '—'}</td>
                           </tr>
                         );
                       })
                     ) : (
                       <tr>
-                        <td colSpan="5" style={{ textAlign: 'center', padding: '30px 0', color: '#94A3B8' }}>
+                        <td colSpan="4" style={{ textAlign: 'center', padding: '30px 0', color: '#94A3B8' }}>
                           Chưa có nhật ký giá cho loại gas này.
                         </td>
                       </tr>

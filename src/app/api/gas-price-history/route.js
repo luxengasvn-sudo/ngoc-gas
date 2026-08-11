@@ -6,28 +6,28 @@ export const dynamic = 'force-dynamic';
 
 let defaultPriceHistory = [
   // Gas Cao Cấp 12kg (Luxen Gas)
-  { id: 1, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 410000, sale_price: 380000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: 'Ổn định giá đầu vụ' },
-  { id: 2, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 415000, sale_price: 385000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 4/2026', notes: 'Điều chỉnh nhẹ theo thị trường CP thế giới' },
-  { id: 3, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 410000, sale_price: 380000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 5/2026', notes: 'Giảm giá hỗ trợ người tiêu dùng' },
-  { id: 4, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 420000, sale_price: 390000, change_type: 'up', change_amount: 10000, effective_month: 'Tháng 6/2026', notes: 'Biến động nhẹ đợt giữa năm' },
-  { id: 5, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 425000, sale_price: 395000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 7/2026', notes: 'Giá gas thế giới tăng' },
-  { id: 6, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 420000, sale_price: 390000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 8/2026', notes: 'Áp dụng chương trình trợ giá hè' },
+  { id: 1, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 410000, sale_price: 380000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: '' },
+  { id: 2, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 415000, sale_price: 385000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 4/2026', notes: '' },
+  { id: 3, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 410000, sale_price: 380000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 5/2026', notes: '' },
+  { id: 4, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 420000, sale_price: 390000, change_type: 'up', change_amount: 10000, effective_month: 'Tháng 6/2026', notes: '' },
+  { id: 5, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 425000, sale_price: 395000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 7/2026', notes: '' },
+  { id: 6, gas_type: 'luxen-12kg', gas_name: 'Gas Cao Cấp 12kg (Luxen Gas)', price: 420000, sale_price: 390000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 8/2026', notes: '' },
 
   // Gas Phổ Thông 12kg (Sopet & Phoenix)
-  { id: 7, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 400000, sale_price: 375000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: 'Ổn định giá đun nấu' },
-  { id: 8, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 405000, sale_price: 380000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 4/2026', notes: 'Tăng nhẹ theo giá thế giới' },
-  { id: 9, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 400000, sale_price: 375000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 5/2026', notes: 'Giảm giá kích cầu' },
-  { id: 10, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 410000, sale_price: 385000, change_type: 'up', change_amount: 10000, effective_month: 'Tháng 6/2026', notes: 'Điều chỉnh định kỳ' },
-  { id: 11, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 415000, sale_price: 390000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 7/2026', notes: 'Chi phí vận chuyển tăng nhẹ' },
-  { id: 12, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 410000, sale_price: 385000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 8/2026', notes: 'Giảm giá niêm yết tháng 8' },
+  { id: 7, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 400000, sale_price: 375000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: '' },
+  { id: 8, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 405000, sale_price: 380000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 4/2026', notes: '' },
+  { id: 9, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 400000, sale_price: 375000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 5/2026', notes: '' },
+  { id: 10, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 410000, sale_price: 385000, change_type: 'up', change_amount: 10000, effective_month: 'Tháng 6/2026', notes: '' },
+  { id: 11, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 415000, sale_price: 390000, change_type: 'up', change_amount: 5000, effective_month: 'Tháng 7/2026', notes: '' },
+  { id: 12, gas_type: 'phothong-12kg', gas_name: 'Gas Phổ Thông 12kg (Sopet & Phoenix)', price: 410000, sale_price: 385000, change_type: 'down', change_amount: -5000, effective_month: 'Tháng 8/2026', notes: '' },
 
   // Gas Công Nghiệp 45kg (Luxen 45kg)
-  { id: 13, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1480000, sale_price: 1390000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: 'Giá hỗ trợ KCN' },
-  { id: 14, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1500000, sale_price: 1410000, change_type: 'up', change_amount: 20000, effective_month: 'Tháng 4/2026', notes: 'Điều chỉnh theo tỷ giá' },
-  { id: 15, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1480000, sale_price: 1390000, change_type: 'down', change_amount: -20000, effective_month: 'Tháng 5/2026', notes: 'Ưu đãi hợp đồng dài hạn' },
-  { id: 16, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1520000, sale_price: 1420000, change_type: 'up', change_amount: 30000, effective_month: 'Tháng 6/2026', notes: 'Biến động thị trường CP' },
-  { id: 17, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1560000, sale_price: 1460000, change_type: 'up', change_amount: 40000, effective_month: 'Tháng 7/2026', notes: 'Nhu cầu cao điểm hè' },
-  { id: 18, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1540000, sale_price: 1440000, change_type: 'down', change_amount: -20000, effective_month: 'Tháng 8/2026', notes: 'Giảm trợ giá cho nhà hàng' }
+  { id: 13, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1480000, sale_price: 1390000, change_type: 'same', change_amount: 0, effective_month: 'Tháng 3/2026', notes: '' },
+  { id: 14, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1500000, sale_price: 1410000, change_type: 'up', change_amount: 20000, effective_month: 'Tháng 4/2026', notes: '' },
+  { id: 15, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1480000, sale_price: 1390000, change_type: 'down', change_amount: -20000, effective_month: 'Tháng 5/2026', notes: '' },
+  { id: 16, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1520000, sale_price: 1420000, change_type: 'up', change_amount: 30000, effective_month: 'Tháng 6/2026', notes: '' },
+  { id: 17, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1560000, sale_price: 1460000, change_type: 'up', change_amount: 40000, effective_month: 'Tháng 7/2026', notes: '' },
+  { id: 18, gas_type: 'congnghiep-45kg', gas_name: 'Gas Công Nghiệp 45kg (Luxen 45kg)', price: 1540000, sale_price: 1440000, change_type: 'down', change_amount: -20000, effective_month: 'Tháng 8/2026', notes: '' }
 ];
 
 export async function GET(request) {
