@@ -247,6 +247,28 @@ export default function AdminSettingsPage() {
     home_features_list: '[]',
     home_sections_order: '["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]',
     
+    // Gas Price Card content customization
+    home_gas_price_title: 'BẢNG GIÁ GAS THÁNG {month}/{year}',
+    home_gas_price_subtitle: 'Bảng giá niêm yết chính hãng - Ngọc Gas cam kết giá tốt nhất & hỗ trợ vận chuyển nhanh 15 phút.',
+    gas_card_1_badge: 'CHẤT LƯỢNG CAO',
+    gas_card_1_title: 'Gas Cao Cấp 12kg',
+    gas_card_1_subtitle: 'Thương hiệu Luxen Gas Bình Dương',
+    gas_card_1_feat_1: 'Lửa xanh siêu xoáy & tiết kiệm gas',
+    gas_card_1_feat_2: 'Vỏ bình đúc thép chịu lực chuẩn PCCC',
+    gas_card_1_feat_3: 'Cân đúng 12kg đủ ký tận nhà',
+    gas_card_2_badge: 'TIẾT KIỆM GIA ĐÌNH',
+    gas_card_2_title: 'Gas Phổ Thông 12kg',
+    gas_card_2_subtitle: 'Thương hiệu Sopet & Phoenix Gas',
+    gas_card_2_feat_1: 'Giá mềm tiết kiệm chi phí đun nấu',
+    gas_card_2_feat_2: 'Khí gas lọc sạch không đen đít nồi',
+    gas_card_2_feat_3: 'Cân đúng 12kg đủ ký tận nhà',
+    gas_card_3_badge: 'BÌNH BÒ CÔNG NGHIỆP',
+    gas_card_3_title: 'Gas Công Nghiệp 45kg',
+    gas_card_3_subtitle: 'Chuyên dùng cho Nhà hàng & Bếp ăn KCN',
+    gas_card_3_feat_1: 'Dung tích lớn 45kg đun nấu liên tục',
+    gas_card_3_feat_2: 'Áp suất gas mạnh mẽ cho bếp khè',
+    gas_card_3_feat_3: 'Hỗ trợ kỹ thuật & giao nhận tận nơi',
+    
     // About page content
     about_hero_title: 'Về Ngọc Gas',
     about_hero_desc: 'Hành trình xây dựng thương hiệu gas uy tín, an toàn và tận tâm tại TP. HCM & Bình Dương.',
@@ -1591,8 +1613,235 @@ export default function AdminSettingsPage() {
                     </label>
                   )}
                 >
+                  {/* Card: Chỉnh sửa Nội Dung & Tiêu Đề Bảng Giá Gas */}
                   <div className="form-card-sub-new" style={{ marginBottom: '20px' }}>
-                    <strong className="sub-card-header-new">➕ Thêm Nhật Ký & Ghi Chú Biến Động Giá Mới</strong>
+                    <strong className="sub-card-header-new">✏️ Chỉnh Sửa Tiêu Đề & Nội Dung Từng Dòng Giá Gas</strong>
+                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+                      Tại đây bạn có thể tùy chỉnh tiêu đề khối, nhãn góc thẻ, tên gọi từng dòng gas, phụ đề thương hiệu và các dòng ưu điểm nổi bật ngoài trang chủ.
+                    </p>
+
+                    {/* Tiêu đề chung */}
+                    <div className="settings-grid-2" style={{ marginBottom: '16px' }}>
+                      <div className="form-group">
+                        <label className="form-label-new">Tiêu đề chính khối bảng giá</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_gas_price_title || 'BẢNG GIÁ GAS THÁNG {month}/{year}'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_gas_price_title: e.target.value }))}
+                          placeholder="vd: BẢNG GIÁ GAS THÁNG {month}/{year}"
+                        />
+                        <span style={{ fontSize: '11px', color: '#64748B', marginTop: '2px', display: 'block' }}>Dùng {'{month}'} và {'{year}'} để tự động hiện tháng/năm hiện tại.</span>
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label-new">Mô tả phụ bên dưới tiêu đề</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_gas_price_subtitle || 'Bảng giá niêm yết chính hãng - Ngọc Gas cam kết giá tốt nhất & hỗ trợ vận chuyển nhanh 15 phút.'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_gas_price_subtitle: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Từng mục / Thẻ giá gas */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '16px' }}>
+                      
+                      {/* Thẻ 1 */}
+                      <div style={{ padding: '14px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                        <strong style={{ fontSize: '14px', color: '#FF6B00', display: 'block', marginBottom: '10px' }}>🔥 1. Mục 1: Gas Cao Cấp 12kg (Luxen Gas)</strong>
+                        <div className="settings-grid-3" style={{ marginBottom: '10px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                          <div className="form-group">
+                            <label className="form-label-new">Nhãn góc thẻ</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_1_badge || 'CHẤT LƯỢNG CAO'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_1_badge: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Tên dòng gas</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_1_title || 'Gas Cao Cấp 12kg'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_1_title: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Phụ đề thương hiệu</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_1_subtitle || 'Thương hiệu Luxen Gas Bình Dương'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_1_subtitle: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 1</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_1_feat_1 || 'Lửa xanh siêu xoáy & tiết kiệm gas'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_1_feat_1: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 2</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_1_feat_2 || 'Vỏ bình đúc thép chịu lực chuẩn PCCC'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_1_feat_2: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 3</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_1_feat_3 || 'Cân đúng 12kg đủ ký tận nhà'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_1_feat_3: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Thẻ 2 */}
+                      <div style={{ padding: '14px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                        <strong style={{ fontSize: '14px', color: '#10B981', display: 'block', marginBottom: '10px' }}>🟢 2. Mục 2: Gas Phổ Thông 12kg (Sopet & Phoenix)</strong>
+                        <div className="settings-grid-3" style={{ marginBottom: '10px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                          <div className="form-group">
+                            <label className="form-label-new">Nhãn góc thẻ</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_2_badge || 'TIẾT KIỆM GIA ĐÌNH'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_2_badge: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Tên dòng gas</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_2_title || 'Gas Phổ Thông 12kg'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_2_title: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Phụ đề thương hiệu</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_2_subtitle || 'Thương hiệu Sopet & Phoenix Gas'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_2_subtitle: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 1</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_2_feat_1 || 'Giá mềm tiết kiệm chi phí đun nấu'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_2_feat_1: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 2</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_2_feat_2 || 'Khí gas lọc sạch không đen đít nồi'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_2_feat_2: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 3</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_2_feat_3 || 'Cân đúng 12kg đủ ký tận nhà'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_2_feat_3: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Thẻ 3 */}
+                      <div style={{ padding: '14px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                        <strong style={{ fontSize: '14px', color: '#6366F1', display: 'block', marginBottom: '10px' }}>🟣 3. Mục 3: Gas Công Nghiệp 45kg (Luxen 45kg)</strong>
+                        <div className="settings-grid-3" style={{ marginBottom: '10px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                          <div className="form-group">
+                            <label className="form-label-new">Nhãn góc thẻ</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_3_badge || 'BÌNH BÒ CÔNG NGHIỆP'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_3_badge: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Tên dòng gas</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_3_title || 'Gas Công Nghiệp 45kg'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_3_title: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Phụ đề thương hiệu</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_3_subtitle || 'Chuyên dùng cho Nhà hàng & Bếp ăn KCN'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_3_subtitle: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 1</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_3_feat_1 || 'Dung tích lớn 45kg đun nấu liên tục'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_3_feat_1: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 2</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_3_feat_2 || 'Áp suất gas mạnh mẽ cho bếp khè'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_3_feat_2: e.target.value }))}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label-new">Ưu điểm 3</label>
+                            <input 
+                              type="text" 
+                              className="form-control-new" 
+                              value={settings.gas_card_3_feat_3 || 'Hỗ trợ kỹ thuật & giao nhận tận nơi'}
+                              onChange={(e) => setSettings(prev => ({ ...prev, gas_card_3_feat_3: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div className="form-card-sub-new" style={{ marginBottom: '20px' }}>
+                    <strong className="sub-card-header-new">➕ Thêm Nhật Ký Biến Động Giá Mới</strong>
                     <form onSubmit={handleAddPriceEntry} style={{ marginTop: '12px' }}>
                       <div className="settings-grid-2" style={{ marginBottom: '12px' }}>
                         <div className="form-group">

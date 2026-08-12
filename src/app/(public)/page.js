@@ -128,7 +128,7 @@ export default async function HomePage() {
     switch (sectionId) {
       case 'gas-price-widget':
         if (settings.show_home_gas_price === '0') return null;
-        return <GasPriceWidget key="gas-price-widget" />;
+        return <GasPriceWidget key="gas-price-widget" settings={settings} />;
 
       case 'intro-features':
         if (settings.show_home_features === '0') return null;

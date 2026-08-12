@@ -4,10 +4,28 @@ import { useState, useEffect } from 'react';
 import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function GasPriceWidget({ products = [] }) {
+export default function GasPriceWidget({ products = [], settings: initialSettings }) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;
   const currentYear = currentDate.getFullYear();
+
+  // Settings State for dynamic text customization
+  const [settings, setSettings] = useState(initialSettings || {});
+
+  useEffect(() => {
+    if (initialSettings && Object.keys(initialSettings).length > 0) {
+      setSettings(initialSettings);
+    } else {
+      fetch('/api/settings')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.data) {
+            setSettings(data.data);
+          }
+        })
+        .catch(e => {});
+    }
+  }, [initialSettings]);
 
   // State for History Modal & Selected Gas Filter
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
@@ -101,47 +119,47 @@ export default function GasPriceWidget({ products = [] }) {
   const priceCards = [
     {
       id: 'luxen-12kg',
-      badge: 'CHẤT LƯỢNG CAO',
+      badge: settings.gas_card_1_badge || 'CHẤT LƯỢNG CAO',
       badgeColor: '#FF6B00',
-      title: 'Gas Cao Cấp 12kg',
-      subTitle: 'Thương hiệu Luxen Gas Bình Dương',
+      title: settings.gas_card_1_title || 'Gas Cao Cấp 12kg',
+      subTitle: settings.gas_card_1_subtitle || 'Thương hiệu Luxen Gas Bình Dương',
       price: luxen12kg.price,
       sale_price: luxen12kg.sale_price,
       slug: luxen12kg.slug,
       features: [
-        'Lửa xanh siêu xoáy & tiết kiệm gas',
-        'Vỏ bình đúc thép chịu lực chuẩn PCCC',
-        'Cân đúng 12kg đủ ký tận nhà'
+        settings.gas_card_1_feat_1 || 'Lửa xanh siêu xoáy & tiết kiệm gas',
+        settings.gas_card_1_feat_2 || 'Vỏ bình đúc thép chịu lực chuẩn PCCC',
+        settings.gas_card_1_feat_3 || 'Cân đúng 12kg đủ ký tận nhà'
       ]
     },
     {
       id: 'phothong-12kg',
-      badge: 'TIẾT KIỆM GIA ĐÌNH',
+      badge: settings.gas_card_2_badge || 'TIẾT KIỆM GIA ĐÌNH',
       badgeColor: '#10B981',
-      title: 'Gas Phổ Thông 12kg',
-      subTitle: 'Thương hiệu Sopet & Phoenix Gas',
+      title: settings.gas_card_2_title || 'Gas Phổ Thông 12kg',
+      subTitle: settings.gas_card_2_subtitle || 'Thương hiệu Sopet & Phoenix Gas',
       price: phoThong12kg.price,
       sale_price: phoThong12kg.sale_price,
       slug: phoThong12kg.slug,
       features: [
-        'Giá mềm tiết kiệm chi phí đun nấu',
-        'Khí gas lọc sạch không đen đít nồi',
-        'Cân đúng 12kg đủ ký tận nhà'
+        settings.gas_card_2_feat_1 || 'Giá mềm tiết kiệm chi phí đun nấu',
+        settings.gas_card_2_feat_2 || 'Khí gas lọc sạch không đen đít nồi',
+        settings.gas_card_2_feat_3 || 'Cân đúng 12kg đủ ký tận nhà'
       ]
     },
     {
       id: 'congnghiep-45kg',
-      badge: 'BÌNH BÒ CÔNG NGHIỆP',
+      badge: settings.gas_card_3_badge || 'BÌNH BÒ CÔNG NGHIỆP',
       badgeColor: '#6366F1',
-      title: 'Gas Công Nghiệp 45kg',
-      subTitle: 'Chuyên dùng cho Nhà hàng & Bếp ăn KCN',
+      title: settings.gas_card_3_title || 'Gas Công Nghiệp 45kg',
+      subTitle: settings.gas_card_3_subtitle || 'Chuyên dùng cho Nhà hàng & Bếp ăn KCN',
       price: congNghiep45kg.price,
       sale_price: congNghiep45kg.sale_price,
       slug: congNghiep45kg.slug,
       features: [
-        'Dung tích lớn 45kg đun nấu liên tục',
-        'Áp suất gas mạnh mẽ cho bếp khè',
-        'Hỗ trợ kỹ thuật & giao nhận tận nơi'
+        settings.gas_card_3_feat_1 || 'Dung tích lớn 45kg đun nấu liên tục',
+        settings.gas_card_3_feat_2 || 'Áp suất gas mạnh mẽ cho bếp khè',
+        settings.gas_card_3_feat_3 || 'Hỗ trợ kỹ thuật & giao nhận tận nơi'
       ]
     }
   ];
@@ -238,7 +256,7 @@ export default function GasPriceWidget({ products = [] }) {
               </div>
               <div>
                 <span className="price-tag-badge">Bảng Giá Niêm Yết Giá Thấp Nhất</span>
-                <h2>BẢNG GIÁ GAS THÁNG {currentMonth}/{currentYear}</h2>
+                <h2>{(settings.home_gas_price_title || 'BẢNG GIÁ GAS THÁNG {month}/{year}').replace('{month}', currentMonth).replace('{year}', currentYear)}</h2>
               </div>
             </div>
             
