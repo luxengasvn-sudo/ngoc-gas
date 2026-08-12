@@ -2608,7 +2608,7 @@ export default function AdminSettingsPage() {
                         />
                       </div>
                       <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Số Hotline hiển thị trên nút bấm CTA (Mặc định dùng Hotline chung)</label>
+                        <label className="form-label-new">Số Hotline hiển thị trên nút bấm 1 (Mặc định lấy Hotline chung)</label>
                         <input 
                           type="text" 
                           name="home_cta_phone" 
@@ -2618,6 +2618,17 @@ export default function AdminSettingsPage() {
                           placeholder="Để trống sẽ tự dùng hotline chung 1900.9396" 
                         />
                       </div>
+                    </div>
+                    <div className="form-group" style={{ marginTop: '12px', marginBottom: 0 }}>
+                      <label className="form-label-new">Chữ hiển thị trên Nút Bấm Thứ 2 (Bên cạnh nút Gọi Hotline)</label>
+                      <input 
+                        type="text" 
+                        name="home_cta_btn_2_text" 
+                        className="form-control-new" 
+                        value={settings.home_cta_btn_2_text || 'Địa chỉ & Trạm giao gas'} 
+                        onChange={handleChange} 
+                        placeholder="vd: Địa chỉ & Trạm giao gas hoặc Danh Sách Cửa Hàng" 
+                      />
                     </div>
                   </div>
                 </CollapsibleSection>

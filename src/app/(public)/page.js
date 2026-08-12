@@ -198,7 +198,7 @@ export default async function HomePage() {
                   Gọi Hotline {settings.phone}
                 </a>
                 <Link href="/lien-he" className="btn btn-outline-white btn-lg">
-                  Địa chỉ & Trạm giao gas
+                  {settings.home_cta_btn_2_text || 'Địa chỉ & Trạm giao gas'}
                 </Link>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import db from '@/lib/db';
+import { getAllSettings } from '@/lib/settingsHelper';
 import Link from 'next/link';
 import { Flame, Shield, Users, Heart, Award, ArrowRight } from 'lucide-react';
 
@@ -31,12 +32,8 @@ export default async function AboutPage() {
   };
 
   try {
-    const [rows] = await db.query('SELECT setting_key, setting_value FROM settings');
-    rows.forEach(row => {
-      if (row.setting_value && settings[row.setting_key] !== undefined) {
-        settings[row.setting_key] = row.setting_value;
-      }
-    });
+    const fetchedSettings = await getAllSettings();
+    settings = { ...settings, ...fetchedSettings };
   } catch (error) {
     console.error('Error fetching about page settings:', error);
   }
