@@ -1623,6 +1623,28 @@ export default function AdminSettingsPage() {
                     {/* Tiêu đề chung */}
                     <div className="settings-grid-2" style={{ marginBottom: '16px' }}>
                       <div className="form-group">
+                        <label className="form-label-new">Nhãn nhỏ trên tiêu đề (Tag badge)</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_gas_price_tag_badge || 'Bảng Giá Niêm Yết Giá Thấp Nhất'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_gas_price_tag_badge: e.target.value }))}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label-new">Nhãn cam kết góc phải (Trust badge)</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_gas_price_trust_badge || '100% Chính Hãng Sopet, Phoenix, Luxen'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_gas_price_trust_badge: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="settings-grid-2" style={{ marginBottom: '16px' }}>
+                      <div className="form-group">
                         <label className="form-label-new">Tiêu đề chính khối bảng giá</label>
                         <input 
                           type="text" 
@@ -1635,12 +1657,12 @@ export default function AdminSettingsPage() {
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label-new">Mô tả phụ bên dưới tiêu đề</label>
+                        <label className="form-label-new">Dòng ghi chú chân bảng giá (Footnote)</label>
                         <input 
                           type="text" 
                           className="form-control-new" 
-                          value={settings.home_gas_price_subtitle || 'Bảng giá niêm yết chính hãng - Ngọc Gas cam kết giá tốt nhất & hỗ trợ vận chuyển nhanh 15 phút.'}
-                          onChange={(e) => setSettings(prev => ({ ...prev, home_gas_price_subtitle: e.target.value }))}
+                          value={settings.home_gas_price_footnote || '* Giá gas được cập nhật tự động theo giá ưu đãi thị trường. Đã bao gồm thuế VAT, giao hàng và cân thử tại nhà ở Dĩ An, Thuận An, VietSing, TP. Hồ Chí Minh & Bình Dương.'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_gas_price_footnote: e.target.value }))}
                         />
                       </div>
                     </div>

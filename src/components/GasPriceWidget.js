@@ -255,7 +255,7 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
                 <Flame size={28} />
               </div>
               <div>
-                <span className="price-tag-badge">Bảng Giá Niêm Yết Giá Thấp Nhất</span>
+                <span className="price-tag-badge">{settings.home_gas_price_tag_badge || 'Bảng Giá Niêm Yết Giá Thấp Nhất'}</span>
                 <h2>{(settings.home_gas_price_title || 'BẢNG GIÁ GAS THÁNG {month}/{year}').replace('{month}', currentMonth).replace('{year}', currentYear)}</h2>
               </div>
             </div>
@@ -272,7 +272,7 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
               
               <div className="trust-badge desktop-only-badge">
                 <ShieldCheck size={16} />
-                <span>100% Chính Hãng Sopet, Phoenix, Luxen</span>
+                <span>{settings.home_gas_price_trust_badge || '100% Chính Hãng Sopet, Phoenix, Luxen'}</span>
               </div>
             </div>
           </div>
@@ -381,7 +381,7 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
           </div>
 
           <div className="price-footer-note">
-            <p>💡 <em>* Giá gas được cập nhật tự động theo giá ưu đãi thị trường. Đã bao gồm thuế VAT, giao hàng và cân thử tại nhà ở Dĩ An, Thuận An, VietSing, TP. Hồ Chí Minh & Bình Dương.</em></p>
+            <p>💡 <em>{settings.home_gas_price_footnote || '* Giá gas được cập nhật tự động theo giá ưu đãi thị trường. Đã bao gồm thuế VAT, giao hàng và cân thử tại nhà ở Dĩ An, Thuận An, VietSing, TP. Hồ Chí Minh & Bình Dương.'}</em></p>
           </div>
         </div>
       </div>
