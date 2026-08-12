@@ -1991,10 +1991,11 @@ export default function AdminSettingsPage() {
                   </div>
                 </CollapsibleSection>
 
-                {/* Section 1: Đặc điểm giới thiệu */}
+                {/* Section: Khối Cẩm Nang & Hướng Dẫn An Toàn */}
                 <CollapsibleSection
                   id="home_features"
-                  title="Khối Đặc điểm nổi bật (Dưới Banner Hero)"
+                  title="Khối Cẩm Nang & Hướng Dẫn An Toàn Sử Dụng Gas (FAQs & Cam Kết)"
+                  subtitle="Tùy chỉnh tiêu đề, cam kết chất lượng, số điện thoại hotline khẩn cấp và 4 câu hỏi thường gặp (FAQ) ngoài trang chủ."
                   isOpen={!!openSections.home_features}
                   onToggle={() => toggleSection('home_features')}
                   toggleSwitch={(
@@ -2012,6 +2013,187 @@ export default function AdminSettingsPage() {
                     </label>
                   )}
                 >
+                  {/* Card: Tiêu đề & Cam Kết */}
+                  <div className="form-card-sub-new" style={{ marginBottom: '20px' }}>
+                    <strong className="sub-card-header-new">🛡️ Tiêu Đề Khối & Cam Kết An Toàn</strong>
+                    <div className="settings-grid-3" style={{ marginTop: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                      <div className="form-group">
+                        <label className="form-label-new">Nhãn Badge Đỏ</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_safety_badge || 'An Toàn Là Trên Hết'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_badge: e.target.value }))}
+                        />
+                      </div>
+                      <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                        <label className="form-label-new">Tiêu Đề Khối Chữ In Hoa</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_safety_title || 'CẨM NANG & HƯỚNG DẪN AN TOÀN SỬ DỤNG GAS'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_title: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group" style={{ marginTop: '10px' }}>
+                      <label className="form-label-new">Mô Tả Phụ Ngắn</label>
+                      <input 
+                        type="text" 
+                        className="form-control-new" 
+                        value={settings.home_safety_subtitle || 'Ngọc Gas cam kết mang đến giải pháp năng lượng an toàn tuyệt đối cho mọi gia đình và nhà hàng tại Dĩ An, Thuận An & TP. Hồ Chí Minh.'}
+                        onChange={(e) => setSettings(prev => ({ ...prev, home_safety_subtitle: e.target.value }))}
+                      />
+                    </div>
+
+                    <div className="settings-grid-2" style={{ marginTop: '14px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                      <div style={{ padding: '12px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                        <strong style={{ fontSize: '13px', color: '#0F172A', display: 'block', marginBottom: '8px' }}>Cam Kết 1:</strong>
+                        <div className="form-group" style={{ marginBottom: '8px' }}>
+                          <label className="form-label-new">Tiêu đề cam kết 1</label>
+                          <input 
+                            type="text" 
+                            className="form-control-new" 
+                            value={settings.home_safety_tip1_title || 'Cân đúng ký - Đủ trọng lượng'}
+                            onChange={(e) => setSettings(prev => ({ ...prev, home_safety_tip1_title: e.target.value }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label className="form-label-new">Nội dung chi tiết 1</label>
+                          <input 
+                            type="text" 
+                            className="form-control-new" 
+                            value={settings.home_safety_tip1_desc || '100% bình gas giao tới đều được cân trực tiếp trước mặt khách hàng.'}
+                            onChange={(e) => setSettings(prev => ({ ...prev, home_safety_tip1_desc: e.target.value }))}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ padding: '12px', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                        <strong style={{ fontSize: '13px', color: '#0F172A', display: 'block', marginBottom: '8px' }}>Cam Kết 2:</strong>
+                        <div className="form-group" style={{ marginBottom: '8px' }}>
+                          <label className="form-label-new">Tiêu đề cam kết 2</label>
+                          <input 
+                            type="text" 
+                            className="form-control-new" 
+                            value={settings.home_safety_tip2_title || 'Bảo hiểm cháy nổ PCCC'}
+                            onChange={(e) => setSettings(prev => ({ ...prev, home_safety_tip2_title: e.target.value }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label className="form-label-new">Nội dung chi tiết 2</label>
+                          <input 
+                            type="text" 
+                            className="form-control-new" 
+                            value={settings.home_safety_tip2_desc || 'Toàn bộ bình gas Ngọc Gas phân phối đều có bảo hiểm an toàn chính hãng.'}
+                            onChange={(e) => setSettings(prev => ({ ...prev, home_safety_tip2_desc: e.target.value }))}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="settings-grid-2" style={{ marginTop: '14px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                      <div className="form-group">
+                        <label className="form-label-new">Dòng chữ Khẩn Cấp (Khung đỏ)</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_safety_alert_label || 'Hỗ trợ kỹ thuật & Sự cố rò rỉ Gas 24/7:'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_alert_label: e.target.value }))}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label-new">Số Hotline Khẩn Cấp</label>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          value={settings.home_safety_alert_phone || '1900.9396'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_alert_phone: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card: 4 Câu Hỏi Thường Gặp (FAQs) */}
+                  <div className="form-card-sub-new">
+                    <strong className="sub-card-header-new">❓ Danh Sách 4 Câu Hỏi Thường Gặp (Accordion FAQs)</strong>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '14px', marginTop: '12px' }}>
+                      
+                      {/* FAQ 1 */}
+                      <div style={{ padding: '14px', background: '#FFF8F5', borderRadius: '8px', border: '1px solid #FFEDD5' }}>
+                        <strong style={{ fontSize: '13px', color: '#FF6B00', display: 'block', marginBottom: '8px' }}>Câu hỏi 1:</strong>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          style={{ marginBottom: '8px', fontWeight: '700' }}
+                          value={settings.home_safety_faq_1_q || 'Cách xử lý nhanh nhất khi phát hiện mùi gas rò rỉ trong căn bếp?'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_1_q: e.target.value }))}
+                        />
+                        <textarea 
+                          className="form-control-new" 
+                          rows={3}
+                          value={settings.home_safety_faq_1_a || '1. Tuyệt đối KHÔNG bật/tắt công tắc điện, không dùng bật lửa hoặc diêm.\n2. Khóa ngay van bình gas bằng cách vặn theo chiều kim đồng hồ.\n3. Mở tất cả các cửa sổ, cửa chính để khí gas thoát ra ngoài tự nhiên.\n4. Di chuyển ra khu vực thoáng khí và gọi ngay cho hotline Ngọc Gas để kỹ thuật viên tới kiểm tra xử lý khẩn cấp.'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_1_a: e.target.value }))}
+                        />
+                      </div>
+
+                      {/* FAQ 2 */}
+                      <div style={{ padding: '14px', background: '#FFF8F5', borderRadius: '8px', border: '1px solid #FFEDD5' }}>
+                        <strong style={{ fontSize: '13px', color: '#FF6B00', display: 'block', marginBottom: '8px' }}>Câu hỏi 2:</strong>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          style={{ marginBottom: '8px', fontWeight: '700' }}
+                          value={settings.home_safety_faq_2_q || 'Làm thế nào để phân biệt bình gas chính hãng Ngọc Gas với bình gas trôi nổi?'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_2_q: e.target.value }))}
+                        />
+                        <textarea 
+                          className="form-control-new" 
+                          rows={3}
+                          value={settings.home_safety_faq_2_a || 'Bình gas chính hãng Ngọc Gas luôn có màng co niêm phong nguyên vẹn tại cổ van bình, tem chống hàng giả có logo thương hiệu rõ ràng, vỏ bình còn hạn kiểm định PCCC và được kỹ thuật viên cân trực tiếp trước mặt khách hàng khi giao.'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_2_a: e.target.value }))}
+                        />
+                      </div>
+
+                      {/* FAQ 3 */}
+                      <div style={{ padding: '14px', background: '#FFF8F5', borderRadius: '8px', border: '1px solid #FFEDD5' }}>
+                        <strong style={{ fontSize: '13px', color: '#FF6B00', display: 'block', marginBottom: '8px' }}>Câu hỏi 3:</strong>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          style={{ marginBottom: '8px', fontWeight: '700' }}
+                          value={settings.home_safety_faq_3_q || 'Bao lâu nên kiểm tra và thay dây dẫn gas, van điều áp một lần?'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_3_q: e.target.value }))}
+                        />
+                        <textarea 
+                          className="form-control-new" 
+                          rows={3}
+                          value={settings.home_safety_faq_3_a || 'Dây dẫn gas cao su nên thay định kỳ từ 1.5 - 2 năm/lần. Van điều áp tự động ngắt gas khẩn cấp nên thay sau mỗi 3 - 5 năm. Khi giao gas, đội ngũ Ngọc Gas luôn hỗ trợ vệ sinh bếp và kiểm tra dây dẫn van gas hoàn toàn miễn phí.'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_3_a: e.target.value }))}
+                        />
+                      </div>
+
+                      {/* FAQ 4 */}
+                      <div style={{ padding: '14px', background: '#FFF8F5', borderRadius: '8px', border: '1px solid #FFEDD5' }}>
+                        <strong style={{ fontSize: '13px', color: '#FF6B00', display: 'block', marginBottom: '8px' }}>Câu hỏi 4:</strong>
+                        <input 
+                          type="text" 
+                          className="form-control-new" 
+                          style={{ marginBottom: '8px', fontWeight: '700' }}
+                          value={settings.home_safety_faq_4_q || 'Quy trình giao gas & kiểm tra an toàn tận nhà tại Dĩ An & TP.HCM diễn ra như thế nào?'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_4_q: e.target.value }))}
+                        />
+                        <textarea 
+                          className="form-control-new" 
+                          rows={3}
+                          value={settings.home_safety_faq_4_a || 'Khi nhận cuộc gọi đặt gas, Ngọc Gas điều phối nhân viên giao hàng nhanh trong 15-30 phút. Kỹ thuật viên sẽ vận chuyển bình gas vào tận bếp, tiến hành lắp đặt, dùng thiết bị chuyên dụng kiểm tra rò rỉ van gas, cân thử ký gas tại chỗ và dán tem bảo hành trước khi bàn giao.'}
+                          onChange={(e) => setSettings(prev => ({ ...prev, home_safety_faq_4_a: e.target.value }))}
+                        />
+                      </div>
+
+                    </div>
+                  </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
                     <p className="section-subtitle-text" style={{ margin: 0, color: 'var(--text-secondary)' }}>
                       Bạn có thể tự do thêm, bớt các ô đặc điểm nổi bật và chọn biểu tượng (icon) hiển thị phù hợp.

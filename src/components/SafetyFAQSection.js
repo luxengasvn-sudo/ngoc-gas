@@ -1,12 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShieldAlert, ChevronDown, CheckCircle, AlertTriangle, PhoneCall } from 'lucide-react';
 
-export default function SafetyFAQSection() {
+export default function SafetyFAQSection({ settings: initialSettings }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const [settings, setSettings] = useState(initialSettings || {});
 
-  const faqs = [
+  useEffect(() => {
+    if (initialSettings && Object.keys(initialSettings).length > 0) {
+      setSettings(initialSettings);
+    } else {
+      fetch('/api/settings')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.data) {
+            setSettings(data.data);
+          }
+        })
+        .catch(e => {});
+    }
+  }, [initialSettings]);
+
+  const defaultFaqs = [
     {
       q: 'Cách xử lý nhanh nhất khi phát hiện mùi gas rò rỉ trong căn bếp?',
       a: '1. Tuyệt đối KHÔNG bật/tắt công tắc điện, không dùng bật lửa hoặc diêm.\n2. Khóa ngay van bình gas bằng cách vặn theo chiều kim đồng hồ.\n3. Mở tất cả các cửa sổ, cửa chính để khí gas thoát ra ngoài tự nhiên.\n4. Di chuyển ra khu vực thoáng khí và gọi ngay cho hotline Ngọc Gas để kỹ thuật viên tới kiểm tra xử lý khẩn cấp.'
@@ -25,6 +41,25 @@ export default function SafetyFAQSection() {
     }
   ];
 
+  const faqs = [
+    {
+      q: settings.home_safety_faq_1_q || defaultFaqs[0].q,
+      a: settings.home_safety_faq_1_a || defaultFaqs[0].a
+    },
+    {
+      q: settings.home_safety_faq_2_q || defaultFaqs[1].q,
+      a: settings.home_safety_faq_2_a || defaultFaqs[1].a
+    },
+    {
+      q: settings.home_safety_faq_3_q || defaultFaqs[2].q,
+      a: settings.home_safety_faq_3_a || defaultFaqs[2].a
+    },
+    {
+      q: settings.home_safety_faq_4_q || defaultFaqs[3].q,
+      a: settings.home_safety_faq_4_a || defaultFaqs[3].a
+    }
+  ];
+
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -36,26 +71,26 @@ export default function SafetyFAQSection() {
           <div className="faq-info-column">
             <div className="section-badge">
               <ShieldAlert size={16} />
-              <span>An Toàn Là Trên Hết</span>
+              <span>{settings.home_safety_badge || 'An Toàn Là Trên Hết'}</span>
             </div>
-            <h2>CẨM NANG & HƯỚNG DẪN AN TOÀN SỬ DỤNG GAS</h2>
+            <h2>{settings.home_safety_title || 'CẨM NANG & HƯỚNG DẪN AN TOÀN SỬ DỤNG GAS'}</h2>
             <p className="faq-desc">
-              Ngọc Gas cam kết mang đến giải pháp năng lượng an toàn tuyệt đối cho mọi gia đình và nhà hàng tại Dĩ An, Thuận An & TP. Hồ Chí Minh.
+              {settings.home_safety_subtitle || 'Ngọc Gas cam kết mang đến giải pháp năng lượng an toàn tuyệt đối cho mọi gia đình và nhà hàng tại Dĩ An, Thuận An & TP. Hồ Chí Minh.'}
             </p>
 
             <div className="safety-tips-box">
               <div className="tip-item">
                 <CheckCircle size={20} className="tip-icon" />
                 <div>
-                  <strong>Cân đúng ký - Đủ trọng lượng</strong>
-                  <p>100% bình gas giao tới đều được cân trực tiếp trước mặt khách hàng.</p>
+                  <strong>{settings.home_safety_tip1_title || 'Cân đúng ký - Đủ trọng lượng'}</strong>
+                  <p>{settings.home_safety_tip1_desc || '100% bình gas giao tới đều được cân trực tiếp trước mặt khách hàng.'}</p>
                 </div>
               </div>
               <div className="tip-item">
                 <CheckCircle size={20} className="tip-icon" />
                 <div>
-                  <strong>Bảo hiểm cháy nổ PCCC</strong>
-                  <p>Toàn bộ bình gas Ngọc Gas phân phối đều có bảo hiểm an toàn chính hãng.</p>
+                  <strong>{settings.home_safety_tip2_title || 'Bảo hiểm cháy nổ PCCC'}</strong>
+                  <p>{settings.home_safety_tip2_desc || 'Toàn bộ bình gas Ngọc Gas phân phối đều có bảo hiểm an toàn chính hãng.'}</p>
                 </div>
               </div>
             </div>
@@ -63,10 +98,10 @@ export default function SafetyFAQSection() {
             <div className="emergency-call-box">
               <AlertTriangle size={24} className="alert-icon" />
               <div>
-                <span>Hỗ trợ kỹ thuật & Sự cố rò rỉ Gas 24/7:</span>
-                <a href="tel:19009396" className="emergency-phone">
+                <span>{settings.home_safety_alert_label || 'Hỗ trợ kỹ thuật & Sự cố rò rỉ Gas 24/7:'}</span>
+                <a href={`tel:${(settings.home_safety_alert_phone || '1900.9396').replace(/\./g, '')}`} className="emergency-phone">
                   <PhoneCall size={18} />
-                  <span>Gọi Hotline 1900.9396</span>
+                  <span>Gọi Hotline {settings.home_safety_alert_phone || '1900.9396'}</span>
                 </a>
               </div>
             </div>

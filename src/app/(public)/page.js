@@ -132,7 +132,7 @@ export default async function HomePage() {
 
       case 'intro-features':
         if (settings.show_home_features === '0') return null;
-        return <SafetyFAQSection key="intro-features" />;
+        return <SafetyFAQSection key="intro-features" settings={settings} />;
 
       case 'featured-products':
         if (settings.show_home_products === '0') return null;
