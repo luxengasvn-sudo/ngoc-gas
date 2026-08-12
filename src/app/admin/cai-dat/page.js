@@ -607,7 +607,14 @@ export default function AdminSettingsPage() {
 
       if (data.success) {
         setSettings(prev => ({ ...prev, logo_url: data.url }));
-        setSuccess('Đã tải logo lên. Hãy nhấn "Lưu tất cả thay đổi" để áp dụng chính thức.');
+        // Auto save immediately
+        await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ logo_url: data.url })
+        });
+        setSuccess('🎉 Đã tải và lưu Logo mới thành công!');
+        setShowSaveSuccessModal(true);
       } else {
         setError(data.message || 'Lỗi khi upload logo');
       }
@@ -643,7 +650,14 @@ export default function AdminSettingsPage() {
 
       if (data.success) {
         setSettings(prev => ({ ...prev, favicon_url: data.url }));
-        setSuccess('Đã tải favicon lên. Hãy nhấn "Lưu tất cả thay đổi" để áp dụng chính thức.');
+        // Auto save immediately
+        await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ favicon_url: data.url })
+        });
+        setSuccess('🎉 Đã tải và lưu Favicon mới thành công!');
+        setShowSaveSuccessModal(true);
       } else {
         setError(data.message || 'Lỗi khi upload favicon');
       }
