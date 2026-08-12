@@ -162,8 +162,8 @@ export default async function HomePage() {
             <div className="container">
               <div className="section-header text-center">
                 <span className="section-subtitle">TIN TỨC & KINH NGHIỆM</span>
-                <h2 className="section-title">Cẩm Nang An Toàn & Khuyến Mãi Gas</h2>
-                <p className="section-desc">Cập nhật thông tin giá gas mới nhất, kinh nghiệm chọn gas chính hãng và mẹo sử dụng gas an toàn tiết kiệm.</p>
+                <h2 className="section-title">{settings.home_news_title || 'Cẩm Nang An Toàn & Khuyến Mãi Gas'}</h2>
+                <p className="section-desc">{settings.home_news_subtitle || 'Cập nhật thông tin giá gas mới nhất, kinh nghiệm chọn gas chính hãng và mẹo sử dụng gas an toàn tiết kiệm.'}</p>
               </div>
               
               <div className="grid-3 posts-grid">
@@ -174,7 +174,7 @@ export default async function HomePage() {
 
               <div className="text-center" style={{ marginTop: '40px' }}>
                 <Link href="/tin-tuc" className="btn btn-outline">
-                  Xem tất cả bài viết
+                  Xem Tất Cả Bài Viết ↗
                 </Link>
               </div>
             </div>
@@ -186,8 +186,8 @@ export default async function HomePage() {
         return (
           <section key="cta-section" className="cta-banner">
             <div className="container text-center">
-              <h2 className="cta-title">Cần Giao Gas Nhanh Tận Nhà Tại Dĩ An & Thuận An?</h2>
-              <p className="cta-desc">Đội ngũ Ngọc Gas túc trực 24/7. Gọi ngay tổng đài để được phục vụ trong 15-30 phút!</p>
+              <h2 className="cta-title">{settings.home_cta_title || 'Cần Giao Gas Nhanh Tận Nhà Tại Dĩ An & Thuận An?'}</h2>
+              <p className="cta-desc">{settings.home_cta_desc || 'Đội ngũ Ngọc Gas túc trực 24/7. Gọi ngay tổng đài để được phục vụ trong 15-30 phút!'}</p>
               <div className="cta-buttons">
                 <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
                   Gọi Hotline {settings.phone}
