@@ -39,6 +39,33 @@ function saveToFile(settingsObj) {
   }
 }
 
+const ALL_SECTIONS = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
+
+export function parseSectionOrder(jsonStr) {
+  let order = [];
+  try {
+    order = JSON.parse(jsonStr || '[]');
+  } catch (e) {
+    order = [];
+  }
+
+  if (!Array.isArray(order) || order.length === 0) {
+    return [...ALL_SECTIONS];
+  }
+
+  // Preserve user's EXACT order for all valid sections
+  const validOrder = order.filter(id => ALL_SECTIONS.includes(id));
+
+  // Append any unmentioned sections to the end
+  ALL_SECTIONS.forEach(id => {
+    if (!validOrder.includes(id)) {
+      validOrder.push(id);
+    }
+  });
+
+  return validOrder;
+}
+
 export async function getAllSettings() {
   const fileSettings = readFromFile();
   let dbSettings = {};
@@ -54,9 +81,11 @@ export async function getAllSettings() {
     // MySQL query failed or not available - use file & memory fallback
   }
 
+  // Critical fix: dbSettings first, then fileSettings, then memoryCache.
+  // File & memory cache contain the latest Admin saves and MUST overwrite stale MySQL rows!
   const merged = {
-    ...fileSettings,
     ...dbSettings,
+    ...fileSettings,
     ...(memoryCache || {})
   };
 

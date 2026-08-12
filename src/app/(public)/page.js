@@ -1,5 +1,5 @@
 import db from '@/lib/db';
-import { getAllSettings } from '@/lib/settingsHelper';
+import { getAllSettings, parseSectionOrder } from '@/lib/settingsHelper';
 import Link from 'next/link';
 import FeaturedProductsTabs from '@/components/FeaturedProductsTabs';
 import PostCard from '@/components/PostCard';
@@ -109,29 +109,7 @@ export default async function HomePage() {
   const rawPhone = settings.phone.replace(/[^0-9]/g, '');
 
   // Parse section order dynamically from Admin Settings
-  const ALL_SECTIONS = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
-  let sectionOrder = [];
-  try {
-    sectionOrder = JSON.parse(settings.home_sections_order || '[]');
-  } catch (e) {
-    sectionOrder = [];
-  }
-  if (!Array.isArray(sectionOrder)) sectionOrder = [];
-
-  // Keep valid section IDs in saved order
-  sectionOrder = sectionOrder.filter(id => ALL_SECTIONS.includes(id));
-
-  // If gas-price-widget is missing, unshift to top (default position 0)
-  if (!sectionOrder.includes('gas-price-widget')) {
-    sectionOrder.unshift('gas-price-widget');
-  }
-
-  // Append any other missing sections at the end
-  ALL_SECTIONS.forEach(id => {
-    if (!sectionOrder.includes(id)) {
-      sectionOrder.push(id);
-    }
-  });
+  const sectionOrder = parseSectionOrder(settings.home_sections_order);
 
   const defaultPosts = [
     {
