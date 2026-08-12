@@ -321,6 +321,89 @@ export default function AdminSettingsPage() {
     }
   };
 
+  const renderImageUploadField = (fieldKey, fieldLabel, placeholder, isVideo = false) => {
+    const value = settings[fieldKey] || '';
+    return (
+      <div className="form-group" style={{ marginBottom: '16px' }}>
+        <label className="form-label-new">{fieldLabel}</label>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <input
+            type="text"
+            name={fieldKey}
+            className="form-control-new"
+            value={value}
+            onChange={handleChange}
+            placeholder={placeholder}
+            style={{ flex: 1 }}
+          />
+          <button
+            type="button"
+            onClick={() => openMediaLibrary(fieldKey)}
+            className="btn-add-album-new"
+            style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', display: 'inline-flex', alignItems: 'center', gap: '6px', height: '42px', padding: '0 14px' }}
+          >
+            <ImageIcon size={15} color="#FF6B00" />
+            <span>Thư viện</span>
+          </button>
+          <label className="btn-add-album-new" style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', height: '42px', padding: '0 14px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <Upload size={15} />
+            <span>{uploading ? 'Đang tải...' : 'Tải tệp mới'}</span>
+            <input
+              type="file"
+              accept={isVideo ? 'video/*' : 'image/*'}
+              onChange={(e) => handleGenericFileUpload(e, fieldKey)}
+              style={{ display: 'none' }}
+              disabled={uploading}
+            />
+          </label>
+        </div>
+
+        {value && (
+          <div style={{ marginTop: '10px', padding: '12px 14px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '700', color: '#0F172A' }}>
+                🟢 Link tệp vừa lưu:
+              </span>
+              <button
+                type="button"
+                onClick={() => { navigator.clipboard.writeText(value); alert('Đã sao chép link!'); }}
+                style={{ padding: '3px 8px', fontSize: '11px', background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
+              >
+                📋 Sao chép link
+              </button>
+            </div>
+            <code style={{ display: 'block', wordBreak: 'break-all', fontSize: '12px', background: '#FFFFFF', padding: '6px 10px', border: '1px solid #CBD5E1', borderRadius: '4px', color: '#0F172A', fontWeight: '700', marginBottom: '8px' }}>
+              {value}
+            </code>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{ fontSize: '11px', color: '#64748B' }}>Xem trước:</span>
+              {isVideo ? (
+                <video src={value} controls style={{ height: '60px', width: 'auto', borderRadius: '4px' }} />
+              ) : (
+                <img src={value} alt="Preview" style={{ height: '40px', maxWidth: '180px', objectFit: 'contain', background: '#1A202C', padding: '4px', borderRadius: '4px' }} />
+              )}
+              <button
+                type="button"
+                onClick={() => {
+                  setSettings(prev => ({ ...prev, [fieldKey]: '' }));
+                  const token = localStorage.getItem('ngoc_gas_admin_token');
+                  fetch('/api/settings', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ [fieldKey]: '' })
+                  });
+                }}
+                style={{ padding: '4px 8px', fontSize: '11px', background: '#FEF2F2', color: '#DC2626', border: '1px solid #FCA5A5', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
+              >
+                🗑️ Xóa tệp
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   useEffect(() => {
     const fetchSettings = async () => {
       setLoading(true);
@@ -942,41 +1025,7 @@ export default function AdminSettingsPage() {
 
                   {settings.promo_type === 'popup' && (
                     <div className="animate-fade-in-up" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                      <div className="form-group">
-                        <label className="form-label-new">Ảnh Banner Popup Khuyến mãi</label>
-                        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                          <input
-                            type="text"
-                            name="promo_popup_image"
-                            className="form-control-new"
-                            value={settings.promo_popup_image}
-                            onChange={handleChange}
-                            placeholder="vd: /uploads/promo_banner.jpg"
-                            style={{ flex: 1 }}
-                          />
-                          <label className="upload-btn-new" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: 'var(--primary)', color: '#111111', borderRadius: '6px', fontWeight: 'bold', fontSize: '13px', whiteSpace: 'nowrap' }}>
-                            <Upload size={14} />
-                            <span>{uploading ? 'Đang tải...' : 'Tải ảnh lên'}</span>
-                            <input
-                              type="file"
-                              accept="image/*"
-                              onChange={(e) => handleGenericFileUpload(e, 'promo_popup_image')}
-                              style={{ display: 'none' }}
-                              disabled={uploading}
-                            />
-                          </label>
-                        </div>
-                        {settings.promo_popup_image && (
-                          <div style={{ marginTop: '12px' }}>
-                            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '6px' }}>Xem trước ảnh popup:</p>
-                            <img
-                              src={settings.promo_popup_image}
-                              alt="Popup Preview"
-                              style={{ maxWidth: '200px', maxHeight: '200px', borderRadius: '8px', border: '1px solid var(--border)', objectFit: 'contain' }}
-                            />
-                          </div>
-                        )}
-                      </div>
+                      {renderImageUploadField('promo_popup_image', 'Ảnh Banner Popup Khuyến mãi', 'vd: /uploads/promo_banner.jpg')}
 
                       <div className="form-group">
                         <label htmlFor="promo_popup_link" className="form-label-new">Đường dẫn liên kết khi nhấn vào ảnh (Tùy chọn)</label>
@@ -1154,6 +1203,7 @@ export default function AdminSettingsPage() {
                       />
                     </div>
                   </div>
+                  {renderImageUploadField('social_zalo_qr', 'Ảnh Mã QR Zalo (Hiển thị cho khách quét kết bạn)', 'vd: /uploads/zalo_qr.jpg')}
                 </CollapsibleSection>
 
                 <CollapsibleSection
@@ -1162,135 +1212,8 @@ export default function AdminSettingsPage() {
                   isOpen={!!openSections.gen_logo}
                   onToggle={() => toggleSection('gen_logo')}
                 >
-                  <div className="form-group">
-                    <label htmlFor="logo_url" className="form-label-new">Ảnh Logo đại diện website</label>
-                    <div style={{ display: 'flex', gap: '15px' }}>
-                      <input
-                        type="text"
-                        id="logo_url"
-                        name="logo_url"
-                        className="form-control-new"
-                        value={settings.logo_url || ''}
-                        onChange={handleChange}
-                        placeholder="Dán link ảnh logo hoặc bấm Tải lên bên phải"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => openMediaLibrary('logo_url')}
-                        className="btn-add-album-new"
-                        style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-                      >
-                        <ImageIcon size={14} color="#FF6B00" />
-                        <span>🖼️ Thư viện ảnh</span>
-                      </button>
-                      <label className="btn-add-album-new" style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer' }}>
-                        <Upload size={14} />
-                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh logo mới'}</span>
-                        <input 
-                          type="file" 
-                          accept="image/*" 
-                          onChange={handleLogoUpload} 
-                          style={{ display: 'none' }} 
-                          disabled={uploading}
-                        />
-                      </label>
-                    </div>
-                    {settings.logo_url && (
-                      <div style={{ marginTop: '12px', padding: '12px 16px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '12px', fontWeight: '700', color: '#1E293B' }}>
-                            🟢 Link ảnh Logo vừa lưu chính thức:
-                          </span>
-                          <button 
-                            type="button" 
-                            onClick={() => { navigator.clipboard.writeText(settings.logo_url); alert('Đã sao chép link ảnh logo!'); }}
-                            style={{ padding: '4px 10px', fontSize: '11px', background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
-                          >
-                            📋 Sao chép link
-                          </button>
-                        </div>
-                        <code style={{ display: 'block', wordBreak: 'break-all', fontSize: '13px', background: '#FFFFFF', padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', color: '#0F172A', fontWeight: '700', marginBottom: '10px' }}>
-                          {settings.logo_url}
-                        </code>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                          <span style={{ fontSize: '11px', color: '#64748B' }}>Xem trước Logo:</span>
-                          <img src={settings.logo_url} alt="Logo" style={{ height: '35px', maxWidth: '200px', objectFit: 'contain', background: '#1A202C', padding: '6px', borderRadius: '6px' }} />
-                          <button
-                            type="button"
-                            onClick={() => setSettings(prev => ({ ...prev, logo_url: '' }))}
-                            style={{ padding: '4px 10px', fontSize: '11px', background: '#FEF2F2', color: '#DC2626', border: '1px solid #FCA5A5', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
-                          >
-                            🗑️ Xóa logo
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="form-group" style={{ marginTop: '20px' }}>
-                    <label htmlFor="favicon_url" className="form-label-new">Ảnh Favicon Website (Biểu tượng thanh địa chỉ tab trình duyệt)</label>
-                    <div style={{ display: 'flex', gap: '15px' }}>
-                      <input
-                        type="text"
-                        id="favicon_url"
-                        name="favicon_url"
-                        className="form-control-new"
-                        value={settings.favicon_url || ''}
-                        onChange={handleChange}
-                        placeholder="Dán link ảnh favicon (.ico/.png) hoặc bấm Tải lên bên phải"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => openMediaLibrary('favicon_url')}
-                        className="btn-add-album-new"
-                        style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-                      >
-                        <ImageIcon size={14} color="#FF6B00" />
-                        <span>🖼️ Thư viện ảnh</span>
-                      </button>
-                      <label className="btn-add-album-new" style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer' }}>
-                        <Upload size={14} />
-                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh favicon mới'}</span>
-                        <input 
-                          type="file" 
-                          accept="image/*" 
-                          onChange={handleFaviconUpload} 
-                          style={{ display: 'none' }} 
-                          disabled={uploading}
-                        />
-                      </label>
-                    </div>
-                    {settings.favicon_url && (
-                      <div style={{ marginTop: '12px', padding: '12px 16px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '12px', fontWeight: '700', color: '#1E293B' }}>
-                            🟢 Link ảnh Favicon vừa lưu chính thức:
-                          </span>
-                          <button 
-                            type="button" 
-                            onClick={() => { navigator.clipboard.writeText(settings.favicon_url); alert('Đã sao chép link ảnh favicon!'); }}
-                            style={{ padding: '4px 10px', fontSize: '11px', background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
-                          >
-                            📋 Sao chép link
-                          </button>
-                        </div>
-                        <code style={{ display: 'block', wordBreak: 'break-all', fontSize: '13px', background: '#FFFFFF', padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', color: '#0F172A', fontWeight: '700', marginBottom: '10px' }}>
-                          {settings.favicon_url}
-                        </code>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                          <span style={{ fontSize: '11px', color: '#64748B' }}>Xem trước Favicon:</span>
-                          <img src={settings.favicon_url} alt="Favicon" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
-                          <button
-                            type="button"
-                            onClick={() => setSettings(prev => ({ ...prev, favicon_url: '' }))}
-                            style={{ padding: '4px 10px', fontSize: '11px', background: '#FEF2F2', color: '#DC2626', border: '1px solid #FCA5A5', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
-                          >
-                            🗑️ Xóa favicon
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  {renderImageUploadField('logo_url', 'Ảnh Logo đại diện website', 'Dán link ảnh logo hoặc bấm chọn Thư viện')}
+                  {renderImageUploadField('favicon_url', 'Ảnh Favicon Website (Biểu tượng thanh địa chỉ tab trình duyệt)', 'Dán link ảnh favicon (.ico/.png) hoặc bấm chọn Thư viện')}
 
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label htmlFor="footer_copyright" className="form-label-new">Dòng bản quyền Footer Copyright</label>
@@ -1378,152 +1301,14 @@ export default function AdminSettingsPage() {
                   </div>
 
                   {settings.hero_mode === 'video' && (
-                    <div className="form-group">
-                      <label className="form-label-new">Đường dẫn Video nền (.mp4)</label>
-                      <div style={{ display: 'flex', gap: '15px' }}>
-                        <input 
-                          type="text" 
-                          name="hero_video_url" 
-                          className="form-control-new" 
-                          value={settings.hero_video_url || ''} 
-                          onChange={handleChange} 
-                          placeholder="vd: /uploads/video.mp4 hoặc link ngoài..." 
-                        />
-                        <label className="upload-btn-new" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: 'var(--primary)', color: '#111111', borderRadius: '6px', fontWeight: 'bold', fontSize: '13px' }}>
-                          <Upload size={14} />
-                          <span>{uploading ? 'Đang tải...' : 'Tải Video (.mp4)'}</span>
-                          <input 
-                            type="file" 
-                            accept="video/mp4" 
-                            style={{ display: 'none' }} 
-                            onChange={(e) => handleGenericFileUpload(e, 'hero_video_url')} 
-                            disabled={uploading} 
-                          />
-                        </label>
-                      </div>
-                    </div>
+                    renderImageUploadField('hero_video_url', 'Đường dẫn Video nền (.mp4)', 'vd: /uploads/video.mp4 hoặc link ngoài...', true)
                   )}
 
                   {settings.hero_mode === 'slide' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '10px' }}>
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Hình ảnh Slide 1</label>
-                        <div style={{ display: 'flex', gap: '15px' }}>
-                          <input 
-                            type="text" 
-                            name="hero_slide_1" 
-                            className="form-control-new" 
-                            value={settings.hero_slide_1 || ''} 
-                            onChange={handleChange} 
-                            placeholder="vd: /images/banner1.jpg" 
-                          />
-                          <label className="upload-btn-new" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: 'var(--primary)', color: '#111111', borderRadius: '6px', fontWeight: 'bold', fontSize: '13px' }}>
-                            <Upload size={14} />
-                            <span>Tải ảnh</span>
-                            <input 
-                              type="file" 
-                              accept="image/*" 
-                              style={{ display: 'none' }} 
-                              onChange={(e) => handleGenericFileUpload(e, 'hero_slide_1')} 
-                              disabled={uploading} 
-                            />
-                          </label>
-                        </div>
-                        {/* Slide 1 Image Preview */}
-                        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '12px', padding: '10px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-                          <img 
-                            src={settings.hero_slide_1 || '/images/delivery-motorcycle.jpg'} 
-                            alt="Slide 1 Preview" 
-                            style={{ width: '120px', height: '65px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-                          />
-                          <div>
-                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', display: 'block' }}>Xem trước Slide 1</span>
-                            <span style={{ fontSize: '12px', color: '#64748B' }}>
-                              {settings.hero_slide_1 ? 'Đang dùng ảnh tải lên' : 'Đang dùng ảnh mặc định hệ thống (/images/delivery-motorcycle.jpg)'}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Hình ảnh Slide 2</label>
-                        <div style={{ display: 'flex', gap: '15px' }}>
-                          <input 
-                            type="text" 
-                            name="hero_slide_2" 
-                            className="form-control-new" 
-                            value={settings.hero_slide_2 || ''} 
-                            onChange={handleChange} 
-                            placeholder="vd: /images/banner2.jpg" 
-                          />
-                          <label className="upload-btn-new" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: 'var(--primary)', color: '#111111', borderRadius: '6px', fontWeight: 'bold', fontSize: '13px' }}>
-                            <Upload size={14} />
-                            <span>Tải ảnh</span>
-                            <input 
-                              type="file" 
-                              accept="image/*" 
-                              style={{ display: 'none' }} 
-                              onChange={(e) => handleGenericFileUpload(e, 'hero_slide_2')} 
-                              disabled={uploading} 
-                            />
-                          </label>
-                        </div>
-                        {/* Slide 2 Image Preview */}
-                        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '12px', padding: '10px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-                          <img 
-                            src={settings.hero_slide_2 || '/images/gas-cylinder.jpg'} 
-                            alt="Slide 2 Preview" 
-                            style={{ width: '120px', height: '65px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-                          />
-                          <div>
-                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', display: 'block' }}>Xem trước Slide 2</span>
-                            <span style={{ fontSize: '12px', color: '#64748B' }}>
-                              {settings.hero_slide_2 ? 'Đang dùng ảnh tải lên' : 'Đang dùng ảnh mặc định hệ thống (/images/gas-cylinder.jpg)'}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Hình ảnh Slide 3 (Tùy chọn)</label>
-                        <div style={{ display: 'flex', gap: '15px' }}>
-                          <input 
-                            type="text" 
-                            name="hero_slide_3" 
-                            className="form-control-new" 
-                            value={settings.hero_slide_3 || ''} 
-                            onChange={handleChange} 
-                            placeholder="vd: /images/banner3.jpg" 
-                          />
-                          <label className="upload-btn-new" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: 'var(--primary)', color: '#111111', borderRadius: '6px', fontWeight: 'bold', fontSize: '13px' }}>
-                            <Upload size={14} />
-                            <span>Tải ảnh</span>
-                            <input 
-                              type="file" 
-                              accept="image/*" 
-                              style={{ display: 'none' }} 
-                              onChange={(e) => handleGenericFileUpload(e, 'hero_slide_3')} 
-                              disabled={uploading} 
-                            />
-                          </label>
-                        </div>
-                        {/* Slide 3 Image Preview */}
-                        {settings.hero_slide_3 ? (
-                          <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '12px', padding: '10px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-                            <img 
-                              src={settings.hero_slide_3} 
-                              alt="Slide 3 Preview" 
-                              style={{ width: '120px', height: '65px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-                            />
-                            <div>
-                              <span style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', display: 'block' }}>Xem trước Slide 3</span>
-                              <span style={{ fontSize: '12px', color: '#64748B' }}>Đang dùng ảnh tùy chỉnh</span>
-                            </div>
-                          </div>
-                        ) : (
-                          <span style={{ fontSize: '12px', color: '#94A3B8', marginTop: '6px', display: 'block' }}>Chưa thiết lập (Slide 3 hiện đang ẩn)</span>
-                        )}
-                      </div>
+                      {renderImageUploadField('hero_slide_1', 'Hình ảnh Banner Slide 1', 'vd: /images/delivery-motorcycle.jpg')}
+                      {renderImageUploadField('hero_slide_2', 'Hình ảnh Banner Slide 2', 'vd: /images/gas-cylinder.jpg')}
+                      {renderImageUploadField('hero_slide_3', 'Hình ảnh Banner Slide 3 (Tùy chọn)', 'vd: /images/banner3.jpg')}
                     </div>
                   )}
                 </CollapsibleSection>
