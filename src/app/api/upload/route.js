@@ -6,65 +6,82 @@ import { getAuthenticatedUser } from '@/lib/auth';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
+// Helper to recursively collect images from a directory
+async function scanImageFiles(dirPath, urlPrefix, results = []) {
+  try {
+    const entries = await readdir(dirPath, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.name.startsWith('.')) continue;
+      const fullPath = path.join(dirPath, entry.name);
+      
+      if (entry.isDirectory()) {
+        await scanImageFiles(fullPath, `${urlPrefix}/${entry.name}`, results);
+      } else if (entry.isFile()) {
+        const ext = path.extname(entry.name).toLowerCase();
+        if (['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif', '.ico'].includes(ext)) {
+          try {
+            const fileStat = await stat(fullPath);
+            results.push({
+              url: `${urlPrefix}/${entry.name}`,
+              name: entry.name,
+              size: (fileStat.size / 1024).toFixed(1) + ' KB',
+              rawSize: fileStat.size,
+              mtime: fileStat.mtime.getTime(),
+              folder: urlPrefix.replace('/', '')
+            });
+          } catch (e) {
+            // Ignore stat errors for individual files
+          }
+        }
+      }
+    }
+  } catch (e) {
+    // Directory might not exist yet
+  }
+  return results;
+}
+
 export async function GET(request) {
   try {
-    const user = getAuthenticatedUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
-        { status: 401 }
-      );
-    }
-
-    const uploadsDir = path.join(process.cwd(), 'public/uploads');
-    const imagesDir = path.join(process.cwd(), 'public/images');
-    
     let mediaFiles = [];
 
-    // 1. Read files in public/uploads
-    try {
-      await mkdir(uploadsDir, { recursive: true });
-      const uploadNames = await readdir(uploadsDir);
-      for (const name of uploadNames) {
-        if (name.startsWith('.')) continue;
-        const filePath = path.join(uploadsDir, name);
-        const fileStat = await stat(filePath);
-        if (fileStat.isFile()) {
-          mediaFiles.push({
-            url: `/uploads/${name}`,
-            name,
-            size: (fileStat.size / 1024).toFixed(1) + ' KB',
-            rawSize: fileStat.size,
-            mtime: fileStat.mtime.getTime(),
-            folder: 'uploads'
-          });
-        }
-      }
-    } catch (e) {
-      console.error('Error reading uploads folder:', e);
-    }
+    // 1. Scan public/uploads
+    const uploadsDir = path.join(process.cwd(), 'public/uploads');
+    await scanImageFiles(uploadsDir, '/uploads', mediaFiles);
 
-    // 2. Read files in public/images
-    try {
-      await mkdir(imagesDir, { recursive: true });
-      const imageNames = await readdir(imagesDir);
-      for (const name of imageNames) {
-        if (name.startsWith('.')) continue;
-        const filePath = path.join(imagesDir, name);
-        const fileStat = await stat(filePath);
-        if (fileStat.isFile()) {
-          mediaFiles.push({
-            url: `/images/${name}`,
-            name,
-            size: (fileStat.size / 1024).toFixed(1) + ' KB',
-            rawSize: fileStat.size,
-            mtime: fileStat.mtime.getTime(),
-            folder: 'images'
-          });
-        }
+    // 2. Scan public/images
+    const imagesDir = path.join(process.cwd(), 'public/images');
+    await scanImageFiles(imagesDir, '/images', mediaFiles);
+
+    // 3. Add default system images fallback if missing
+    const defaultSystemImages = [
+      '/images/sopet-xam.png',
+      '/images/sopet-xanh-den.png',
+      '/images/sopet-xanh.png',
+      '/images/sopet.png',
+      '/images/phoenix-xam.png',
+      '/images/phoenix-lg-xanh.png',
+      '/images/phoenix-do.png',
+      '/images/luxen-gas.png',
+      '/images/luxen-xam-12kg.png',
+      '/images/luxen-45.png',
+      '/images/luxen-xam-45.png',
+      '/images/delivery-motorcycle.jpg',
+      '/images/gas-cylinder.jpg'
+    ];
+
+    const existingUrls = new Set(mediaFiles.map(m => m.url));
+    for (const sysUrl of defaultSystemImages) {
+      if (!existingUrls.has(sysUrl)) {
+        mediaFiles.push({
+          url: sysUrl,
+          name: path.basename(sysUrl),
+          size: 'System Image',
+          rawSize: 0,
+          mtime: Date.now(),
+          folder: 'images'
+        });
       }
-    } catch (e) {
-      console.error('Error reading images folder:', e);
     }
 
     // Sort newest first

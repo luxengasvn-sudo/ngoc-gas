@@ -11,6 +11,22 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelectImage }) {
   const [selectedUrl, setSelectedUrl] = useState('');
   const [notification, setNotification] = useState('');
 
+  const defaultPresets = [
+    { url: '/images/sopet-xam.png', name: 'Bình Sopet Xám 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/sopet-xanh-den.png', name: 'Bình Sopet Xanh Đen 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/sopet-xanh.png', name: 'Bình Sopet Xanh 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/sopet.png', name: 'Bình Sopet Đỏ 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/phoenix-xam.png', name: 'Bình Phoenix Xám 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/phoenix-lg-xanh.png', name: 'Bình Phoenix Xanh 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/phoenix-do.png', name: 'Bình Phoenix Đỏ 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/luxen-gas.png', name: 'Bình Luxen Gas 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/luxen-xam-12kg.png', name: 'Bình Luxen Xám 12kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/luxen-45.png', name: 'Bình Luxen Công Nghiệp 45kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/luxen-xam-45.png', name: 'Bình Luxen Xám 45kg', size: 'Chính hãng', folder: 'system' },
+    { url: '/images/delivery-motorcycle.jpg', name: 'Xe giao gas Ngọc Gas', size: 'Hình ảnh', folder: 'system' },
+    { url: '/images/gas-cylinder.jpg', name: 'Bình gas mẫu', size: 'Hình ảnh', folder: 'system' }
+  ];
+
   const fetchMediaList = async () => {
     setLoading(true);
     const token = localStorage.getItem('ngoc_gas_admin_token');
@@ -21,11 +37,14 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelectImage }) {
         }
       });
       const data = await res.json();
-      if (data.success && Array.isArray(data.data)) {
+      if (data && Array.isArray(data.data) && data.data.length > 0) {
         setMediaList(data.data);
+      } else {
+        setMediaList(defaultPresets);
       }
     } catch (e) {
       console.error('Lỗi khi lấy danh sách media:', e);
+      setMediaList(defaultPresets);
     } finally {
       setLoading(false);
     }
