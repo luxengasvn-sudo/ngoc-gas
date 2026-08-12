@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Save, AlertCircle, CheckCircle2, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle2, Check, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react';
 
 function CollapsibleSection({ id, title, subtitle, isOpen, onToggle, toggleSwitch, children }) {
   return (
@@ -297,6 +297,7 @@ export default function AdminSettingsPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [saving, setSaving] = useState(false);
+  const [showSaveSuccessModal, setShowSaveSuccessModal] = useState(false);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -691,7 +692,7 @@ export default function AdminSettingsPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSuccess('');
     setSaving(true);
@@ -709,7 +710,8 @@ export default function AdminSettingsPage() {
       const data = await res.json();
 
       if (data.success) {
-        setSuccess('Cập nhật cấu hình website thành công!');
+        setSuccess('🎉 ĐÃ LƯU CẤU HÌNH WEBSITE THÀNH CÔNG!');
+        setShowSaveSuccessModal(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         setError(data.message || 'Lưu cài đặt thất bại');
@@ -2790,15 +2792,152 @@ export default function AdminSettingsPage() {
               </div>
             )}
 
-            <div className="settings-submit-box">
-              <button type="submit" className="btn-primary-new" disabled={saving}>
-                <Save size={16} />
-                <span>{saving ? 'Đang lưu cài đặt...' : 'Lưu tất cả thay đổi'}</span>
+            {/* Sticky Floating Action Bar at the Bottom */}
+            <div style={{
+              position: 'sticky',
+              bottom: '16px',
+              zIndex: 900,
+              marginTop: '30px',
+              background: 'rgba(15, 23, 42, 0.94)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              borderRadius: '16px',
+              padding: '14px 24px',
+              display: 'flex',
+              justify: 'space-between',
+              alignItems: 'center',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.35)',
+              color: '#FFF',
+              flexWrap: 'wrap',
+              gap: '12px'
+            }}>
+              <div>
+                <strong style={{ fontSize: '15px', color: '#FFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  ⚙️ Cấu Hình Website Ngọc Gas
+                </strong>
+                <span style={{ fontSize: '12px', color: '#94A3B8', display: 'block', marginTop: '2px' }}>
+                  Bấm nút bên phải để lưu tất cả thông tin, giá gas & thứ tự hiển thị các khối.
+                </span>
+              </div>
+
+              <button
+                type="submit"
+                disabled={saving}
+                style={{
+                  backgroundColor: '#FF6B00',
+                  color: '#FFF',
+                  border: 'none',
+                  borderRadius: '10px',
+                  padding: '12px 28px',
+                  fontSize: '15px',
+                  fontWeight: '800',
+                  cursor: saving ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 16px rgba(255, 107, 0, 0.4)',
+                  transition: 'transform 0.15s ease'
+                }}
+              >
+                <Save size={18} />
+                <span>{saving ? 'ĐANG LƯU CẤU HÌNH...' : '💾 LƯU CẤU HÌNH NGAY'}</span>
               </button>
             </div>
+
           </form>
         </div>
       </div>
+
+      {/* Success Notification Modal Popup */}
+      {showSaveSuccessModal && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 99999,
+          backgroundColor: 'rgba(15, 23, 42, 0.75)',
+          backdropFilter: 'blur(6px)',
+          display: 'flex',
+          alignItems: 'center',
+          justify: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: '20px',
+            maxWidth: '480px',
+            width: '100%',
+            padding: '32px 24px',
+            textAlign: 'center',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
+            border: '2px solid #22C55E',
+            animation: 'fade-in-up 0.2s ease'
+          }}>
+            <div style={{
+              width: '68px',
+              height: '68px',
+              borderRadius: '50%',
+              background: '#DCFCE7',
+              color: '#16A34A',
+              display: 'flex',
+              alignItems: 'center',
+              justify: 'center',
+              margin: '0 auto 16px auto',
+              boxShadow: '0 4px 12px rgba(34, 197, 94, 0.2)'
+            }}>
+              <Check size={36} strokeWidth={3} />
+            </div>
+
+            <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#0F172A', marginBottom: '8px' }}>
+              🎉 ĐÃ LƯU CẤU HÌNH THÀNH CÔNG!
+            </h2>
+
+            <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', marginBottom: '24px' }}>
+              Tất cả các thay đổi về giá gas, nội dung các khối và thứ tự sắp xếp giao diện trang chủ đã được lưu trữ thành công.
+            </p>
+
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+              <button
+                type="button"
+                onClick={() => setShowSaveSuccessModal(false)}
+                style={{
+                  padding: '12px 24px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: '#FF6B00',
+                  color: '#FFF',
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  flex: 1,
+                  boxShadow: '0 4px 12px rgba(255, 107, 0, 0.3)'
+                }}
+              >
+                Đồng Ý / Đóng
+              </button>
+              <a
+                href="/"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  padding: '12px 20px',
+                  borderRadius: '10px',
+                  border: '1px solid #CBD5E1',
+                  background: '#F8FAFC',
+                  color: '#334155',
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justify: 'center'
+                }}
+              >
+                Xem Trang Chủ ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx global>{`
         .admin-loading-panel {
