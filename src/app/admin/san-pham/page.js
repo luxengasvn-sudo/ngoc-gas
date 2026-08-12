@@ -18,6 +18,19 @@ export default function AdminProductsPage() {
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all'); // all | featured | active | inactive
 
+  // Bulk Price Adjustment State
+  const [showBulkPriceBox, setShowBulkPriceBox] = useState(false);
+  const [bulkLoading, setBulkLoading] = useState(false);
+  const [bulkPriceData, setBulkPriceData] = useState({
+    target_type: '12kg', // '12kg' | '45kg' | 'all'
+    adjust_price: false,
+    price_action: 'up', // 'up' | 'down'
+    price_amount: 5000,
+    adjust_sale_price: true,
+    sale_price_action: 'up', // 'up' | 'down'
+    sale_price_amount: 5000
+  });
+
   // Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -400,6 +413,61 @@ export default function AdminProductsPage() {
     }
   };
 
+  const handleBulkPriceUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!bulkPriceData.adjust_price && !bulkPriceData.adjust_sale_price) {
+      setError('Vui lòng tích chọn "Đổi Giá Gốc" hoặc "Đổi Giá Khuyến Mãi"!');
+      return;
+    }
+
+    const targetLabel = bulkPriceData.target_type === '12kg' 
+      ? 'TẤT CẢ SẢN PHẨM LOẠI 12KG' 
+      : bulkPriceData.target_type === '45kg' 
+      ? 'TẤT CẢ SẢN PHẨM LOẠI 45KG' 
+      : 'TẤT CẢ SẢN PHẨM';
+
+    const actions = [];
+    if (bulkPriceData.adjust_sale_price) {
+      actions.push(`${bulkPriceData.sale_price_action === 'up' ? 'TĂNG' : 'GIẢM'} ${Number(bulkPriceData.sale_price_amount).toLocaleString()}đ cho GIÁ KHUYẾN MÃI (Giá Bán)`);
+    }
+    if (bulkPriceData.adjust_price) {
+      actions.push(`${bulkPriceData.price_action === 'up' ? 'TĂNG' : 'GIẢM'} ${Number(bulkPriceData.price_amount).toLocaleString()}đ cho GIÁ GỐC (Giá Niêm Yết)`);
+    }
+
+    const confirmMsg = `⚡ BẠN CÓ CHẮC CHẮN MUỐN ĐIỀU CHỈNH GIÁ ĐỒNG LOẠT?\n\n• Thao tác: ${actions.join(' & ')}\n• Phạm vi: ${targetLabel}\n\nNhấn OK để thực hiện ngay lập tức.`;
+    if (!window.confirm(confirmMsg)) return;
+
+    setBulkLoading(true);
+    setError('');
+
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    try {
+      const res = await fetch('/api/products', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(bulkPriceData)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccess(data.message || 'Đã cập nhật giá đồng loạt thành công!');
+        fetchProductsAndCategories();
+        setShowBulkPriceBox(false);
+        setTimeout(() => setSuccess(''), 4000);
+      } else {
+        setError(data.message || 'Lỗi cập nhật giá đồng loạt');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Lỗi kết nối API khi điều chỉnh giá đồng loạt.');
+    } finally {
+      setBulkLoading(false);
+    }
+  };
+
   const formatPrice = (price) => {
     if (!price) return 'Liên hệ';
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
@@ -435,11 +503,243 @@ export default function AdminProductsPage() {
             <h1 className="panel-main-title">Quản lý Sản phẩm</h1>
             <p className="panel-subtitle">Quản lý kho gas dân dụng, gas công nghiệp, thiết lập giá bán lẻ, giá khuyến mãi và album ảnh chi tiết.</p>
           </div>
-          <button onClick={handleOpenAddModal} className="btn btn-primary btn-add-new-prod">
-            <Plus size={18} />
-            <span>Thêm sản phẩm mới</span>
-          </button>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <button 
+              onClick={() => setShowBulkPriceBox(!showBulkPriceBox)} 
+              className="btn"
+              style={{
+                backgroundColor: showBulkPriceBox ? '#E11D48' : '#FF6B00',
+                color: '#FFF',
+                fontWeight: '700',
+                fontSize: '13px',
+                padding: '10px 16px',
+                borderRadius: '8px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(255, 107, 0, 0.25)'
+              }}
+            >
+              <span>⚡ {showBulkPriceBox ? 'Đóng công cụ sửa giá' : 'Điều chỉnh giá đồng loạt'}</span>
+            </button>
+
+            <button onClick={handleOpenAddModal} className="btn btn-primary btn-add-new-prod">
+              <Plus size={18} />
+              <span>Thêm sản phẩm mới</span>
+            </button>
+          </div>
         </div>
+
+        {/* Khung Điều Chỉnh Giá Đồng Loạt */}
+        {showBulkPriceBox && (
+          <div className="card animate-fade-in-up" style={{ marginTop: '20px', border: '2px solid #FF6B00', borderRadius: '12px', padding: '20px', background: '#FFF8F5' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '17px', fontWeight: '800', color: '#C2410C', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  ⚡ CÔNG CỤ ĐIỀU CHỈNH GIÁ ĐỒNG LOẠT SẢN PHẨM GAS
+                </h3>
+                <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#64748B' }}>
+                  Tự động cộng thêm hoặc trừ bớt số tiền niêm yết cho hàng loạt sản phẩm loại 12kg hoặc 45kg chỉ trong 1 cú click!
+                </p>
+              </div>
+              <button 
+                type="button" 
+                onClick={() => setShowBulkPriceBox(false)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleBulkPriceUpdate}>
+              {/* 1. Chọn nhóm sản phẩm */}
+              <div style={{ marginBottom: '16px', padding: '14px', background: '#FFF', borderRadius: '8px', border: '1px solid #FED7AA' }}>
+                <label style={{ fontSize: '13px', fontWeight: '700', color: '#0F172A', display: 'block', marginBottom: '8px' }}>
+                  1. Chọn nhóm sản phẩm áp dụng:
+                </label>
+                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                    <input 
+                      type="radio" 
+                      name="target_type" 
+                      value="12kg"
+                      checked={bulkPriceData.target_type === '12kg'}
+                      onChange={() => setBulkPriceData(prev => ({ ...prev, target_type: '12kg' }))}
+                    />
+                    <span>🔥 Tất cả sản phẩm Loại 12kg (Sopet, Phoenix, Luxen 12kg)</span>
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                    <input 
+                      type="radio" 
+                      name="target_type" 
+                      value="45kg"
+                      checked={bulkPriceData.target_type === '45kg'}
+                      onChange={() => setBulkPriceData(prev => ({ ...prev, target_type: '45kg' }))}
+                    />
+                    <span>🟣 Tất cả sản phẩm Loại 45kg (Gas Công Nghiệp 45kg)</span>
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                    <input 
+                      type="radio" 
+                      name="target_type" 
+                      value="all"
+                      checked={bulkPriceData.target_type === 'all'}
+                      onChange={() => setBulkPriceData(prev => ({ ...prev, target_type: 'all' }))}
+                    />
+                    <span>📦 Tất cả 100% sản phẩm trong kho</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* 2. Chọn loại giá cần sửa */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+                
+                {/* Sửa Giá Bán Khuyến Mãi */}
+                <div style={{ padding: '14px', background: '#FFF', borderRadius: '8px', border: bulkPriceData.adjust_sale_price ? '2px solid #FF6B00' : '1px solid #E2E8F0' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: '700', color: '#E11D48', cursor: 'pointer', marginBottom: '10px' }}>
+                    <input 
+                      type="checkbox" 
+                      checked={bulkPriceData.adjust_sale_price}
+                      onChange={(e) => setBulkPriceData(prev => ({ ...prev, adjust_sale_price: e.target.checked }))}
+                    />
+                    <span>🔴 Đổi GIÁ KHUYẾN MÃI (Giá Bán Thực Tế)</span>
+                  </label>
+
+                  {bulkPriceData.adjust_sale_price && (
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                      <select 
+                        value={bulkPriceData.sale_price_action}
+                        onChange={(e) => setBulkPriceData(prev => ({ ...prev, sale_price_action: e.target.value }))}
+                        style={{ padding: '8px 10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', fontWeight: '700', color: bulkPriceData.sale_price_action === 'up' ? '#E11D48' : '#059669' }}
+                      >
+                        <option value="up">🔺 TĂNG THÊM (+)</option>
+                        <option value="down">🔻 GIẢM BỚT (-)</option>
+                      </select>
+
+                      <input 
+                        type="number"
+                        value={bulkPriceData.sale_price_amount}
+                        onChange={(e) => setBulkPriceData(prev => ({ ...prev, sale_price_amount: e.target.value }))}
+                        placeholder="vd: 5000"
+                        style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: '700', flex: 1 }}
+                        required={bulkPriceData.adjust_sale_price}
+                      />
+                      <span style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>VNĐ / bình</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Sửa Giá Gốc Niêm Yết */}
+                <div style={{ padding: '14px', background: '#FFF', borderRadius: '8px', border: bulkPriceData.adjust_price ? '2px solid #FF6B00' : '1px solid #E2E8F0' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: '700', color: '#475569', cursor: 'pointer', marginBottom: '10px' }}>
+                    <input 
+                      type="checkbox" 
+                      checked={bulkPriceData.adjust_price}
+                      onChange={(e) => setBulkPriceData(prev => ({ ...prev, adjust_price: e.target.checked }))}
+                    />
+                    <span>⚪ Đổi GIÁ GỐC (Giá Niêm Yết Cũ)</span>
+                  </label>
+
+                  {bulkPriceData.adjust_price && (
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                      <select 
+                        value={bulkPriceData.price_action}
+                        onChange={(e) => setBulkPriceData(prev => ({ ...prev, price_action: e.target.value }))}
+                        style={{ padding: '8px 10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', fontWeight: '700' }}
+                      >
+                        <option value="up">🔺 TĂNG THÊM (+)</option>
+                        <option value="down">🔻 GIẢM BỚT (-)</option>
+                      </select>
+
+                      <input 
+                        type="number"
+                        value={bulkPriceData.price_amount}
+                        onChange={(e) => setBulkPriceData(prev => ({ ...prev, price_amount: e.target.value }))}
+                        placeholder="vd: 5000"
+                        style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: '700', flex: 1 }}
+                        required={bulkPriceData.adjust_price}
+                      />
+                      <span style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>VNĐ / bình</span>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+
+              {/* Nút chọn nhanh mốc số tiền phổ biến */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '18px' }}>
+                <span style={{ fontSize: '12px', fontWeight: '700', color: '#475569' }}>💡 Mức tiền phổ biến:</span>
+                {[
+                  { label: '🔺 Tăng +5.000đ', action: 'up', amount: 5000 },
+                  { label: '🔻 Giảm -5.000đ', action: 'down', amount: 5000 },
+                  { label: '🔺 Tăng +10.000đ', action: 'up', amount: 10000 },
+                  { label: '🔻 Giảm -10.000đ', action: 'down', amount: 10000 },
+                  { label: '🔺 Tăng +20.000đ', action: 'up', amount: 20000 },
+                  { label: '🔻 Giảm -20.000đ', action: 'down', amount: 20000 }
+                ].map((item, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => {
+                      setBulkPriceData(prev => ({
+                        ...prev,
+                        sale_price_action: item.action,
+                        sale_price_amount: item.amount,
+                        price_action: item.action,
+                        price_amount: item.amount
+                      }));
+                    }}
+                    style={{
+                      padding: '4px 10px',
+                      borderRadius: '16px',
+                      border: '1px solid #CBD5E1',
+                      background: '#FFF',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowBulkPriceBox(false)}
+                  style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', background: '#FFF', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  disabled={bulkLoading}
+                  style={{
+                    padding: '8px 20px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: '#FF6B00',
+                    color: '#FFF',
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    cursor: bulkLoading ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    boxShadow: '0 2px 8px rgba(255, 107, 0, 0.3)'
+                  }}
+                >
+                  <span>{bulkLoading ? 'Đang cập nhật...' : '⚡ ÁP DỤNG ĐIỀU CHỈNH GIÁ ĐỒNG LOẠT'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
 
         {success && (
           <div className="admin-success-banner" style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>

@@ -208,3 +208,89 @@ export async function POST(request) {
     );
   }
 }
+
+export async function PATCH(request) {
+  try {
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.split(' ')[1];
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return NextResponse.json({ success: false, message: 'Không có quyền truy cập' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const {
+      target_type, // '12kg' | '45kg' | 'all'
+      adjust_price, // boolean
+      price_action, // 'up' | 'down'
+      price_amount, // number
+      adjust_sale_price, // boolean
+      sale_price_action, // 'up' | 'down'
+      sale_price_amount // number
+    } = body;
+
+    const pAmt = Number(price_amount || 0);
+    const sAmt = Number(sale_price_amount || 0);
+
+    let updatedCount = 0;
+
+    // 1. Fetch current products from DB or fallback
+    let dbRows = [];
+    try {
+      const [rows] = await db.query(`SELECT * FROM products`);
+      dbRows = rows || [];
+    } catch (e) {}
+
+    const itemsToUpdate = dbRows && dbRows.length > 0 ? dbRows : defaultProductsFallback;
+
+    for (const item of itemsToUpdate) {
+      const nameLower = (item.name || '').toLowerCase();
+      const slugLower = (item.slug || '').toLowerCase();
+      const is12kg = nameLower.includes('12kg') || slugLower.includes('12kg');
+      const is45kg = nameLower.includes('45kg') || slugLower.includes('45kg');
+
+      let isMatch = false;
+      if (target_type === '12kg' && is12kg) isMatch = true;
+      else if (target_type === '45kg' && is45kg) isMatch = true;
+      else if (target_type === 'all') isMatch = true;
+
+      if (isMatch) {
+        let newPrice = item.price;
+        let newSalePrice = item.sale_price;
+
+        if (adjust_price && pAmt > 0) {
+          const delta = price_action === 'up' ? pAmt : -pAmt;
+          newPrice = Math.max(0, Number(item.price || 0) + delta);
+        }
+
+        if (adjust_sale_price && sAmt > 0) {
+          const delta = sale_price_action === 'up' ? sAmt : -sAmt;
+          newSalePrice = Math.max(0, Number(item.sale_price || item.price || 0) + delta);
+        }
+
+        item.price = newPrice;
+        item.sale_price = newSalePrice;
+        updatedCount++;
+
+        try {
+          await db.query(
+            `UPDATE products SET price = ?, sale_price = ? WHERE id = ?`,
+            [newPrice, newSalePrice, item.id]
+          );
+        } catch (err) {}
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Đã cập nhật giá đồng loạt thành công cho ${updatedCount} sản phẩm!`,
+      updated_count: updatedCount
+    });
+  } catch (error) {
+    console.error('PATCH /api/products error:', error);
+    return NextResponse.json(
+      { success: false, message: 'Lỗi khi cập nhật giá đồng loạt: ' + error.message },
+      { status: 500 }
+    );
+  }
+}
