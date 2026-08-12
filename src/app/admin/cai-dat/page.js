@@ -723,12 +723,19 @@ export default function AdminSettingsPage() {
   };
 
   const handleMoveSection = (index, direction) => {
+    const ALL_SECTIONS = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
     let order = [];
     try {
-      order = JSON.parse(settings.home_sections_order || '["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]');
+      order = JSON.parse(settings.home_sections_order || '[]');
     } catch(e) {
-      order = ["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
+      order = [];
     }
+    if (!Array.isArray(order)) order = [];
+
+    order = order.filter(id => ALL_SECTIONS.includes(id));
+    ALL_SECTIONS.forEach(id => {
+      if (!order.includes(id)) order.push(id);
+    });
 
     const newOrder = [...order];
     const targetIndex = index + direction;

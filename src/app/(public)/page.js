@@ -112,17 +112,24 @@ export default async function HomePage() {
   const rawPhone = settings.phone.replace(/[^0-9]/g, '');
 
   // Parse section order dynamically from Admin Settings
+  const ALL_SECTIONS = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
   let sectionOrder = [];
   try {
-    sectionOrder = JSON.parse(settings.home_sections_order || '["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]');
+    sectionOrder = JSON.parse(settings.home_sections_order || '[]');
   } catch (e) {
-    sectionOrder = ["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
+    sectionOrder = [];
   }
+  if (!Array.isArray(sectionOrder)) sectionOrder = [];
 
-  // Ensure gas-price-widget is included if not present
-  if (!sectionOrder.includes('gas-price-widget')) {
-    sectionOrder.unshift('gas-price-widget');
-  }
+  // Keep valid section IDs in saved order
+  sectionOrder = sectionOrder.filter(id => ALL_SECTIONS.includes(id));
+
+  // Append any missing sections at the end
+  ALL_SECTIONS.forEach(id => {
+    if (!sectionOrder.includes(id)) {
+      sectionOrder.push(id);
+    }
+  });
 
   const renderSection = (sectionId) => {
     switch (sectionId) {
