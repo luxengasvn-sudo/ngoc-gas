@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Bold, Italic, Type, Image as ImageIcon, Search, Check, Info, Globe, Link2 } from 'lucide-react';
+import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 export default function AdminPostsPage() {
   const [posts, setPosts] = useState([]);
@@ -11,6 +12,7 @@ export default function AdminPostsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
 
   // Search & Filtering
   const [searchQuery, setSearchQuery] = useState('');
@@ -605,6 +607,18 @@ export default function AdminPostsPage() {
                         )}
                       </div>
                       
+                      <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                        <button
+                          type="button"
+                          onClick={() => setIsMediaOpen(true)}
+                          className="btn-add-album-new"
+                          style={{ width: '100%', justifyContent: 'center', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', cursor: 'pointer' }}
+                        >
+                          <ImageIcon size={14} color="#FF6B00" />
+                          <span>🖼️ Chọn từ thư viện</span>
+                        </button>
+                      </div>
+                      
                       <div className="form-group" style={{ marginTop: '12px' }}>
                         <label htmlFor="image_url" className="form-label-new">Đường dẫn URL ảnh</label>
                         <input
@@ -614,7 +628,7 @@ export default function AdminPostsPage() {
                           className="form-control-new font-sm-input"
                           value={formData.image_url}
                           onChange={handleChange}
-                          placeholder="Dán link ảnh từ bên ngoài nếu có"
+                          placeholder="Dán link ảnh từ bên ngoài hoặc chọn từ thư viện"
                         />
                       </div>
                     </div>
@@ -1377,6 +1391,12 @@ export default function AdminPostsPage() {
           box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
         }
       `}</style>
+
+      <MediaLibraryModal
+        isOpen={isMediaOpen}
+        onClose={() => setIsMediaOpen(false)}
+        onSelectImage={(url) => setFormData(prev => ({ ...prev, image_url: url }))}
+      />
     </>
   );
 }

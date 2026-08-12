@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Save, AlertCircle, CheckCircle2, Check, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react';
+import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 function CollapsibleSection({ id, title, subtitle, isOpen, onToggle, toggleSwitch, children }) {
   return (
@@ -299,6 +300,26 @@ export default function AdminSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [showSaveSuccessModal, setShowSaveSuccessModal] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [mediaModalConfig, setMediaModalConfig] = useState({ isOpen: false, targetKey: '' });
+
+  const openMediaLibrary = (targetKey) => {
+    setMediaModalConfig({ isOpen: true, targetKey });
+  };
+
+  const handleSelectMediaImage = (url) => {
+    if (mediaModalConfig.targetKey) {
+      const key = mediaModalConfig.targetKey;
+      setSettings(prev => ({ ...prev, [key]: url }));
+      const token = localStorage.getItem('ngoc_gas_admin_token');
+      fetch('/api/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ [key]: url })
+      });
+      setSuccess('🎉 Đã chọn và lưu ảnh mới từ Thư viện thành công!');
+      setShowSaveSuccessModal(true);
+    }
+  };
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -1153,9 +1174,18 @@ export default function AdminSettingsPage() {
                         onChange={handleChange}
                         placeholder="Dán link ảnh logo hoặc bấm Tải lên bên phải"
                       />
+                      <button
+                        type="button"
+                        onClick={() => openMediaLibrary('logo_url')}
+                        className="btn-add-album-new"
+                        style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                      >
+                        <ImageIcon size={14} color="#FF6B00" />
+                        <span>🖼️ Thư viện ảnh</span>
+                      </button>
                       <label className="btn-add-album-new" style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer' }}>
                         <Upload size={14} />
-                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh logo'}</span>
+                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh logo mới'}</span>
                         <input 
                           type="file" 
                           accept="image/*" 
@@ -1209,9 +1239,18 @@ export default function AdminSettingsPage() {
                         onChange={handleChange}
                         placeholder="Dán link ảnh favicon (.ico/.png) hoặc bấm Tải lên bên phải"
                       />
+                      <button
+                        type="button"
+                        onClick={() => openMediaLibrary('favicon_url')}
+                        className="btn-add-album-new"
+                        style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                      >
+                        <ImageIcon size={14} color="#FF6B00" />
+                        <span>🖼️ Thư viện ảnh</span>
+                      </button>
                       <label className="btn-add-album-new" style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer' }}>
                         <Upload size={14} />
-                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh favicon'}</span>
+                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh favicon mới'}</span>
                         <input 
                           type="file" 
                           accept="image/*" 
@@ -3566,6 +3605,12 @@ export default function AdminSettingsPage() {
           background-color: #F1F5F9;
         }
       `}</style>
+
+      <MediaLibraryModal 
+        isOpen={mediaModalConfig.isOpen} 
+        onClose={() => setMediaModalConfig({ isOpen: false, targetKey: '' })} 
+        onSelectImage={handleSelectMediaImage} 
+      />
     </>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Bold, Italic, Type, Image as ImageIcon, Search, Filter, Eye, Star, ToggleLeft, ToggleRight, Check, Link2 } from 'lucide-react';
+import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
@@ -12,6 +13,19 @@ export default function AdminProductsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
+  const [mediaTarget, setMediaTarget] = useState('main'); // 'main' | 'album'
+
+  const handleMediaSelect = (url) => {
+    if (mediaTarget === 'main') {
+      setFormData(prev => ({ ...prev, image_url: url }));
+    } else if (mediaTarget === 'album') {
+      setFormData(prev => ({
+        ...prev,
+        images: [...(prev.images || []), url]
+      }));
+    }
+  };
 
   // Search & Filtering
   const [searchQuery, setSearchQuery] = useState('');
@@ -1078,6 +1092,18 @@ export default function AdminProductsPage() {
                         )}
                       </div>
                       
+                      <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                        <button
+                          type="button"
+                          onClick={() => { setMediaTarget('main'); setIsMediaOpen(true); }}
+                          className="btn-add-album-new"
+                          style={{ width: '100%', justifyContent: 'center', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', cursor: 'pointer' }}
+                        >
+                          <ImageIcon size={14} color="#FF6B00" />
+                          <span>🖼️ Chọn từ thư viện</span>
+                        </button>
+                      </div>
+                      
                       <div className="form-group" style={{ marginTop: '12px' }}>
                         <label htmlFor="image_url" className="form-label-new">Đường dẫn ảnh chính (URL)</label>
                         <input
@@ -1087,26 +1113,37 @@ export default function AdminProductsPage() {
                           className="form-control-new font-sm-input"
                           value={formData.image_url}
                           onChange={handleChange}
-                          placeholder="Dán link ảnh từ bên ngoài nếu có"
+                          placeholder="Dán link ảnh từ bên ngoài hoặc chọn từ thư viện"
                         />
                       </div>
                     </div>
 
                     {/* Album ảnh phụ */}
                     <div className="form-section-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
                         <h3 className="section-card-title" style={{ margin: 0 }}>Album ảnh phụ</h3>
-                        <label className="btn-add-album-new">
-                          <Plus size={14} />
-                          <span>Tải ảnh phụ</span>
-                          <input 
-                            type="file" 
-                            accept="image/*" 
-                            onChange={handleAlbumUpload} 
-                            style={{ display: 'none' }} 
-                            disabled={uploading}
-                          />
-                        </label>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button
+                            type="button"
+                            onClick={() => { setMediaTarget('album'); setIsMediaOpen(true); }}
+                            className="btn-add-album-new"
+                            style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', cursor: 'pointer' }}
+                          >
+                            <ImageIcon size={14} color="#FF6B00" />
+                            <span>🖼️ Thư viện</span>
+                          </button>
+                          <label className="btn-add-album-new" style={{ cursor: 'pointer' }}>
+                            <Plus size={14} />
+                            <span>Tải ảnh phụ</span>
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              onChange={handleAlbumUpload} 
+                              style={{ display: 'none' }} 
+                              disabled={uploading}
+                            />
+                          </label>
+                        </div>
                       </div>
 
                       {albumImages.length > 0 ? (
@@ -1967,6 +2004,12 @@ export default function AdminProductsPage() {
           box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
         }
       `}</style>
+
+      <MediaLibraryModal
+        isOpen={isMediaOpen}
+        onClose={() => setIsMediaOpen(false)}
+        onSelectImage={handleMediaSelect}
+      />
     </>
   );
 }

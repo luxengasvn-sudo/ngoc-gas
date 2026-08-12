@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Search, Store, ToggleLeft, ToggleRight, Check, MapPin, Phone, User, PlusCircle } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Search, Store, ToggleLeft, ToggleRight, Check, MapPin, Phone, User, PlusCircle, Image as ImageIcon } from 'lucide-react';
+import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 export default function AdminStoresPage() {
   const [stores, setStores] = useState([]);
@@ -11,6 +12,7 @@ export default function AdminStoresPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStore, setCurrentStore] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
 
   // Search
   const [searchQuery, setSearchQuery] = useState('');
@@ -521,9 +523,18 @@ export default function AdminStoresPage() {
                         onChange={handleChange}
                         placeholder="Đường dẫn ảnh đại diện (URL)..."
                       />
+                      <button
+                        type="button"
+                        onClick={() => setIsMediaOpen(true)}
+                        className="btn-add-album-new"
+                        style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer', background: '#FFFFFF', border: '1px solid #CBD5E1', color: '#1E293B', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                      >
+                        <ImageIcon size={14} color="#FF6B00" />
+                        <span>🖼️ Thư viện ảnh</span>
+                      </button>
                       <label className="btn-add-album-new" style={{ margin: 0, whiteSpace: 'nowrap', cursor: 'pointer' }}>
                         <Upload size={14} />
-                        <span>{uploading ? 'Đang tải...' : 'Chọn ảnh'}</span>
+                        <span>{uploading ? 'Đang tải...' : 'Tải ảnh mới'}</span>
                         <input 
                           type="file" 
                           accept="image/*" 
@@ -1250,6 +1261,12 @@ export default function AdminStoresPage() {
           box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
         }
       `}</style>
+
+      <MediaLibraryModal
+        isOpen={isMediaOpen}
+        onClose={() => setIsMediaOpen(false)}
+        onSelectImage={(url) => setFormData(prev => ({ ...prev, image_url: url }))}
+      />
     </>
   );
 }
