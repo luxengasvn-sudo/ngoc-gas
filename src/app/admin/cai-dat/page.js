@@ -2561,7 +2561,8 @@ export default function AdminSettingsPage() {
                 {/* Section 5: Kêu gọi hành động (CTA) */}
                 <CollapsibleSection
                   id="home_cta"
-                  title="Khối gọi tư vấn / Kêu gọi hành động (CTA)"
+                  title="📞 Khối Banner Kêu Gọi Báo Giá & Đặt Gas (CTA Hotline Chân Trang)"
+                  subtitle='Khối banner xuất hiện gần cuối Trang chủ (ngay phía trên Chân trang Footer): "Bạn Cần Hỗ Trợ Tư Vấn Hoặc Báo Giá Hệ Thống Gas?"'
                   isOpen={!!openSections.home_cta}
                   onToggle={() => toggleSection('home_cta')}
                   toggleSwitch={(
@@ -2579,19 +2580,43 @@ export default function AdminSettingsPage() {
                     </label>
                   )}
                 >
-                  <div className="form-card-sub-new" style={{ marginBottom: 0 }}>
+                  <div className="form-card-sub-new" style={{ marginBottom: 0, background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '18px' }}>
+                    <strong style={{ fontSize: '14px', color: '#6D28D9', display: 'block', marginBottom: '12px' }}>
+                      ✏️ Chỉnh sửa nội dung Banner Báo Giá / Hotline:
+                    </strong>
                     <div className="form-group">
-                      <label className="form-label-new">Tiêu đề chính CTA (Khối gọi tư vấn)</label>
-                      <input type="text" name="home_cta_title" className="form-control-new" value={settings.home_cta_title} onChange={handleChange} />
+                      <label className="form-label-new">Tiêu đề lớn chính</label>
+                      <input 
+                        type="text" 
+                        name="home_cta_title" 
+                        className="form-control-new" 
+                        value={settings.home_cta_title || 'Bạn Cần Hỗ Trợ Tư Vấn Hoặc Báo Giá Hệ Thống Gas?'} 
+                        onChange={handleChange} 
+                        placeholder="Bạn Cần Hỗ Trợ Tư Vấn Hoặc Báo Giá Hệ Thống Gas?"
+                      />
                     </div>
                     <div className="settings-grid-2">
                       <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Dòng mô tả phụ CTA</label>
-                        <input type="text" name="home_cta_desc" className="form-control-new" value={settings.home_cta_desc} onChange={handleChange} />
+                        <label className="form-label-new">Dòng mô tả phụ ngắn</label>
+                        <input 
+                          type="text" 
+                          name="home_cta_desc" 
+                          className="form-control-new" 
+                          value={settings.home_cta_desc || 'Ngọc Gas cung cấp dịch vụ khảo sát và thiết kế hệ thống gas công nghiệp miễn phí tại TP. HCM & Bình Dương.'} 
+                          onChange={handleChange} 
+                          placeholder="Mô tả phụ..."
+                        />
                       </div>
                       <div className="form-group" style={{ marginBottom: 0 }}>
-                        <label className="form-label-new">Số Hotline hiển thị trên nút bấm CTA</label>
-                        <input type="text" name="home_cta_phone" className="form-control-new" value={settings.home_cta_phone} onChange={handleChange} placeholder="vd: 0987.654.321" />
+                        <label className="form-label-new">Số Hotline hiển thị trên nút bấm CTA (Mặc định dùng Hotline chung)</label>
+                        <input 
+                          type="text" 
+                          name="home_cta_phone" 
+                          className="form-control-new" 
+                          value={settings.home_cta_phone || ''} 
+                          onChange={handleChange} 
+                          placeholder="Để trống sẽ tự dùng hotline chung 1900.9396" 
+                        />
                       </div>
                     </div>
                   </div>
