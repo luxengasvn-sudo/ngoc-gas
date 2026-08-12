@@ -693,7 +693,14 @@ export default function AdminSettingsPage() {
 
       if (data.success) {
         setSettings(prev => ({ ...prev, [keyName]: data.url }));
-        setSuccess('Đã tải tệp lên thành công. Hãy nhấn "Lưu tất cả thay đổi" để áp dụng chính thức.');
+        // Auto save immediately for all file uploads
+        await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ [keyName]: data.url })
+        });
+        setSuccess('🎉 Đã tải tệp lên và tự động lưu cấu hình thành công!');
+        setShowSaveSuccessModal(true);
       } else {
         setError(data.message || 'Lỗi khi upload file');
       }
