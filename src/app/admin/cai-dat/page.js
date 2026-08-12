@@ -245,7 +245,7 @@ export default function AdminSettingsPage() {
     home_feature_2_icon: 'ThumbsUp',
     home_feature_3_icon: 'Truck',
     home_features_list: '[]',
-    home_sections_order: '["intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]',
+    home_sections_order: '["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]',
     
     // Gas Price Card content customization
     home_gas_price_title: 'BẢNG GIÁ GAS THÁNG {month}/{year}',
@@ -724,21 +724,33 @@ export default function AdminSettingsPage() {
     }
   };
 
-  const handleMoveSection = (index, direction) => {
+  const getNormalizedSectionOrder = (jsonStr) => {
     const ALL_SECTIONS = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
     let order = [];
     try {
-      order = JSON.parse(settings.home_sections_order || '[]');
+      order = JSON.parse(jsonStr || '[]');
     } catch(e) {
       order = [];
     }
-    if (!Array.isArray(order)) order = [];
+    if (!Array.isArray(order) || order.length === 0) {
+      return [...ALL_SECTIONS];
+    }
 
     order = order.filter(id => ALL_SECTIONS.includes(id));
+    if (!order.includes('gas-price-widget')) {
+      order.unshift('gas-price-widget');
+    }
     ALL_SECTIONS.forEach(id => {
-      if (!order.includes(id)) order.push(id);
+      if (!order.includes(id)) {
+        order.push(id);
+      }
     });
 
+    return order;
+  };
+
+  const handleMoveSection = (index, direction) => {
+    const order = getNormalizedSectionOrder(settings.home_sections_order);
     const newOrder = [...order];
     const targetIndex = index + direction;
     if (targetIndex < 0 || targetIndex >= newOrder.length) return;
@@ -1539,12 +1551,7 @@ export default function AdminSettingsPage() {
                 >
                   <div className="sections-order-list-new" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {(() => {
-                      let order = [];
-                      try {
-                        order = JSON.parse(settings.home_sections_order || '["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]');
-                      } catch(e) {
-                        order = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
-                      }
+                      const order = getNormalizedSectionOrder(settings.home_sections_order);
 
                       const sectionConfig = {
                         'gas-price-widget': {

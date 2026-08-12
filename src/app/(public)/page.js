@@ -121,7 +121,12 @@ export default async function HomePage() {
   // Keep valid section IDs in saved order
   sectionOrder = sectionOrder.filter(id => ALL_SECTIONS.includes(id));
 
-  // Append any missing sections at the end
+  // If gas-price-widget is missing, unshift to top (default position 0)
+  if (!sectionOrder.includes('gas-price-widget')) {
+    sectionOrder.unshift('gas-price-widget');
+  }
+
+  // Append any other missing sections at the end
   ALL_SECTIONS.forEach(id => {
     if (!sectionOrder.includes(id)) {
       sectionOrder.push(id);
