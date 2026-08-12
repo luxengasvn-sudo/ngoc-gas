@@ -8,11 +8,11 @@ export const revalidate = 0; // Fresh database query always
 
 export default async function ContactPage() {
   let settings = {
-    address: '7 Nguyễn Trung Trực, Dĩ An, TP. Hồ Chí Minh',
+    address: '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương',
     phone: '19009396',
     email: 'contact@ngocgas.com',
     working_hours: '06:00 - 22:00 (Thứ 2 - Chủ nhật)',
-    google_maps_embed: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.85823798229!2d106.6181518!3d10.8222055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bde049df3db%3A0xe543e0ef88dfc4d5!2zUXXhuq1uIDEyLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
+    google_maps_embed: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.9892!2d106.7725!3d10.9073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d817454f0a0d%3A0x6b77227d82531a7f!2zNyBOZ3V54buFbiBUcnVuZyBUcuG7sWMsINAEaSBBbiwgQsOsbmggRMawxqFuZw!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
   };
 
   try {

@@ -220,7 +220,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Banner Section (Always Top) */}
-      <HeroSection settings={settings} />
+      <HeroSection initialSettings={settings} />
 
       {/* Dynamic Sections ordered and toggled by Admin Settings */}
       {sectionOrder.map(sectionId => renderSection(sectionId))}

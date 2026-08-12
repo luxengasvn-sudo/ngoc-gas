@@ -10,17 +10,26 @@ export default function Footer({ initialSettings }) {
     const init = initialSettings || {};
     return {
       logo_url: init.logo_url || '',
-      address: init.address || '7 Nguyễn Trung Trực, Dĩ An, TP. Hồ Chí Minh',
+      address: init.address || '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương',
       phone: init.phone || '19009396',
       email: init.email || 'contact@ngocgas.com',
       working_hours: init.working_hours || '06:00 - 22:00 (Thứ 2 - Chủ nhật)',
-      footer_copyright: init.footer_copyright || '© 2024 NGỌC GAS. Tất cả quyền được bảo lưu.',
+      footer_copyright: init.footer_copyright || `© ${new Date().getFullYear()} NGỌC GAS. Tất cả quyền được bảo lưu.`,
       social_facebook: init.social_facebook || '',
       social_zalo: init.social_zalo || '',
       social_youtube: init.social_youtube || '',
       social_tiktok: init.social_tiktok || ''
     };
   });
+
+  useEffect(() => {
+    if (initialSettings) {
+      setSettings(prev => ({
+        ...prev,
+        ...initialSettings
+      }));
+    }
+  }, [initialSettings]);
 
   useEffect(() => {
     if (!initialSettings) {

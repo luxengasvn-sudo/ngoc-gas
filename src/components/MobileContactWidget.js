@@ -6,18 +6,19 @@ import { trackClick } from '@/lib/analytics';
 
 export default function MobileContactWidget({ phone: initialPhone }) {
   const [phone, setPhone] = useState(initialPhone || '19009396');
+  const [zaloUrl, setZaloUrl] = useState('');
 
   useEffect(() => {
     if (initialPhone) {
       setPhone(initialPhone);
-      return;
     }
     const fetchSettings = async () => {
       try {
         const res = await fetch('/api/settings');
         const data = await res.json();
-        if (data.success && data.data && data.data.phone) {
-          setPhone(data.data.phone);
+        if (data.success && data.data) {
+          if (data.data.phone) setPhone(data.data.phone);
+          if (data.data.social_zalo) setZaloUrl(data.data.social_zalo);
         }
       } catch (e) {
         console.error('Error fetching settings for contact widget:', e);
@@ -26,14 +27,15 @@ export default function MobileContactWidget({ phone: initialPhone }) {
     fetchSettings();
   }, [initialPhone]);
 
-  const cleanPhone = phone.replace(/\./g, '').trim();
+  const cleanPhone = phone.replace(/[^0-9]/g, '').trim();
+  const finalZaloUrl = zaloUrl || `https://zalo.me/${cleanPhone}`;
 
   return (
     <>
       <div className="mobile-contact-widget">
         {/* Zalo Button */}
         <a 
-          href={`https://zalo.me/${cleanPhone}`} 
+          href={finalZaloUrl} 
           target="_blank" 
           rel="noopener noreferrer" 
           className="widget-btn zalo-btn"

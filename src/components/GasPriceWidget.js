@@ -298,7 +298,7 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
                   </div>
                   <div className="mobile-row-price-call">
                     <span className="mobile-row-price">{formatVND(card.sale_price || card.price)}</span>
-                    <a href="tel:19009396" className="mobile-row-call-btn" onClick={(e) => e.stopPropagation()}>
+                    <a href={`tel:${(settings?.phone || '19009396').replace(/[^0-9]/g, '')}`} className="mobile-row-call-btn" onClick={(e) => e.stopPropagation()}>
                       <PhoneCall size={12} />
                       <span>Gọi</span>
                     </a>
@@ -368,7 +368,7 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
                 </div>
 
                 <div className="price-item-footer-3">
-                  <a href="tel:19009396" className="btn-call-mini-3">
+                  <a href={`tel:${(settings?.phone || '19009396').replace(/[^0-9]/g, '')}`} className="btn-call-mini-3">
                     <PhoneCall size={14} />
                     <span>Gọi Đặt Ngay</span>
                   </a>

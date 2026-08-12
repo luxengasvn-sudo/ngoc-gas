@@ -25,7 +25,7 @@ export default async function AboutPage() {
     about_value_2_title: 'Tận Tâm',
     about_value_2_desc: 'Luôn đặt lợi ích và sự an tâm của khách hàng lên vị trí ưu tiên. Phục vụ chu đáo, hỗ trợ kịp thời 24/7.',
     about_value_3_title: 'Chất Lượng',
-    about_value_3_desc: 'Đảm bảo nguồn gas chính hãng từ các thương hiệu lớn như Petrolimex, Shell, đủ cân nặng, chất lượng ổn định.',
+    about_value_3_desc: 'Đảm bảo nguồn gas chính hãng từ các thương hiệu lớn như Sopet, Phoenix, Luxen Gas, đủ cân nặng, chất lượng ổn định.',
     about_cta_title: 'Đồng hành cùng sự phát triển của bạn',
     about_cta_desc: 'Hãy để Ngọc Gas mang đến giải pháp năng lượng tối ưu, an toàn nhất cho nhà bếp của bạn.',
     about_cta_btn: 'Liên hệ ngay với chúng tôi'

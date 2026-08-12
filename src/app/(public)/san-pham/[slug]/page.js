@@ -10,7 +10,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
 // Helper function to build humanized, 100% Google Keyword-Trust Article structure with branch linking
-const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc) => {
+const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc, phone = '19009396', address = '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương') => {
+  const rawPhone = phone.replace(/[^0-9]/g, '');
   return `
 <h2>Thông Tin & Hướng Dẫn Đổi ${productName} Tận Nhà</h2>
 <p>Chào anh chị, Ngọc Gas xin gửi tới anh chị những thông tin chi tiết nhất về sản phẩm <strong>${productName}</strong>. Là đơn vị chuyên cung cấp gas chính hãng nhiều năm qua tại khu vực Dĩ An, Thuận An, KDC VietSing cũng như khắp Bình Dương và TP.HCM, chúng tôi luôn thấu hiểu rằng một bình gas an toàn, ngọn lửa xanh đều và dịch vụ phục vụ chu đáo chính là điều quan trọng nhất đối với mỗi căn bếp gia đình hay nhà hàng.</p>
@@ -28,28 +29,28 @@ const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc) =>
 <hr style="margin: 30px 0; border: none; border-top: 1px solid #E2E8F0;" />
 
 <!-- SECTION 1: KEYWORD TRUST - GIAO GAS NHANH -->
-<h3>2. Dịch Vụ Giao Gas Nhanh - Có Mặt Ngay Sau 15-30 Phút</h3>
-<p>Đang nấu dở bữa cơm hay đang chuẩn bị món ăn cho khách mà hết gas đột ngột thì thật bất tiện! Hiểu được điều đó, dịch vụ <strong>giao gas nhanh</strong> của Ngọc Gas luôn sẵn sàng 24/7. Ngay khi nhận được cuộc gọi, đội ngũ anh em giao gas sẽ lập tức lên đường chở bình <strong>${productName}</strong> đến tận bếp nhà mình. Không chỉ <strong>giao gas nhanh</strong>, các anh em kỹ thuật còn nhiệt tình cân gas tại chỗ trước mặt anh chị và kiểm tra lại toàn bộ van dây gas xem có bị rò rỉ hay không rồi mới bàn giao.</p>
+<h3>2. Dịch Vụ Giao Gas Nhanh - Có Mặt Trong 15-30 Phút</h3>
+<p>Khi hết gas giữa lúc đang nấu nướng, việc chờ đợi quá lâu sẽ gây gián đoạn công việc nội trợ hoặc kinh doanh quán ăn. Thấu hiểu điều đó, Ngọc Gas triển khai dịch vụ <strong>giao gas nhanh</strong> với mạng lưới giao hàng bằng xe máy phủ sóng khắp các nẻo đường. Khách hàng sử dụng dịch vụ <strong>giao gas nhanh</strong> của Ngọc Gas luôn được cam kết giao đúng hẹn, nhân viên nhiệt tình hỗ trợ cân thử gas và kiểm tra an toàn van dây miễn phí.</p>
 
 <!-- SECTION 2: KEYWORD TRUST - GIAO GAS NHANH TẠI DĨ AN -->
-<h3>3. Giao Gas Nhanh Tại Dĩ An - Phục Vụ Tận Tình Mọi Phường Xã</h3>
-<p>Nếu anh chị đang sinh sống tại TP. Dĩ An (phường Dĩ An, An Bình, Tân Đông Hiệp, Đông Hòa, Bình An, Bình Thắng, Tân Bình), dịch vụ <strong>giao gas nhanh tại Dĩ An</strong> của chúng tôi sẽ có mặt chỉ sau 15 phút. Cửa hàng nằm ngay số <em>7 Nguyễn Trung Trực, Dĩ An</em> nên việc <strong>giao gas nhanh tại Dĩ An</strong> vô cùng thuận tiện. Anh em <strong>giao gas nhanh tại Dĩ An</strong> luôn mang theo cân điện tử để anh chị tự tay kiểm tra đủ 12kg gas ruột mới yên tâm thanh toán.</p>
+<h3>3. Giao Gas Nhanh Tại Dĩ An - Uy Tín & Phục Vụ 24/7</h3>
+<p>Với trụ sở chính đặt tại Dĩ An, dịch vụ <strong>giao gas nhanh tại Dĩ An</strong> của chúng tôi đã phục vụ hàng chục ngàn hộ gia đình trên các tuyến đường chính như Nguyễn Trung Trực, Lý Thường Kiệt, Trần Hưng Đạo, Nguyễn An Ninh... Khi gọi <strong>giao gas nhanh tại Dĩ An</strong>, anh chị hoàn toàn yên tâm về chất lượng bình gas chính hãng <strong>${productName}</strong> đủ cân nặng, ngọn lửa xanh mướt và không bao giờ lo gas giả.</p>
 
 <!-- SECTION 3: KEYWORD TRUST - GIAO GAS NHANH TẠI THUẬN AN -->
-<h3>4. Giao Gas Nhanh Tại Thuận An - Đồng Hành Cùng Các Bếp Gia Đình & Quán Ăn</h3>
-<p>Tại khu vực Thuận An (phường An Phú, Thuận Giao, Lái Thiêu, An Thạnh, Bình Chuẩn), nhu cầu đun nấu hàng ngày rất lớn. Dịch vụ <strong>giao gas nhanh tại Thuận An</strong> của Ngọc Gas luôn đảm bảo cung cấp bình gas chính hãng <strong>${productName}</strong> chất lượng cao. Khi gọi <strong>giao gas nhanh tại Thuận An</strong>, anh chị không chỉ được phục vụ siêu tốc mà còn được nhân viên hỗ trợ vệ sinh kiềng bếp và tư vấn cách dùng gas sao cho tiết kiệm và an toàn nhất. Đội ngũ <strong>giao gas nhanh tại Thuận An</strong> luôn xem sự hài lòng của gia đình anh chị là niềm vui lớn nhất.</p>
+<h3>4. Giao Gas Nhanh Tại Thuận An - Phủ Sóng Mọi Phường Trạm</h3>
+<p>Tại khu vực Thuận An (phường An Phú, Thuận Giao, Lái Thiêu, An Thạnh, Bình Chuẩn), nhu cầu đun nấu hàng ngày rất lớn. Dịch vụ <strong>giao gas nhanh tại Thuận An</strong> của Ngọc Gas luôn đảm bảo cung cấp bình gas chính hãng <strong>${productName}</strong> chất lượng cao. Khi gọi <strong>giao gas nhanh tại Thuận An</strong>, anh chị không chỉ được phục vụ siêu tốc mà còn được nhân viên hỗ trợ vệ sinh kiềng bếp và tư vấn cách dùng gas sao cho tiết kiệm và an toàn nhất.</p>
 
 <!-- SECTION 4: KEYWORD TRUST - GIAO GAS NHANH TẠI VIETSING -->
 <h3>5. Giao Gas Nhanh Tại VietSing - Tận Căn Hộ, Nhà Trọ & Bếp Ăn KCN VSIP 1</h3>
-<p>Khu dân cư VietSing (VSIP 1) có nhiều chung cư, nhà trọ cũng như quán ăn buôn bán tấp nập. Dịch vụ <strong>giao gas nhanh tại VietSing</strong> của chúng tôi chuyên phục vụ các căn hộ cao tầng, phòng trọ và quán ăn khu vực này. Khi anh chị cần <strong>giao gas nhanh tại VietSing</strong>, các anh em giao gas sẵn sàng bê bình gas lên tận tầng, hỗ trợ lắp đặt gọn gàng và cẩn thận. Gọi <strong>giao gas nhanh tại VietSing</strong> qua tổng đài 19009396 để được hỗ trợ tức thì.</p>
+<p>Khu dân cư VietSing (VSIP 1) có nhiều chung cư, nhà trọ cũng như quán ăn buôn bán tấp nập. Dịch vụ <strong>giao gas nhanh tại VietSing</strong> của chúng tôi chuyên phục vụ các căn hộ cao tầng, phòng trọ và quán ăn khu vực này. Khi anh chị cần <strong>giao gas nhanh tại VietSing</strong>, các anh em giao gas sẵn sàng bê bình gas lên tận tầng, hỗ trợ lắp đặt gọn gàng và cẩn thận. Gọi <strong>giao gas nhanh tại VietSing</strong> qua tổng đài ${phone} để được hỗ trợ tức thì.</p>
 
 <!-- SECTION 5: KEYWORD TRUST - GIAO GAS NHANH TẠI TP.HCM -->
 <h3>6. Giao Gas Nhanh Tại TP.HCM - Phục Vụ Nhanh Chóng Các Khu Vực Giáp Ranh</h3>
-<p>Bên cạnh Bình Dương, Ngọc Gas cũng mở rộng dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> cho các khu vực giáp ranh như TP. Thủ Đức, Quận 12, Bình Thạnh... Khách hàng khi cần <strong>giao gas nhanh tại TP.HCM</strong> luôn đánh giá cao sự đúng giờ và tinh thần trách nhiệm của đội ngũ nhân viên. Mọi bình gas trong dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> đều có tem nhãn rõ ràng và được bảo hành chu đáo trong suốt quá trình đun nấu.</p>
+<p>Bên cạnh Bình Dương, Ngọc Gas cũng mở rộng dịch vụ <strong>giao gas nhanh tại TP.HCM</strong> cho các khu vực giáp ranh như TP. Thủ Đức, Quận 12, Bình Thạnh... Khách hàng khi cần <strong>giao gas nhanh tại TP.HCM</strong> luôn đánh giá cao sự đúng giờ và tinh thần trách nhiệm của đội ngũ nhân viên.</p>
 
 <!-- SECTION 6: KEYWORD TRUST - GIAO GAS NHANH TẠI BÌNH DƯƠNG -->
 <h3>7. Giao Gas Nhanh Tại Bình Dương - Hệ Thống Cửa Hàng Phủ Sóng Khắp Tỉnh</h3>
-<p>Với định hướng trở thành người bạn đồng hành tin cậy của mọi căn bếp, giải pháp <strong>giao gas nhanh tại Bình Dương</strong> của Ngọc Gas đã và đang phục vụ cho hàng ngàn hộ gia đình, quán ăn và doanh nghiệp. Hệ thống <strong>giao gas nhanh tại Bình Dương</strong> không chỉ đáp ứng tiêu chuẩn giao hàng nhanh chóng mà còn coi trọng yếu tố an toàn cháy nổ lên tối quan trọng. Khách hàng lựa chọn <strong>giao gas nhanh tại Bình Dương</strong> hoàn toàn yên tâm về giá cả niêm yết rõ ràng, không lo tráo đổi bình gas kém chất lượng.</p>
+<p>Với định hướng trở thành người bạn đồng hành tin cậy của mọi căn bếp, giải pháp <strong>giao gas nhanh tại Bình Dương</strong> của Ngọc Gas đã và đang phục vụ cho hàng ngàn hộ gia đình, quán ăn và doanh nghiệp.</p>
 
 <hr style="margin: 30px 0; border: none; border-top: 1px solid #E2E8F0;" />
 

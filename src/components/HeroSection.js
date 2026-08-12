@@ -193,9 +193,11 @@ export default function HeroSection({ initialSettings }) {
                   <span>{settings.hero_btn1_text || 'Xem sản phẩm'}</span>
                   <ArrowRight size={18} />
                 </Link>
-                <Link href="/lien-he" className="btn btn-outline btn-lg">
-                  <span>Liên hệ ngay</span>
-                </Link>
+                {settings.hero_show_btn2 !== '0' && (
+                  <Link href={settings.hero_btn2_link || "/lien-he"} className="btn btn-outline btn-lg">
+                    <span>{settings.hero_btn2_text || 'Liên hệ ngay'}</span>
+                  </Link>
+                )}
               </div>
             </div>
           )}
@@ -296,12 +298,6 @@ export default function HeroSection({ initialSettings }) {
         .hero-container {
           position: relative;
           z-index: 5;
-          display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 50px;
-          align-items: center;
-          width: 100%;
-        }
 
         .hero-container.text-hidden {
           grid-template-columns: 1fr;
