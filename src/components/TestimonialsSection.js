@@ -205,6 +205,56 @@ export default function TestimonialsSection() {
           color: #94A3B8;
           margin-top: 2px;
         }
+
+        /* Mobile Horizontal Scroll Slider */
+        @media (max-width: 768px) {
+          .testimonials-section {
+            padding: 40px 0;
+          }
+
+          .testimonials-header {
+            margin-bottom: 24px;
+            padding: 0 10px;
+          }
+
+          .testimonials-header h2 {
+            font-size: 20px;
+          }
+
+          .description {
+            font-size: 13px;
+          }
+
+          .testimonials-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 16px 16px 16px;
+            gap: 14px;
+            margin: 0 -16px;
+            scrollbar-width: none;
+          }
+
+          .testimonials-grid::-webkit-scrollbar {
+            display: none;
+          }
+
+          .testimonial-card {
+            min-width: 86vw;
+            max-width: 86vw;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+          }
+
+          .comment-text {
+            font-size: 13.5px;
+            margin-bottom: 16px;
+          }
+        }
       `}</style>
     </section>
   );
