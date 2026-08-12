@@ -1,4 +1,5 @@
 import db from '@/lib/db';
+import { getAllSettings } from '@/lib/settingsHelper';
 import Link from 'next/link';
 import FeaturedProductsTabs from '@/components/FeaturedProductsTabs';
 import PostCard from '@/components/PostCard';
@@ -36,13 +37,9 @@ export default async function HomePage() {
   };
 
   try {
-    // 1. Fetch settings
-    const [settingRows] = await db.query('SELECT setting_key, setting_value FROM settings');
-    if (settingRows && settingRows.length > 0) {
-      settingRows.forEach(row => {
-        settings[row.setting_key] = row.setting_value;
-      });
-    }
+    // 1. Fetch settings from unified settingsHelper (File + DB + Memory)
+    const fetchedSettings = await getAllSettings();
+    settings = { ...settings, ...fetchedSettings };
 
     let featuredGasIds = [];
     let featuredOtherIds = [];
