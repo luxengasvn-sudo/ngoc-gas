@@ -1149,7 +1149,7 @@ export default function AdminSettingsPage() {
                         id="logo_url"
                         name="logo_url"
                         className="form-control-new"
-                        value={settings.logo_url}
+                        value={settings.logo_url || ''}
                         onChange={handleChange}
                         placeholder="Dán link ảnh logo hoặc bấm Tải lên bên phải"
                       />
@@ -1166,9 +1166,33 @@ export default function AdminSettingsPage() {
                       </label>
                     </div>
                     {settings.logo_url && (
-                      <div style={{ marginTop: '15px', padding: '12px', backgroundColor: '#1A202C', borderRadius: '6px', display: 'inline-block' }}>
-                        <span style={{ color: '#A0AEC0', fontSize: '11px', display: 'block', marginBottom: '6px' }}>Xem trước Logo trên thanh Header tối:</span>
-                        <img src={settings.logo_url} alt="Logo" style={{ height: '35px', width: 'auto', objectFit: 'contain' }} />
+                      <div style={{ marginTop: '12px', padding: '12px 16px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: '700', color: '#1E293B' }}>
+                            🟢 Link ảnh Logo vừa lưu chính thức:
+                          </span>
+                          <button 
+                            type="button" 
+                            onClick={() => { navigator.clipboard.writeText(settings.logo_url); alert('Đã sao chép link ảnh logo!'); }}
+                            style={{ padding: '4px 10px', fontSize: '11px', background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
+                          >
+                            📋 Sao chép link
+                          </button>
+                        </div>
+                        <code style={{ display: 'block', wordBreak: 'break-all', fontSize: '13px', background: '#FFFFFF', padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', color: '#0F172A', fontWeight: '700', marginBottom: '10px' }}>
+                          {settings.logo_url}
+                        </code>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                          <span style={{ fontSize: '11px', color: '#64748B' }}>Xem trước Logo:</span>
+                          <img src={settings.logo_url} alt="Logo" style={{ height: '35px', maxWidth: '200px', objectFit: 'contain', background: '#1A202C', padding: '6px', borderRadius: '6px' }} />
+                          <button
+                            type="button"
+                            onClick={() => setSettings(prev => ({ ...prev, logo_url: '' }))}
+                            style={{ padding: '4px 10px', fontSize: '11px', background: '#FEF2F2', color: '#DC2626', border: '1px solid #FCA5A5', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
+                          >
+                            🗑️ Xóa logo
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -1181,7 +1205,7 @@ export default function AdminSettingsPage() {
                         id="favicon_url"
                         name="favicon_url"
                         className="form-control-new"
-                        value={settings.favicon_url}
+                        value={settings.favicon_url || ''}
                         onChange={handleChange}
                         placeholder="Dán link ảnh favicon (.ico/.png) hoặc bấm Tải lên bên phải"
                       />
@@ -1198,9 +1222,33 @@ export default function AdminSettingsPage() {
                       </label>
                     </div>
                     {settings.favicon_url && (
-                      <div style={{ marginTop: '15px', padding: '12px', backgroundColor: '#F8FAFC', border: '1px solid var(--border)', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                        <span style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Xem trước biểu tượng tab trình duyệt:</span>
-                        <img src={settings.favicon_url} alt="Favicon" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
+                      <div style={{ marginTop: '12px', padding: '12px 16px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: '700', color: '#1E293B' }}>
+                            🟢 Link ảnh Favicon vừa lưu chính thức:
+                          </span>
+                          <button 
+                            type="button" 
+                            onClick={() => { navigator.clipboard.writeText(settings.favicon_url); alert('Đã sao chép link ảnh favicon!'); }}
+                            style={{ padding: '4px 10px', fontSize: '11px', background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
+                          >
+                            📋 Sao chép link
+                          </button>
+                        </div>
+                        <code style={{ display: 'block', wordBreak: 'break-all', fontSize: '13px', background: '#FFFFFF', padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', color: '#0F172A', fontWeight: '700', marginBottom: '10px' }}>
+                          {settings.favicon_url}
+                        </code>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                          <span style={{ fontSize: '11px', color: '#64748B' }}>Xem trước Favicon:</span>
+                          <img src={settings.favicon_url} alt="Favicon" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
+                          <button
+                            type="button"
+                            onClick={() => setSettings(prev => ({ ...prev, favicon_url: '' }))}
+                            style={{ padding: '4px 10px', fontSize: '11px', background: '#FEF2F2', color: '#DC2626', border: '1px solid #FCA5A5', borderRadius: '4px', cursor: 'pointer', fontWeight: '700' }}
+                          >
+                            🗑️ Xóa favicon
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
