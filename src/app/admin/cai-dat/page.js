@@ -1645,15 +1645,27 @@ export default function AdminSettingsPage() {
                                 </strong>
                               </div>
 
-                              {isHidden ? (
-                                <span style={{ padding: '2px 8px', borderRadius: '12px', background: '#EF4444', color: '#FFF', fontSize: '11px', fontWeight: '700' }}>
-                                  🔴 Đang ẩn
-                                </span>
-                              ) : (
-                                <span style={{ padding: '2px 8px', borderRadius: '12px', background: '#10B981', color: '#FFF', fontSize: '11px', fontWeight: '700' }}>
-                                  🟢 Đang hiện
-                                </span>
-                              )}
+                              <button
+                                type="button"
+                                onClick={() => setSettings(prev => ({ ...prev, [statusKeys[sectionId]]: isHidden ? '1' : '0' }))}
+                                style={{
+                                  padding: '4px 10px',
+                                  borderRadius: '12px',
+                                  background: isHidden ? '#EF4444' : '#10B981',
+                                  color: '#FFF',
+                                  fontSize: '11px',
+                                  fontWeight: '700',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+                                }}
+                                title={isHidden ? "Nhấp để BẬT hiển thị khối này" : "Nhấp để ẨN khối này"}
+                              >
+                                {isHidden ? '🔴 Đang ẩn (Click để mở)' : '🟢 Đang hiện (Click để ẩn)'}
+                              </button>
                             </div>
 
                             <div style={{ display: 'flex', gap: '6px' }}>

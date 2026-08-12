@@ -133,6 +133,35 @@ export default async function HomePage() {
     }
   });
 
+  const defaultPosts = [
+    {
+      id: 1,
+      title: 'Kinh Nghiệm Phân Biệt Bình Gas Chính Hãng Ngọc Gas Với Gas Giả Trôi Nổi',
+      slug: 'kinh-nghiem-phan-biet-binh-gas-chinh-hang',
+      excerpt: 'Hướng dẫn cách nhận biết màng co niêm phong, tem chống hàng giả và quy trình cân thử gas trước khi thanh toán tại Dĩ An & TP.HCM.',
+      image_url: '/images/sopet-xam.png',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: 2,
+      title: 'Quy Trình Thi Công Hệ Thống Gas Công Nghiệp Đạt Chuẩn PCCC Cho Nhà Hàng',
+      slug: 'quy-trinh-thi-cong-he-thong-gas-cong-nghiep-dat-chuan-pccc',
+      excerpt: 'Ngọc Gas chia sẻ tiêu chuẩn kỹ thuật lắp đặt đường ống gas inox, van ngắt tự động và hệ thống cảnh báo rò rỉ khí gas cho nhà bếp.',
+      image_url: '/images/sopet-xanh.png',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: 3,
+      title: 'Mẹo Sử Dụng Gas Tiết Kiệm 30% Chi Phí Đun Nấu Gia Đình & Quán Ăn',
+      slug: 'meo-su-dung-gas-tiet-kiem-chi-phi-dun-nau',
+      excerpt: 'Bật mí cách điều chỉnh ngọn lửa xanh xoáy, bảo dưỡng bếp gas định kỳ và mẹo chọn bình gas 12kg chất lượng cao.',
+      image_url: '/images/sopet-xanh-den.png',
+      created_at: new Date().toISOString()
+    }
+  ];
+
+  const displayPosts = (latestPosts && latestPosts.length > 0) ? latestPosts : defaultPosts;
+
   const renderSection = (sectionId) => {
     switch (sectionId) {
       case 'gas-price-widget':
@@ -161,7 +190,7 @@ export default async function HomePage() {
         return <TestimonialsSection key="stats-counter" />;
 
       case 'latest-news':
-        if (settings.show_home_news === '0' || !latestPosts || latestPosts.length === 0) return null;
+        if (settings.show_home_news === '0') return null;
         return (
           <section key="latest-news" className="section-padding bg-warm">
             <div className="container">
@@ -172,7 +201,7 @@ export default async function HomePage() {
               </div>
               
               <div className="grid-3 posts-grid">
-                {latestPosts.map(post => (
+                {displayPosts.map(post => (
                   <PostCard key={post.id} post={post} />
                 ))}
               </div>
