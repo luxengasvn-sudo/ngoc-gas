@@ -2,16 +2,20 @@ import db from '@/lib/db';
 import { getAuthenticatedUser } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 
+const defaultCategories = [
+  { id: 1, name: 'Gas Dân Dụng 12kg', slug: 'gas-dan-dung-12kg', description: 'Các loại bình gas 12kg thương hiệu Sopet, Phoenix, Luxen' },
+  { id: 2, name: 'Gas Công Nghiệp 45kg', slug: 'gas-cong-nghiep-45kg', description: 'Bình gas 45kg chuyên dùng cho nhà hàng, khách sạn và bếp ăn KCN' },
+  { id: 3, name: 'Bếp & Phụ Kiện Gas', slug: 'bep-phu-kien-gas', description: 'Van ngắt tự động, dây dẫn gas inox và bếp gas chính hãng' }
+];
+
 export async function GET() {
   try {
     const [rows] = await db.query('SELECT * FROM categories ORDER BY name ASC');
-    return NextResponse.json({ success: true, data: rows });
+    const categories = (rows && rows.length > 0) ? rows : defaultCategories;
+    return NextResponse.json({ success: true, data: categories });
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return NextResponse.json(
-      { success: false, message: 'Lỗi server khi lấy danh sách danh mục' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: true, data: defaultCategories });
   }
 }
 

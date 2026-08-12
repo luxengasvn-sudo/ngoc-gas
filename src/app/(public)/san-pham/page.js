@@ -13,10 +13,16 @@ export default async function ProductsPage({ searchParams }) {
   let categories = [];
   let currentCategoryName = 'Tất cả sản phẩm';
 
+  const defaultCategories = [
+    { id: 1, name: 'Gas Dân Dụng 12kg', slug: 'gas-dan-dung-12kg' },
+    { id: 2, name: 'Gas Công Nghiệp 45kg', slug: 'gas-cong-nghiep-45kg' },
+    { id: 3, name: 'Bếp & Phụ Kiện Gas', slug: 'bep-phu-kien-gas' }
+  ];
+
   try {
     // 1. Fetch categories
     const [catRows] = await db.query('SELECT * FROM categories');
-    categories = catRows;
+    categories = (catRows && catRows.length > 0) ? catRows : defaultCategories;
 
     // 2. Fetch products based on category filter
     let query = `
@@ -43,6 +49,7 @@ export default async function ProductsPage({ searchParams }) {
     products = prodRows || [];
   } catch (error) {
     console.error('Error fetching products:', error);
+    categories = defaultCategories;
   }
 
   // Fallback products if DB is empty or syncing
