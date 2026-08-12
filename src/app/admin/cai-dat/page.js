@@ -1523,12 +1523,12 @@ export default function AdminSettingsPage() {
                 {/* Sắp xếp thứ tự hiển thị các khối */}
                 <CollapsibleSection
                   id="home_order"
-                  title="Sắp xếp thứ tự hiển thị các khối nội dung trên Trang chủ"
-                  subtitle="Nhấn vào các nút Mũi tên lên/xuống để sắp xếp thứ tự hiển thị của các khối bên ngoài Trang chủ."
+                  title="🎨 Sắp xếp thứ tự hiển thị các khối nội dung trên Trang chủ"
+                  subtitle="Nhấn vào các nút Mũi tên ⬆️ Lên / ⬇️ Xuống để thay đổi vị trí xuất hiện của 6 khối nội dung ngoài Trang chủ."
                   isOpen={!!openSections.home_order}
                   onToggle={() => toggleSection('home_order')}
                 >
-                  <div className="sections-order-list-new">
+                  <div className="sections-order-list-new" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {(() => {
                       let order = [];
                       try {
@@ -1537,13 +1537,43 @@ export default function AdminSettingsPage() {
                         order = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
                       }
 
-                      const names = {
-                        'gas-price-widget': 'Khối Bảng giá Gas Niêm Yết Tháng',
-                        'intro-features': 'Khối Đặc điểm nổi bật (An toàn, Chất lượng, Giao nhanh)',
-                        'featured-products': 'Khối Sản phẩm nổi bật',
-                        'stats-counter': 'Khối Chỉ số thống kê (Số năm kinh nghiệm, khách hàng...)',
-                        'latest-news': 'Khối Tin tức & Kiến thức',
-                        'cta-section': 'Khối gọi tư vấn / Liên hệ nhanh (CTA)'
+                      const sectionConfig = {
+                        'gas-price-widget': {
+                          title: '🔥 Khối 1: Bảng Giá Gas & Lịch Sử Biến Động Giá',
+                          bg: '#FFF7ED',
+                          border: '#FFD8A8',
+                          color: '#C2410C'
+                        },
+                        'intro-features': {
+                          title: '🛡️ Khối 2: Cẩm Nang & Hướng Dẫn An Toàn (FAQs & Cam Kết)',
+                          bg: '#FEF2F2',
+                          border: '#FCA5A5',
+                          color: '#B91C1C'
+                        },
+                        'featured-products': {
+                          title: '📦 Khối 3: Sản Phẩm Nổi Bật (Tabs Gas & Phụ Kiện)',
+                          bg: '#EFF6FF',
+                          border: '#BFDBFE',
+                          color: '#1D4ED8'
+                        },
+                        'stats-counter': {
+                          title: '⭐ Khối 4: Cảm Nhận Khách Hàng (Testimonials Slider)',
+                          bg: '#FFFBEB',
+                          border: '#FDE68A',
+                          color: '#B45309'
+                        },
+                        'latest-news': {
+                          title: '📰 Khối 5: Tin Tức & Cẩm Nang Kinh Nghiệm',
+                          bg: '#ECFDF5',
+                          border: '#A7F3D0',
+                          color: '#047857'
+                        },
+                        'cta-section': {
+                          title: '📞 Khối 6: Banner Kêu Gọi Đổi Gas (CTA Hotline)',
+                          bg: '#F3E8FF',
+                          border: '#DDD6FE',
+                          color: '#6D28D9'
+                        }
                       };
 
                       const statusKeys = {
@@ -1556,32 +1586,107 @@ export default function AdminSettingsPage() {
                       };
 
                       return order.map((sectionId, index) => {
+                        const cfg = sectionConfig[sectionId] || { title: sectionId, bg: '#F8FAFC', border: '#E2E8F0', color: '#0F172A' };
                         const isHidden = settings[statusKeys[sectionId]] === '0';
+
                         return (
-                          <div key={sectionId} className={`section-order-row-new ${isHidden ? 'hidden-section' : ''}`}>
-                            <div className="section-order-info-new">
-                              <span className="section-order-index-new">{index + 1}</span>
-                              <strong className="section-order-name-new">{names[sectionId]}</strong>
-                              {isHidden && <span className="section-order-hidden-badge-new">Đang ẩn</span>}
+                          <div 
+                            key={sectionId} 
+                            style={{ 
+                              display: 'flex', 
+                              justify: 'space-between', 
+                              alignItems: 'center', 
+                              padding: '14px 18px', 
+                              borderRadius: '10px', 
+                              background: isHidden ? '#F1F5F9' : cfg.bg, 
+                              border: `2px solid ${isHidden ? '#CBD5E1' : cfg.border}`,
+                              opacity: isHidden ? 0.65 : 1,
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                              <span 
+                                style={{ 
+                                  width: '28px', 
+                                  height: '28px', 
+                                  borderRadius: '50%', 
+                                  background: isHidden ? '#94A3B8' : cfg.color, 
+                                  color: '#FFF', 
+                                  fontSize: '13px', 
+                                  fontWeight: '800', 
+                                  display: 'flex', 
+                                  alignItems: 'center', 
+                                  justifyContent: 'center',
+                                  flexShrink: 0 
+                                }}
+                              >
+                                {index + 1}
+                              </span>
+
+                              <div>
+                                <strong style={{ fontSize: '14px', fontWeight: '800', color: isHidden ? '#64748B' : cfg.color }}>
+                                  {cfg.title}
+                                </strong>
+                              </div>
+
+                              {isHidden ? (
+                                <span style={{ padding: '2px 8px', borderRadius: '12px', background: '#EF4444', color: '#FFF', fontSize: '11px', fontWeight: '700' }}>
+                                  🔴 Đang ẩn
+                                </span>
+                              ) : (
+                                <span style={{ padding: '2px 8px', borderRadius: '12px', background: '#10B981', color: '#FFF', fontSize: '11px', fontWeight: '700' }}>
+                                  🟢 Đang hiện
+                                </span>
+                              )}
                             </div>
-                            <div className="section-order-actions-new">
+
+                            <div style={{ display: 'flex', gap: '6px' }}>
                               <button 
                                 type="button"
                                 onClick={() => handleMoveSection(index, -1)} 
                                 disabled={index === 0}
-                                className="order-btn-new"
-                                title="Di chuyển lên"
+                                style={{ 
+                                  padding: '6px 12px', 
+                                  borderRadius: '6px', 
+                                  border: '1px solid #CBD5E1', 
+                                  background: '#FFF', 
+                                  cursor: index === 0 ? 'not-allowed' : 'pointer',
+                                  opacity: index === 0 ? 0.4 : 1,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontSize: '12px',
+                                  fontWeight: '700',
+                                  color: '#334155'
+                                }}
+                                title="Di chuyển lên trên"
                               >
                                 <ArrowUp size={16} />
+                                <span>Lên</span>
                               </button>
+
                               <button 
                                 type="button"
                                 onClick={() => handleMoveSection(index, 1)} 
                                 disabled={index === order.length - 1}
-                                className="order-btn-new"
-                                title="Di chuyển xuống"
+                                style={{ 
+                                  padding: '6px 12px', 
+                                  borderRadius: '6px', 
+                                  border: '1px solid #CBD5E1', 
+                                  background: '#FFF', 
+                                  cursor: index === order.length - 1 ? 'not-allowed' : 'pointer',
+                                  opacity: index === order.length - 1 ? 0.4 : 1,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontSize: '12px',
+                                  fontWeight: '700',
+                                  color: '#334155'
+                                }}
+                                title="Di chuyển xuống dưới"
                               >
                                 <ArrowDown size={16} />
+                                <span>Xuống</span>
                               </button>
                             </div>
                           </div>
@@ -2193,190 +2298,6 @@ export default function AdminSettingsPage() {
                       </div>
 
                     </div>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
-                    <p className="section-subtitle-text" style={{ margin: 0, color: 'var(--text-secondary)' }}>
-                      Bạn có thể tự do thêm, bớt các ô đặc điểm nổi bật và chọn biểu tượng (icon) hiển thị phù hợp.
-                    </p>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        type="button"
-                        onClick={collapseAllFeatures}
-                        className="btn-outline-new"
-                        style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
-                        title="Thu nhỏ tất cả ô đặc điểm"
-                      >
-                        <Minimize2 size={13} />
-                        <span>Thu nhỏ tất cả</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={expandAllFeatures}
-                        className="btn-outline-new"
-                        style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
-                        title="Mở rộng tất cả ô đặc điểm"
-                      >
-                        <Maximize2 size={13} />
-                        <span>Mở rộng tất cả</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {getFeaturesList().map((item, index) => {
-                      const itemKey = item.id || index;
-                      const isCollapsed = !openFeatureIds[itemKey];
-
-                      return (
-                        <div 
-                          key={itemKey} 
-                          className="form-card-sub-new" 
-                          style={{ 
-                            position: 'relative', 
-                            padding: isCollapsed ? '12px 16px' : '16px',
-                            transition: 'all 0.2s ease',
-                            border: isCollapsed ? '1px solid var(--border)' : '1px solid var(--border)'
-                          }}
-                        >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div 
-                              onClick={() => toggleFeatureCollapse(itemKey)}
-                              style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', userSelect: 'none', flex: 1, minWidth: 0 }}
-                            >
-                              <span style={{ display: 'inline-flex', alignItems: 'center', color: 'var(--text-secondary)' }}>
-                                {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
-                              </span>
-                              <strong className="sub-card-header-new" style={{ margin: 0, whiteSpace: 'nowrap' }}>
-                                Đặc điểm #{index + 1}:
-                              </strong>
-                              <span style={{ fontWeight: '600', color: 'var(--text-main)', fontSize: '14px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                {item.title ? item.title : '(Chưa đặt tiêu đề)'}
-                              </span>
-                              {isCollapsed && item.desc && (
-                                <span style={{ fontSize: '12px', color: 'var(--text-secondary)', marginLeft: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', opacity: 0.8 }}>
-                                  — {item.desc}
-                                </span>
-                              )}
-                            </div>
-
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '12px', shrink: 0 }}>
-                              <button
-                                type="button"
-                                onClick={() => toggleFeatureCollapse(itemKey)}
-                                style={{
-                                  background: 'var(--bg-surface-hover, rgba(255, 255, 255, 0.05))',
-                                  color: 'var(--text-secondary)',
-                                  border: '1px solid var(--border)',
-                                  borderRadius: '6px',
-                                  padding: '5px 10px',
-                                  cursor: 'pointer',
-                                  fontSize: '12px',
-                                  fontWeight: '500'
-                                }}
-                              >
-                                {isCollapsed ? 'Mở rộng' : 'Thu nhỏ'}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveFeatureItem(index)}
-                                style={{
-                                  background: 'rgba(239, 68, 68, 0.1)',
-                                  color: '#ef4444',
-                                  border: 'none',
-                                  borderRadius: '6px',
-                                  padding: '5px 10px',
-                                  cursor: 'pointer',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  gap: '4px',
-                                  fontSize: '12px',
-                                  fontWeight: '600'
-                                }}
-                              >
-                                <Trash2 size={13} />
-                                <span>Xóa</span>
-                              </button>
-                            </div>
-                          </div>
-
-                          {!isCollapsed && (
-                            <div className="animate-fade-in-up" style={{ marginTop: '16px' }}>
-                              <div className="grid-2" style={{ gap: '16px', marginBottom: '12px' }}>
-                                <div className="form-group" style={{ marginBottom: 0 }}>
-                                  <label className="form-label-new">Tiêu đề</label>
-                                  <input
-                                    type="text"
-                                    className="form-control-new"
-                                    value={item.title || ''}
-                                    onChange={(e) => handleUpdateFeatureItem(index, 'title', e.target.value)}
-                                    placeholder="Nhập tiêu đề đặc điểm..."
-                                  />
-                                </div>
-
-                                <div className="form-group" style={{ marginBottom: 0 }}>
-                                  <label className="form-label-new">Biểu tượng (Icon)</label>
-                                  <select
-                                    className="form-control-new"
-                                    value={item.icon || 'Shield'}
-                                    onChange={(e) => handleUpdateFeatureItem(index, 'icon', e.target.value)}
-                                  >
-                                    <option value="Shield">🛡️ Khiên an toàn (Shield)</option>
-                                    <option value="ThumbsUp">👍 Like / Chất lượng (ThumbsUp)</option>
-                                    <option value="Truck">🚚 Xe tải vận chuyển (Truck)</option>
-                                    <option value="Flame">🔥 Lửa xanh / Năng lượng (Flame)</option>
-                                    <option value="Award">🏆 Cúp giải thưởng (Award)</option>
-                                    <option value="Clock">🕒 Đồng hồ / 24/7 (Clock)</option>
-                                    <option value="Heart">❤️ Trái tim / Tận tâm (Heart)</option>
-                                    <option value="Star">⭐ Ngôi sao / Đánh giá (Star)</option>
-                                    <option value="Activity">⚡ Năng suất (Activity)</option>
-                                    <option value="Gift">🎁 Quà tặng / Ưu đãi (Gift)</option>
-                                    <option value="Headphones">🎧 Hỗ trợ tư vấn (Headphones)</option>
-                                    <option value="Smile">😊 Thân thiện (Smile)</option>
-                                    <option value="CheckCircle">✅ Tích xanh chuẩn (CheckCircle)</option>
-                                    <option value="Zap">⚡ Nhanh chóng (Zap)</option>
-                                    <option value="Lock">🔒 Bảo mật / Khóa gas (Lock)</option>
-                                    <option value="Package">📦 Đóng gói / Giao nhận (Package)</option>
-                                    <option value="Users">👥 Đội ngũ / Khách hàng (Users)</option>
-                                    <option value="Sparkles">✨ Sparkles / Nổi bật (Sparkles)</option>
-                                  </select>
-                                </div>
-                              </div>
-
-                              <div className="form-group" style={{ marginBottom: 0 }}>
-                                <label className="form-label-new">Mô tả chi tiết</label>
-                                <textarea
-                                  rows="2"
-                                  className="form-control-new"
-                                  value={item.desc || ''}
-                                  onChange={(e) => handleUpdateFeatureItem(index, 'desc', e.target.value)}
-                                  placeholder="Nhập nội dung mô tả..."
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div style={{ marginTop: '16px' }}>
-                    <button
-                      type="button"
-                      onClick={handleAddFeatureItem}
-                      className="btn-outline-new"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '10px 18px',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '13px'
-                      }}
-                    >
-                      <Plus size={16} />
-                      <span>Thêm đặc điểm nổi bật mới</span>
-                    </button>
                   </div>
                 </CollapsibleSection>
 
