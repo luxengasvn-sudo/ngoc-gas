@@ -246,7 +246,7 @@ export default function AdminSettingsPage() {
     home_feature_2_icon: 'ThumbsUp',
     home_feature_3_icon: 'Truck',
     home_features_list: '[]',
-    home_sections_order: '["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"]',
+    home_sections_order: '["gas-price-widget", "featured-products", "intro-features", "stats-counter", "latest-news", "cta-section"]',
     
     // Gas Price Card content customization
     home_gas_price_title: 'BẢNG GIÁ GAS THÁNG {month}/{year}',

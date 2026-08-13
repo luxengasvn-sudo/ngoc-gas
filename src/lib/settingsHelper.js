@@ -39,7 +39,7 @@ function saveToFile(settingsObj) {
   }
 }
 
-const ALL_SECTIONS = ["gas-price-widget", "intro-features", "featured-products", "stats-counter", "latest-news", "cta-section"];
+const ALL_SECTIONS = ["gas-price-widget", "featured-products", "intro-features", "stats-counter", "latest-news", "cta-section"];
 
 export function parseSectionOrder(jsonStr) {
   let order = [];
