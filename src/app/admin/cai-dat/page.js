@@ -874,7 +874,7 @@ export default function AdminSettingsPage() {
     return order;
   };
 
-  const handleMoveSection = (index, direction) => {
+  const handleMoveSection = async (index, direction) => {
     const order = getNormalizedSectionOrder(settings.home_sections_order);
     const newOrder = [...order];
     const targetIndex = index + direction;
@@ -884,10 +884,43 @@ export default function AdminSettingsPage() {
     newOrder[index] = newOrder[targetIndex];
     newOrder[targetIndex] = temp;
 
+    const newOrderJson = JSON.stringify(newOrder);
+
     setSettings(prev => ({
       ...prev,
-      home_sections_order: JSON.stringify(newOrder)
+      home_sections_order: newOrderJson
     }));
+
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    try {
+      await fetch('/api/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ home_sections_order: newOrderJson })
+      });
+      setSuccess('🎉 Đã cập nhật và lưu vị trí thứ tự hiển thị mới ra ngoài Website thành công!');
+      setShowSaveSuccessModal(true);
+    } catch (err) {
+      console.error('Lỗi tự động lưu vị trí khối:', err);
+    }
+  };
+
+  const handleToggleSectionVisibility = async (statusKey, isHidden) => {
+    const newValue = isHidden ? '1' : '0';
+    setSettings(prev => ({ ...prev, [statusKey]: newValue }));
+
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    try {
+      await fetch('/api/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ [statusKey]: newValue })
+      });
+      setSuccess(`🎉 Đã ${newValue === '1' ? 'BẬT' : 'ẨN'} khối hiển thị trên Website thành công!`);
+      setShowSaveSuccessModal(true);
+    } catch (err) {
+      console.error('Lỗi tự động lưu ẩn hiện khối:', err);
+    }
   };
 
   if (loading) {
@@ -1540,7 +1573,7 @@ export default function AdminSettingsPage() {
 
                               <button
                                 type="button"
-                                onClick={() => setSettings(prev => ({ ...prev, [statusKeys[sectionId]]: isHidden ? '1' : '0' }))}
+                                onClick={() => handleToggleSectionVisibility(statusKeys[sectionId], isHidden)}
                                 style={{
                                   padding: '4px 10px',
                                   borderRadius: '12px',
