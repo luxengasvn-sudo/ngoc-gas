@@ -27,9 +27,10 @@ export async function generateMetadata() {
     const settings = await getAllSettings();
     if (settings.favicon_url) {
       faviconUrl = settings.favicon_url;
-      if (faviconUrl.endsWith('.png')) iconType = 'image/png';
-      else if (faviconUrl.endsWith('.jpg') || faviconUrl.endsWith('.jpeg')) iconType = 'image/jpeg';
-      else if (faviconUrl.endsWith('.svg')) iconType = 'image/svg+xml';
+      const lowerUrl = faviconUrl.toLowerCase();
+      if (lowerUrl.endsWith('.png')) iconType = 'image/png';
+      else if (lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg')) iconType = 'image/jpeg';
+      else if (lowerUrl.endsWith('.svg')) iconType = 'image/svg+xml';
     }
     if (settings.meta_title) title = settings.meta_title;
     if (settings.meta_description) description = settings.meta_description;
@@ -57,9 +58,10 @@ export default async function RootLayout({ children }) {
     const settings = await getAllSettings();
     if (settings.favicon_url) {
       faviconUrl = settings.favicon_url;
-      if (faviconUrl.endsWith('.png')) iconType = 'image/png';
-      else if (faviconUrl.endsWith('.jpg') || faviconUrl.endsWith('.jpeg')) iconType = 'image/jpeg';
-      else if (faviconUrl.endsWith('.svg')) iconType = 'image/svg+xml';
+      const lowerUrl = faviconUrl.toLowerCase();
+      if (lowerUrl.endsWith('.png')) iconType = 'image/png';
+      else if (lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg')) iconType = 'image/jpeg';
+      else if (lowerUrl.endsWith('.svg')) iconType = 'image/svg+xml';
     }
   } catch (e) {}
 
