@@ -86,6 +86,12 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 11. QUY TẮC GIỚI HẠN CHỈNH SỬA ĐÚNG PHẠM VI YÊU CẦU (STRICT SCOPING & ZERO SIDE-EFFECTS RULE)
+- **CHỈ SỬA ĐÚNG CHỖ ĐƯỢC CHỈ ĐỊNH**: Khi User yêu cầu chỉnh sửa vị trí/tệp X, Agent CHỈ ĐƯỢC PHÉP chỉnh sửa đúng vị trí/tệp X đó.
+- **CẤM TỰ Ý SỬA CHỖ KHÁC**: Agent CẤM TUYỆT ĐỐI việc tự ý can thiệp, chỉnh sửa hay thay đổi bất kỳ tệp, component hay cài đặt nào khác khi chưa được User cho phép đích danh.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
