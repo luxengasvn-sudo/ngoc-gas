@@ -57,6 +57,12 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 7. QUY TẮC BẢO VỆ DỮ LIỆU CSDL & UPLOADS CỦA KHÁCH HÀNG (DATA PROTECTION MANDATE)
+- **TÁCH BIỆT CODE VÀ DỮ LIỆU**: Mọi chỉnh sửa mã nguồn (.js, .css, layout) tuyệt đối KHÔNG ĐƯỢC PHÉP can thiệp, xóa hoặc ghi đè mảng dữ liệu Sản phẩm, Bài viết, Cửa hàng, SĐT, Email trong CSDL MySQL và thư mục `/public/uploads/` trên máy chủ Host.
+- **DỮ LIỆU USER LÀ DUY NHẤT**: Tất cả dữ liệu do User tự nhập/thêm trong Admin là dữ liệu chính thức duy nhất. Mã nguồn khi cập nhật chỉ được cập nhật logic xử lý, luôn đọc động từ CSDL và KHÔNG BAO GIỜ đẩy tệp tĩnh ghi đè dữ liệu động của User.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
