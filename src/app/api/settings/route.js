@@ -1,4 +1,5 @@
 import { getAllSettings, updateAllSettings } from '@/lib/settingsHelper';
+import { getAuthenticatedUser } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
@@ -19,6 +20,14 @@ export async function GET() {
 
 export async function PUT(request) {
   try {
+    const user = getAuthenticatedUser(request);
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập admin.' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const keys = Object.keys(body || {});
     
