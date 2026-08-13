@@ -52,28 +52,8 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }) {
-  let faviconUrl = '/favicon.ico';
-  let iconType = 'image/x-icon';
-  try {
-    const settings = await getAllSettings();
-    if (settings.favicon_url) {
-      faviconUrl = settings.favicon_url;
-      const lowerUrl = faviconUrl.toLowerCase();
-      if (lowerUrl.endsWith('.png')) iconType = 'image/png';
-      else if (lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg')) iconType = 'image/jpeg';
-      else if (lowerUrl.endsWith('.svg')) iconType = 'image/svg+xml';
-    }
-  } catch (e) {}
-
-  const finalFaviconUrl = faviconUrl.includes('?') ? faviconUrl : `${faviconUrl}?v=${encodeURIComponent(faviconUrl)}`;
-
   return (
     <html lang="vi" className={`${inter.variable} ${roboto.variable}`}>
-      <head>
-        <link rel="icon" href={finalFaviconUrl} type={iconType} key="favicon" />
-        <link rel="shortcut icon" href={finalFaviconUrl} type={iconType} key="shortcut-favicon" />
-        <link rel="apple-touch-icon" href={finalFaviconUrl} key="apple-favicon" />
-      </head>
       <body style={{ fontFamily: 'var(--font-roboto), sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         {children}
       </body>
