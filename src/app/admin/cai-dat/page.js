@@ -2823,6 +2823,7 @@ export default function AdminSettingsPage() {
 
               <button
                 type="submit"
+                onClick={handleSubmit}
                 disabled={saving}
                 style={{
                   backgroundColor: '#FF6B00',
