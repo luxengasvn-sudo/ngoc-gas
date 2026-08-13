@@ -77,6 +77,15 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 10. QUY TẮC CẤM TỰ TIỆN & BẮT BUỘC HỎI RÕ / LÊN KẾ HOẠCH DUYỆT TRƯỚC KHI THỰC HIỆN (STRICT PLANNING & ZERO OVER-AUTOMATION MANDATE)
+- **CẤM HÀNH ĐỘNG "TIỆN TAY" / CẤM TỰ TIỆN THÊM BỚT DỮ LIỆU**: Agent CẤM TUYỆT ĐỐI việc tự ý thêm, bớt, gán cứng dữ liệu hay nạp dữ liệu mẩu khi không được User yêu cầu đích danh.
+- **QUY TRÌNH HỎI RÕ & LÊN KẾ HOẠCH DUYỆT BẮT BUỘC (MANDATORY APPROVAL WORKFLOW)**:
+  1. Khi nhận bất kỳ yêu cầu nào từ User, Agent BẮT BUỘC phải hỏi rõ chi tiết việc cần làm, rà soát mã nguồn thực tế.
+  2. Lập kế hoạch thực thi chi tiết (`implementation_plan.md`) trình bày rõ từng file sẽ sửa.
+  3. DỪNG LẠI và CHỜ User duyệt kế hoạch 100% rồi mới được phép đụng vào mã nguồn.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
