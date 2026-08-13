@@ -37,13 +37,15 @@ export async function generateMetadata() {
     console.error('Error fetching favicon settings:', e);
   }
 
+  const finalFaviconUrl = faviconUrl.includes('?') ? faviconUrl : `${faviconUrl}?v=${encodeURIComponent(faviconUrl)}`;
+
   return {
     title,
     description,
     icons: {
-      icon: [{ url: faviconUrl, type: iconType }],
-      shortcut: [{ url: faviconUrl, type: iconType }],
-      apple: [{ url: faviconUrl, type: iconType }]
+      icon: [{ url: finalFaviconUrl, type: iconType }],
+      shortcut: [{ url: finalFaviconUrl, type: iconType }],
+      apple: [{ url: finalFaviconUrl, type: iconType }]
     }
   };
 }
@@ -61,12 +63,14 @@ export default async function RootLayout({ children }) {
     }
   } catch (e) {}
 
+  const finalFaviconUrl = faviconUrl.includes('?') ? faviconUrl : `${faviconUrl}?v=${encodeURIComponent(faviconUrl)}`;
+
   return (
     <html lang="vi" className={`${inter.variable} ${roboto.variable}`}>
       <head>
-        <link rel="icon" href={faviconUrl} type={iconType} key="favicon" />
-        <link rel="shortcut icon" href={faviconUrl} type={iconType} key="shortcut-favicon" />
-        <link rel="apple-touch-icon" href={faviconUrl} key="apple-favicon" />
+        <link rel="icon" href={finalFaviconUrl} type={iconType} key="favicon" />
+        <link rel="shortcut icon" href={finalFaviconUrl} type={iconType} key="shortcut-favicon" />
+        <link rel="apple-touch-icon" href={finalFaviconUrl} key="apple-favicon" />
       </head>
       <body style={{ fontFamily: 'var(--font-roboto), sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         {children}

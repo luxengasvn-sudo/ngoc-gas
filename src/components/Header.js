@@ -55,27 +55,33 @@ export default function Header({ initialSettings }) {
     };
     window.addEventListener('scroll', handleScroll);
 
-    if (!initialSettings) {
-      const fetchHeaderSettings = async () => {
-        try {
-          const res = await fetch('/api/settings');
-          const data = await res.json();
-          if (data.success && data.data) {
-            setSettings({
-              phone: data.data.phone || '19009396',
-              logo_url: data.data.logo_url || '',
-              promo_type: data.data.promo_type || 'none',
-              promo_bar_text: data.data.promo_bar_text || '',
-              promo_popup_image: data.data.promo_popup_image || '',
-              promo_popup_link: data.data.promo_popup_link || ''
-            });
-          }
-        } catch (e) {
-          console.error('Error loading header settings:', e);
-        }
-      };
-      fetchHeaderSettings();
+    if (initialSettings) {
+      setSettings(prev => ({
+        ...prev,
+        ...initialSettings
+      }));
     }
+
+    const fetchHeaderSettings = async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.success && data.data) {
+          setSettings(prev => ({
+            ...prev,
+            phone: data.data.phone || prev.phone || '19009396',
+            logo_url: data.data.logo_url !== undefined ? data.data.logo_url : prev.logo_url,
+            promo_type: data.data.promo_type || prev.promo_type || 'none',
+            promo_bar_text: data.data.promo_bar_text !== undefined ? data.data.promo_bar_text : prev.promo_bar_text,
+            promo_popup_image: data.data.promo_popup_image !== undefined ? data.data.promo_popup_image : prev.promo_popup_image,
+            promo_popup_link: data.data.promo_popup_link !== undefined ? data.data.promo_popup_link : prev.promo_popup_link
+          }));
+        }
+      } catch (e) {
+        console.error('Error loading header settings:', e);
+      }
+    };
+    fetchHeaderSettings();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [initialSettings]);
