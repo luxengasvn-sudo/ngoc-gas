@@ -83,22 +83,12 @@ export async function getAllSettings() {
     // MySQL query failed or not available - use file & memory fallback
   }
 
-  // Priority order: start with dbSettings, then overwrite with non-empty fileSettings, then overwrite with memoryCache
-  const merged = { ...dbSettings };
-
-  Object.keys(fileSettings || {}).forEach(key => {
-    if (fileSettings[key] !== undefined && fileSettings[key] !== '') {
-      merged[key] = fileSettings[key];
-    }
-  });
-
-  if (memoryCache && typeof memoryCache === 'object') {
-    Object.keys(memoryCache).forEach(key => {
-      if (memoryCache[key] !== undefined && memoryCache[key] !== '') {
-        merged[key] = memoryCache[key];
-      }
-    });
-  }
+  // Pure merge priority: start with default fileSettings, then OVERWRITE with user's MySQL dbSettings, then memoryCache
+  const merged = {
+    ...fileSettings,
+    ...dbSettings,
+    ...(memoryCache || {})
+  };
 
   memoryCache = merged;
   return merged;
