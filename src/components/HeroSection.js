@@ -37,35 +37,22 @@ export default function HeroSection({ initialSettings }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (initialSettings) return; // Skip client fetch if server pre-loaded it to prevent hydration layout shift
+    if (initialSettings) {
+      setSettings(prev => ({
+        ...prev,
+        ...initialSettings
+      }));
+    }
+
     const fetchHeroSettings = async () => {
       try {
         const res = await fetch('/api/settings');
         const data = await res.json();
         if (data.success && data.data) {
-          setSettings({
-            company_name: data.data.company_name || 'NGỌC GAS',
-            slogan: data.data.slogan || 'Nhà cung cấp gas chuyên nghiệp, uy tín tại TP. HCM & Bình Dương. Chuyên thiết kế, thi công hệ thống gas công nghiệp và giao lẻ gas dân dụng chính hãng, an toàn tuyệt đối.',
-            logo_url: data.data.logo_url || '',
-            hero_call_title: data.data.hero_call_title || 'Khách gọi đặt gas...',
-            hero_call_desc: data.data.hero_call_desc || 'Bình Sopet 12kg Xám',
-            hero_delivery_title: data.data.hero_delivery_title || 'Đang giao gas...',
-            hero_delivery_desc: data.data.hero_delivery_desc || 'Dự kiến đến trong 15 phút',
-            hero_mode: data.data.hero_mode || 'slide',
-            hero_slide_speed: data.data.hero_slide_speed || '5',
-            hero_video_url: data.data.hero_video_url || '',
-            hero_slide_1: data.data.hero_slide_1 || '',
-            hero_slide_2: data.data.hero_slide_2 || '',
-            hero_slide_3: data.data.hero_slide_3 || '',
-            hero_show_text_block: data.data.hero_show_text_block !== undefined ? data.data.hero_show_text_block : '1',
-            hero_badge_text: data.data.hero_badge_text || '',
-            hero_title_text: data.data.hero_title_text || '',
-            hero_subtitle_text: data.data.hero_subtitle_text || '',
-            hero_btn1_text: data.data.hero_btn1_text || '',
-            hero_btn1_link: data.data.hero_btn1_link || '',
-            hero_btn2_text: data.data.hero_btn2_text || '',
-            hero_show_btn2: data.data.hero_show_btn2 !== undefined ? data.data.hero_show_btn2 : '1'
-          });
+          setSettings(prev => ({
+            ...prev,
+            ...data.data
+          }));
         }
       } catch (e) {
         console.error('Error fetching hero settings:', e);
