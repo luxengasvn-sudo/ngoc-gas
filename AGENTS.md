@@ -18,9 +18,10 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
-## 📌 2. QUY TẮC NGUỒN DỮ LIỆU CÀI ĐẶT 3 LỚP (UNIFIED SETTINGS HYDRATION)
-- `getAllSettings()` trả về object theo thứ tự ghi đè ưu tiên: `dbSettings` -> `fileSettings` -> `memoryCache`.
-- **Dữ liệu mới trong File `data/settings.json` và RAM memoryCache LUÔN LUÔN ƯU TIÊN GHI ĐÈ lên MySQL DB cũ**.
+## 📌 2. QUY TẮC NGUỒN DỮ LIỆU CÀI ĐẶT 3 LỚP (UNIFIED SETTINGS HYDRATION CONTRACT)
+- `getAllSettings()` trả về object theo thứ tự ghi đè ưu tiên: `fileSettings` -> `dbSettings` (MySQL) -> `memoryCache`.
+- **DỮ LIỆU CSDL MYSQL CỦA USER LÀ THẦN THÁNH & ƯU TIÊN SỐ 1**: Mọi giá trị do User lưu trong MySQL DB BẮT BUỘC ƯU TIÊN GHI ĐÈ lên tệp tĩnh `data/settings.json`.
+- **CẤM SỬA/GHI ĐÈ FILE `data/settings.json` BẰNG GIÁ TRỊ CỐ ĐỊNH**: Agent CẤM TUYỆT ĐỐI việc dán cứng các giá trị `logo_url`, `favicon_url`, `phone`, `email`, `address` vào file `data/settings.json` trong các commit Git.
 - `parseSectionOrder(jsonStr)` BẮT BUỘC giữ nguyên 100% mảng thứ tự vị trí anh tùy chỉnh, tuyệt đối không re-sort hay chèn đè mặc định sai vị trí.
 
 ---
