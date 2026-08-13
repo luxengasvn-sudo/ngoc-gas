@@ -51,6 +51,12 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 6. QUY TẮC BẮT BUỘC ĐỌC FILE MÃ NGUỒN THỰC TẾ (REAL FILE INSPECTION RULE)
+- **CẤM DỰA VÀO KÝ ỨC TRAINING / CẤM ĐOÁN MÒ CODE**: Trước khi sửa bất kỳ dòng mã nguồn hay cấu hình nào, Agent BẮT BUỘC phải dùng công cụ `view_file` hoặc `grep_search` đọc chính xác 100% tệp thực tế đang có trên đĩa cứng (`d:\Antigravity\Ngọc Gas`).
+- **CẤM ĐOÁN TÊN BIẾN / HÀM**: Mọi tên biến, tham số, component, và hàm API phải được xác minh chính xác từ tệp mã nguồn đang tồn tại trên máy tính.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
