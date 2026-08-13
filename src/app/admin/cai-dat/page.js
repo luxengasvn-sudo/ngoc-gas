@@ -654,10 +654,20 @@ export default function AdminSettingsPage() {
       currentSelected.push(numericProductId);
     }
 
+    const jsonStr = JSON.stringify(currentSelected);
     setSettings(prev => ({
       ...prev,
-      featured_gas_ids: JSON.stringify(currentSelected)
+      featured_gas_ids: jsonStr
     }));
+
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    fetch('/api/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ featured_gas_ids: jsonStr })
+    });
+    setSuccess('🎉 Đã tự động lưu danh sách Bình Gas nổi bật thành công!');
+    setShowSaveSuccessModal(true);
   };
 
   const handleOtherProductSelect = (productId) => {
@@ -681,10 +691,20 @@ export default function AdminSettingsPage() {
       currentSelected.push(numericProductId);
     }
 
+    const jsonStr = JSON.stringify(currentSelected);
     setSettings(prev => ({
       ...prev,
-      featured_other_ids: JSON.stringify(currentSelected)
+      featured_other_ids: jsonStr
     }));
+
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    fetch('/api/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ featured_other_ids: jsonStr })
+    });
+    setSuccess('🎉 Đã tự động lưu danh sách Phụ Kiện nổi bật thành công!');
+    setShowSaveSuccessModal(true);
   };
 
   const handleLogoUpload = async (e) => {

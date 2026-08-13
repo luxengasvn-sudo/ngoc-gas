@@ -19,10 +19,10 @@ const defaultGasProducts = [
 ];
 
 const defaultAccessoryProducts = [
-  { id: 101, name: 'Dây Dẫn Gas Cao Cấp Chống Chuột Bọ', slug: 'day-dan-gas-cao-cap', short_description: 'Dây dẫn gas nhập khẩu Hàn Quốc 3 lớp siêu bền chống gập, chống chuột cắn.', price: 180000, sale_price: 150000, image_url: '/images/gas-cylinder.jpg', category_id: 3, is_featured: 1, is_active: 1 },
-  { id: 102, name: 'Van Gas Năng Lượng Tự Động Ngắt Khẩn Cấp', slug: 'van-gas-tu-dong-ngat', short_description: 'Van điều áp an toàn tự động khóa gas khi có sự cố rò rỉ.', price: 350000, sale_price: 290000, image_url: '/images/gas-cylinder.jpg', category_id: 3, is_featured: 1, is_active: 1 },
-  { id: 103, name: 'Bộ Van Dây Gas Đôi Tiêu Chuẩn PCCC', slug: 'bo-van-day-gas-doi', short_description: 'Combo van ngắt và dây gas nhập khẩu chính hãng bảo vệ căn bếp.', price: 480000, sale_price: 420000, image_url: '/images/gas-cylinder.jpg', category_id: 3, is_featured: 1, is_active: 1 },
-  { id: 104, name: 'Bếp Gas Đơn Hồng Ngoại Tiết Kiệm Gas', slug: 'bep-gas-don-hong-ngoai', short_description: 'Bếp gas hồng ngoại đơn lửa xanh chịu lực cao, tiết kiệm 30% gas.', price: 650000, sale_price: 580000, image_url: '/images/gas-cylinder.jpg', category_id: 3, is_featured: 1, is_active: 1 }
+  { id: 101, name: 'Dây Dẫn Gas Cao Cấp Chống Chuột Bọ', slug: 'day-dan-gas-cao-cap', short_description: 'Dây dẫn gas nhập khẩu Hàn Quốc 3 lớp siêu bền chống gập, chống chuột cắn.', price: 180000, sale_price: 150000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 },
+  { id: 102, name: 'Van Gas Năng Lượng Tự Động Ngắt Khẩn Cấp', slug: 'van-gas-tu-dong-ngat', short_description: 'Van điều áp an toàn tự động khóa gas khi có sự cố rò rỉ.', price: 350000, sale_price: 290000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 },
+  { id: 103, name: 'Bộ Van Dây Gas Đôi Tiêu Chuẩn PCCC', slug: 'bo-van-day-gas-doi', short_description: 'Combo van ngắt và dây gas nhập khẩu chính hãng bảo vệ căn bếp.', price: 480000, sale_price: 420000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 },
+  { id: 104, name: 'Bếp Gas Đơn Hồng Ngoại Tiết Kiệm Gas', slug: 'bep-gas-don-hong-ngoai', short_description: 'Bếp gas hồng ngoại đơn lửa xanh chịu lực cao, tiết kiệm 30% gas.', price: 650000, sale_price: 580000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 }
 ];
 
 export default async function HomePage() {
@@ -65,7 +65,10 @@ export default async function HomePage() {
     }
     gasQuery += ` LIMIT 4`;
     const [gasRows] = await db.query(gasQuery);
-    featuredGasProducts = gasRows || [];
+    featuredGasProducts = (gasRows || []).sort((a, b) => {
+      if (safeGasIds.length === 0) return 0;
+      return safeGasIds.indexOf(Number(a.id)) - safeGasIds.indexOf(Number(b.id));
+    });
 
     // Group 2: Other/Accessory Products (Category Name NOT like '%gas%' and Category ID NOT IN 1, 2, 4)
     let otherQuery = `
@@ -84,7 +87,10 @@ export default async function HomePage() {
     }
     otherQuery += ` LIMIT 4`;
     const [otherRows] = await db.query(otherQuery);
-    featuredOtherProducts = otherRows || [];
+    featuredOtherProducts = (otherRows || []).sort((a, b) => {
+      if (safeOtherIds.length === 0) return 0;
+      return safeOtherIds.indexOf(Number(a.id)) - safeOtherIds.indexOf(Number(b.id));
+    });
 
     // 3. Fetch posts
     const [postRows] = await db.query(`
