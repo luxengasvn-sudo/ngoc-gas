@@ -74,20 +74,31 @@ export async function getAllSettings() {
     const [rows] = await db.query('SELECT setting_key, setting_value FROM settings');
     if (Array.isArray(rows)) {
       rows.forEach(row => {
-        dbSettings[row.setting_key] = row.setting_value;
+        if (row.setting_value !== null && row.setting_value !== undefined) {
+          dbSettings[row.setting_key] = row.setting_value;
+        }
       });
     }
   } catch (err) {
     // MySQL query failed or not available - use file & memory fallback
   }
 
-  // Critical fix: dbSettings first, then fileSettings, then memoryCache.
-  // File & memory cache contain the latest Admin saves and MUST overwrite stale MySQL rows!
-  const merged = {
-    ...dbSettings,
-    ...fileSettings,
-    ...(memoryCache || {})
-  };
+  // Priority order: start with dbSettings, then overwrite with non-empty fileSettings, then overwrite with memoryCache
+  const merged = { ...dbSettings };
+
+  Object.keys(fileSettings || {}).forEach(key => {
+    if (fileSettings[key] !== undefined && fileSettings[key] !== '') {
+      merged[key] = fileSettings[key];
+    }
+  });
+
+  if (memoryCache && typeof memoryCache === 'object') {
+    Object.keys(memoryCache).forEach(key => {
+      if (memoryCache[key] !== undefined && memoryCache[key] !== '') {
+        merged[key] = memoryCache[key];
+      }
+    });
+  }
 
   memoryCache = merged;
   return merged;
