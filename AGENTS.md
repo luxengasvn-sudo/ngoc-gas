@@ -41,15 +41,20 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
-## 📌 5. QUY TRÌNH KIỂM THỬ TRƯỚC KHI COMMIT (PRE-COMMIT VERIFICATION)
-- BẮT BUỘC chạy `npm run build` và xác nhận kết quả **`✓ Compiled successfully` (Exit Code 0)** trước khi commit hoặc claim hoàn thành.
+## 📌 5. QUY TRÌNH KIỂM THỬ VÀ BẰNG CHỨNG THỰC TẾ BẮT BUỘC (MANDATORY VERIFICATION PROTOCOL)
+- **KHÔNG NÓI SUÔNG / KHÔNG ĐOÁN MÒ**: CẤM TUYỆT ĐỐI việc báo hoàn thành hoặc đưa ra lý do lý thuyết khi chưa tự tay chạy lệnh kiểm thử local.
+- **QUY TRÌNH 3 BƯỚC BẮT BUỘC TRƯỚC KHI BÁO CÁO**:
+  1. **Thực thi kiểm thử**: BẮT BUỘC bật terminal chạy script kiểm thử / lệnh build local (`npm run build` hoặc script node test API).
+  2. **Trích xuất dữ liệu thực tế**: BẮT BUỘC kiểm tra kết quả HTML/JSON đầu ra thực tế trả về (Empirical Output) để xác nhận tính năng chạy đúng 100%.
+  3. **Đưa bằng chứng**: BẮT BUỘC đính kèm bằng chứng Terminal log / Exit Code 0 thực tế trong báo cáo cho User.
+- **CHỈ COMMIT KHI XÁC MINH SẠCH LỖI**: Phải đạt `✓ Compiled successfully` (Exit Code 0) mới được phép commit hoặc công bố hoàn thành.
 
 ---
 
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **ngoc-gas** (350 symbols, 710 relationships, 19 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **ngoc-gas** (503 symbols, 1055 relationships, 33 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
 
