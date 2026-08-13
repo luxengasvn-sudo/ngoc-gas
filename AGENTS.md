@@ -64,6 +64,19 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 8. QUY TẮC AN TOÀN DỮ LIỆU USER TUYỆT ĐỐI (ABSOLUTE USER DATA PROTECTION LOCK)
+- **CẤM DÁN GIÁ TRỊ TĨNH VÀO CODE/JSON**: Agent CẤM TUYỆT ĐỐI việc dán cứng các giá trị `logo_url`, `favicon_url`, `phone`, `email`, `address` vào tệp `data/settings.json` hoặc `initialState` trong mã nguồn Git.
+- **CẤM SỬ DỤNG SCRIPT CÓ LỆNH INSERT/UPDATE VÀO BẢNG SETTINGS**: Agent CẤM TUYỆT ĐỐI việc tự viết và chạy các script Node/SQL có lệnh ghi/đè vào bảng CSDL MySQL `settings` của User.
+- **DỮ LIỆU USER TRONG MYSQL LÀ DUY NHẤT VÀ THẦN THÁNH**: Mọi thao tác chỉnh sửa dữ liệu Cài đặt, Logo, Favicon, Bài viết, Sản phẩm BẮT BUỘC do User tự thực hiện 100% qua giao diện Admin. Agent chỉ có nhiệm vụ sửa logic hiển thị của code.
+
+---
+
+## 📌 9. CHUẨN KIỂM THỬ BẮT BUỘC CÓ BẰNG CHỨNG LOCAL (MANDATORY EMPIRICAL EVIDENCE)
+- **CẤM BÁO SUÔNG / CẤM ĐOÁN MÒ**: Cấm tuyệt đối việc đưa ra lý do lý thuyết khi chưa tự tay bật terminal chạy thử.
+- **BẮT BUỘC TRÍCH XUẤT LOG**: Trước khi báo cáo hoàn thành, Agent phải bật terminal chạy `npm run build` hoặc script test API local và đính kèm bằng chứng Terminal Log đạt `Exit Code 0` trong báo cáo.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
