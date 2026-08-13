@@ -90,6 +90,14 @@ export async function getAllSettings() {
     ...(memoryCache || {})
   };
 
+  // Safe preset fallbacks for Logo & Favicon if user has not set them in DB
+  if (!merged.logo_url) {
+    merged.logo_url = '/uploads/1784860325667-878483593.png';
+  }
+  if (!merged.favicon_url) {
+    merged.favicon_url = '/uploads/1784803415314-250976074.png';
+  }
+
   memoryCache = merged;
   return merged;
 }
