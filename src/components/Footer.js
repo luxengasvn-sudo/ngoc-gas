@@ -29,36 +29,23 @@ export default function Footer({ initialSettings }) {
         ...initialSettings
       }));
     }
-  }, [initialSettings]);
 
-  useEffect(() => {
-    if (!initialSettings) {
-      const fetchFooterSettings = async () => {
-        try {
-          const res = await fetch('/api/settings');
-          const data = await res.json();
-          if (data.success && data.data) {
-            setSettings(prev => ({
-              ...prev,
-              logo_url: data.data.logo_url || prev.logo_url,
-              address: data.data.address || prev.address,
-              phone: data.data.phone || prev.phone,
-              email: data.data.email || prev.email,
-              working_hours: data.data.working_hours || prev.working_hours,
-              footer_copyright: data.data.footer_copyright || prev.footer_copyright,
-              social_facebook: data.data.social_facebook || '',
-              social_zalo: data.data.social_zalo || '',
-              social_youtube: data.data.social_youtube || '',
-              social_tiktok: data.data.social_tiktok || ''
-            }));
-          }
-        } catch (e) {
-          console.error('Error fetching footer settings:', e);
+    const fetchFooterSettings = async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.success && data.data) {
+          setSettings(prev => ({
+            ...prev,
+            ...data.data
+          }));
         }
-      };
+      } catch (e) {
+        console.error('Error fetching footer settings:', e);
+      }
+    };
 
-      fetchFooterSettings();
-    }
+    fetchFooterSettings();
   }, [initialSettings]);
 
   const cleanPhone = settings.phone.replace(/\./g, '').trim();
