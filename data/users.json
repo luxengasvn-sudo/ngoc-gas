@@ -2,7 +2,7 @@
   {
     "id": 1,
     "username": "admin",
-    "password_hash": "$2a$10$wE96rV2k789fXpGqXqE1.eHk3kIuB7v8rF0hRzQ9qY8gV3jO5m8eW",
+    "password_hash": "$2b$10$G7VnlhShTE2Anz3rFOc/QupFQ53sWWOnKZLid/yxoEIIjD4Py8NMu",
     "display_name": "Quản trị viên Ngọc Gas",
     "role": "admin",
     "is_active": 1,

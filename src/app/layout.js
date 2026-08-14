@@ -97,6 +97,9 @@ export async function generateMetadata() {
   };
 }
 
+import ScrollRestoration from "@/components/ScrollRestoration";
+import PageLoader from "@/components/PageLoader";
+
 export default async function RootLayout({ children }) {
   let faviconUrl = '/favicon.ico';
   let iconType = 'image/png';
@@ -115,13 +118,15 @@ export default async function RootLayout({ children }) {
   const antiCacheUrl = faviconUrl.includes('?') ? faviconUrl : `${faviconUrl}?v=${encodeURIComponent(faviconUrl)}`;
 
   return (
-    <html lang="vi" className={`${inter.variable} ${roboto.variable}`}>
+    <html lang="vi" className={`${inter.variable} ${roboto.variable}`} data-scroll-behavior="smooth">
       <head>
         <link rel="icon" href={antiCacheUrl} type={iconType} sizes="any" />
         <link rel="shortcut icon" href={antiCacheUrl} type={iconType} />
         <link rel="apple-touch-icon" href={antiCacheUrl} />
       </head>
       <body style={{ fontFamily: 'var(--font-roboto), sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <PageLoader />
+        <ScrollRestoration />
         {children}
       </body>
     </html>
