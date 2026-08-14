@@ -10,6 +10,7 @@ export default function StoresPublicPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [activeMapEmbed, setActiveMapEmbed] = useState(null);
+  const [companyName, setCompanyName] = useState('Ngọc Gas');
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -25,7 +26,17 @@ export default function StoresPublicPage() {
         setLoading(false);
       }
     };
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.success && data.data && data.data.company_name) {
+          setCompanyName(data.data.company_name);
+        }
+      } catch (e) {}
+    };
     fetchStores();
+    fetchSettings();
   }, []);
 
   const filteredStores = stores.filter(store => 
@@ -45,7 +56,7 @@ export default function StoresPublicPage() {
           </div>
           <h1 className="stores-hero-title">Hệ Thống Cửa Hàng</h1>
           <p className="stores-hero-desc">
-            Tìm kiếm địa chỉ cửa hàng Ngọc Gas gần bạn nhất để được phục vụ và giao gas siêu tốc trong vòng 10-15 phút.
+            Tìm kiếm địa chỉ cửa hàng {companyName} gần bạn nhất để được phục vụ và giao gas siêu tốc trong vòng 10-15 phút.
           </p>
         </div>
       </section>

@@ -2,18 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Flame, Users, BookOpen, Phone, Store } from 'lucide-react';
+import { Home, ShoppingBag, Users, BookOpen, Store, TrendingUp } from 'lucide-react';
 
 export default function BottomNav() {
   const pathname = usePathname();
 
   const navItems = [
     { name: 'Trang chủ', path: '/', icon: <Home size={20} /> },
-    { name: 'Sản phẩm', path: '/san-pham', icon: <Flame size={20} /> },
+    { name: 'Sản phẩm', path: '/san-pham', icon: <ShoppingBag size={20} /> },
     { name: 'Cửa hàng', path: '/cua-hang', icon: <Store size={20} /> },
     { name: 'Giới thiệu', path: '/gioi-thieu', icon: <Users size={20} /> },
     { name: 'Tin tức', path: '/tin-tuc', icon: <BookOpen size={20} /> },
-    { name: 'Liên hệ', path: '/lien-he', icon: <Phone size={20} /> },
+    { name: 'Giá gas', path: '/gia-gas-hom-nay', icon: <TrendingUp size={20} /> },
   ];
 
   const isActive = (path) => {
@@ -45,14 +45,14 @@ export default function BottomNav() {
           left: 0;
           width: 100%;
           height: 65px;
-          background: rgba(26, 26, 26, 0.95);
+          background: rgba(12, 96, 105, 0.95);
           backdrop-filter: blur(15px);
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
           display: flex;
           justify-content: space-around;
           align-items: center;
           z-index: 2000;
-          box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 -4px 20px rgba(12, 96, 105, 0.3);
         }
 
         /* Hide on desktop screens */

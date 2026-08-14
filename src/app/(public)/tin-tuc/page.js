@@ -1,18 +1,28 @@
-import db from '@/lib/db';
 import Link from 'next/link';
 import PostCard from '@/components/PostCard';
+import { getAllPosts } from '@/lib/postsHelper';
+import { getAllSettings } from '@/lib/settingsHelper';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
+export async function generateMetadata() {
+  return {
+    title: 'Tin Tức & Khuyến Mãi Gas - Ngọc Gas',
+    description: 'Cập nhật tin tức khuyến mãi, cẩm nang sử dụng gas an toàn và thông tin giá gas mới nhất từ Ngọc Gas.',
+  };
+}
+
 export default async function NewsPage() {
   let posts = [];
+  let settings = {};
 
   try {
-    const [rows] = await db.query('SELECT * FROM posts WHERE is_published = 1 ORDER BY created_at DESC');
-    posts = rows;
+    const allPosts = await getAllPosts();
+    posts = allPosts.filter(p => p.is_published == 1);
+    settings = await getAllSettings();
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    console.error('Error fetching posts or settings:', error);
   }
 
   return (
@@ -26,7 +36,7 @@ export default async function NewsPage() {
           </div>
           <h1 className="news-hero-title">Tin Tức & Khuyến Mãi</h1>
           <p className="news-hero-desc">
-            Cập nhật những thông tin khuyến mãi mới nhất từ Ngọc Gas và kinh nghiệm sử dụng gas an toàn.
+            Cập nhật những thông tin khuyến mãi mới nhất từ {settings.company_name || 'Ngọc Gas'} và kinh nghiệm sử dụng gas an toàn.
           </p>
         </div>
       </section>
@@ -44,8 +54,6 @@ export default async function NewsPage() {
           )}
         </div>
       </section>
-
-      
     </>
   );
 }

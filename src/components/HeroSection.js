@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Flame, ArrowRight, Phone, Check } from 'lucide-react';
+import { Flame, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function HeroSection({ initialSettings }) {
@@ -21,6 +21,9 @@ export default function HeroSection({ initialSettings }) {
       hero_slide_1: init.hero_slide_1 || '',
       hero_slide_2: init.hero_slide_2 || '',
       hero_slide_3: init.hero_slide_3 || '',
+      hero_slide_1_mobile: init.hero_slide_1_mobile || '',
+      hero_slide_2_mobile: init.hero_slide_2_mobile || '',
+      hero_slide_3_mobile: init.hero_slide_3_mobile || '',
       hero_show_text_block: init.hero_show_text_block !== undefined ? init.hero_show_text_block : '1',
       hero_badge_text: init.hero_badge_text || '',
       hero_title_text: init.hero_title_text || '',
@@ -35,6 +38,15 @@ export default function HeroSection({ initialSettings }) {
   const [animationState, setAnimationState] = useState('idle'); // idle -> calling -> loading -> delivering -> resetting
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile/desktop
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (initialSettings) {
@@ -61,11 +73,26 @@ export default function HeroSection({ initialSettings }) {
     fetchHeroSettings();
   }, [initialSettings]);
 
-  const slides = [
+  // Build slides with desktop/mobile fallback
+  const desktopSlides = [
     settings.hero_slide_1,
     settings.hero_slide_2,
     settings.hero_slide_3
   ].filter(Boolean);
+
+  const mobileSlides = [
+    settings.hero_slide_1_mobile,
+    settings.hero_slide_2_mobile,
+    settings.hero_slide_3_mobile
+  ].filter(Boolean);
+
+  // Pick slides: prefer device-specific, fallback to the other
+  let slides;
+  if (isMobile) {
+    slides = mobileSlides.length > 0 ? mobileSlides : desktopSlides;
+  } else {
+    slides = desktopSlides.length > 0 ? desktopSlides : mobileSlides;
+  }
 
   if (slides.length === 0) {
     slides.push('/images/delivery-motorcycle.jpg');

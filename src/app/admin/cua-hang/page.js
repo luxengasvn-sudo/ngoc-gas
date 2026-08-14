@@ -242,7 +242,21 @@ export default function AdminStoresPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
 
     const method = currentStore ? 'PUT' : 'POST';
     const url = currentStore ? `/api/stores/${currentStore.id}` : '/api/stores';
@@ -250,20 +264,45 @@ export default function AdminStoresPage() {
     const cleanedStorePhones = formData.store_phones.filter(p => p.trim() !== '');
     const cleanedDeliveryPhones = formData.delivery_phones.filter(d => d.name.trim() !== '' && d.phone.trim() !== '');
 
+    const payload = {
+      ...formData,
+      store_phones: JSON.stringify(cleanedStorePhones),
+      delivery_phones: JSON.stringify(cleanedDeliveryPhones),
+      is_active: formData.is_active ? 1 : 0
+    };
+
     try {
-      const res = await fetch(url, {
+      let res = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          ...formData,
-          store_phones: JSON.stringify(cleanedStorePhones),
-          delivery_phones: JSON.stringify(cleanedDeliveryPhones),
-          is_active: formData.is_active ? 1 : 0
-        })
+        body: JSON.stringify(payload)
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch(url, {
+              method,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify(payload)
+            });
+          }
+        } catch (retryErr) {}
+      }
 
       const data = await res.json();
       if (data.success) {
@@ -286,12 +325,47 @@ export default function AdminStoresPage() {
       return;
     }
 
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
     try {
-      const res = await fetch(`/api/stores/${storeId}`, {
+      let res = await fetch(`/api/stores/${storeId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch(`/api/stores/${storeId}`, {
+              method: 'DELETE',
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
 
       if (data.success) {

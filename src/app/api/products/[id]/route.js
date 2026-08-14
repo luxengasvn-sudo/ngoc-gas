@@ -1,27 +1,21 @@
 import db from '@/lib/db';
 import { getAuthenticatedUser } from '@/lib/auth';
 import { NextResponse } from 'next/server';
+import { getProductByIdOrSlug, updateProductData } from '@/lib/productsHelper';
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
+    const product = await getProductByIdOrSlug(id);
 
-    const [rows] = await db.query(
-      `SELECT p.*, c.name AS category_name 
-       FROM products p 
-       LEFT JOIN categories c ON p.category_id = c.id 
-       WHERE p.id = ?`,
-      [id]
-    );
-
-    if (rows.length === 0) {
+    if (!product) {
       return NextResponse.json(
         { success: false, message: 'Không tìm thấy sản phẩm' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true, data: rows[0] });
+    return NextResponse.json({ success: true, data: product });
   } catch (error) {
     console.error('Error fetching product:', error);
     return NextResponse.json(
@@ -64,55 +58,27 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const [result] = await db.query(
-      `UPDATE products 
-       SET name = ?, 
-           slug = ?, 
-           short_description = ?, 
-           description = ?, 
-           price = ?, 
-           sale_price = ?, 
-           image_url = ?, 
-           images = ?, 
-           category_id = ?, 
-           is_featured = ?, 
-           is_active = ? 
-       WHERE id = ?`,
-      [
-        name, 
-        slug, 
-        short_description || '', 
-        description || '', 
-        price || null, 
-        sale_price || null, 
-        image_url || '', 
-        images || '[]', 
-        category_id || null, 
-        is_featured ? 1 : 0, 
-        is_active ? 1 : 0, 
-        id
-      ]
-    );
-
-    if (result.affectedRows === 0) {
-      return NextResponse.json(
-        { success: false, message: 'Không tìm thấy sản phẩm' },
-        { status: 404 }
-      );
-    }
+    const updated = await updateProductData(id, {
+      name,
+      slug,
+      short_description: short_description || '',
+      description: description || '',
+      price: price !== undefined && price !== '' && price !== null ? Number(price) : null,
+      sale_price: sale_price !== undefined && sale_price !== '' && sale_price !== null ? Number(sale_price) : null,
+      image_url: image_url || '',
+      images: images || '[]',
+      category_id: category_id || null,
+      is_featured: is_featured ? 1 : 0,
+      is_active: is_active ? 1 : 0
+    });
 
     return NextResponse.json({
       success: true,
-      message: 'Cập nhật sản phẩm thành công'
+      message: 'Cập nhật sản phẩm thành công',
+      data: updated
     });
   } catch (error) {
     console.error('Error updating product:', error);
-    if (error.code === 'ER_DUP_ENTRY') {
-      return NextResponse.json(
-        { success: false, message: 'Slug đã tồn tại, vui lòng chọn slug khác' },
-        { status: 400 }
-      );
-    }
     return NextResponse.json(
       { success: false, message: 'Lỗi server khi cập nhật sản phẩm' },
       { status: 500 }

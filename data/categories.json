@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Gas Dân Dụng & Công Nghiệp",
+    "slug": "gas-dan-dung-cong-nghiep",
+    "description": "Các loại bình gas 12kg và 45kg chính hãng Sopet, Phoenix, Luxen"
+  },
+  {
+    "id": 2,
+    "name": "Gas Công Nghiệp Khè",
+    "slug": "gas-cong-nghiep-khe",
+    "description": "Bình gas công nghiệp 45kg chuyên dùng cho nhà hàng, quán ăn, bếp ăn tập thể"
+  },
+  {
+    "id": 3,
+    "name": "Phụ Kiện & Bếp Gas",
+    "slug": "phu-kien-bep-gas",
+    "description": "Van điều áp tự động ngắt, dây dẫn gas bọc inox chống chuột, bếp gas chính hãng"
+  }
+]

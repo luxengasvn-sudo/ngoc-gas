@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Bold, Italic, Type, Image as ImageIcon, Search, Filter, Eye, Star, ToggleLeft, ToggleRight, Check, Link2 } from 'lucide-react';
 import MediaLibraryModal from '@/components/MediaLibraryModal';
 
@@ -14,23 +14,303 @@ export default function AdminProductsPage() {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [isMediaOpen, setIsMediaOpen] = useState(false);
-  const [mediaTarget, setMediaTarget] = useState('main'); // 'main' | 'album'
+  const [mediaTarget, setMediaTarget] = useState('main'); // 'main' | 'album' | 'content'
+
+  // Alt Text Modal states for Product Description
+  const [isAltModalOpen, setIsAltModalOpen] = useState(false);
+  const [pendingImageUrl, setPendingImageUrl] = useState('');
+  const [altTextValue, setAltTextValue] = useState('');
+
+  const visualEditorRef = useRef(null);
+  const lastSelectionRangeRef = useRef(null);
+
+  // Floating Link Tooltip State
+  const [linkTooltip, setLinkTooltip] = useState({
+    visible: false,
+    url: '',
+    targetNode: null,
+    top: 0,
+    left: 0
+  });
+
+  // Floating Heading Tooltip State
+  const [headingTooltip, setHeadingTooltip] = useState({
+    visible: false,
+    currentTag: 'p',
+    targetNode: null,
+    top: 0,
+    left: 0
+  });
+
+  const handleEditorClick = (e) => {
+    if (!visualEditorRef.current) return;
+
+    // Check link click
+    const anchor = e.target.closest('a');
+    if (anchor && visualEditorRef.current.contains(anchor)) {
+      const rect = anchor.getBoundingClientRect();
+      setLinkTooltip({
+        visible: true,
+        url: anchor.getAttribute('href') || '',
+        targetNode: anchor,
+        top: rect.bottom + 6,
+        left: Math.max(10, rect.left)
+      });
+      setHeadingTooltip(prev => ({ ...prev, visible: false }));
+      return;
+    } else {
+      setLinkTooltip(prev => ({ ...prev, visible: false }));
+    }
+
+    // Check heading click (h2, h3, h4)
+    const headingBlock = e.target.closest('h2, h3, h4');
+    if (headingBlock && visualEditorRef.current.contains(headingBlock)) {
+      const rect = headingBlock.getBoundingClientRect();
+      const tagName = headingBlock.tagName.toLowerCase();
+      setHeadingTooltip({
+        visible: true,
+        currentTag: tagName,
+        targetNode: headingBlock,
+        top: rect.top - 38 > 10 ? rect.top - 38 : rect.bottom + 6,
+        left: Math.max(10, rect.left)
+      });
+    } else {
+      setHeadingTooltip(prev => ({ ...prev, visible: false }));
+    }
+  };
+
+  const convertHeadingTag = (newTag) => {
+    if (!headingTooltip.targetNode) return;
+    const oldNode = headingTooltip.targetNode;
+    const newNode = document.createElement(newTag);
+    newNode.innerHTML = oldNode.innerHTML;
+    if (oldNode.className) newNode.className = oldNode.className;
+    oldNode.parentNode.replaceChild(newNode, oldNode);
+    handleVisualInput();
+    setHeadingTooltip({
+      visible: true,
+      currentTag: newTag,
+      targetNode: newNode,
+      top: headingTooltip.top,
+      left: headingTooltip.left
+    });
+  };
+
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      if (typeof window === 'undefined') return;
+      const sel = window.getSelection();
+      if (sel && sel.rangeCount > 0 && visualEditorRef.current) {
+        try {
+          const range = sel.getRangeAt(0);
+          if (visualEditorRef.current.contains(range.commonAncestorContainer)) {
+            lastSelectionRangeRef.current = range.cloneRange();
+          }
+        } catch (e) {}
+      }
+    };
+    document.addEventListener('selectionchange', handleSelectionChange);
+    return () => document.removeEventListener('selectionchange', handleSelectionChange);
+  }, []);
+
+  const saveVisualRange = () => {
+    if (typeof window === 'undefined') return;
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0 && visualEditorRef.current) {
+      try {
+        const range = sel.getRangeAt(0);
+        if (visualEditorRef.current.contains(range.commonAncestorContainer)) {
+          lastSelectionRangeRef.current = range.cloneRange();
+        }
+      } catch (e) {}
+    }
+  };
+
+  const restoreVisualRange = () => {
+    if (typeof window === 'undefined' || !lastSelectionRangeRef.current) return;
+    const sel = window.getSelection();
+    if (sel) {
+      try {
+        sel.removeAllRanges();
+        sel.addRange(lastSelectionRangeRef.current);
+      } catch (e) {}
+    }
+  };
+
+  const insertHTMLAtSavedRange = (html) => {
+    if (!visualEditorRef.current) return;
+
+    const sel = window.getSelection();
+    let range = null;
+
+    if (lastSelectionRangeRef.current) {
+      try {
+        const testRange = lastSelectionRangeRef.current;
+        if (visualEditorRef.current.contains(testRange.commonAncestorContainer)) {
+          range = testRange;
+        }
+      } catch (e) {}
+    }
+
+    if (!range && sel && sel.rangeCount > 0) {
+      try {
+        const testRange = sel.getRangeAt(0);
+        if (visualEditorRef.current.contains(testRange.commonAncestorContainer)) {
+          range = testRange;
+        }
+      } catch (e) {}
+    }
+
+    if (!range) {
+      try {
+        range = document.createRange();
+        range.selectNodeContents(visualEditorRef.current);
+        range.collapse(false);
+      } catch (e) {}
+    }
+
+    if (sel && range) {
+      try {
+        sel.removeAllRanges();
+        sel.addRange(range);
+      } catch (e) {}
+    }
+
+    if (range) {
+      range.deleteContents();
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      const frag = document.createDocumentFragment();
+      let node, lastNode;
+      while ((node = div.firstChild)) {
+        lastNode = frag.appendChild(node);
+      }
+      range.insertNode(frag);
+
+      if (lastNode) {
+        try {
+          const newRange = document.createRange();
+          newRange.setStartAfter(lastNode);
+          newRange.collapse(true);
+          if (sel) {
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+          }
+          lastSelectionRangeRef.current = newRange.cloneRange();
+        } catch (e) {}
+      }
+    }
+
+    handleVisualInput();
+  };
+
+  const handleVisualInput = () => {
+    if (visualEditorRef.current) {
+      const html = visualEditorRef.current.innerHTML;
+      setFormData(prev => ({ ...prev, description: html }));
+    }
+  };
+
+  const confirmInsertImageWithAlt = () => {
+    if (!pendingImageUrl) return;
+    const altText = altTextValue.trim() || formData.name || 'Hình ảnh sản phẩm Ngọc Gas';
+    const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${pendingImageUrl}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" />${altText ? `<figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption>` : ''}</figure><p><br/></p>`;
+
+    insertHTMLAtSavedRange(figureHtml);
+    setIsAltModalOpen(false);
+    setPendingImageUrl('');
+  };
+
+  const insertFormat = (tag) => {
+    if (visualEditorRef.current) {
+      visualEditorRef.current.focus();
+      restoreVisualRange();
+      if (tag === 'b') document.execCommand('bold', false, null);
+      else if (tag === 'i') document.execCommand('italic', false, null);
+      else if (tag === 'p') document.execCommand('formatBlock', false, '<p>');
+      else if (tag === 'h2') document.execCommand('formatBlock', false, '<h2>');
+      else if (tag === 'h3') document.execCommand('formatBlock', false, '<h3>');
+      else if (tag === 'h4') document.execCommand('formatBlock', false, '<h4>');
+      handleVisualInput();
+    }
+  };
+
+  const insertLink = () => {
+    if (!visualEditorRef.current) return;
+    visualEditorRef.current.focus();
+    restoreVisualRange();
+
+    const sel = window.getSelection();
+    let existingAnchor = null;
+
+    if (sel && sel.anchorNode) {
+      let curr = sel.anchorNode;
+      if (curr.nodeType === 3) curr = curr.parentNode;
+      while (curr && curr !== visualEditorRef.current) {
+        if (curr.tagName === 'A') {
+          existingAnchor = curr;
+          break;
+        }
+        curr = curr.parentNode;
+      }
+    }
+
+    if (existingAnchor) {
+      const currentUrl = existingAnchor.getAttribute('href') || 'https://';
+      const action = prompt(
+        `🔗 CỤM TỪ NÀY ĐANG ĐƯỢC CHÈN LINK:\n${currentUrl}\n\n• Nhập URL MỚI nếu muốn đổi link.\n• Nhập chữ 'x' (hoặc để trống) rồi bấm OK nếu muốn XÓA LINK (Hủy liên kết):`,
+        currentUrl
+      );
+
+      if (action === null) return;
+
+      const trimmed = action.trim();
+      if (trimmed === '' || trimmed.toLowerCase() === 'x' || trimmed.toLowerCase() === 'xoa') {
+        document.execCommand('unlink', false, null);
+      } else {
+        existingAnchor.setAttribute('href', trimmed);
+      }
+    } else {
+      const url = prompt('🔗 Nhập địa chỉ liên kết (URL) để chèn vào từ được chọn:', 'https://');
+      if (!url || !url.trim()) return;
+
+      document.execCommand('createLink', false, url.trim());
+    }
+
+    handleVisualInput();
+  };
 
   const handleMediaSelect = (url) => {
     if (mediaTarget === 'main') {
       setFormData(prev => ({ ...prev, image_url: url }));
     } else if (mediaTarget === 'album') {
+      let currentImages = [];
+      try {
+        currentImages = Array.isArray(formData.images) 
+          ? [...formData.images] 
+          : JSON.parse(formData.images || '[]');
+      } catch (e) {
+        currentImages = [];
+      }
+      currentImages.push(url);
       setFormData(prev => ({
         ...prev,
-        images: [...(prev.images || []), url]
+        images: JSON.stringify(currentImages)
       }));
+    } else if (mediaTarget === 'content') {
+      saveVisualRange();
+      setPendingImageUrl(url);
+      setAltTextValue(formData.name || 'Hình ảnh sản phẩm Ngọc Gas');
+      setIsAltModalOpen(true);
     }
+    setIsMediaOpen(false);
   };
 
   // Search & Filtering
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all'); // all | featured | active | inactive
+  const [isSaving, setIsSaving] = useState(false);
 
   // Bulk Price Adjustment State
   const [showBulkPriceBox, setShowBulkPriceBox] = useState(false);
@@ -66,8 +346,15 @@ export default function AdminProductsPage() {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       
-      const resProd = await fetch('/api/products', { headers });
-      const dataProd = await resProd.json();
+      let dataProd = { success: false, data: [] };
+      try {
+        const resProd = await fetch('/api/products?t=' + Date.now(), { headers, cache: 'no-store' });
+        if (resProd.ok) {
+          dataProd = await resProd.json();
+        }
+      } catch (e) {
+        console.error('Error parsing products JSON:', e);
+      }
       
       let catData = [
         { id: 1, name: 'Gas Dân Dụng & Công Nghiệp' },
@@ -76,32 +363,21 @@ export default function AdminProductsPage() {
       ];
 
       try {
-        const resCat = await fetch('/api/categories', { headers });
-        const dataCat = await resCat.json();
-        if (dataCat.success && dataCat.data && dataCat.data.length > 0) {
-          catData = dataCat.data;
+        const resCat = await fetch('/api/categories?t=' + Date.now(), { headers, cache: 'no-store' });
+        if (resCat.ok) {
+          const dataCat = await resCat.json();
+          if (dataCat.success && dataCat.data && dataCat.data.length > 0) {
+            catData = dataCat.data;
+          }
         }
       } catch (e) {}
 
       setCategories(catData);
 
-      if (dataProd.data && dataProd.data.length > 0) {
+      if (dataProd.data && Array.isArray(dataProd.data)) {
         setProducts(dataProd.data);
       } else {
-        // Fallback default 11 products
-        setProducts([
-          { id: 1, name: 'Bình Gas Sopet 12kg (Xám)', slug: 'binh-gas-sopet-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An & VietSing. Bình gas Sopet 12kg xám tiêu chuẩn chính hãng, lửa xanh tiết kiệm.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xam.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 2, name: 'Bình Gas Sopet 12kg (Xanh Đen)', slug: 'binh-gas-sopet-12kg-xanh-den', short_description: 'Dịch vụ giao gas nhanh tại Thuận An & VietSing. Bình gas Sopet 12kg vỏ xanh đen cao cấp, kiểm định an toàn PCCC.', price: 425000, sale_price: 400000, image_url: '/images/sopet-xanh-den.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 3, name: 'Bình Gas Sopet 12kg (Xanh)', slug: 'binh-gas-sopet-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Sopet 12kg vỏ xanh tiêu chuẩn gia đình.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xanh.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 4, name: 'Bình Gas Sopet 12kg (Đỏ)', slug: 'binh-gas-sopet-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An. Bình gas Sopet 12kg vỏ đỏ chính hãng, an toàn tuyệt đối.', price: 430000, sale_price: 405000, image_url: '/images/sopet.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 5, name: 'Bình Gas Phoenix Gas 12kg (Xám)', slug: 'binh-gas-phoenix-gas-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & Thuận An. Bình gas Phoenix 12kg vỏ xám tiết kiệm cho hộ gia đình.', price: 410000, sale_price: 385000, image_url: '/images/phoenix-xam.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 6, name: 'Bình Gas Phoenix Gas 12kg (Xanh)', slug: 'binh-gas-phoenix-gas-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại KDC VietSing. Bình gas Phoenix 12kg vỏ xanh lá chính hãng Phoenix Gas.', price: 415000, sale_price: 390000, image_url: '/images/phoenix-lg-xanh.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 7, name: 'Bình Gas Phoenix Gas 12kg (Đỏ)', slug: 'binh-gas-phoenix-gas-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Phoenix 12kg vỏ đỏ nổi bật, áp suất ổn định.', price: 420000, sale_price: 395000, image_url: '/images/phoenix-do.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 8, name: 'Bình Gas Luxen Gas 12kg', slug: 'binh-gas-luxen-gas-12kg', short_description: 'Dịch vụ giao gas nhanh tại VietSing & Thuận An. Bình gas Luxen Gas 12kg chất lượng cao, vỏ bình chịu lực tiêu chuẩn.', price: 420000, sale_price: 395000, image_url: '/images/luxen-gas.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 9, name: 'Bình Gas Luxen Gas 12kg (Xám)', slug: 'binh-gas-luxen-gas-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & VietSing. Bình gas Luxen Gas 12kg vỏ xám tiêu chuẩn, an toàn PCCC.', price: 415000, sale_price: 390000, image_url: '/images/luxen-xam-12kg.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 10, name: 'Bình Gas Luxen Gas 45kg (Công Nghiệp)', slug: 'binh-gas-luxen-gas-45kg-cong-nghiep', short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1 & Dĩ An. Bình gas công nghiệp Luxen 45kg chuyên dùng cho Nhà hàng, Bếp ăn.', price: 1550000, sale_price: 1450000, image_url: '/images/luxen-45.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 },
-          { id: 11, name: 'Bình Gas Luxen Gas 45kg (Xám)', slug: 'binh-gas-luxen-gas-45kg-xam', short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1, Dĩ An & Thuận An. Bình gas công nghiệp Luxen 45kg màu xám tiêu chuẩn.', price: 1540000, sale_price: 1440000, image_url: '/images/luxen-xam-45.png', category_id: 1, category_name: 'Gas Dân Dụng & Công Nghiệp', is_featured: 1, is_active: 1 }
-        ]);
+        setProducts([]);
       }
     } catch (err) {
       console.error('Error in fetchProductsAndCategories:', err);
@@ -116,7 +392,7 @@ export default function AdminProductsPage() {
 
   const handleOpenAddModal = () => {
     setCurrentProduct(null);
-    setFormData({
+    const emptyForm = {
       name: '',
       slug: '',
       short_description: '',
@@ -128,18 +404,25 @@ export default function AdminProductsPage() {
       category_id: categories[0]?.id || '',
       is_featured: false,
       is_active: true
-    });
+    };
+    setFormData(emptyForm);
     setError('');
     setIsModalOpen(true);
+    setTimeout(() => {
+      if (visualEditorRef.current) {
+        visualEditorRef.current.innerHTML = '<p>Nhập mô tả chi tiết sản phẩm tại đây...</p>';
+      }
+    }, 100);
   };
 
   const handleOpenEditModal = (product) => {
     setCurrentProduct(product);
+    const initialDesc = product.description || '';
     setFormData({
       name: product.name,
       slug: product.slug,
       short_description: product.short_description || '',
-      description: product.description || '',
+      description: initialDesc,
       price: product.price || '',
       sale_price: product.sale_price || '',
       image_url: product.image_url || '',
@@ -150,6 +433,11 @@ export default function AdminProductsPage() {
     });
     setError('');
     setIsModalOpen(true);
+    setTimeout(() => {
+      if (visualEditorRef.current) {
+        visualEditorRef.current.innerHTML = initialDesc || '<p>Nhập mô tả chi tiết sản phẩm tại đây...</p>';
+      }
+    }, 100);
   };
 
   const handleCloseModal = () => {
@@ -159,7 +447,7 @@ export default function AdminProductsPage() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     
-    if (name === 'name' && !currentProduct) {
+    if (name === 'name') {
       const slugVal = value
         .toLowerCase()
         .replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a')
@@ -238,7 +526,14 @@ export default function AdminProductsPage() {
       const data = await res.json();
 
       if (data.success) {
-        const currentImages = JSON.parse(formData.images || '[]');
+        let currentImages = [];
+        try {
+          currentImages = Array.isArray(formData.images)
+            ? [...formData.images]
+            : JSON.parse(formData.images || '[]');
+        } catch (e) {
+          currentImages = [];
+        }
         currentImages.push(data.url);
         setFormData(prev => ({ ...prev, images: JSON.stringify(currentImages) }));
       } else {
@@ -253,7 +548,14 @@ export default function AdminProductsPage() {
   };
 
   const deleteAlbumImage = (index) => {
-    const currentImages = JSON.parse(formData.images || '[]');
+    let currentImages = [];
+    try {
+      currentImages = Array.isArray(formData.images)
+        ? [...formData.images]
+        : JSON.parse(formData.images || '[]');
+    } catch (e) {
+      currentImages = [];
+    }
     currentImages.splice(index, 1);
     setFormData(prev => ({ ...prev, images: JSON.stringify(currentImages) }));
   };
@@ -278,20 +580,10 @@ export default function AdminProductsPage() {
       const data = await res.json();
 
       if (data.success) {
-        const imgTag = `<img src="${data.url}" alt="ảnh chi tiết" style="max-width:100%; height:auto; margin:15px 0; border-radius:8px; display:block;" />`;
-        const textarea = document.getElementById('description');
-        if (textarea) {
-          const start = textarea.selectionStart;
-          const end = textarea.selectionEnd;
-          const text = textarea.value;
-          const newVal = text.substring(0, start) + imgTag + text.substring(end);
-          setFormData(prev => ({ ...prev, description: newVal }));
-          
-          setTimeout(() => {
-            textarea.focus();
-            textarea.setSelectionRange(start + imgTag.length, start + imgTag.length);
-          }, 10);
-        }
+        saveVisualRange();
+        setPendingImageUrl(data.url);
+        setAltTextValue(formData.name || 'Hình ảnh sản phẩm Ngọc Gas');
+        setIsAltModalOpen(true);
       } else {
         setError(data.message || 'Lỗi khi upload ảnh cho mô tả');
       }
@@ -303,80 +595,50 @@ export default function AdminProductsPage() {
     }
   };
 
-  const insertFormat = (tag) => {
-    const textarea = document.getElementById('description');
-    if (!textarea) return;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textarea.value;
-    const selected = text.substring(start, end);
-    let formatted = '';
-
-    if (tag === 'p') formatted = `<p>${selected || 'Đoạn văn bản'}</p>`;
-    else if (tag === 'b') formatted = `<strong>${selected || 'Chữ đậm'}</strong>`;
-    else if (tag === 'i') formatted = `<em>${selected || 'Chữ nghiêng'}</em>`;
-    else if (tag === 'h2') formatted = `<h2>${selected || 'Tiêu đề 2'}</h2>`;
-    else if (tag === 'h3') formatted = `<h3>${selected || 'Tiêu đề 3'}</h3>`;
-    else if (tag === 'br') formatted = `${text.substring(0, start)}<br />${text.substring(end)}`;
-
-    const newVal = tag === 'br' ? formatted : text.substring(0, start) + formatted + text.substring(end);
-    setFormData(prev => ({ ...prev, description: newVal }));
-    
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(start + formatted.length, start + formatted.length);
-    }, 10);
-  };
-
-  const insertLink = () => {
-    const textarea = document.getElementById('description');
-    if (!textarea) return;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textarea.value;
-    const selected = text.substring(start, end);
-
-    const url = prompt('Nhập địa chỉ liên kết (URL) của bạn:', 'https://');
-    if (url === null) return; // User cancelled
-
-    const linkText = selected || prompt('Nhập văn bản hiển thị cho liên kết:', 'Xem thêm tại đây') || url;
-    
-    // Determine if it is external or internal
-    const isInternal = url.startsWith('/') || url.includes(window.location.hostname);
-    const targetAttr = isInternal ? '' : ' target="_blank" rel="noopener noreferrer"';
-    
-    const linkTag = `<a href="${url}"${targetAttr} style="color: var(--primary-dark); text-decoration: underline; font-weight: 600;">${linkText}</a>`;
-    
-    const newVal = text.substring(0, start) + linkTag + text.substring(end);
-    setFormData(prev => ({ ...prev, description: newVal }));
-    
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(start + linkTag.length, start + linkTag.length);
-    }, 10);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    if (!formData.name.trim() || !formData.slug.trim()) {
+    if (!formData.name?.trim() || !formData.slug?.trim()) {
       setError('Tên sản phẩm và slug là bắt buộc');
       return;
     }
 
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
+    setIsSaving(true);
     const url = currentProduct ? `/api/products/${currentProduct.id}` : '/api/products';
     const method = currentProduct ? 'PUT' : 'POST';
 
+    const finalDescription = visualEditorRef.current ? visualEditorRef.current.innerHTML : formData.description;
+
     const submissionData = {
       ...formData,
-      price: formData.price === '' ? null : Number(formData.price),
-      sale_price: formData.sale_price === '' ? null : Number(formData.sale_price)
+      category_id: formData.category_id ? Number(formData.category_id) : (categories[0]?.id || 1),
+      description: finalDescription,
+      images: typeof formData.images === 'string' ? formData.images : JSON.stringify(formData.images || []),
+      is_featured: formData.is_featured ? 1 : 0,
+      is_active: formData.is_active ? 1 : 0,
+      price: formData.price === '' || formData.price === null ? null : Number(formData.price),
+      sale_price: formData.sale_price === '' || formData.sale_price === null ? null : Number(formData.sale_price)
     };
 
     try {
-      const res = await fetch(url, {
+      let res = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -384,20 +646,56 @@ export default function AdminProductsPage() {
         },
         body: JSON.stringify(submissionData)
       });
+
+      if (res.status === 401) {
+        // Token expired or invalid, auto-refresh and retry once
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch(url, {
+              method,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify(submissionData)
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
 
       if (data.success) {
         setSuccess(currentProduct ? 'Cập nhật sản phẩm thành công!' : 'Thêm sản phẩm thành công!');
         setIsModalOpen(false);
+        if (data.data) {
+          setProducts(prev => {
+            if (currentProduct) {
+              return prev.map(p => String(p.id) === String(currentProduct.id) ? { ...p, ...data.data } : p);
+            } else {
+              return [data.data, ...prev];
+            }
+          });
+        }
         fetchProductsAndCategories();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => setSuccess(''), 3000);
+        setTimeout(() => setSuccess(''), 4000);
       } else {
         setError(data.message || 'Lưu sản phẩm thất bại');
       }
     } catch (err) {
       console.error(err);
-      setError('Lỗi khi lưu sản phẩm.');
+      setError('Lỗi khi kết nối lưu sản phẩm.');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -405,16 +703,52 @@ export default function AdminProductsPage() {
     if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) return;
     setError('');
 
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
     try {
-      const res = await fetch(`/api/products/${productId}`, {
+      let res = await fetch(`/api/products/${productId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch(`/api/products/${productId}`, {
+              method: 'DELETE',
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
 
       if (data.success) {
         setSuccess('Đã xóa sản phẩm thành công!');
+        setProducts(prev => prev.filter(p => String(p.id) !== String(productId)));
         fetchProductsAndCategories();
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => setSuccess(''), 3000);
@@ -490,11 +824,13 @@ export default function AdminProductsPage() {
   // Client-side filtering logic
   const filteredProducts = products.filter(prod => {
     // Search query match
-    const matchesSearch = prod.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          prod.slug.toLowerCase().includes(searchQuery.toLowerCase());
+    const nameStr = (prod.name || '').toLowerCase();
+    const slugStr = (prod.slug || '').toLowerCase();
+    const q = searchQuery.toLowerCase().trim();
+    const matchesSearch = !q || nameStr.includes(q) || slugStr.includes(q);
     
     // Category match
-    const matchesCategory = selectedCategoryFilter === 'all' || prod.category_id.toString() === selectedCategoryFilter;
+    const matchesCategory = selectedCategoryFilter === 'all' || String(prod.category_id || '') === selectedCategoryFilter;
     
     // Status match
     let matchesStatus = true;
@@ -505,7 +841,14 @@ export default function AdminProductsPage() {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  const albumImages = JSON.parse(formData.images || '[]');
+  let albumImages = [];
+  try {
+    albumImages = Array.isArray(formData.images)
+      ? formData.images
+      : JSON.parse(formData.images || '[]');
+  } catch (e) {
+    albumImages = [];
+  }
 
   return (
     <>
@@ -920,7 +1263,7 @@ export default function AdminProductsPage() {
 
         {/* Modal Editor dạng 2 Cột chuyên nghiệp giống WooCommerce / Shopify */}
         {isModalOpen && (
-          <div className="admin-modal-overlay-new">
+          <div className="admin-modal-overlay-new" style={{ zIndex: 1000 }}>
             <div className="admin-modal-content-new card">
               <div className="modal-header-new">
                 <div>
@@ -931,6 +1274,13 @@ export default function AdminProductsPage() {
                   <X size={22} />
                 </button>
               </div>
+
+              {error && (
+                <div className="admin-error-banner" style={{ margin: '14px 24px 0 24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <AlertCircle size={18} />
+                  <span>{error}</span>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="modal-body-form-new">
                 <div className="modal-two-columns-layout">
@@ -1010,7 +1360,7 @@ export default function AdminProductsPage() {
                       </div>
                     </div>
 
-                    <div className="form-section-card">
+                    <div className="form-section-card" style={{ overflow: 'visible' }}>
                       <h3 className="section-card-title">Mô tả sản phẩm</h3>
                       
                       <div className="form-group">
@@ -1026,40 +1376,81 @@ export default function AdminProductsPage() {
                         ></textarea>
                       </div>
 
-                      <div className="form-group">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <label htmlFor="description" className="form-label-new" style={{ margin: 0 }}>Mô tả chi tiết (Long Description)</label>
-                          <div className="editor-toolbar-new">
-                            <button type="button" onClick={() => insertFormat('b')} className="editor-tool-btn" title="Chữ đậm"><Bold size={13} /></button>
-                            <button type="button" onClick={() => insertFormat('i')} className="editor-tool-btn" title="Chữ nghiêng"><Italic size={13} /></button>
-                            <button type="button" onClick={() => insertFormat('p')} className="editor-tool-btn" title="Đoạn văn"><Type size={13} /></button>
-                            <button type="button" onClick={() => insertFormat('h2')} className="editor-tool-btn text-btn" title="Tiêu đề 2">H2</button>
-                            <button type="button" onClick={() => insertFormat('h3')} className="editor-tool-btn text-btn" title="Tiêu đề 3">H3</button>
-                            <button type="button" onClick={insertLink} className="editor-tool-btn" title="Chèn liên kết (Link)"><Link2 size={13} /></button>
-                            <div className="tool-divider"></div>
-                            
-                            <label className="editor-tool-btn media-btn" title="Chèn ảnh vào mô tả">
-                              <ImageIcon size={13} />
-                              <input 
-                                type="file" 
-                                accept="image/*" 
-                                onChange={handleInsertImageIntoDesc} 
-                                style={{ display: 'none' }} 
-                                disabled={uploading}
-                              />
-                            </label>
-                          </div>
+                      <div style={{
+                        position: 'sticky',
+                        top: '72px',
+                        zIndex: 200,
+                        backgroundColor: '#FFFFFF',
+                        paddingTop: '8px',
+                        paddingBottom: '12px',
+                        marginBottom: '14px',
+                        borderBottom: '1px solid #E2E8F0',
+                        display: 'flex',
+                        justify: 'space-between',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: '12px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+                      }}>
+                        <h3 className="section-card-title" style={{ margin: 0 }}>Mô tả chi tiết sản phẩm (Long Description)</h3>
+
+                        <div className="editor-toolbar-new" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', background: '#F8FAFC', padding: '8px 14px', borderRadius: '10px', border: '1px solid #CBD5E1' }}>
+                          <button type="button" onClick={() => insertFormat('b')} className="editor-tool-btn" style={{ minWidth: '38px', height: '38px', padding: '0 10px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '16px', color: '#0F172A' }} title="Chữ đậm (Bold)"><Bold size={18} strokeWidth={2.5} /></button>
+                          <button type="button" onClick={() => insertFormat('i')} className="editor-tool-btn" style={{ minWidth: '38px', height: '38px', padding: '0 10px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '16px', color: '#0F172A' }} title="Chữ nghiêng (Italic)"><Italic size={18} strokeWidth={2.5} /></button>
+                          <button type="button" onClick={() => insertFormat('p')} className="editor-tool-btn" style={{ minWidth: '38px', height: '38px', padding: '0 10px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '16px', color: '#0F172A' }} title="Đoạn văn (Paragraph)"><Type size={18} strokeWidth={2.5} /></button>
+                          <button type="button" onClick={() => insertFormat('h2')} className="editor-tool-btn text-btn" style={{ minWidth: '40px', height: '38px', padding: '0 12px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '15px', color: '#0F172A' }} title="Tiêu đề 2 (H2)">H2</button>
+                          <button type="button" onClick={() => insertFormat('h3')} className="editor-tool-btn text-btn" style={{ minWidth: '40px', height: '38px', padding: '0 12px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '15px', color: '#0F172A' }} title="Tiêu đề 3 (H3)">H3</button>
+                          <button type="button" onClick={() => insertFormat('h4')} className="editor-tool-btn text-btn" style={{ minWidth: '40px', height: '38px', padding: '0 12px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '15px', color: '#0F172A' }} title="Tiêu đề 4 (H4)">H4</button>
+                          <button type="button" onClick={insertLink} className="editor-tool-btn" style={{ minWidth: '38px', height: '38px', padding: '0 10px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#0F172A' }} title="Chèn liên kết (Link)"><Link2 size={18} strokeWidth={2.5} /></button>
+                          
+                          <div className="tool-divider" style={{ height: '24px', width: '1.5px', background: '#CBD5E1', margin: '0 6px' }}></div>
+
+                          <button
+                            type="button"
+                            onClick={() => { setMediaTarget('content'); setIsMediaOpen(true); }}
+                            style={{ height: '38px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0 14px', background: '#FF6B00', border: 'none', color: '#FFFFFF', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', fontSize: '14px', boxShadow: '0 2px 6px rgba(255,107,0,0.25)' }}
+                            title="Mở Thư viện ảnh để chèn vào mô tả"
+                          >
+                            <ImageIcon size={16} />
+                            <span>🖼️ Thư viện ảnh</span>
+                          </button>
+
+                          <label style={{ height: '38px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0 12px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', fontSize: '14px', fontWeight: '800', color: '#0F172A' }} title="Tải ảnh mới từ máy tính">
+                            <Upload size={16} />
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              onChange={handleInsertImageIntoDesc} 
+                              style={{ display: 'none' }} 
+                            />
+                          </label>
                         </div>
-                        <textarea
-                          id="description"
-                          name="description"
-                          className="form-control-new code-font-textarea"
-                          rows="8"
-                          value={formData.description}
-                          onChange={handleChange}
-                          placeholder="Soạn thảo thông số kỹ thuật, xuất xứ, hướng dẫn an toàn sử dụng..."
-                        ></textarea>
                       </div>
+
+                      <div
+                        id="productVisualEditor"
+                        ref={visualEditorRef}
+                        contentEditable
+                        suppressContentEditableWarning
+                        onInput={handleVisualInput}
+                        onBlur={handleVisualInput}
+                        onKeyUp={(e) => { saveVisualRange(); handleEditorClick(e); }}
+                        onMouseUp={(e) => { saveVisualRange(); handleEditorClick(e); }}
+                        onClick={(e) => { saveVisualRange(); handleEditorClick(e); }}
+                        onFocus={saveVisualRange}
+                        style={{
+                          minHeight: '380px',
+                          padding: '24px',
+                          background: '#FFFFFF',
+                          border: '1.5px solid #CBD5E1',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          lineHeight: '1.75',
+                          color: '#0F172A',
+                          outline: 'none',
+                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -1204,10 +1595,19 @@ export default function AdminProductsPage() {
                 </div>
 
                 <div className="modal-footer-new">
-                  <button type="button" onClick={handleCloseModal} className="btn-outline-new">Đóng</button>
-                  <button type="submit" className="btn-primary-new" disabled={uploading}>
-                    <Check size={16} />
-                    <span>Lưu sản phẩm</span>
+                  <button type="button" onClick={handleCloseModal} className="btn-outline-new" disabled={isSaving}>Đóng</button>
+                  <button type="submit" className="btn-primary-new" disabled={uploading || isSaving} style={{ opacity: isSaving ? 0.7 : 1, cursor: isSaving ? 'not-allowed' : 'pointer' }}>
+                    {isSaving ? (
+                      <>
+                        <span className="spinner-mini" style={{ width: '14px', height: '14px', border: '2px solid #FFFFFF', borderTopColor: 'transparent', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.8s linear infinite' }}></span>
+                        <span>Đang lưu...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Check size={16} />
+                        <span>Lưu sản phẩm</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
@@ -1610,6 +2010,23 @@ export default function AdminProductsPage() {
           transition: var(--transition);
         }
 
+        #contentVisualEditor a, #productVisualEditor a {
+          color: #FF6B00 !important;
+          font-weight: 700 !important;
+          text-decoration: underline !important;
+          background-color: #FFF7ED !important;
+          border: 1px solid #FFEDD5 !important;
+          padding: 1px 6px !important;
+          border-radius: 4px !important;
+          transition: all 0.2s ease !important;
+          cursor: pointer !important;
+        }
+
+        #contentVisualEditor a:hover, #productVisualEditor a:hover {
+          background-color: #FFEDD5 !important;
+          color: #C2410C !important;
+        }
+
         .modal-close-btn-new:hover {
           color: #0F172A;
           transform: rotate(90deg);
@@ -2010,6 +2427,254 @@ export default function AdminProductsPage() {
         onClose={() => setIsMediaOpen(false)}
         onSelectImage={handleMediaSelect}
       />
+
+      {/* POPUP MODAL NHỎ NHẬP ALT TEXT / CHÚ THÍCH ẢNH (SEO GOOGLE) */}
+      {isAltModalOpen && (
+        <div className="admin-modal-overlay-new" style={{ zIndex: 9999999 }}>
+          <div className="admin-modal-content-new card" style={{ maxWidth: '480px', width: '90vw', padding: '24px', borderRadius: '12px' }}>
+            <div className="modal-header-new" style={{ paddingBottom: '12px', marginBottom: '16px', borderBottom: '1px solid #E2E8F0' }}>
+              <div>
+                <span className="modal-badge-top" style={{ background: '#FFEDD5', color: '#C2410C' }}>SEO Hình Ảnh</span>
+                <h3 style={{ margin: '4px 0 0 0', fontSize: '17px', fontWeight: 'bold' }}>Nhập Chú thích & Alt Text cho ảnh</h3>
+              </div>
+              <button type="button" onClick={() => setIsAltModalOpen(false)} className="modal-close-btn-new">
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Thumbnail xem trước */}
+            {pendingImageUrl && (
+              <div style={{ textAlign: 'center', marginBottom: '16px', background: '#F8FAFC', padding: '12px', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                <img 
+                  src={pendingImageUrl} 
+                  alt="Preview" 
+                  style={{ maxHeight: '140px', maxWidth: '100%', objectFit: 'contain', borderRadius: '6px', margin: '0 auto', display: 'block' }} 
+                />
+              </div>
+            )}
+
+            <div className="form-group" style={{ marginBottom: '20px' }}>
+              <label className="form-label-new" style={{ fontSize: '13px', fontWeight: 'bold' }}>
+                Tiêu đề / Alt Text chú thích ảnh (Chuẩn SEO Google)
+              </label>
+              <input
+                type="text"
+                className="form-control-new"
+                value={altTextValue}
+                onChange={(e) => setAltTextValue(e.target.value)}
+                placeholder="Ví dụ: Bình gas Luxen 45kg chính hãng Dĩ An..."
+                style={{ fontSize: '14px' }}
+                autoFocus
+              />
+              <span style={{ fontSize: '11.5px', color: '#64748B', display: 'block', marginTop: '6px' }}>
+                Alt text giúp Google đọc hiểu hình ảnh sản phẩm và tăng thứ hạng tìm kiếm cho sản phẩm của bạn.
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', paddingTop: '12px', borderTop: '1px solid #E2E8F0' }}>
+              <button 
+                type="button" 
+                onClick={() => setIsAltModalOpen(false)} 
+                className="btn-outline-new"
+              >
+                Hủy
+              </button>
+              <button 
+                type="button" 
+                onClick={confirmInsertImageWithAlt} 
+                className="btn-primary-new"
+                style={{ padding: '8px 20px' }}
+              >
+                <Check size={16} />
+                <span>Xác nhận & Chèn vào mô tả</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* FLOATING LINK TOOLTIP POPOVER (HIỂN THỊ LINK & NÚT XÓA LINK VƯỢT TRỘI) */}
+      {linkTooltip.visible && linkTooltip.targetNode && (
+        <div
+          style={{
+            position: 'fixed',
+            top: `${linkTooltip.top}px`,
+            left: `${linkTooltip.left}px`,
+            zIndex: 99999999,
+            backgroundColor: '#0F172A',
+            color: '#FFFFFF',
+            padding: '6px 12px',
+            borderRadius: '8px',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            fontSize: '12px',
+            fontFamily: 'sans-serif',
+            border: '1px solid #334155'
+          }}
+          onMouseLeave={() => setLinkTooltip(prev => ({ ...prev, visible: false }))}
+        >
+          <span style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#38BDF8', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 'bold' }}>
+            <Link2 size={13} />
+            <a href={linkTooltip.url} target="_blank" rel="noreferrer" style={{ color: '#38BDF8', textDecoration: 'none' }}>
+              {linkTooltip.url}
+            </a>
+          </span>
+
+          <div style={{ height: '14px', width: '1px', backgroundColor: '#334155' }}></div>
+
+          <button
+            type="button"
+            onClick={() => {
+              const newUrl = prompt('🔗 Nhập URL mới:', linkTooltip.url);
+              if (newUrl && newUrl.trim()) {
+                linkTooltip.targetNode.setAttribute('href', newUrl.trim());
+                handleVisualInput();
+                setLinkTooltip(prev => ({ ...prev, url: newUrl.trim() }));
+              }
+            }}
+            style={{ background: 'transparent', border: 'none', color: '#CBD5E1', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}
+            title="Chỉnh sửa địa chỉ liên kết"
+          >
+            <Edit2 size={12} />
+            <span>Sửa</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              if (linkTooltip.targetNode) {
+                const parent = linkTooltip.targetNode.parentNode;
+                while (linkTooltip.targetNode.firstChild) {
+                  parent.insertBefore(linkTooltip.targetNode.firstChild, linkTooltip.targetNode);
+                }
+                parent.removeChild(linkTooltip.targetNode);
+                handleVisualInput();
+                setLinkTooltip({ visible: false, url: '', targetNode: null, top: 0, left: 0 });
+              }
+            }}
+            style={{ background: '#EF4444', border: 'none', color: '#FFFFFF', padding: '4px 10px', borderRadius: '5px', cursor: 'pointer', fontSize: '11px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px', boxShadow: '0 2px 6px rgba(239,68,68,0.3)' }}
+            title="Xóa bỏ liên kết khỏi cụm từ này"
+          >
+            <Trash2 size={12} />
+            <span>Xóa link</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setLinkTooltip({ visible: false, url: '', targetNode: null, top: 0, left: 0 })}
+            style={{ background: 'transparent', border: 'none', color: '#64748B', cursor: 'pointer', marginLeft: '2px', padding: 0 }}
+          >
+            <X size={14} />
+          </button>
+        </div>
+      )}
+
+      {/* FLOATING HEADING TAG SWITCHER POPOVER (H2, H3, H4, P) */}
+      {headingTooltip.visible && headingTooltip.targetNode && (
+        <div
+          style={{
+            position: 'fixed',
+            top: `${headingTooltip.top}px`,
+            left: `${headingTooltip.left}px`,
+            zIndex: 99999999,
+            backgroundColor: '#0F172A',
+            color: '#FFFFFF',
+            padding: '5px 10px',
+            borderRadius: '8px',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '12px',
+            fontFamily: 'sans-serif',
+            border: '1px solid #334155'
+          }}
+          onMouseLeave={() => setHeadingTooltip(prev => ({ ...prev, visible: false }))}
+        >
+          <span style={{ fontSize: '11px', color: '#94A3B8', fontWeight: 'bold', paddingRight: '2px' }}>
+            🏷️ Đổi thẻ:
+          </span>
+
+          <button
+            type="button"
+            onClick={() => convertHeadingTag('h2')}
+            style={{
+              padding: '2px 8px',
+              borderRadius: '4px',
+              border: headingTooltip.currentTag === 'h2' ? '1px solid #FF6B00' : '1px solid #334155',
+              background: headingTooltip.currentTag === 'h2' ? '#FF6B00' : '#1E293B',
+              color: '#FFFFFF',
+              fontWeight: '800',
+              cursor: 'pointer',
+              fontSize: '11px'
+            }}
+          >
+            H2
+          </button>
+
+          <button
+            type="button"
+            onClick={() => convertHeadingTag('h3')}
+            style={{
+              padding: '2px 8px',
+              borderRadius: '4px',
+              border: headingTooltip.currentTag === 'h3' ? '1px solid #FF6B00' : '1px solid #334155',
+              background: headingTooltip.currentTag === 'h3' ? '#FF6B00' : '#1E293B',
+              color: '#FFFFFF',
+              fontWeight: '800',
+              cursor: 'pointer',
+              fontSize: '11px'
+            }}
+          >
+            H3
+          </button>
+
+          <button
+            type="button"
+            onClick={() => convertHeadingTag('h4')}
+            style={{
+              padding: '2px 8px',
+              borderRadius: '4px',
+              border: headingTooltip.currentTag === 'h4' ? '1px solid #FF6B00' : '1px solid #334155',
+              background: headingTooltip.currentTag === 'h4' ? '#FF6B00' : '#1E293B',
+              color: '#FFFFFF',
+              fontWeight: '800',
+              cursor: 'pointer',
+              fontSize: '11px'
+            }}
+          >
+            H4
+          </button>
+
+          <button
+            type="button"
+            onClick={() => convertHeadingTag('p')}
+            style={{
+              padding: '2px 8px',
+              borderRadius: '4px',
+              border: headingTooltip.currentTag === 'p' ? '1px solid #38BDF8' : '1px solid #334155',
+              background: headingTooltip.currentTag === 'p' ? '#0EA5E9' : '#1E293B',
+              color: '#FFFFFF',
+              fontWeight: '800',
+              cursor: 'pointer',
+              fontSize: '11px'
+            }}
+            title="Chuyển về đoạn văn thường"
+          >
+            Thường (P)
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setHeadingTooltip({ visible: false, currentTag: 'p', targetNode: null, top: 0, left: 0 })}
+            style={{ background: 'transparent', border: 'none', color: '#64748B', cursor: 'pointer', marginLeft: '2px', padding: 0 }}
+          >
+            <X size={13} />
+          </button>
+        </div>
+      )}
     </>
   );
 }

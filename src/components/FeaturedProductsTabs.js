@@ -62,7 +62,7 @@ export default function FeaturedProductsTabs({ gasProducts = [], otherProducts =
             ) : (
               <div className="empty-tab-state card">
                 <Compass size={48} style={{ opacity: 0.3, color: 'var(--primary)' }} />
-                <p>Đang cập nhật danh sách thiết bị và phụ kiện nổi bật...</p>
+                <p>Chưa có sản phẩm phụ kiện nào. Danh sách sẽ tự động hiển thị khi bạn tạo sản phẩm phụ kiện mới trong Admin.</p>
               </div>
             )}
           </div>

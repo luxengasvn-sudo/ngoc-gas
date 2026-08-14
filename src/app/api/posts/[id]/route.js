@@ -1,23 +1,22 @@
-import db from '@/lib/db';
-import { getAuthenticatedUser } from '@/lib/auth';
 import { NextResponse } from 'next/server';
+import { getPostByIdOrSlug, updatePostData, deletePostData } from '@/lib/postsHelper';
+import { requireRole } from '@/lib/auth';
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
+    const post = await getPostByIdOrSlug(id);
 
-    const [rows] = await db.query('SELECT * FROM posts WHERE id = ?', [id]);
-
-    if (rows.length === 0) {
+    if (!post) {
       return NextResponse.json(
         { success: false, message: 'Không tìm thấy bài viết' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true, data: rows[0] });
+    return NextResponse.json({ success: true, data: post });
   } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error('Error fetching post:', error.message);
     return NextResponse.json(
       { success: false, message: 'Lỗi server khi lấy chi tiết bài viết' },
       { status: 500 }
@@ -27,82 +26,33 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const user = getAuthenticatedUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin', 'editor']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const { id } = await params;
     const body = await request.json();
-    const { 
-      title, 
-      slug, 
-      content, 
-      excerpt, 
-      image_url, 
-      meta_title,
-      meta_description,
-      meta_keywords,
-      is_published 
-    } = body;
+    const { title, slug } = body;
 
     if (!title || !slug) {
       return NextResponse.json(
-        { success: false, message: 'Tiêu đề và slug là bài viết bắt buộc' },
+        { success: false, message: 'Tiêu đề và slug là bắt buộc' },
         { status: 400 }
       );
     }
 
-    const [result] = await db.query(
-      `UPDATE posts 
-       SET title = ?, 
-           slug = ?, 
-           content = ?, 
-           excerpt = ?, 
-           image_url = ?, 
-           meta_title = ?,
-           meta_description = ?,
-           meta_keywords = ?,
-           is_published = ? 
-       WHERE id = ?`,
-      [
-        title, 
-        slug, 
-        content || '', 
-        excerpt || '', 
-        image_url || '', 
-        meta_title || null,
-        meta_description || null,
-        meta_keywords || null,
-        is_published ? 1 : 0, 
-        id
-      ]
-    );
-
-    if (result.affectedRows === 0) {
-      return NextResponse.json(
-        { success: false, message: 'Không tìm thấy bài viết' },
-        { status: 404 }
-      );
-    }
+    const updatedPost = await updatePostData(id, body);
 
     return NextResponse.json({
       success: true,
-      message: 'Cập nhật bài viết thành công'
+      message: 'Cập nhật bài viết thành công',
+      data: updatedPost
     });
   } catch (error) {
-    console.error('Error updating post:', error);
-    if (error.code === 'ER_DUP_ENTRY') {
-      return NextResponse.json(
-        { success: false, message: 'Slug đã tồn tại, vui lòng chọn slug khác' },
-        { status: 400 }
-      );
-    }
+    console.error('Error updating post:', error.message);
     return NextResponse.json(
-      { success: false, message: 'Lỗi server khi cập nhật bài viết' },
+      { success: false, message: 'Lỗi server khi cập nhật bài viết: ' + error.message },
       { status: 500 }
     );
   }
@@ -110,31 +60,20 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const user = getAuthenticatedUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin', 'editor']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const { id } = await params;
-
-    const [result] = await db.query('DELETE FROM posts WHERE id = ?', [id]);
-
-    if (result.affectedRows === 0) {
-      return NextResponse.json(
-        { success: false, message: 'Không tìm thấy bài viết' },
-        { status: 404 }
-      );
-    }
+    await deletePostData(id);
 
     return NextResponse.json({
       success: true,
       message: 'Xóa bài viết thành công'
     });
   } catch (error) {
-    console.error('Error deleting post:', error);
+    console.error('Error deleting post:', error.message);
     return NextResponse.json(
       { success: false, message: 'Lỗi server khi xóa bài viết' },
       { status: 500 }

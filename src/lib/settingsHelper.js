@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import db from './db';
+import db from './db.js';
 
 const SETTINGS_FILE_PATH = path.join(process.cwd(), 'data', 'settings.json');
 
@@ -66,7 +66,10 @@ export function parseSectionOrder(jsonStr) {
   return validOrder;
 }
 
+import { getCacheRegistry, recordCacheHit, recordCacheMiss } from './cacheManager.js';
+
 export async function getAllSettings() {
+  const reg = getCacheRegistry();
   const fileSettings = readFromFile();
   let dbSettings = {};
 
@@ -83,11 +86,11 @@ export async function getAllSettings() {
     // MySQL query failed or not available - use file & memory fallback
   }
 
-  // Pure merge priority: start with default fileSettings, then OVERWRITE with user's MySQL dbSettings, then memoryCache
+  // Merge priority: memoryCache baseline -> fileSettings -> dbSettings (MySQL has highest priority)
   const merged = {
+    ...(reg.settings || {}),
     ...fileSettings,
-    ...dbSettings,
-    ...(memoryCache || {})
+    ...dbSettings
   };
 
   // Safe preset fallbacks for Logo & Favicon if user has not set them in DB
@@ -98,18 +101,19 @@ export async function getAllSettings() {
     merged.favicon_url = '/uploads/1784803415314-250976074.png';
   }
 
-  memoryCache = merged;
+  reg.settings = merged;
   return merged;
 }
 
 export async function updateAllSettings(newSettings) {
+  const reg = getCacheRegistry();
   const current = await getAllSettings();
   const updated = {
     ...current,
     ...newSettings
   };
 
-  memoryCache = updated;
+  reg.settings = updated;
   saveToFile(updated);
 
   try {
@@ -124,7 +128,9 @@ export async function updateAllSettings(newSettings) {
       );
     }
   } catch (err) {
-    console.error('Warning: Could not sync settings to MySQL DB:', err.message);
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Notice: Could not sync settings to MySQL DB:', err.message);
+    }
   }
 
   return updated;

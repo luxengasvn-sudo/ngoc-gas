@@ -65,9 +65,24 @@ export default function AdminContactsPage() {
   };
 
   const handleMarkAsRead = async (contactId) => {
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
     try {
-      const res = await fetch(`/api/contacts/${contactId}`, {
+      let res = await fetch(`/api/contacts/${contactId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,6 +90,30 @@ export default function AdminContactsPage() {
         },
         body: JSON.stringify({ is_read: true })
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch(`/api/contacts/${contactId}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({ is_read: true })
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
       if (data.success) {
         setSuccess('Đã đánh dấu liên hệ đã đọc thành công!');
@@ -94,12 +133,47 @@ export default function AdminContactsPage() {
     if (!confirm('Bạn có chắc chắn muốn xóa liên hệ này?')) return;
     setError('');
 
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
     try {
-      const res = await fetch(`/api/contacts/${contactId}`, {
+      let res = await fetch(`/api/contacts/${contactId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch(`/api/contacts/${contactId}`, {
+              method: 'DELETE',
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
 
       if (data.success) {

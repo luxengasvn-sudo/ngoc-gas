@@ -1,73 +1,51 @@
-import db from '@/lib/db';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
+import { getAllProducts } from '@/lib/productsHelper';
+import { getAllCategories } from '@/lib/categoriesHelper';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
+export async function generateMetadata() {
+  return {
+    title: 'Sản Phẩm Bình Gas Chính Hãng - Ngọc Gas',
+    description: 'Danh sách sản phẩm bình gas dân dụng, gas công nghiệp và phụ kiện gas chính hãng Sopet, Phoenix, Luxen tại Ngọc Gas.',
+  };
+}
+
 export default async function ProductsPage({ searchParams }) {
   const sParams = await searchParams;
-  const selectedCategorySlug = sParams.category || '';
+  const selectedCategorySlug = sParams?.category || '';
   
   let products = [];
   let categories = [];
   let currentCategoryName = 'Tất cả sản phẩm';
 
-  const defaultCategories = [
-    { id: 1, name: 'Gas Dân Dụng 12kg', slug: 'gas-dan-dung-12kg' },
-    { id: 2, name: 'Gas Công Nghiệp 45kg', slug: 'gas-cong-nghiep-45kg' },
-    { id: 3, name: 'Bếp & Phụ Kiện Gas', slug: 'bep-phu-kien-gas' }
-  ];
+  try {
+    categories = await getAllCategories();
+  } catch (e) {
+    categories = [];
+  }
 
   try {
-    // 1. Fetch categories
-    const [catRows] = await db.query('SELECT * FROM categories');
-    categories = (catRows && catRows.length > 0) ? catRows : defaultCategories;
-
-    // 2. Fetch products based on category filter
-    let query = `
-      SELECT p.*, c.name AS category_name, c.slug AS category_slug 
-      FROM products p 
-      LEFT JOIN categories c ON p.category_id = c.id 
-      WHERE p.is_active = 1
-    `;
-    const queryParams = [];
+    const all = await getAllProducts();
+    let filtered = all.filter(p => p.is_active === undefined || p.is_active === 1 || p.is_active === true || p.is_active === '1');
 
     if (selectedCategorySlug) {
-      query += ' AND c.slug = ?';
-      queryParams.push(selectedCategorySlug);
-      
       const categoryObj = categories.find(c => c.slug === selectedCategorySlug);
       if (categoryObj) {
         currentCategoryName = categoryObj.name;
+        filtered = filtered.filter(p => 
+          String(p.category_id) === String(categoryObj.id) || 
+          p.category_slug === selectedCategorySlug ||
+          (p.category_name && categoryObj.name && p.category_name.toLowerCase().trim() === categoryObj.name.toLowerCase().trim())
+        );
       }
     }
 
-    query += ' ORDER BY p.created_at DESC';
-
-    const [prodRows] = await db.query(query, queryParams);
-    products = prodRows || [];
+    products = filtered;
   } catch (error) {
-    console.error('Error fetching products:', error);
-    categories = defaultCategories;
-  }
-
-  // Fallback products if DB is empty or syncing
-  if (!products || products.length === 0) {
-    const allFallback = [
-      { id: 1, name: 'Bình Gas Sopet 12kg (Xám)', slug: 'binh-gas-sopet-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An & VietSing. Bình gas Sopet 12kg xám tiêu chuẩn chính hãng, lửa xanh tiết kiệm.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xam.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 2, name: 'Bình Gas Sopet 12kg (Xanh Đen)', slug: 'binh-gas-sopet-12kg-xanh-den', short_description: 'Dịch vụ giao gas nhanh tại Thuận An & VietSing. Bình gas Sopet 12kg vỏ xanh đen cao cấp, kiểm định an toàn PCCC.', price: 425000, sale_price: 400000, image_url: '/images/sopet-xanh-den.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 3, name: 'Bình Gas Sopet 12kg (Xanh)', slug: 'binh-gas-sopet-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Sopet 12kg vỏ xanh tiêu chuẩn gia đình.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xanh.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 4, name: 'Bình Gas Sopet 12kg (Đỏ)', slug: 'binh-gas-sopet-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An. Bình gas Sopet 12kg vỏ đỏ chính hãng, an toàn tuyệt đối.', price: 430000, sale_price: 405000, image_url: '/images/sopet.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 5, name: 'Bình Gas Phoenix Gas 12kg (Xám)', slug: 'binh-gas-phoenix-gas-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & Thuận An. Bình gas Phoenix 12kg vỏ xám tiết kiệm cho hộ gia đình.', price: 410000, sale_price: 385000, image_url: '/images/phoenix-xam.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 6, name: 'Bình Gas Phoenix Gas 12kg (Xanh)', slug: 'binh-gas-phoenix-gas-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại KDC VietSing. Bình gas Phoenix 12kg vỏ xanh lá chính hãng Phoenix Gas.', price: 415000, sale_price: 390000, image_url: '/images/phoenix-lg-xanh.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 7, name: 'Bình Gas Phoenix Gas 12kg (Đỏ)', slug: 'binh-gas-phoenix-gas-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Phoenix 12kg vỏ đỏ nổi bật, áp suất ổn định.', price: 420000, sale_price: 395000, image_url: '/images/phoenix-do.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 8, name: 'Bình Gas Luxen Gas 12kg', slug: 'binh-gas-luxen-gas-12kg', short_description: 'Dịch vụ giao gas nhanh tại VietSing & Thuận An. Bình gas Luxen Gas 12kg chất lượng cao, vỏ bình chịu lực tiêu chuẩn.', price: 420000, sale_price: 395000, image_url: '/images/luxen-gas.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 9, name: 'Bình Gas Luxen Gas 12kg (Xám)', slug: 'binh-gas-luxen-gas-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & VietSing. Bình gas Luxen Gas 12kg vỏ xám tiêu chuẩn, an toàn PCCC.', price: 415000, sale_price: 390000, image_url: '/images/luxen-xam-12kg.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 10, name: 'Bình Gas Luxen Gas 45kg (Công Nghiệp)', slug: 'binh-gas-luxen-gas-45kg-cong-nghiep', short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1 & Dĩ An. Bình gas công nghiệp Luxen 45kg chuyên dùng cho Nhà hàng, Bếp ăn.', price: 1550000, sale_price: 1450000, image_url: '/images/luxen-45.png', category_id: 1, is_featured: 1, is_active: 1 },
-      { id: 11, name: 'Bình Gas Luxen Gas 45kg (Xám)', slug: 'binh-gas-luxen-gas-45kg-xam', short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1, Dĩ An & Thuận An. Bình gas công nghiệp Luxen 45kg màu xám tiêu chuẩn.', price: 1540000, sale_price: 1440000, image_url: '/images/luxen-xam-45.png', category_id: 1, is_featured: 1, is_active: 1 }
-    ];
-    products = allFallback;
+    console.error('Error fetching products page data:', error);
   }
 
   return (
@@ -75,7 +53,7 @@ export default async function ProductsPage({ searchParams }) {
       <section className="products-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">Trang chủ</Link>
+            <Link href="/" className="breadcrumb-link">Trang chủ</Link>
             <span className="separator">/</span>
             <span className="current">Sản phẩm</span>
           </div>
@@ -86,49 +64,58 @@ export default async function ProductsPage({ searchParams }) {
         </div>
       </section>
 
-      <section className="section-padding">
+      <section className="products-content-section">
         <div className="container products-page-container">
           {/* Category Filter Tabs */}
-          <div className="category-filter-tabs">
-            <Link 
-              href="/san-pham" 
-              className={`filter-tab ${!selectedCategorySlug ? 'active' : ''}`}
-            >
-              Tất cả
-            </Link>
-            {categories.map(cat => (
-              <Link
-                key={cat.id}
-                href={`/san-pham?category=${cat.slug}`}
-                className={`filter-tab ${selectedCategorySlug === cat.slug ? 'active' : ''}`}
+          {categories.length > 0 && (
+            <div className="category-filter-tabs">
+              <Link 
+                href="/san-pham" 
+                className={`filter-tab ${!selectedCategorySlug ? 'active' : ''}`}
               >
-                {cat.name}
+                Tất cả ({products.length})
               </Link>
-            ))}
+              {categories.map(cat => (
+                <Link
+                  key={cat.id}
+                  href={`/san-pham?category=${cat.slug}`}
+                  className={`filter-tab ${selectedCategorySlug === cat.slug ? 'active' : ''}`}
+                >
+                  {cat.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Current Category Title & Count */}
+          <div className="products-grid-header">
+            <div>
+              <h2 className="current-cat-title">{currentCategoryName}</h2>
+              <p className="current-cat-subtitle">Giao gas nhanh 15 phút • Đủ ký • Kiểm tra an toàn miễn phí</p>
+            </div>
+            <span className="products-count-badge">{products.length} sản phẩm</span>
           </div>
 
-          <h2 className="current-category-title">{currentCategoryName} ({products.length})</h2>
-
-          {/* Product Grid */}
+          {/* Products Grid */}
           {products.length > 0 ? (
-            <div className="grid-3 products-grid">
+            <div className="products-page-grid">
               {products.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
-            <div className="no-products-found">
-              <h3>Không tìm thấy sản phẩm nào</h3>
-              <p>Danh mục này hiện tại đang được cập nhật sản phẩm. Quý khách vui lòng quay lại sau.</p>
-              <Link href="/san-pham" className="btn btn-outline" style={{ marginTop: '16px' }}>
-                Quay lại tất cả sản phẩm
+            <div className="products-empty-state">
+              <div className="empty-icon">📦</div>
+              <h3>Hiện chưa có sản phẩm nào trong danh mục này</h3>
+              <p>Vui lòng chọn danh mục khác hoặc quay lại danh sách tất cả sản phẩm.</p>
+              <Link href="/san-pham" className="btn btn-primary" style={{ marginTop: '1.25rem' }}>
+                Xem tất cả sản phẩm
               </Link>
             </div>
           )}
         </div>
       </section>
-
-      
     </>
   );
 }
+

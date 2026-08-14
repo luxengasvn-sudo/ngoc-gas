@@ -1,10 +1,16 @@
-import db from '@/lib/db';
 import { getAllSettings } from '@/lib/settingsHelper';
 import Link from 'next/link';
 import { Flame, Shield, Users, Heart, Award, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
+
+export async function generateMetadata() {
+  return {
+    title: 'Giới Thiệu Công Ty - Ngọc Gas',
+    description: 'Tìm hiểu về lịch sử hình thành, tầm nhìn, sứ mệnh và giá trị cốt lõi của Ngọc Gas - Nhà cung cấp gas uy tín tại Dĩ An, Bình Dương & TP.HCM.',
+  };
+}
 
 export default async function AboutPage() {
   let settings = {

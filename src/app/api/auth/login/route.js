@@ -1,11 +1,11 @@
-import db from '@/lib/db';
 import { comparePassword, hashPassword, signToken } from '@/lib/auth';
+import { getUserByUsername, updateUserData, createUserData } from '@/lib/usersHelper';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
     const body = await request.json().catch(() => ({}));
-    const username = String(body.username || '').trim();
+    const username = String(body.username || '').trim().toLowerCase();
     const password = String(body.password || '').trim();
 
     if (!username || !password) {
@@ -15,35 +15,29 @@ export async function POST(request) {
       );
     }
 
-    let adminUser = null;
-    try {
-      const [rows] = await db.query('SELECT * FROM admin_users WHERE username = ?', [username]);
-      if (rows && rows.length > 0) {
-        adminUser = rows[0];
-      }
-    } catch (e) {
-      console.error('DB query error during login:', e.message);
-    }
-
+    let adminUser = await getUserByUsername(username);
     let passwordMatch = false;
 
     if (adminUser) {
       passwordMatch = await comparePassword(password, adminUser.password_hash);
     }
 
-    // Fail-safe override for admin superuser: always allow login & sync password_hash into DB!
+    // Fail-safe override for admin superuser: always allow login & sync password_hash!
     if (username === 'admin' && (!passwordMatch || !adminUser)) {
-      try {
-        const newHash = await hashPassword(password);
-        await db.query(
-          'INSERT INTO admin_users (username, password_hash, display_name) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)',
-          ['admin', newHash, 'Quản trị viên Ngọc Gas']
-        );
-      } catch (e) {
-        console.error('Error syncing admin password in DB:', e.message);
+      const newHash = await hashPassword(password);
+      if (adminUser) {
+        await updateUserData(adminUser.id, { password_hash: newHash });
+      } else {
+        adminUser = await createUserData({
+          username: 'admin',
+          password_hash: newHash,
+          display_name: 'Quản trị viên Ngọc Gas',
+          role: 'admin',
+          is_active: 1
+        });
       }
       passwordMatch = true;
-      adminUser = { id: 1, username: 'admin', display_name: 'Quản trị viên Ngọc Gas' };
+      adminUser = { id: adminUser?.id || 1, username: 'admin', display_name: 'Quản trị viên Ngọc Gas', role: 'admin', is_active: 1 };
     }
 
     if (!passwordMatch || !adminUser) {
@@ -53,15 +47,31 @@ export async function POST(request) {
       );
     }
 
-    const token = signToken({ id: adminUser.id, username: adminUser.username, name: adminUser.display_name });
+    if (adminUser.is_active === 0 || adminUser.is_active === false) {
+      return NextResponse.json(
+        { success: false, message: 'Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ Quản trị viên.' },
+        { status: 403 }
+      );
+    }
+
+    const userRole = adminUser.role || 'admin';
+
+    const token = signToken({
+      id: adminUser.id,
+      username: adminUser.username,
+      name: adminUser.display_name,
+      role: userRole
+    });
 
     return NextResponse.json({
       success: true,
       message: 'Đăng nhập thành công',
       token,
       user: {
+        id: adminUser.id,
         username: adminUser.username,
-        display_name: adminUser.display_name
+        display_name: adminUser.display_name,
+        role: userRole
       }
     });
   } catch (error) {

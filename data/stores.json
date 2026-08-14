@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "name": "Cửa hàng Ngọc Gas Dĩ An (Trụ Sở Chính)",
+    "address": "7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương",
+    "phone": "19009396",
+    "hotline": "19009396",
+    "image_url": "/uploads/1786692423180-771911156.jpg",
+    "map_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4206639962883!2d106.7725915!3d10.8555748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398c3b999%3A0xb351314b988f5533!2zNyBOZ3V54buFbiBUcnVuZyBUcuG7sWMsIFRQLiBExKhBbiwgQsDrbmggRMawxqFuZw!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s",
+    "is_active": 1,
+    "created_at": "2026-08-14T00:56:07.130Z",
+    "store_phones": "[\"0768929396\"]",
+    "delivery_phones": "[]",
+    "map_embed": ""
+  },
+  {
+    "id": 2,
+    "name": "Trạm Giao Gas Nhanh VietSing (KCN VSIP 1)",
+    "address": "Đường D1, KDC VietSing, Phường An Phú, TP. Thuận An, Bình Dương",
+    "phone": "19009396",
+    "hotline": "19009396",
+    "image_url": "/images/sopet-xam.png",
+    "map_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4206639962883!2d106.7725915!3d10.8555748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398c3b999%3A0xb351314b988f5533!2zNyBOZ3V54buFbiBUcnVuZyBUcuG7sWMsIFRQLiBExKhBbiwgQsDrbmggRMawxqFuZw!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s",
+    "is_active": 0,
+    "created_at": "2026-08-14T00:56:07.130Z",
+    "store_phones": "[]",
+    "delivery_phones": "[]"
+  },
+  {
+    "id": 3,
+    "name": "Cửa hàng Ngọc Gas Cây Da",
+    "address": "Đại Lộ Bình Dương, Phường Lái Thiêu, TP. Thuận An, Bình Dương",
+    "phone": "19009396",
+    "hotline": "19009396",
+    "image_url": "/uploads/1786692517925-581101285.png",
+    "map_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4206639962883!2d106.7725915!3d10.8555748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398c3b999%3A0xb351314b988f5533!2zNyBOZ3V54buFbiBUcnVuZyBUcuG7sWMsIFRQLiBExKhBbiwgQsDrbmggRMawxqFuZw!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s",
+    "is_active": 1,
+    "created_at": "2026-08-14T00:56:07.130Z",
+    "store_phones": "[\"0769919396\"]",
+    "delivery_phones": "[]",
+    "map_embed": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.4336952821404!2d106.75468827586994!3d10.93057535632978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d9f34a150291%3A0xdb05b7c2cd1d4cd9!2zTmfhu41jIEdhcyAtIEdpYW8gZ2FzIG5oYW5oIGNow61uaCBow6NuZyAtIEPDonkgRGE!5e0!3m2!1svi!2s!4v1786692612393!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe>"
+  }
+]

@@ -2,8 +2,8 @@
 
 import { Star, Quote, MapPin, Building2, UserCheck } from 'lucide-react';
 
-export default function TestimonialsSection() {
-  const reviews = [
+export default function TestimonialsSection({ settings = {} }) {
+  const defaultReviews = [
     {
       name: 'Anh Minh (Chủ Quán Cơm Niêu)',
       location: 'Phường Dĩ An, TP. Dĩ An',
@@ -30,15 +30,27 @@ export default function TestimonialsSection() {
     }
   ];
 
+  let reviews = defaultReviews;
+  if (settings?.home_testimonials_json) {
+    try {
+      const parsed = typeof settings.home_testimonials_json === 'string' ? JSON.parse(settings.home_testimonials_json) : settings.home_testimonials_json;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        reviews = parsed;
+      }
+    } catch (e) {}
+  }
+
+  const badge = settings?.home_testimonials_badge || 'Cảm Nhận Khách Hàng';
+  const title = settings?.home_testimonials_title || 'KHÁCH HÀNG NÓI GÌ VỀ DỊCH VỤ NGỌC GAS?';
+  const subtitle = settings?.home_testimonials_subtitle || 'Sự hài lòng và tin tưởng của hàng nghìn hộ gia đình, nhà hàng tại Dĩ An, Thuận An và TP.HCM chính là niềm tự hào lớn nhất của chúng tôi.';
+
   return (
     <section className="testimonials-section">
       <div className="container">
         <div className="testimonials-header text-center">
-          <span className="sub-title">Cảm Nhận Khách Hàng</span>
-          <h2>KHÁCH HÀNG NÓI GÌ VỀ DỊCH VỤ NGỌC GAS?</h2>
-          <p className="description">
-            Sự hài lòng và tin tưởng của hàng nghìn hộ gia đình, nhà hàng tại Dĩ An, Thuận An và TP.HCM chính là niềm tự hào lớn nhất của chúng tôi.
-          </p>
+          <span className="sub-title">{badge}</span>
+          <h2>{title}</h2>
+          <p className="description">{subtitle}</p>
         </div>
 
         <div className="testimonials-grid">

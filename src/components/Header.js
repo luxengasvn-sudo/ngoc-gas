@@ -104,6 +104,7 @@ export default function Header({ initialSettings }) {
     { name: 'Trang chủ', path: '/' },
     { name: 'Giới thiệu', path: '/gioi-thieu' },
     { name: 'Sản phẩm', path: '/san-pham' },
+    { name: 'Bảng Giá Gas', path: '/gia-gas-hom-nay' },
     { name: 'Cửa hàng', path: '/cua-hang' },
     { name: 'Tin tức', path: '/tin-tuc' },
     { name: 'Liên hệ', path: '/lien-he' },
@@ -290,15 +291,15 @@ export default function Header({ initialSettings }) {
         }
 
         .header.solid-black {
-          background: #111111;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          background: #0c6069;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .header.scrolled {
-          background: #111111;
-          box-shadow: var(--shadow-md);
+          background: #0c6069;
+          box-shadow: 0 4px 20px rgba(12, 96, 105, 0.35);
           height: 70px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           backdrop-filter: blur(10px);
         }
 

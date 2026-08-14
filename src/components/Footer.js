@@ -67,7 +67,7 @@ export default function Footer({ initialSettings }) {
               </div>
             </Link>
             <p className="footer-desc">
-              NGỌC GAS là đơn vị uy tín chuyên cung cấp các giải pháp năng lượng gas an toàn, chất lượng và tiết kiệm tại TP. HCM & Bình Dương.
+              {settings.footer_desc || settings.slogan || 'NGỌC GAS là đơn vị uy tín chuyên cung cấp các giải pháp năng lượng gas an toàn, chất lượng và tiết kiệm tại TP. HCM & Bình Dương.'}
             </p>
 
             {/* Social Links List */}
@@ -105,11 +105,11 @@ export default function Footer({ initialSettings }) {
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="social-icon-btn-new yt"
-                    title="Kênh YouTube Ngọc Gas"
+                    title="YouTube Ngọc Gas"
                     onClick={() => trackClick('social_click', 'YouTube: ' + settings.social_youtube)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.522 3.54 12 3.54 12 3.54s-7.522 0-9.388.515a3.003 3.003 0 0 0-2.11 2.108C0 8.03 0 12 0 12s0 3.97.502 5.837a3.003 3.003 0 0 0 2.11 2.108c1.866.515 9.388.515 9.388.515s7.522 0 9.388-.515a3.003 3.003 0 0 0 2.11-2.108C24 15.97 24 12 24 12s0-3.97-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                     </svg>
                   </a>
                 )}
@@ -119,11 +119,11 @@ export default function Footer({ initialSettings }) {
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="social-icon-btn-new tt"
-                    title="Kênh TikTok Ngọc Gas"
+                    title="TikTok Ngọc Gas"
                     onClick={() => trackClick('social_click', 'TikTok: ' + settings.social_tiktok)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.85.98 2.02 1.7 3.32 2.05v3.91c-1.21-.14-2.39-.58-3.41-1.27-.79-.53-1.46-1.23-1.97-2.04v7.4c-.03 1.52-.45 3.03-1.25 4.31-.79 1.15-1.92 2.06-3.21 2.63-1.54.67-3.28.84-4.92.48-1.54-.34-2.98-1.18-4.04-2.39a9.58 9.58 0 0 1-2.12-4.52c-.41-1.92-.09-3.96.91-5.69a9.7 9.7 0 0 1 3.66-3.8c1.32-.78 2.82-1.21 4.37-1.23.01 1.25 0 2.5 0 3.75-.82-.01-1.65.17-2.4.53-.78.37-1.43.98-1.85 1.74-.53.94-.65 2.07-.33 3.11.26.85.79 1.6 1.48 2.14a4.98 4.98 0 0 0 3.39.95c1.02-.07 1.99-.54 2.67-1.31.7-.8 1.05-1.85 1.01-2.9v-13.4z"/>
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/>
                     </svg>
                   </a>
                 )}
@@ -132,31 +132,47 @@ export default function Footer({ initialSettings }) {
           </div>
 
           <div className="footer-col links-col">
-            <h3 className="footer-title">Liên kết nhanh</h3>
+            <h4 className="footer-title">Về Chúng Tôi</h4>
             <ul className="footer-links">
-              <li><Link href="/">Trang chủ</Link></li>
-              <li><Link href="/gioi-thieu">Giới thiệu</Link></li>
-              <li><Link href="/san-pham">Sản phẩm</Link></li>
-              <li><Link href="/cua-hang">Cửa hàng</Link></li>
-              <li><Link href="/tin-tuc">Tin tức & Khuyến mãi</Link></li>
-              <li><Link href="/lien-he">Liên hệ</Link></li>
+              <li><Link href="/gioi-thieu">Giới thiệu công ty</Link></li>
+              <li><Link href="/san-pham">Sản phẩm gas chính hãng</Link></li>
+              <li><Link href="/gia-gas-hom-nay">Bảng giá gas hôm nay</Link></li>
+              <li><Link href="/cua-hang">Hệ thống cửa hàng</Link></li>
+              <li><Link href="/tin-tuc">Tin tức &amp; Khuyến mãi</Link></li>
+              <li><Link href="/lien-he">Liên hệ hỗ trợ</Link></li>
             </ul>
           </div>
 
-          <div className="footer-col info-col">
-            <h3 className="footer-title">Liên hệ</h3>
-            <ul className="footer-info-list">
+          <div className="footer-col links-col">
+            <h4 className="footer-title">Hỗ Trợ Khách Hàng</h4>
+            <ul className="footer-links">
+              <li><Link href="/tin-tuc/huong-dan-kiem-tra-ro-ri-gas">Cẩm nang an toàn gas</Link></li>
+              <li><Link href="/tin-tuc">Chính sách bảo hành bình</Link></li>
+              <li><Link href="/lien-he">Quy trình giao nhận &amp; Cân gas</Link></li>
+              <li><Link href="/lien-he">Hỗ trợ sự cố khẩn cấp 24/7</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-col contact-col">
+            <h4 className="footer-title">Thông Tin Liên Hệ</h4>
+            <ul className="footer-contact-info">
               <li>
                 <MapPin size={18} className="info-icon" />
                 <span>{settings.address}</span>
               </li>
               <li>
                 <Phone size={18} className="info-icon" />
-                <a href={`tel:${cleanPhone}`}>{settings.phone}</a>
+                <a 
+                  href={`tel:${cleanPhone}`} 
+                  className="contact-link"
+                  onClick={() => trackClick('hotline_call', 'Footer: ' + cleanPhone)}
+                >
+                  {settings.phone}
+                </a>
               </li>
               <li>
                 <Mail size={18} className="info-icon" />
-                <a href={`mailto:${settings.email}`}>{settings.email}</a>
+                <a href={`mailto:${settings.email}`} className="contact-link">{settings.email}</a>
               </li>
               <li>
                 <Clock size={18} className="info-icon" />
@@ -172,7 +188,7 @@ export default function Footer({ initialSettings }) {
               {settings.footer_copyright}
             </p>
             <p className="designed-by">
-              Năng lượng xanh - An tâm cho mọi nhà
+              {settings.footer_slogan || 'Năng lượng xanh - An tâm cho mọi nhà'}
             </p>
           </div>
         </div>
@@ -188,34 +204,29 @@ export default function Footer({ initialSettings }) {
 
         .footer-content {
           display: grid;
-          grid-template-columns: 2fr 1fr 2fr;
-          gap: 50px;
+          grid-template-columns: 1.6fr 1fr 1.1fr 1.5fr;
+          gap: 40px;
           padding-bottom: 40px;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .footer-content {
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-          }
-          .brand-col {
-            grid-column: span 2;
+            gap: 32px;
           }
         }
 
         @media (max-width: 600px) {
           .footer-content {
             grid-template-columns: 1fr;
-          }
-          .brand-col {
-            grid-column: span 1;
+            gap: 28px;
           }
         }
 
         .footer-col {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 16px;
         }
 
         .footer-logo {
@@ -238,16 +249,17 @@ export default function Footer({ initialSettings }) {
         .footer-desc {
           color: rgba(255, 255, 255, 0.7);
           line-height: 1.6;
-          font-size: 15px;
+          font-size: 14.5px;
         }
 
         .footer-title {
           font-family: var(--font-inter), sans-serif;
-          font-size: 18px;
-          font-weight: 600;
+          font-size: 17px;
+          font-weight: 700;
           color: #FFFFFF;
           position: relative;
           padding-bottom: 8px;
+          margin-bottom: 4px;
         }
 
         .footer-title::after {
@@ -255,49 +267,55 @@ export default function Footer({ initialSettings }) {
           position: absolute;
           bottom: 0;
           left: 0;
-          width: 40px;
+          width: 36px;
           height: 2px;
           background-color: var(--primary);
         }
 
         .footer-links {
           list-style: none;
+          padding: 0;
+          margin: 0;
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 10px;
         }
 
         .footer-links a {
           color: rgba(255, 255, 255, 0.7);
-          font-size: 15px;
+          font-size: 14.5px;
+          transition: all 0.2s ease;
         }
 
         .footer-links a:hover {
           color: var(--primary);
-          padding-left: 5px;
+          padding-left: 4px;
         }
 
-        .footer-info-list {
+        .footer-contact-info {
           list-style: none;
+          padding: 0;
+          margin: 0;
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 14px;
         }
 
-        .footer-info-list li {
+        .footer-contact-info li {
           display: flex;
           align-items: flex-start;
-          gap: 12px;
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 15px;
-          line-height: 1.4;
+          gap: 10px;
+          color: rgba(255, 255, 255, 0.75);
+          font-size: 14px;
+          line-height: 1.5;
         }
 
-        .footer-info-list a {
-          color: rgba(255, 255, 255, 0.7);
+        .contact-link {
+          color: rgba(255, 255, 255, 0.75);
+          transition: color 0.2s ease;
         }
 
-        .footer-info-list a:hover {
+        .contact-link:hover {
           color: var(--primary);
         }
 

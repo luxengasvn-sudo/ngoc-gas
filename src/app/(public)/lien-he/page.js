@@ -1,4 +1,4 @@
-import db from '@/lib/db';
+
 import { getAllSettings } from '@/lib/settingsHelper';
 import Link from 'next/link';
 import ContactForm from '@/components/ContactForm';
@@ -6,6 +6,13 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
+
+export async function generateMetadata() {
+  return {
+    title: 'Liên Hệ Đặt Gas & Hỗ Trợ - Ngọc Gas',
+    description: 'Liên hệ Ngọc Gas để đặt gas, tư vấn hệ thống gas công nghiệp hoặc yêu cầu hỗ trợ kỹ thuật. Hotline 24/7, giao gas nhanh 15 phút.',
+  };
+}
 
 export default async function ContactPage() {
   let settings = {
@@ -44,7 +51,7 @@ export default async function ContactPage() {
           <div className="contact-info-panel">
             <h2>Thông Tin Liên Hệ</h2>
             <p className="contact-info-intro">
-              Ngọc Gas hân hạnh được phục vụ Quý khách hàng. Quý khách có thể liên lạc với chúng tôi qua các kênh dưới đây:
+              {settings.company_name || 'Ngọc Gas'} hân hạnh được phục vụ Quý khách hàng. Quý khách có thể liên lạc với chúng tôi qua các kênh dưới đây:
             </p>
 
             <ul className="contact-info-list">

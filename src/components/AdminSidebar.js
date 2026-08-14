@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, ShoppingBag, FileText, Mail, Settings, LogOut, Flame, Store } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, FileText, Mail, Settings, LogOut, Flame, Store, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [adminName, setAdminName] = useState('Quản trị viên');
+  const [userRole, setUserRole] = useState('admin');
 
   useEffect(() => {
     const userStr = localStorage.getItem('ngoc_gas_admin_user');
@@ -17,6 +18,9 @@ export default function AdminSidebar() {
         const user = JSON.parse(userStr);
         if (user && user.display_name) {
           setAdminName(user.display_name);
+        }
+        if (user && user.role) {
+          setUserRole(user.role);
         }
       } catch (e) {
         console.error(e);
@@ -30,20 +34,65 @@ export default function AdminSidebar() {
     router.push('/admin/login');
   };
 
-  const menuItems = [
-    { name: 'Dashboard', path: '/admin', icon: <LayoutDashboard size={20} /> },
-    { name: 'Sản phẩm', path: '/admin/san-pham', icon: <ShoppingBag size={20} /> },
-    { name: 'Bài viết', path: '/admin/bai-viet', icon: <FileText size={20} /> },
-    { name: 'Cửa hàng', path: '/admin/cua-hang', icon: <Store size={20} /> },
-    { name: 'Liên hệ', path: '/admin/lien-he', icon: <Mail size={20} /> },
-    { name: 'Cài đặt', path: '/admin/cai-dat', icon: <Settings size={20} /> },
+  const allMenuItems = [
+    { name: 'Dashboard', path: '/admin', icon: <LayoutDashboard size={20} />, roles: ['admin', 'editor', 'sales'] },
+    { name: 'Sản phẩm', path: '/admin/san-pham', icon: <ShoppingBag size={20} />, roles: ['admin', 'editor'] },
+    { name: 'Bảng Giá Gas', path: '/admin/gia-gas', icon: <Flame size={20} />, roles: ['admin', 'editor', 'sales'] },
+    { name: 'Bài viết', path: '/admin/bai-viet', icon: <FileText size={20} />, roles: ['admin', 'editor'] },
+    { name: 'Cửa hàng', path: '/admin/cua-hang', icon: <Store size={20} />, roles: ['admin', 'sales'] },
+    { name: 'Liên hệ', path: '/admin/lien-he', icon: <Mail size={20} />, roles: ['admin', 'sales'] },
+    { name: 'Tài khoản', path: '/admin/tai-khoan', icon: <Users size={20} />, roles: ['admin'] },
+    { name: 'Cài đặt', path: '/admin/cai-dat', icon: <Settings size={20} />, roles: ['admin'] },
   ];
+
+  const menuItems = allMenuItems.filter(item => item.roles.includes(userRole));
 
   const isActive = (path) => {
     if (path === '/admin') {
       return pathname === '/admin';
     }
     return pathname.startsWith(path);
+  };
+
+  const getRoleLabel = (role) => {
+    switch (role) {
+      case 'admin':
+        return '👑 Quản trị viên';
+      case 'editor':
+        return '✍️ Biên tập viên';
+      case 'sales':
+        return '📞 Kinh doanh';
+      default:
+        return 'Thành viên';
+    }
+  };
+
+  const [clearingCache, setClearingCache] = useState(false);
+  const [cacheNotice, setCacheNotice] = useState(null);
+
+  const handleClearCache = async () => {
+    try {
+      setClearingCache(true);
+      const token = localStorage.getItem('ngoc_gas_admin_token');
+      const res = await fetch('/api/cache', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ category: 'all' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCacheNotice('Đã làm mới Cache thành công!');
+        setTimeout(() => setCacheNotice(null), 3000);
+      }
+    } catch (e) {
+      setCacheNotice('Lỗi khi xóa cache');
+      setTimeout(() => setCacheNotice(null), 3000);
+    } finally {
+      setClearingCache(false);
+    }
   };
 
   return (
@@ -58,10 +107,10 @@ export default function AdminSidebar() {
         </div>
 
         <div className="admin-profile">
-          <div className="avatar">A</div>
+          <div className="avatar">{adminName.charAt(0).toUpperCase()}</div>
           <div className="profile-info">
             <span className="profile-name">{adminName}</span>
-            <span className="profile-role">Chủ cửa hàng</span>
+            <span className="profile-role">{getRoleLabel(userRole)}</span>
           </div>
         </div>
 
@@ -79,6 +128,32 @@ export default function AdminSidebar() {
         </nav>
 
         <div className="sidebar-footer">
+          {cacheNotice && (
+            <div style={{
+              padding: '8px 12px',
+              backgroundColor: '#16A34A',
+              color: '#FFFFFF',
+              borderRadius: '6px',
+              fontSize: '12px',
+              fontWeight: '600',
+              textAlign: 'center',
+              marginBottom: '8px'
+            }}>
+              {cacheNotice}
+            </div>
+          )}
+
+          <button
+            onClick={handleClearCache}
+            disabled={clearingCache}
+            className="logout-btn"
+            style={{ color: '#F59E0B', marginBottom: '4px' }}
+            title="Làm mới bộ nhớ đệm và dữ liệu website"
+          >
+            <span style={{ fontSize: '16px' }}>⚡</span>
+            <span>{clearingCache ? 'Đang xóa...' : 'Làm mới Cache'}</span>
+          </button>
+
           <button onClick={handleLogout} className="logout-btn">
             <LogOut size={20} />
             <span>Đăng xuất</span>

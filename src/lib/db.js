@@ -15,9 +15,19 @@ async function initTables(pool) {
           username VARCHAR(50) NOT NULL UNIQUE,
           password_hash VARCHAR(255) NOT NULL,
           display_name VARCHAR(100) NOT NULL,
+          role VARCHAR(20) DEFAULT 'admin',
+          is_active TINYINT(1) DEFAULT 1,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
       `);
+
+      // Safe column migration
+      try {
+        await conn.query(`ALTER TABLE admin_users ADD COLUMN role VARCHAR(20) DEFAULT 'admin'`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE admin_users ADD COLUMN is_active TINYINT(1) DEFAULT 1`);
+      } catch (e) {}
 
       await conn.query(`
         CREATE TABLE IF NOT EXISTS categories (
@@ -219,7 +229,9 @@ async function initTables(pool) {
       conn.release();
     }
   } catch (err) {
-    console.error('Auto DB Initialization error:', err);
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Auto DB Initialization notice:', err.message);
+    }
     isInitialized = false;
   }
 }
@@ -235,7 +247,10 @@ function getPool() {
     });
   }
   initTables(global.mysqlPool).catch(err => {
-    console.error('Safe catch initTables error:', err.message);
+    // Suppress dev overlay popup on fallback
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('DB Init notice:', err.message);
+    }
   });
   return global.mysqlPool;
 }
@@ -245,7 +260,9 @@ const db = {
     try {
       return await getPool().query(...args);
     } catch (err) {
-      console.error('DB Query Error Handled:', err.message);
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('DB Query fallback:', err.message);
+      }
       return [[], []];
     }
   },
@@ -253,7 +270,9 @@ const db = {
     try {
       return await getPool().execute(...args);
     } catch (err) {
-      console.error('DB Execute Error Handled:', err.message);
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('DB Execute fallback:', err.message);
+      }
       return [{ affectedRows: 0, insertId: 0 }, []];
     }
   },

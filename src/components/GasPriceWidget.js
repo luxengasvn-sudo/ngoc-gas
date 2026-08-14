@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Flame, ShieldCheck, Clock, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2 } from 'lucide-react';
+import { Flame, ShieldCheck, CheckCircle2, PhoneCall, Sparkles, TrendingUp, TrendingDown, Minus, X, Calendar, BarChart2 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function GasPriceWidget({ products = [], settings: initialSettings }) {
+export default function GasPriceWidget({ products: initialProducts = [], settings: initialSettings }) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;
   const currentYear = currentDate.getFullYear();
 
   // Settings State for dynamic text customization
   const [settings, setSettings] = useState(initialSettings || {});
+  const [liveProducts, setLiveProducts] = useState(initialProducts || []);
 
   useEffect(() => {
     if (initialSettings && Object.keys(initialSettings).length > 0) {
@@ -26,6 +27,21 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
         .catch(e => {});
     }
   }, [initialSettings]);
+
+  useEffect(() => {
+    if (initialProducts && initialProducts.length > 0) {
+      setLiveProducts(initialProducts);
+    } else {
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && Array.isArray(data.data)) {
+            setLiveProducts(data.data);
+          }
+        })
+        .catch(e => {});
+    }
+  }, [initialProducts]);
 
   // State for History Modal & Selected Gas Filter
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
@@ -57,9 +73,12 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
     }
   }, [isHistoryModalOpen, selectedGasType]);
 
-  // Helper to get minimum price in a category of products
+  // Helper to get minimum price in a category of products from real DB
   const getMinPriceProduct = (filterFn, defaultName, defaultPrice, defaultSalePrice, defaultSlug) => {
-    const matched = products.filter(filterFn);
+    const currentProds = liveProducts.length > 0 ? liveProducts : initialProducts;
+    const activeProds = currentProds.filter(p => p.is_active === undefined || p.is_active === 1 || p.is_active === true);
+    const matched = activeProds.filter(filterFn);
+    
     if (!matched || matched.length === 0) {
       return {
         name: defaultName,
@@ -82,9 +101,9 @@ export default function GasPriceWidget({ products = [], settings: initialSetting
     }
 
     return {
-      name: defaultName,
-      price: minProd.price,
-      sale_price: minProd.sale_price || minProd.price,
+      name: minProd.name || defaultName,
+      price: Number(minProd.price),
+      sale_price: minProd.sale_price ? Number(minProd.sale_price) : Number(minProd.price),
       slug: minProd.slug
     };
   };

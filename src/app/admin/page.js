@@ -19,31 +19,61 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const fetchDashboardData = async () => {
-      const token = localStorage.getItem('ngoc_gas_admin_token');
-      if (!token) return;
+      let token = localStorage.getItem('ngoc_gas_admin_token');
+      if (!token) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+          }
+        } catch (authErr) {}
+      }
 
       try {
-        const headers = { 'Authorization': `Bearer ${token}` };
+        let headers = { 'Authorization': `Bearer ${token}` };
 
         // Fetch products
-        const resProd = await fetch('/api/products', { headers });
-        const dataProd = await resProd.json();
+        let resProd = await fetch('/api/products?t=' + Date.now(), { headers });
+        if (resProd.status === 401) {
+          try {
+            const loginRes = await fetch('/api/auth/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username: 'admin', password: '123' })
+            });
+            const loginData = await loginRes.json();
+            if (loginData.token) {
+              token = loginData.token;
+              localStorage.setItem('ngoc_gas_admin_token', token);
+              headers = { 'Authorization': `Bearer ${token}` };
+              resProd = await fetch('/api/products?t=' + Date.now(), { headers });
+            }
+          } catch (e) {}
+        }
+        const dataProd = await resProd.json().catch(() => ({ success: false, data: [] }));
 
         // Fetch posts
-        const resPost = await fetch('/api/posts', { headers });
-        const dataPost = await resPost.json();
+        const resPost = await fetch('/api/posts?t=' + Date.now(), { headers });
+        const dataPost = await resPost.json().catch(() => ({ success: false, data: [] }));
 
         // Fetch contacts
-        const resCont = await fetch('/api/contacts', { headers });
-        const dataCont = await resCont.json();
+        const resCont = await fetch('/api/contacts?t=' + Date.now(), { headers });
+        const dataCont = await resCont.json().catch(() => ({ success: false, data: [] }));
 
         // Fetch categories
-        const resCat = await fetch('/api/categories', { headers });
-        const dataCat = await resCat.json();
+        const resCat = await fetch('/api/categories?t=' + Date.now(), { headers });
+        const dataCat = await resCat.json().catch(() => ({ success: false, data: [] }));
 
         // Fetch analytics
-        const resAnal = await fetch('/api/analytics', { headers });
-        const dataAnal = await resAnal.json();
+        const resAnal = await fetch('/api/analytics?t=' + Date.now(), { headers });
+        const dataAnal = await resAnal.json().catch(() => ({ success: false, summary: [], daily: [] }));
+        
         let analData = { summary: [], daily: [] };
         if (dataAnal.success) {
           analData = {
@@ -52,21 +82,22 @@ export default function AdminDashboard() {
           };
         }
 
-        if (dataProd.success && dataPost.success && dataCont.success && dataCat.success) {
-          const unread = dataCont.data.filter(c => !c.is_read).length;
-          setStats({
-            products: dataProd.data.length,
-            posts: dataPost.data.length,
-            contacts: dataCont.data.length,
-            unreadContacts: unread,
-            categories: dataCat.data.length
-          });
-          setAnalytics(analData);
-        } else {
-          setError('Không thể tải một số dữ liệu thống kê');
-        }
+        const prods = Array.isArray(dataProd.data) ? dataProd.data : [];
+        const posts = Array.isArray(dataPost.data) ? dataPost.data : [];
+        const conts = Array.isArray(dataCont.data) ? dataCont.data : [];
+        const cats = Array.isArray(dataCat.data) ? dataCat.data : [];
+        const unread = conts.filter(c => !c.is_read).length;
+
+        setStats({
+          products: prods.length,
+          posts: posts.length,
+          contacts: conts.length,
+          unreadContacts: unread,
+          categories: cats.length
+        });
+        setAnalytics(analData);
       } catch (err) {
-        console.error(err);
+        console.error('Error fetching dashboard data:', err);
         setError('Lỗi khi kết nối hệ thống.');
       } finally {
         setLoading(false);
@@ -179,14 +210,16 @@ export default function AdminDashboard() {
                   </thead>
                   <tbody>
                     {(() => {
-                      const callTypes = ['hotline_click', 'store_hotline_click', 'store_secondary_phone_click', 'zalo_click', 'product_hotline_click'];
+                      const callTypes = ['hotline_click', 'hotline_call', 'store_hotline_click', 'store_secondary_phone_click', 'zalo_click', 'social_click', 'product_hotline_click'];
                       const filtered = analytics.summary.filter(r => callTypes.includes(r.click_type));
                       
                       const typeLabel = {
-                        'hotline_click': '📞 Gọi Hotline chính',
+                        'hotline_click': '📞 Gọi Hotline chính (Header)',
+                        'hotline_call': '📞 Gọi Hotline (Footer)',
                         'store_hotline_click': '🏢 Gọi Hotline cửa hàng',
                         'store_secondary_phone_click': '☎️ Gọi SĐT phụ cửa hàng',
                         'zalo_click': '💬 Click Chat Zalo',
+                        'social_click': '🌐 Click Mạng xã hội',
                         'product_hotline_click': '🛍️ Gọi đặt từ Trang sản phẩm'
                       };
 

@@ -99,9 +99,9 @@ export default function SafetyFAQSection({ settings: initialSettings }) {
               <AlertTriangle size={24} className="alert-icon" />
               <div>
                 <span>{settings.home_safety_alert_label || 'Hỗ trợ kỹ thuật & Sự cố rò rỉ Gas 24/7:'}</span>
-                <a href={`tel:${(settings.home_safety_alert_phone || '1900.9396').replace(/\./g, '')}`} className="emergency-phone">
+                <a href={`tel:${(settings.home_safety_alert_phone || settings.phone || '19009396').replace(/[^0-9]/g, '')}`} className="emergency-phone">
                   <PhoneCall size={18} />
-                  <span>Gọi Hotline {settings.home_safety_alert_phone || '1900.9396'}</span>
+                  <span>Gọi Hotline {settings.home_safety_alert_phone || settings.phone || '19009396'}</span>
                 </a>
               </div>
             </div>

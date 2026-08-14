@@ -1,27 +1,22 @@
-import db from '@/lib/db';
-import { getAuthenticatedUser } from '@/lib/auth';
 import { NextResponse } from 'next/server';
+import { getStoreById, updateStoreData, deleteStoreData } from '@/lib/storesHelper';
+import { requireRole } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
+    const store = await getStoreById(id);
 
-    let rows = [];
-    try {
-      const [dbRows] = await db.query('SELECT * FROM stores WHERE id = ?', [id]);
-      rows = dbRows || [];
-    } catch (e) {}
-
-    if (rows.length === 0) {
+    if (!store) {
       return NextResponse.json(
         { success: false, message: 'Không tìm thấy cửa hàng' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true, data: rows[0] });
+    return NextResponse.json({ success: true, data: store });
   } catch (error) {
     console.error('Error fetching store:', error.message);
     return NextResponse.json(
@@ -33,17 +28,14 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
-      return NextResponse.json(
-        { success: false, message: 'Vui lòng đăng nhập để thực hiện thao tác này.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const { id } = await params;
     const body = await request.json();
-    const { name, image_url, address, phone, store_phones, delivery_phones, map_embed, is_active } = body;
+    const { name, address, phone } = body;
 
     if (!name || !address || !phone) {
       return NextResponse.json(
@@ -52,41 +44,12 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const formattedStorePhones = typeof store_phones === 'string' ? store_phones : JSON.stringify(store_phones || []);
-    const formattedDeliveryPhones = typeof delivery_phones === 'string' ? delivery_phones : JSON.stringify(delivery_phones || []);
-    const activeVal = is_active ? 1 : 0;
-
-    try {
-      await db.query(
-        `UPDATE stores 
-         SET name = ?, 
-             image_url = ?, 
-             address = ?, 
-             phone = ?, 
-             store_phones = ?, 
-             delivery_phones = ?, 
-             map_embed = ?, 
-             is_active = ? 
-         WHERE id = ?`,
-        [
-          name,
-          image_url || '',
-          address,
-          phone,
-          formattedStorePhones,
-          formattedDeliveryPhones,
-          map_embed || '',
-          activeVal,
-          id
-        ]
-      );
-    } catch (dbErr) {
-      console.error('Error in PUT /api/stores/[id]:', dbErr.message);
-    }
+    const updatedStore = await updateStoreData(id, body);
 
     return NextResponse.json({
       success: true,
-      message: 'Cập nhật cửa hàng thành công'
+      message: 'Cập nhật cửa hàng thành công',
+      data: updatedStore
     });
   } catch (error) {
     console.error('Error updating store:', error.message);
@@ -99,21 +62,13 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
-      return NextResponse.json(
-        { success: false, message: 'Vui lòng đăng nhập để thực hiện thao tác này.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const { id } = await params;
-
-    try {
-      await db.query('DELETE FROM stores WHERE id = ?', [id]);
-    } catch (dbErr) {
-      console.error('Error in DELETE /api/stores/[id]:', dbErr.message);
-    }
+    await deleteStoreData(id);
 
     return NextResponse.json({
       success: true,

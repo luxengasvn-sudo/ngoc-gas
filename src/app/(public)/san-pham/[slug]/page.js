@@ -5,13 +5,15 @@ import ProductCard from '@/components/ProductCard';
 import ProductGallery from '@/components/ProductGallery';
 import ProductOrderButton from '@/components/ProductOrderButton';
 import { Flame, ShieldCheck } from 'lucide-react';
+import { getProductByIdOrSlug, getAllProducts } from '@/lib/productsHelper';
+import { getAllSettings } from '@/lib/settingsHelper';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
 // Helper function to build humanized, 100% Google Keyword-Trust Article structure with branch linking
 const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc, phone = '19009396', address = '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương') => {
-  const rawPhone = phone.replace(/[^0-9]/g, '');
+  const rawPhone = String(phone).replace(/[^0-9]/g, '');
   return `
 <h2>Thông Tin & Hướng Dẫn Đổi ${productName} Tận Nhà</h2>
 <p>Chào anh chị, Ngọc Gas xin gửi tới anh chị những thông tin chi tiết nhất về sản phẩm <strong>${productName}</strong>. Là đơn vị chuyên cung cấp gas chính hãng nhiều năm qua tại khu vực Dĩ An, Thuận An, KDC VietSing cũng như khắp Bình Dương và TP.HCM, chúng tôi luôn thấu hiểu rằng một bình gas an toàn, ngọn lửa xanh đều và dịch vụ phục vụ chu đáo chính là điều quan trọng nhất đối với mỗi căn bếp gia đình hay nhà hàng.</p>
@@ -59,226 +61,22 @@ const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc, ph
 
 <p>Khi cần đổi gas hoặc gặp bất kỳ thắc mắc nào về an toàn bếp gas, anh chị hãy gọi ngay cho chúng tôi nhé:</p>
 <ul style="list-style: none; padding-left: 0; line-height: 2;">
-  <li>📞 <strong>Hotline Hỗ Trợ 24/7:</strong> <a href="tel:19009396" style="color: #FF6B00; font-weight: bold; font-size: 20px;">19009396</a></li>
-  <li>📍 <strong>Trụ sở chính:</strong> 7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương</li>
+  <li>📞 <strong>Hotline Hỗ Trợ 24/7:</strong> <a href="tel:${rawPhone}" style="color: #FF6B00; font-weight: bold; font-size: 20px;">${phone}</a></li>
+  <li>📍 <strong>Trụ sở chính:</strong> ${address}</li>
 </ul>
 `;
 };
-
-const allFallbackProducts = [
-  { 
-    id: 1, 
-    name: 'Bình Gas Sopet 12kg (Xám)', 
-    slug: 'binh-gas-sopet-12kg-xam', 
-    short_description: 'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An & VietSing. Bình gas Sopet 12kg xám tiêu chuẩn chính hãng, lửa xanh tiết kiệm.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Sopet 12kg (Xám)', 
-      '/images/sopet-xam.png', 
-      'Bình Gas Sopet 12kg màu xám là dòng gas dân dụng sản xuất theo công nghệ Nhật Bản tiên tiến, mang lại ngọn lửa xanh sạch và hiệu suất truyền nhiệt vượt trội.'
-    ),
-    price: 420000, 
-    sale_price: 395000, 
-    image_url: '/images/sopet-xam.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 2, 
-    name: 'Bình Gas Sopet 12kg (Xanh Đen)', 
-    slug: 'binh-gas-sopet-12kg-xanh-den', 
-    short_description: 'Dịch vụ giao gas nhanh tại Thuận An & VietSing. Bình gas Sopet 12kg vỏ xanh đen cao cấp, kiểm định an toàn PCCC.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Sopet 12kg (Xanh Đen)', 
-      '/images/sopet-xanh-den.png', 
-      'Bình Gas Sopet 12kg vỏ xanh đen sang trọng, sở hữu nước sơn tĩnh điện chịu nhiệt cao, tích hợp van điều áp tự động ngắt gas khẩn cấp khi gặp sự cố.'
-    ),
-    price: 425000, 
-    sale_price: 400000, 
-    image_url: '/images/sopet-xanh-den.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 3, 
-    name: 'Bình Gas Sopet 12kg (Xanh)', 
-    slug: 'binh-gas-sopet-12kg-xanh', 
-    short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Sopet 12kg vỏ xanh tiêu chuẩn gia đình.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Sopet 12kg (Xanh)', 
-      '/images/sopet-xanh.png', 
-      'Bình Gas Sopet 12kg vỏ xanh tiêu chuẩn là sự lựa chọn quen thuộc của hàng nghìn căn bếp gia đình tại Việt Nam nhờ lửa xanh khỏe và tiết kiệm nhiên liệu.'
-    ),
-    price: 420000, 
-    sale_price: 395000, 
-    image_url: '/images/sopet-xanh.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 4, 
-    name: 'Bình Gas Sopet 12kg (Đỏ)', 
-    slug: 'binh-gas-sopet-12kg-do', 
-    short_description: 'Dịch vụ giao gas nhanh tại Dĩ An. Bình gas Sopet 12kg vỏ đỏ chính hãng, an toàn tuyệt đối.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Sopet 12kg (Đỏ)', 
-      '/images/sopet.png', 
-      'Bình Gas Sopet 12kg vỏ đỏ nổi bật với kết cấu thép đúc siêu bền, bề mặt dập nổi logo Sopet chính hãng đảm bảo an toàn tuyệt đối cho người sử dụng.'
-    ),
-    price: 430000, 
-    sale_price: 405000, 
-    image_url: '/images/sopet.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 5, 
-    name: 'Bình Gas Phoenix Gas 12kg (Xám)', 
-    slug: 'binh-gas-phoenix-gas-12kg-xam', 
-    short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & Thuận An. Bình gas Phoenix 12kg vỏ xám tiết kiệm cho hộ gia đình.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Phoenix Gas 12kg (Xám)', 
-      '/images/phoenix-xam.png', 
-      'Bình Gas Phoenix Gas 12kg vỏ xám mang đến giải pháp nhiên liệu đun nấu tiết kiệm chi phí nhưng vẫn đảm bảo áp suất gas ổn định và an toàn PCCC.'
-    ),
-    price: 410000, 
-    sale_price: 385000, 
-    image_url: '/images/phoenix-xam.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 6, 
-    name: 'Bình Gas Phoenix Gas 12kg (Xanh)', 
-    slug: 'binh-gas-phoenix-gas-12kg-xanh', 
-    short_description: 'Dịch vụ giao gas nhanh tại KDC VietSing. Bình gas Phoenix 12kg vỏ xanh lá chính hãng Phoenix Gas.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Phoenix Gas 12kg (Xanh)', 
-      '/images/phoenix-lg-xanh.png', 
-      'Bình Gas Phoenix Gas 12kg vỏ xanh lá tươi sáng, được kiểm định chất lượng khí gas tinh khiết không tạo cặn bẩn hay làm đen kiềng bếp nấu.'
-    ),
-    price: 415000, 
-    sale_price: 390000, 
-    image_url: '/images/phoenix-lg-xanh.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 7, 
-    name: 'Bình Gas Phoenix Gas 12kg (Đỏ)', 
-    slug: 'binh-gas-phoenix-gas-12kg-do', 
-    short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Phoenix 12kg vỏ đỏ nổi bật, áp suất ổn định.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Phoenix Gas 12kg (Đỏ)', 
-      '/images/phoenix-do.png', 
-      'Bình Gas Phoenix Gas 12kg màu đỏ nổi bật với áp suất duy trì đều đặn từ lúc bắt đầu cho tới khi hết bình gas, giúp món ăn đun nấu nhanh chín thơm ngon.'
-    ),
-    price: 420000, 
-    sale_price: 395000, 
-    image_url: '/images/phoenix-do.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 8, 
-    name: 'Bình Gas Luxen Gas 12kg', 
-    slug: 'binh-gas-luxen-gas-12kg', 
-    short_description: 'Dịch vụ giao gas nhanh tại VietSing & Thuận An. Bình gas Luxen Gas 12kg chất lượng cao, vỏ bình chịu lực tiêu chuẩn.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Luxen Gas 12kg', 
-      '/images/luxen-gas.png', 
-      'Bình Gas Luxen Gas 12kg là thương hiệu gas uy tín sản xuất ngay tại tỉnh Bình Dương, có vỏ bình đúc dày chịu lực tốt và ngọn lửa xanh cực mạnh.'
-    ),
-    price: 420000, 
-    sale_price: 395000, 
-    image_url: '/images/luxen-gas.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 9, 
-    name: 'Bình Gas Luxen Gas 12kg (Xám)', 
-    slug: 'binh-gas-luxen-gas-12kg-xam', 
-    short_description: 'Dịch vụ giao gas nhanh tại Dĩ An & VietSing. Bình gas Luxen Gas 12kg vỏ xám tiêu chuẩn, an toàn PCCC.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Luxen Gas 12kg (Xám)', 
-      '/images/luxen-xam-12kg.png', 
-      'Bình Gas Luxen Gas 12kg vỏ màu xám tiêu chuẩn chính hãng Luxen Gas Bình Dương, vỏ bình chắc chắn, ngọn lửa xanh xoáy đun nấu cực kỳ tiết kiệm.'
-    ),
-    price: 415000, 
-    sale_price: 390000, 
-    image_url: '/images/luxen-xam-12kg.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 10, 
-    name: 'Bình Gas Luxen Gas 45kg (Công Nghiệp)', 
-    slug: 'binh-gas-luxen-gas-45kg-cong-nghiep', 
-    short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1 & Dĩ An. Bình gas công nghiệp Luxen 45kg chuyên dùng cho Nhà hàng, Bếp ăn.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Luxen Gas 45kg (Công Nghiệp)', 
-      '/images/luxen-45.png', 
-      'Bình Gas Luxen Gas 45kg công nghiệp (Bình bò) dung tích cực lớn chuyên dùng cho các giàn gom bếp khè nhà hàng, khách sạn và bếp ăn công nghiệp KCN VSIP 1.'
-    ),
-    price: 1550000, 
-    sale_price: 1450000, 
-    image_url: '/images/luxen-45.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  },
-  { 
-    id: 11, 
-    name: 'Bình Gas Luxen Gas 45kg (Xám)', 
-    slug: 'binh-gas-luxen-gas-45kg-xam', 
-    short_description: 'Dịch vụ giao gas nhanh tại KCN VSIP 1, Dĩ An & Thuận An. Bình gas công nghiệp Luxen 45kg màu xám tiêu chuẩn.', 
-    description: createKeywordTrustSEOArticle(
-      'Bình Gas Luxen Gas 45kg (Xám)', 
-      '/images/luxen-xam-45.png', 
-      'Bình Gas Luxen Gas 45kg vỏ màu xám công nghiệp dung tích lớn, vỏ đúc chịu áp suất cực cao, chuyên dùng cho bếp ăn công nghiệp, nhà hàng, khách sạn và quán ăn lớn.'
-    ),
-    price: 1540000, 
-    sale_price: 1440000, 
-    image_url: '/images/luxen-xam-45.png', 
-    category_id: 1, 
-    is_featured: 1, 
-    is_active: 1 
-  }
-];
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const normSlug = slug.replace(/-sopet-vil-/g, '-sopet-');
   
-  try {
-    const [rows] = await db.query('SELECT name, short_description FROM products WHERE slug = ? OR slug = ?', [slug, normSlug]);
-    if (rows && rows.length > 0) {
-      const product = rows[0];
-      return {
-        title: `${product.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing, TP.HCM - NGỌC GAS`,
-        description: product.short_description || `Mua ${product.name} chính hãng, giá tốt tại Ngọc Gas TP. HCM & Bình Dương. Giao gas nhanh.`,
-        keywords: `${product.name}, giao gas nhanh, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương, ngoc gas`
-      };
-    }
-  } catch (e) {
-    console.error('Error generating product metadata:', e.message);
-  }
-
-  const fallbackObj = allFallbackProducts.find(p => p.slug === slug || p.slug === normSlug || p.slug.replace(/-sopet-/, '-sopet-vil-') === slug);
-  if (fallbackObj) {
+  const product = (await getProductByIdOrSlug(slug)) || (await getProductByIdOrSlug(normSlug));
+  if (product) {
     return {
-      title: `${fallbackObj.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing, TP.HCM - NGỌC GAS`,
-      description: fallbackObj.short_description,
-      keywords: `${fallbackObj.name}, giao gas nhanh, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương, ngoc gas`
+      title: `${product.name} - Giao Gas Nhanh Tại Dĩ An, Thuận An, VietSing, TP.HCM - NGỌC GAS`,
+      description: product.short_description || `Mua ${product.name} chính hãng, giá tốt tại Ngọc Gas TP. HCM & Bình Dương. Giao gas nhanh.`,
+      keywords: `${product.name}, giao gas nhanh, giao gas nhanh tại Dĩ An, giao gas nhanh tại Thuận An, giao gas nhanh tại VietSing, giao gas nhanh tại TP.HCM, giao gas nhanh tại Bình Dương, ngoc gas`
     };
   }
   
@@ -292,41 +90,27 @@ export default async function ProductDetailPage({ params }) {
   const { slug } = await params;
   const normSlug = slug.replace(/-sopet-vil-/g, '-sopet-');
 
-  let product = null;
-  let relatedProducts = [];
+  let product = (await getProductByIdOrSlug(slug)) || (await getProductByIdOrSlug(normSlug));
 
-  try {
-    const [prodRows] = await db.query(`
-      SELECT p.*, c.name AS category_name 
-      FROM products p 
-      LEFT JOIN categories c ON p.category_id = c.id 
-      WHERE (p.slug = ? OR p.slug = ?) AND p.is_active = 1
-    `, [slug, normSlug]);
-
-    if (prodRows && prodRows.length > 0) {
-      product = prodRows[0];
-    }
-  } catch (error) {
-    console.error('Error fetching product detail:', error.message);
-  }
-
-  // Fallback to default product list if DB is offline or slug missing in DB
   if (!product) {
-    const foundFallback = allFallbackProducts.find(p => p.slug === slug || p.slug === normSlug || p.slug.replace(/-sopet-/, '-sopet-vil-') === slug);
-    if (foundFallback) {
-      product = {
-        ...foundFallback,
-        category_name: 'Gas Dân Dụng & Công Nghiệp'
-      };
-    } else {
-      notFound();
-    }
+    notFound();
   }
 
-  // Enforce humanized Keyword Trust SEO Article structure for maximum Google ranking authority
-  const foundFallback = allFallbackProducts.find(p => p.slug === product.slug || p.slug === normSlug || p.slug.replace(/-sopet-/, '-sopet-vil-') === slug);
-  if (foundFallback && (!product.description || product.description.length < 300)) {
-    product.description = foundFallback.description;
+  // Fetch settings dynamically
+  const settings = await getAllSettings();
+  const phone = settings.phone || '19009396';
+  const address = settings.address || '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương';
+  const hotline = phone;
+
+  // Preserve user's custom description if present; only fallback if description is completely empty
+  if (!product.description || !product.description.trim()) {
+    product.description = createKeywordTrustSEOArticle(
+      product.name, 
+      product.image_url || '/images/sopet-xam.png', 
+      `${product.name} là sản phẩm gas chính hãng chất lượng cao tại Ngọc Gas.`,
+      phone,
+      address
+    );
   }
 
   // Safe analytics click log
@@ -337,29 +121,13 @@ export default async function ProductDetailPage({ params }) {
     ).catch(() => {});
   } catch (e) {}
 
-  // Fetch related products
+  // Fetch related products dynamically
+  let relatedProducts = [];
   try {
-    const [relatedRows] = await db.query(`
-      SELECT p.*, c.name AS category_name 
-      FROM products p 
-      LEFT JOIN categories c ON p.category_id = c.id 
-      WHERE p.id != ? AND p.is_active = 1 
-      LIMIT 3
-    `, [product.id || 0]);
-    relatedProducts = relatedRows || [];
-  } catch (e) {}
-
-  if (!relatedProducts || relatedProducts.length === 0) {
-    relatedProducts = allFallbackProducts.filter(p => p.slug !== product.slug).slice(0, 3);
-  }
-
-  // Fetch hotline settings
-  let hotline = '19009396';
-  try {
-    const [settingRows] = await db.query("SELECT setting_value FROM settings WHERE setting_key = 'phone'");
-    if (settingRows && settingRows.length > 0) {
-      hotline = settingRows[0].setting_value;
-    }
+    const allProducts = await getAllProducts();
+    relatedProducts = allProducts
+      .filter(p => String(p.id) !== String(product.id) && p.slug !== product.slug && (p.is_active === 1 || p.is_active === true || p.is_active === undefined))
+      .slice(0, 3);
   } catch (e) {}
 
   const formatPrice = (price) => {
@@ -368,9 +136,69 @@ export default async function ProductDetailPage({ params }) {
   };
 
   const hasSale = product.sale_price && Number(product.sale_price) > 0;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ngocgas.com';
+  const productPrice = Number(product.sale_price && product.sale_price > 0 ? product.sale_price : (product.price || 0));
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        "@id": `${baseUrl}/san-pham/${product.slug}#product`,
+        "name": product.name,
+        "image": product.image_url ? (product.image_url.startsWith('http') ? product.image_url : `${baseUrl}${product.image_url}`) : `${baseUrl}/favicon.ico`,
+        "description": product.short_description || `${product.name} chính hãng chất lượng cao tại Ngọc Gas. Giao nhanh 15 phút, cân đủ ký.`,
+        "brand": {
+          "@type": "Brand",
+          "name": product.brand || settings.company_name || "Ngọc Gas"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": `${baseUrl}/san-pham/${product.slug}`,
+          "priceCurrency": "VND",
+          "price": productPrice > 0 ? productPrice : 390000,
+          "priceValidUntil": "2030-12-31",
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@type": "Organization",
+            "name": settings.company_name || "Ngọc Gas"
+          }
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${baseUrl}/san-pham/${product.slug}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Trang chủ",
+            "item": baseUrl
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sản phẩm",
+            "item": `${baseUrl}/san-pham`
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": product.name,
+            "item": `${baseUrl}/san-pham/${product.slug}`
+          }
+        ]
+      }
+    ]
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <div className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">

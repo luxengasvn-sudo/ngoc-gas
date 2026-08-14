@@ -1,5 +1,6 @@
-import db from '@/lib/db';
 import { getAllSettings, parseSectionOrder } from '@/lib/settingsHelper';
+import { getAllProducts } from '@/lib/productsHelper';
+import { getAllPosts } from '@/lib/postsHelper';
 import Link from 'next/link';
 import FeaturedProductsTabs from '@/components/FeaturedProductsTabs';
 import PostCard from '@/components/PostCard';
@@ -11,23 +12,28 @@ import HeroSection from '@/components/HeroSection';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
-const defaultGasProducts = [
-  { id: 1, name: 'Bình Gas Sopet 12kg (Xám)', slug: 'binh-gas-sopet-12kg-xam', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An, Thuận An & VietSing. Bình gas Sopet 12kg xám tiêu chuẩn chính hãng, lửa xanh tiết kiệm.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xam.png', category_id: 1, is_featured: 1, is_active: 1 },
-  { id: 2, name: 'Bình Gas Sopet 12kg (Xanh Đen)', slug: 'binh-gas-sopet-12kg-xanh-den', short_description: 'Dịch vụ giao gas nhanh tại Thuận An & VietSing. Bình gas Sopet 12kg vỏ xanh đen cao cấp, kiểm định an toàn PCCC.', price: 425000, sale_price: 400000, image_url: '/images/sopet-xanh-den.png', category_id: 1, is_featured: 1, is_active: 1 },
-  { id: 3, name: 'Bình Gas Sopet 12kg (Xanh)', slug: 'binh-gas-sopet-12kg-xanh', short_description: 'Dịch vụ giao gas nhanh tại TP.HCM & Bình Dương. Bình gas Sopet 12kg vỏ xanh tiêu chuẩn gia đình.', price: 420000, sale_price: 395000, image_url: '/images/sopet-xanh.png', category_id: 1, is_featured: 1, is_active: 1 },
-  { id: 4, name: 'Bình Gas Sopet 12kg (Đỏ)', slug: 'binh-gas-sopet-12kg-do', short_description: 'Dịch vụ giao gas nhanh tại Dĩ An. Bình gas Sopet 12kg vỏ đỏ chính hãng, an toàn tuyệt đối.', price: 430000, sale_price: 405000, image_url: '/images/sopet.png', category_id: 1, is_featured: 1, is_active: 1 }
-];
+export async function generateMetadata() {
+  const settings = await getAllSettings();
+  const title = settings.meta_title || "Ngọc Gas - Năng lượng xanh, An tâm cho mọi nhà";
+  const description = settings.meta_description || "Ngọc Gas chuyên cung cấp các loại bình gas dân dụng, gas công nghiệp và phụ kiện gas chính hãng an toàn tại TP. HCM & Bình Dương.";
+  const keywords = settings.meta_keywords || "ngọc gas, đổi gas dĩ an, bình gas 12kg, gas bình dương, gas thủ đức";
 
-const defaultAccessoryProducts = [
-  { id: 101, name: 'Dây Dẫn Gas Cao Cấp Chống Chuột Bọ', slug: 'day-dan-gas-cao-cap', short_description: 'Dây dẫn gas nhập khẩu Hàn Quốc 3 lớp siêu bền chống gập, chống chuột cắn.', price: 180000, sale_price: 150000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 },
-  { id: 102, name: 'Van Gas Năng Lượng Tự Động Ngắt Khẩn Cấp', slug: 'van-gas-tu-dong-ngat', short_description: 'Van điều áp an toàn tự động khóa gas khi có sự cố rò rỉ.', price: 350000, sale_price: 290000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 },
-  { id: 103, name: 'Bộ Van Dây Gas Đôi Tiêu Chuẩn PCCC', slug: 'bo-van-day-gas-doi', short_description: 'Combo van ngắt và dây gas nhập khẩu chính hãng bảo vệ căn bếp.', price: 480000, sale_price: 420000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 },
-  { id: 104, name: 'Bếp Gas Đơn Hồng Ngoại Tiết Kiệm Gas', slug: 'bep-gas-don-hong-ngoai', short_description: 'Bếp gas hồng ngoại đơn lửa xanh chịu lực cao, tiết kiệm 30% gas.', price: 650000, sale_price: 580000, image_url: '', category_id: 3, is_featured: 1, is_active: 1 }
-];
+  return {
+    title,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      type: 'website'
+    }
+  };
+}
 
 export default async function HomePage() {
   let featuredGasProducts = [];
   let featuredOtherProducts = [];
+  let allActiveProducts = [];
   let latestPosts = [];
   let settings = {
     phone: '19009396',
@@ -37,7 +43,11 @@ export default async function HomePage() {
   };
 
   try {
-    // 1. Fetch settings from unified settingsHelper (File + DB + Memory)
+    // Fetch products via 3-layer hydration engine (File + DB + Cache)
+    const allProducts = await getAllProducts();
+    allActiveProducts = allProducts.filter(p => p.is_active == 1);
+
+    // Fetch settings via 3-layer hydration engine
     const fetchedSettings = await getAllSettings();
     settings = { ...settings, ...fetchedSettings };
 
@@ -48,68 +58,40 @@ export default async function HomePage() {
       featuredOtherIds = JSON.parse(settings.featured_other_ids || '[]');
     } catch (e) {}
 
-    // Group 1: Gas Cylinder Products (Category Name like '%gas%' or Category ID 1, 2, 4)
-    let gasQuery = `
-      SELECT p.*, c.name AS category_name 
-      FROM products p 
-      LEFT JOIN categories c ON p.category_id = c.id 
-      WHERE p.is_active = 1 AND (LOWER(c.name) LIKE '%gas%' OR p.category_id IN (1, 2, 4))
-    `;
+    // Group 1: Gas Cylinder Products
     const safeGasIds = Array.isArray(featuredGasIds) 
       ? featuredGasIds.map(id => Number(id)).filter(id => !isNaN(id)) 
       : [];
-    if (safeGasIds.length > 0) {
-      gasQuery += ` AND p.id IN (${safeGasIds.join(',')})`;
-    } else {
-      gasQuery += ` AND p.is_featured = 1`;
-    }
-    gasQuery += ` LIMIT 4`;
-    const [gasRows] = await db.query(gasQuery);
-    featuredGasProducts = (gasRows || []).sort((a, b) => {
-      if (safeGasIds.length === 0) return 0;
-      return safeGasIds.indexOf(Number(a.id)) - safeGasIds.indexOf(Number(b.id));
-    });
 
-    // Group 2: Other/Accessory Products (Category Name NOT like '%gas%' and Category ID NOT IN 1, 2, 4)
-    let otherQuery = `
-      SELECT p.*, c.name AS category_name 
-      FROM products p 
-      LEFT JOIN categories c ON p.category_id = c.id 
-      WHERE p.is_active = 1 AND NOT (LOWER(c.name) LIKE '%gas%' OR p.category_id IN (1, 2, 4))
-    `;
+    if (safeGasIds.length > 0) {
+      featuredGasProducts = allActiveProducts.filter(p => safeGasIds.includes(Number(p.id))).sort((a, b) => {
+        return safeGasIds.indexOf(Number(a.id)) - safeGasIds.indexOf(Number(b.id));
+      });
+    }
+
+    if (featuredGasProducts.length === 0) {
+      featuredGasProducts = allActiveProducts.slice(0, 4);
+    }
+
+    // Group 2: Other/Accessory Products
     const safeOtherIds = Array.isArray(featuredOtherIds) 
       ? featuredOtherIds.map(id => Number(id)).filter(id => !isNaN(id)) 
       : [];
-    if (safeOtherIds.length > 0) {
-      otherQuery += ` AND p.id IN (${safeOtherIds.join(',')})`;
-    } else {
-      otherQuery += ` AND p.is_featured = 1`;
-    }
-    otherQuery += ` LIMIT 4`;
-    const [otherRows] = await db.query(otherQuery);
-    featuredOtherProducts = (otherRows || []).sort((a, b) => {
-      if (safeOtherIds.length === 0) return 0;
-      return safeOtherIds.indexOf(Number(a.id)) - safeOtherIds.indexOf(Number(b.id));
-    });
 
-    // 3. Fetch posts
-    const [postRows] = await db.query(`
-      SELECT * FROM posts 
-      WHERE is_published = 1 
-      ORDER BY created_at DESC 
-      LIMIT 3
-    `);
-    latestPosts = postRows || [];
+    if (safeOtherIds.length > 0) {
+      featuredOtherProducts = allActiveProducts.filter(p => safeOtherIds.includes(Number(p.id))).sort((a, b) => {
+        return safeOtherIds.indexOf(Number(a.id)) - safeOtherIds.indexOf(Number(b.id));
+      });
+    } else {
+      featuredOtherProducts = [];
+    }
+
+    // Fetch posts via 3-layer hydration engine
+    const allPosts = await getAllPosts();
+    latestPosts = allPosts.filter(p => p.is_published == 1).slice(0, 3);
+
   } catch (error) {
     console.error('Error fetching homepage data:', error);
-  }
-
-  // Proper fallback: Gas tab gets gas products, Accessory tab gets accessory products
-  if (!featuredGasProducts || featuredGasProducts.length === 0) {
-    featuredGasProducts = defaultGasProducts;
-  }
-  if (!featuredOtherProducts || featuredOtherProducts.length === 0) {
-    featuredOtherProducts = defaultAccessoryProducts;
   }
 
   const rawPhone = settings.phone.replace(/[^0-9]/g, '');
@@ -117,40 +99,13 @@ export default async function HomePage() {
   // Parse section order dynamically from Admin Settings
   const sectionOrder = parseSectionOrder(settings.home_sections_order);
 
-  const defaultPosts = [
-    {
-      id: 1,
-      title: 'Kinh Nghiệm Phân Biệt Bình Gas Chính Hãng Ngọc Gas Với Gas Giả Trôi Nổi',
-      slug: 'kinh-nghiem-phan-biet-binh-gas-chinh-hang',
-      excerpt: 'Hướng dẫn cách nhận biết màng co niêm phong, tem chống hàng giả và quy trình cân thử gas trước khi thanh toán tại Dĩ An & TP.HCM.',
-      image_url: '/images/sopet-xam.png',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 2,
-      title: 'Quy Trình Thi Công Hệ Thống Gas Công Nghiệp Đạt Chuẩn PCCC Cho Nhà Hàng',
-      slug: 'quy-trinh-thi-cong-he-thong-gas-cong-nghiep-dat-chuan-pccc',
-      excerpt: 'Ngọc Gas chia sẻ tiêu chuẩn kỹ thuật lắp đặt đường ống gas inox, van ngắt tự động và hệ thống cảnh báo rò rỉ khí gas cho nhà bếp.',
-      image_url: '/images/sopet-xanh.png',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 3,
-      title: 'Mẹo Sử Dụng Gas Tiết Kiệm 30% Chi Phí Đun Nấu Gia Đình & Quán Ăn',
-      slug: 'meo-su-dung-gas-tiet-kiem-chi-phi-dun-nau',
-      excerpt: 'Bật mí cách điều chỉnh ngọn lửa xanh xoáy, bảo dưỡng bếp gas định kỳ và mẹo chọn bình gas 12kg chất lượng cao.',
-      image_url: '/images/sopet-xanh-den.png',
-      created_at: new Date().toISOString()
-    }
-  ];
-
-  const displayPosts = (latestPosts && latestPosts.length > 0) ? latestPosts : defaultPosts;
+  const displayPosts = latestPosts;
 
   const renderSection = (sectionId) => {
     switch (sectionId) {
       case 'gas-price-widget':
         if (settings.show_home_gas_price === '0') return null;
-        return <GasPriceWidget key="gas-price-widget" settings={settings} />;
+        return <GasPriceWidget key="gas-price-widget" products={allActiveProducts} settings={settings} />;
 
       case 'intro-features':
         if (settings.show_home_features === '0') return null;
@@ -169,49 +124,31 @@ export default async function HomePage() {
           </section>
         );
 
-      case 'stats-counter':
-        if (settings.show_home_stats === '0') return null;
-        return <TestimonialsSection key="stats-counter" />;
+      case 'customer-reviews':
+        if (settings.show_home_testimonials === '0') return null;
+        return <TestimonialsSection key="customer-reviews" settings={settings} />;
 
-      case 'latest-news':
-        if (settings.show_home_news === '0') return null;
+      case 'latest-posts':
+        if (settings.show_home_posts === '0') return null;
+        if (!displayPosts || displayPosts.length === 0) return null;
         return (
-          <section key="latest-news" className="section-padding bg-warm">
+          <section key="latest-posts" className="section-padding bg-warm">
             <div className="container">
               <div className="section-header text-center">
                 <span className="section-subtitle">TIN TỨC & KINH NGHIỆM</span>
-                <h2 className="section-title">{settings.home_news_title || 'Cẩm Nang An Toàn & Khuyến Mãi Gas'}</h2>
-                <p className="section-desc">{settings.home_news_subtitle || 'Cập nhật thông tin giá gas mới nhất, kinh nghiệm chọn gas chính hãng và mẹo sử dụng gas an toàn tiết kiệm.'}</p>
+                <h2 className="section-title">Kiến Thức & An Toàn Sử Dụng Gas</h2>
+                <p className="section-desc">Cập nhật tin tức thị trường gas, mẹo tiết kiệm gas và kiến thức an toàn PCCC cho gia đình.</p>
               </div>
-              
-              <div className="grid-3 posts-grid">
-                {displayPosts.map(post => (
+
+              <div className="posts-grid">
+                {displayPosts.map((post) => (
                   <PostCard key={post.id} post={post} />
                 ))}
               </div>
 
-              <div className="text-center" style={{ marginTop: '40px' }}>
+              <div className="text-center" style={{ marginTop: '2.5rem' }}>
                 <Link href="/tin-tuc" className="btn btn-outline">
-                  Xem Tất Cả Bài Viết ↗
-                </Link>
-              </div>
-            </div>
-          </section>
-        );
-
-      case 'cta-section':
-        if (settings.show_home_cta === '0') return null;
-        return (
-          <section key="cta-section" className="cta-banner">
-            <div className="container text-center">
-              <h2 className="cta-title">{settings.home_cta_title || 'Cần Giao Gas Nhanh Tận Nhà Tại Dĩ An & Thuận An?'}</h2>
-              <p className="cta-desc">{settings.home_cta_desc || 'Đội ngũ Ngọc Gas túc trực 24/7. Gọi ngay tổng đài để được phục vụ trong 15-30 phút!'}</p>
-              <div className="cta-buttons">
-                <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
-                  Gọi Hotline {settings.phone}
-                </a>
-                <Link href="/lien-he" className="btn btn-outline-white btn-lg">
-                  {settings.home_cta_btn_2_text || 'Địa chỉ & Trạm giao gas'}
+                  Xem tất cả bài viết
                 </Link>
               </div>
             </div>
@@ -225,11 +162,29 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero Banner Section (Always Top) */}
       <HeroSection initialSettings={settings} />
 
-      {/* Dynamic Sections ordered and toggled by Admin Settings */}
-      {sectionOrder.map(sectionId => renderSection(sectionId))}
+      {sectionOrder.map((secId) => renderSection(secId))}
+
+      {/* CTA Bottom Banner */}
+      <section className="cta-banner">
+        <div className="container">
+          <div className="cta-content">
+            <h2 className="cta-title">Bạn Cần Đổi Gas Ngay Bây Giờ?</h2>
+            <p className="cta-desc">
+              Gọi ngay hotline {settings.phone} để được phục vụ giao gas nhanh trong vòng 10-15 phút tại Dĩ An, Thuận An & KDC VietSing. Cân đủ ký, kiểm tra an toàn van gas miễn phí.
+            </p>
+            <div className="cta-buttons">
+              <a href={`tel:${rawPhone}`} className="btn btn-primary btn-lg">
+                Gọi {settings.phone}
+              </a>
+              <Link href="/san-pham" className="btn btn-secondary btn-lg">
+                Xem bảng giá gas
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
