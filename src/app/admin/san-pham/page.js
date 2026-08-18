@@ -337,8 +337,72 @@ export default function AdminProductsPage() {
     images: '[]',
     category_id: '',
     is_featured: false,
-    is_active: true
+    is_active: true,
+    rating_value: 4.9,
+    rating_count: 86,
+    reviews_json: '[]',
+    gas_type: ''
   });
+
+  const [newReview, setNewReview] = useState({
+    name: '',
+    location: 'Dĩ An, Bình Dương',
+    rating: 5,
+    date: new Date().toISOString().split('T')[0],
+    comment: ''
+  });
+
+  const handleAddReviewToProduct = (e) => {
+    e.preventDefault();
+    if (!newReview.name.trim() || !newReview.comment.trim()) {
+      alert('Vui lòng nhập tên khách hàng và nội dung nhận xét!');
+      return;
+    }
+    let currentReviews = [];
+    try {
+      currentReviews = Array.isArray(formData.reviews_json) 
+        ? [...formData.reviews_json] 
+        : JSON.parse(formData.reviews_json || '[]');
+    } catch(err) {
+      currentReviews = [];
+    }
+    currentReviews.unshift({
+      id: 'rev-' + Date.now(),
+      name: newReview.name.trim(),
+      location: newReview.location.trim() || 'Dĩ An, Bình Dương',
+      rating: Number(newReview.rating) || 5,
+      date: newReview.date || new Date().toISOString().split('T')[0],
+      comment: newReview.comment.trim(),
+      verified: true
+    });
+    setFormData(prev => ({
+      ...prev,
+      reviews_json: JSON.stringify(currentReviews)
+    }));
+    setNewReview({
+      name: '',
+      location: 'Dĩ An, Bình Dương',
+      rating: 5,
+      date: new Date().toISOString().split('T')[0],
+      comment: ''
+    });
+  };
+
+  const handleDeleteReviewFromProduct = (revId) => {
+    let currentReviews = [];
+    try {
+      currentReviews = Array.isArray(formData.reviews_json) 
+        ? [...formData.reviews_json] 
+        : JSON.parse(formData.reviews_json || '[]');
+    } catch(err) {
+      currentReviews = [];
+    }
+    const filtered = currentReviews.filter(r => r.id !== revId);
+    setFormData(prev => ({
+      ...prev,
+      reviews_json: JSON.stringify(filtered)
+    }));
+  };
 
   const fetchProductsAndCategories = async () => {
     setLoading(true);
@@ -403,7 +467,11 @@ export default function AdminProductsPage() {
       images: '[]',
       category_id: categories[0]?.id || '',
       is_featured: false,
-      is_active: true
+      is_active: true,
+      rating_value: 4.9,
+      rating_count: 86,
+      reviews_json: '[]',
+      gas_type: ''
     };
     setFormData(emptyForm);
     setError('');
@@ -429,7 +497,11 @@ export default function AdminProductsPage() {
       images: product.images || '[]',
       category_id: product.category_id || '',
       is_featured: product.is_featured === 1,
-      is_active: product.is_active === 1
+      is_active: product.is_active === 1,
+      rating_value: product.rating_value !== undefined ? product.rating_value : 4.9,
+      rating_count: product.rating_count !== undefined ? product.rating_count : 86,
+      reviews_json: product.reviews_json || '[]',
+      gas_type: product.gas_type || ''
     });
     setError('');
     setIsModalOpen(true);
@@ -634,7 +706,8 @@ export default function AdminProductsPage() {
       is_featured: formData.is_featured ? 1 : 0,
       is_active: formData.is_active ? 1 : 0,
       price: formData.price === '' || formData.price === null ? null : Number(formData.price),
-      sale_price: formData.sale_price === '' || formData.sale_price === null ? null : Number(formData.sale_price)
+      sale_price: formData.sale_price === '' || formData.sale_price === null ? null : Number(formData.sale_price),
+      gas_type: formData.gas_type || null
     };
 
     try {
@@ -848,6 +921,15 @@ export default function AdminProductsPage() {
       : JSON.parse(formData.images || '[]');
   } catch (e) {
     albumImages = [];
+  }
+
+  let productReviewsList = [];
+  try {
+    productReviewsList = Array.isArray(formData.reviews_json)
+      ? formData.reviews_json
+      : JSON.parse(formData.reviews_json || '[]');
+  } catch (e) {
+    productReviewsList = [];
   }
 
   return (
@@ -1332,6 +1414,22 @@ export default function AdminProductsPage() {
                         </div>
                       </div>
 
+                      <div className="form-group">
+                        <label htmlFor="gas_type" className="form-label-new">📊 Phân khúc so sánh biểu đồ giá gas</label>
+                        <select
+                          id="gas_type"
+                          name="gas_type"
+                          className="form-control-new"
+                          value={formData.gas_type || ''}
+                          onChange={handleChange}
+                        >
+                          <option value="">-- Không so sánh (Ẩn khỏi biểu đồ) --</option>
+                          <option value="luxen-12kg">Gas Cao Cấp 12kg (So sánh cùng Luxen Gas)</option>
+                          <option value="phothong-12kg">Gas Phổ Thông 12kg (So sánh cùng Sopet & Phoenix)</option>
+                          <option value="congnghiep-45kg">Gas Công Nghiệp 45kg (So sánh cùng Luxen 45kg)</option>
+                        </select>
+                      </div>
+
                       <div className="form-group grid-2-columns">
                         <div>
                           <label htmlFor="price" className="form-label-new">Giá gốc (VNĐ)</label>
@@ -1451,6 +1549,164 @@ export default function AdminProductsPage() {
                           boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
                         }}
                       />
+                    </div>
+
+                    {/* KHỐI CẤU HÌNH ĐÁNH GIÁ SAO & REVIEW KHÁCH HÀNG (GOOGLE RICH SNIPPETS) */}
+                    <div className="form-section-card" style={{ border: '1.5px solid #FDE68A', background: '#FFFDF5' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                        <div>
+                          <h3 className="section-card-title" style={{ margin: 0, color: '#B45309', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Star size={20} fill="#F59E0B" color="#F59E0B" />
+                            <span>⭐️ Đánh Giá &amp; Nhận Xét (Google Rich Snippets)</span>
+                          </h3>
+                          <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#78350F' }}>
+                            Khai báo điểm số sao và đánh giá thực tế giúp sản phẩm hiện ⭐️⭐️⭐️⭐️⭐️ trên kết quả tìm kiếm Google Search Console.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Điểm sao & Tổng lượt đánh giá */}
+                      <div className="settings-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+                        <div className="form-group" style={{ margin: 0 }}>
+                          <label className="form-label-new" style={{ color: '#92400E', fontWeight: '700' }}>
+                            Điểm số sao trung bình (1.0 - 5.0)
+                          </label>
+                          <input 
+                            type="number"
+                            step="0.1"
+                            min="1"
+                            max="5"
+                            className="form-control-new"
+                            style={{ background: '#FFFFFF', borderColor: '#FCD34D' }}
+                            value={formData.rating_value !== undefined ? formData.rating_value : 4.9}
+                            onChange={(e) => setFormData(prev => ({ ...prev, rating_value: e.target.value }))}
+                            placeholder="4.9"
+                          />
+                        </div>
+
+                        <div className="form-group" style={{ margin: 0 }}>
+                          <label className="form-label-new" style={{ color: '#92400E', fontWeight: '700' }}>
+                            Tổng số lượt đánh giá
+                          </label>
+                          <input 
+                            type="number"
+                            min="1"
+                            className="form-control-new"
+                            style={{ background: '#FFFFFF', borderColor: '#FCD34D' }}
+                            value={formData.rating_count !== undefined ? formData.rating_count : 86}
+                            onChange={(e) => setFormData(prev => ({ ...prev, rating_count: e.target.value }))}
+                            placeholder="86"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Danh Sách Đánh Giá Khách Hàng */}
+                      <div style={{ marginTop: '16px', borderTop: '1px dashed #FCD34D', paddingTop: '16px' }}>
+                        <strong style={{ fontSize: '14px', color: '#92400E', display: 'block', marginBottom: '10px' }}>
+                          💬 Danh Sách Nhận Xét Khách Hàng ({productReviewsList.length})
+                        </strong>
+
+                        {/* Form thêm nhận xét mới */}
+                        <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '14px', marginBottom: '14px' }}>
+                          <strong style={{ fontSize: '13px', color: '#0F172A', display: 'block', marginBottom: '8px' }}>
+                            ➕ Thêm Nhận Xét Mới Cho Sản Phẩm Này:
+                          </strong>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 0.8fr 1fr', gap: '10px', marginBottom: '10px' }}>
+                            <div>
+                              <input 
+                                type="text"
+                                className="form-control-new"
+                                style={{ fontSize: '12.5px', padding: '6px 10px' }}
+                                placeholder="Tên KH (vd: Anh Minh)"
+                                value={newReview.name}
+                                onChange={(e) => setNewReview(prev => ({ ...prev, name: e.target.value }))}
+                              />
+                            </div>
+                            <div>
+                              <input 
+                                type="text"
+                                className="form-control-new"
+                                style={{ fontSize: '12.5px', padding: '6px 10px' }}
+                                placeholder="Khu vực (vd: Dĩ An, Bình Dương)"
+                                value={newReview.location}
+                                onChange={(e) => setNewReview(prev => ({ ...prev, location: e.target.value }))}
+                              />
+                            </div>
+                            <div>
+                              <select 
+                                className="form-control-new"
+                                style={{ fontSize: '12.5px', padding: '6px 10px' }}
+                                value={newReview.rating}
+                                onChange={(e) => setNewReview(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                              >
+                                <option value="5">⭐⭐⭐⭐⭐ (5 sao)</option>
+                                <option value="4">⭐⭐⭐⭐ (4 sao)</option>
+                              </select>
+                            </div>
+                            <div>
+                              <input 
+                                type="date"
+                                className="form-control-new"
+                                style={{ fontSize: '12.5px', padding: '6px 10px' }}
+                                value={newReview.date}
+                                onChange={(e) => setNewReview(prev => ({ ...prev, date: e.target.value }))}
+                              />
+                            </div>
+                          </div>
+                          <div style={{ marginBottom: '10px' }}>
+                            <textarea 
+                              className="form-control-new"
+                              rows="2"
+                              style={{ fontSize: '12.5px', padding: '8px 10px' }}
+                              placeholder="Nội dung nhận xét thực tế (vd: Bình gas còn nguyên tem niêm phong, nhân viên giao tới cân đủ 12kg rất hài lòng...)"
+                              value={newReview.comment}
+                              onChange={(e) => setNewReview(prev => ({ ...prev, comment: e.target.value }))}
+                            />
+                          </div>
+                          <button 
+                            type="button"
+                            onClick={handleAddReviewToProduct}
+                            className="btn btn-primary"
+                            style={{ padding: '6px 14px', fontSize: '12.5px', borderRadius: '6px' }}
+                          >
+                            <Plus size={14} />
+                            <span>Thêm Nhận Xét Này</span>
+                          </button>
+                        </div>
+
+                        {/* Danh sách các review đã có */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '240px', overflowY: 'auto' }}>
+                          {productReviewsList && productReviewsList.length > 0 ? (
+                            productReviewsList.map((rev, idx) => (
+                              <div key={rev.id || idx} style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
+                                <div style={{ flex: 1 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                                    <strong style={{ fontSize: '13px', color: '#0F172A' }}>{rev.name}</strong>
+                                    {rev.location && <span style={{ fontSize: '11.5px', color: '#64748B' }}>({rev.location})</span>}
+                                    <span style={{ fontSize: '12px', color: '#F59E0B' }}>{'★'.repeat(rev.rating || 5)}</span>
+                                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>• {rev.date}</span>
+                                  </div>
+                                  <p style={{ margin: 0, fontSize: '12.5px', color: '#334155', lineHeight: '1.4' }}>
+                                    "{rev.comment}"
+                                  </p>
+                                </div>
+                                <button 
+                                  type="button"
+                                  onClick={() => handleDeleteReviewFromProduct(rev.id)}
+                                  style={{ background: 'none', border: 'none', color: '#E11D48', cursor: 'pointer', padding: '4px' }}
+                                  title="Xóa nhận xét này"
+                                >
+                                  <Trash2 size={15} />
+                                </button>
+                              </div>
+                            ))
+                          ) : (
+                            <p style={{ margin: 0, fontSize: '12.5px', color: '#94A3B8', fontStyle: 'italic', textAlign: 'center', padding: '12px 0' }}>
+                              Chưa có nhận xét riêng (Sản phẩm sẽ tự động dùng 3 nhận xét mẫu uy tín chất lượng cao).
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
 

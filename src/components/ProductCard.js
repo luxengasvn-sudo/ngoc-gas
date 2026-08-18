@@ -21,7 +21,20 @@ export default function ProductCard({ product }) {
         <Link href={productUrl} className="card-image-link" onClick={() => trackClick('product_card_click', product.name)}>
           <div className="product-image-container">
             {product.image_url ? (
-              <img src={product.image_url} alt={product.name} className="product-card-img" />
+              <picture>
+                {product.image_url.startsWith('/images/') && (
+                  <source srcSet={product.image_url.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+                )}
+                <img 
+                  src={product.image_url} 
+                  alt={product.name} 
+                  className="product-card-img" 
+                  width="240"
+                  height="220"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
             ) : (
               <div className="product-placeholder-image">
                 <Flame size={48} className="placeholder-icon" />
@@ -80,6 +93,12 @@ export default function ProductCard({ product }) {
           justify-content: center;
           border-bottom: 1px solid var(--border);
           overflow: hidden;
+        }
+
+        .product-image-container picture {
+          display: block;
+          width: 100%;
+          height: 100%;
         }
 
         .product-card-img {

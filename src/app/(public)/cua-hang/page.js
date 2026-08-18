@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Phone, MapPin, Search, Store, ArrowRight, Loader2, User, X } from 'lucide-react';
+import { Phone, MapPin, Search, Store, ArrowRight, Loader2, User, X, ExternalLink, Navigation } from 'lucide-react';
 import { trackClick } from '@/lib/analytics';
 
 export default function StoresPublicPage() {
@@ -195,32 +195,53 @@ export default function StoresPublicPage() {
                         onClick={() => trackClick('store_hotline_click', store.name + ' - ' + store.phone)}
                       >
                         <Phone size={16} />
-                        <span>Gọi đặt gas ngay</span>
+                        <span>Gọi đặt gas ({store.phone})</span>
                       </a>
-                      {store.map_embed ? (
-                        <button 
-                          type="button"
-                          onClick={() => {
-                            trackClick('map_view_click', store.name + ' (nhúng)');
-                            setActiveMapEmbed({ name: store.name, iframe: store.map_embed });
-                          }}
-                          className="btn btn-outline btn-block"
-                        >
-                          <span>Xem bản đồ cửa hàng</span>
-                          <ArrowRight size={16} />
-                        </button>
-                      ) : (
+
+                      <div style={{ display: 'grid', gridTemplateColumns: store.fanpage_url ? '1fr 1fr' : '1fr', gap: '8px', marginTop: '8px' }}>
+                        {store.fanpage_url && (
+                          <a 
+                            href={store.fanpage_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn btn-outline"
+                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', padding: '8px 10px', color: '#1877F2', borderColor: '#1877F2' }}
+                            onClick={() => trackClick('store_fanpage_click', store.name)}
+                          >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <span>Fanpage</span>
+                          </a>
+                        )}
+
                         <a 
-                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address)}`} 
-                          target="_blank" 
+                          href={store.google_map_url || (store.map_embed ? '#' : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address)}`)} 
+                          target={store.google_map_url || !store.map_embed ? "_blank" : undefined}
                           rel="noopener noreferrer" 
-                          className="btn btn-outline btn-block"
-                          onClick={() => trackClick('map_view_click', store.name + ' (Google Search)')}
+                          className="btn btn-outline"
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', padding: '8px 10px', color: '#EA4335', borderColor: '#EA4335' }}
+                          onClick={(e) => {
+                            if (!store.google_map_url && store.map_embed) {
+                              e.preventDefault();
+                              setActiveMapEmbed({ name: store.name, iframe: store.map_embed });
+                            }
+                            trackClick('map_view_click', store.name);
+                          }}
                         >
-                          <span>Chỉ đường trên bản đồ</span>
-                          <ArrowRight size={16} />
+                          <MapPin size={15} />
+                          <span>Chỉ đường</span>
                         </a>
-                      )}
+                      </div>
+
+                      <Link 
+                        href={`/cua-hang/${store.slug || store.id}`}
+                        className="btn btn-outline btn-block"
+                        style={{ marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px' }}
+                      >
+                        <span>Chi tiết trạm & Tuyến giao</span>
+                        <ArrowRight size={14} />
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -1,10 +1,47 @@
 import db from '@/lib/db';
 import { NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
+import fs from 'fs';
+import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-let defaultPriceHistory = [];
+const DATA_FILE = path.join(process.cwd(), 'data', 'gas_price_history.json');
+const DATA_DEFAULT_FILE = path.join(process.cwd(), 'data', 'gas_price_history.default.json');
+
+function getFilePriceHistory() {
+  try {
+    if (fs.existsSync(DATA_FILE)) {
+      const fileData = fs.readFileSync(DATA_FILE, 'utf8');
+      const parsed = JSON.parse(fileData);
+      if (Array.isArray(parsed)) return parsed;
+    }
+    // Fallback: copy from .default.json if main file doesn't exist
+    if (fs.existsSync(DATA_DEFAULT_FILE)) {
+      const defaultData = fs.readFileSync(DATA_DEFAULT_FILE, 'utf8');
+      const dir = path.dirname(DATA_FILE);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(DATA_FILE, defaultData, 'utf8');
+      const parsed = JSON.parse(defaultData);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch (e) {
+    console.error('Error reading gas_price_history.json:', e.message);
+  }
+  return [];
+}
+
+function saveFilePriceHistory(historyList) {
+  try {
+    const dir = path.dirname(DATA_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(historyList, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Error saving to gas_price_history.json:', e.message);
+  }
+}
 
 export async function GET(request) {
   try {
@@ -30,9 +67,10 @@ export async function GET(request) {
     }
 
     if (!rows || rows.length === 0) {
+      const fileRows = getFilePriceHistory();
       rows = gas_type && gas_type !== 'all' 
-        ? defaultPriceHistory.filter(h => h.gas_type === gas_type)
-        : defaultPriceHistory;
+        ? fileRows.filter(h => h.gas_type === gas_type)
+        : fileRows;
     }
 
     return NextResponse.json({
@@ -41,9 +79,10 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error('GET /api/gas-price-history error:', error);
+    const fileRows = getFilePriceHistory();
     return NextResponse.json({
       success: true,
-      data: defaultPriceHistory
+      data: fileRows
     });
   }
 }
@@ -64,10 +103,16 @@ export async function POST(request) {
       return NextResponse.json({ success: false, message: 'Thông tin biến động giá thiếu các trường bắt buộc' }, { status: 400 });
     }
 
+    const gasNameMap = {
+      'luxen-12kg': 'Gas Cao Cấp 12kg (Luxen Gas)',
+      'phothong-12kg': 'Gas Phổ Thông 12kg (Sopet & Phoenix)',
+      'congnghiep-45kg': 'Gas Công Nghiệp 45kg (Luxen 45kg)'
+    };
+
     const newObj = {
       id: Date.now(),
       gas_type,
-      gas_name: gas_name || (gas_type === 'luxen-12kg' ? 'Gas Cao Cấp 12kg (Luxen Gas)' : gas_type === 'phothong-12kg' ? 'Gas Phổ Thông 12kg (Sopet & Phoenix)' : 'Gas Công Nghiệp 45kg (Luxen 45kg)'),
+      gas_name: gas_name || gasNameMap[gas_type] || 'Gas Dân Dụng 12kg',
       price: Number(price),
       sale_price: Number(sale_price || price),
       change_type: change_type || 'same',
@@ -90,7 +135,9 @@ export async function POST(request) {
       console.error('DB Insert error in POST /api/gas-price-history:', dbErr.message);
     }
 
-    defaultPriceHistory.push(newObj);
+    const fileList = getFilePriceHistory();
+    fileList.push(newObj);
+    saveFilePriceHistory(fileList);
 
     return NextResponse.json({
       success: true,
@@ -100,6 +147,62 @@ export async function POST(request) {
   } catch (error) {
     console.error('POST /api/gas-price-history error:', error);
     return NextResponse.json({ success: false, message: 'Lỗi server khi ghi lịch sử giá' }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.split(' ')[1];
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return NextResponse.json({ success: false, message: 'Không có quyền truy cập' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { id, gas_type, gas_name, price, sale_price, change_type, change_amount, effective_month, notes } = body;
+
+    if (!id) {
+      return NextResponse.json({ success: false, message: 'Thiếu ID nhật ký giá' }, { status: 400 });
+    }
+
+    try {
+      await db.query(
+        `UPDATE gas_price_history 
+         SET gas_type = ?, gas_name = ?, price = ?, sale_price = ?, change_type = ?, change_amount = ?, effective_month = ?, notes = ?
+         WHERE id = ?`,
+        [gas_type, gas_name, Number(price), Number(sale_price || price), change_type || 'same', Number(change_amount || 0), effective_month, notes || '', id]
+      );
+    } catch (dbErr) {
+      console.error('DB Update error in PUT /api/gas-price-history:', dbErr.message);
+    }
+
+    let fileList = getFilePriceHistory();
+    fileList = fileList.map(item => {
+      if (String(item.id) === String(id)) {
+        return {
+          ...item,
+          gas_type: gas_type || item.gas_type,
+          gas_name: gas_name || item.gas_name,
+          price: price !== undefined ? Number(price) : item.price,
+          sale_price: sale_price !== undefined ? Number(sale_price) : item.sale_price,
+          change_type: change_type || item.change_type,
+          change_amount: change_amount !== undefined ? Number(change_amount) : item.change_amount,
+          effective_month: effective_month || item.effective_month,
+          notes: notes !== undefined ? notes : item.notes
+        };
+      }
+      return item;
+    });
+    saveFilePriceHistory(fileList);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Đã cập nhật nhật ký biến động giá thành công'
+    });
+  } catch (error) {
+    console.error('PUT /api/gas-price-history error:', error);
+    return NextResponse.json({ success: false, message: 'Lỗi server khi cập nhật lịch sử giá' }, { status: 500 });
   }
 }
 
@@ -121,9 +224,13 @@ export async function DELETE(request) {
 
     try {
       await db.query(`DELETE FROM gas_price_history WHERE id = ?`, [id]);
-    } catch (e) {}
+    } catch (e) {
+      console.error('DB Delete error in DELETE /api/gas-price-history:', e.message);
+    }
 
-    defaultPriceHistory = defaultPriceHistory.filter(item => String(item.id) !== String(id));
+    let fileList = getFilePriceHistory();
+    fileList = fileList.filter(item => String(item.id) !== String(id));
+    saveFilePriceHistory(fileList);
 
     return NextResponse.json({
       success: true,

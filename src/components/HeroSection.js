@@ -95,9 +95,11 @@ export default function HeroSection({ initialSettings }) {
   }
 
   if (slides.length === 0) {
-    slides.push('/images/delivery-motorcycle.jpg');
-    slides.push('/images/gas-cylinder.jpg');
+    slides.push('/images/delivery-motorcycle.webp');
+    slides.push('/images/gas-cylinder.webp');
   }
+
+  const optimizedSlides = slides.map(s => (s && s.startsWith('/images/') ? s.replace(/\.(jpe?g|png)$/i, '.webp') : s));
 
   useEffect(() => {
     if (settings.hero_mode !== 'slide' || slides.length <= 1) return;
@@ -161,12 +163,22 @@ export default function HeroSection({ initialSettings }) {
               className="hero-bg-video"
             />
           ) : (
-            slides.map((img, idx) => (
+            optimizedSlides.map((img, idx) => (
               <div 
                 key={idx}
                 className={`hero-bg-slide ${idx === activeSlide ? 'active' : ''}`}
                 style={{ backgroundImage: `url(${img})` }}
-              />
+              >
+                {idx === 0 && (
+                  <img 
+                    src={img} 
+                    alt="Ngọc Gas Banner" 
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0, pointerEvents: 'none' }}
+                    fetchPriority="high"
+                    decoding="sync"
+                  />
+                )}
+              </div>
             ))
           )}
           <div className="hero-gradient-overlay"></div>
@@ -312,6 +324,7 @@ export default function HeroSection({ initialSettings }) {
         .hero-container {
           position: relative;
           z-index: 5;
+        }
 
         .hero-container.text-hidden {
           grid-template-columns: 1fr;

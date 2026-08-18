@@ -1,5 +1,25 @@
 [
   {
+    "id": 4,
+    "name": "1",
+    "slug": "1",
+    "address": "Binh Duong - Xe: 61C-999.88",
+    "phone": "19009396",
+    "hotline": "19009396",
+    "image_url": "/images/phoenix-do.png",
+    "map_embed": "",
+    "fanpage_url": "",
+    "google_map_url": "",
+    "working_hours": "06:00 - 21:30 (Phục vụ cả Chủ Nhật & Ngày Lễ)",
+    "delivery_time": "10 - 15 phút",
+    "delivery_areas": "",
+    "guide_content": "- Cân đủ 12kg tại chỗ: Nhân viên mang theo cân điện tử kiểm tra trước mặt khách hàng.\n- Chính hãng 100%: Phân phối độc quyền Sopet Vil, Phoenix Gas, Luxen Gas có tem niêm phong chống giả.\n- Kiểm tra an toàn miễn phí: Miễn phí vệ sinh mâm lửa, kiểm tra rò rỉ van gas và dây dẫn mỗi lần giao.\n- Tích điểm quà tặng: Tích lũy điểm đổi quà van ngắt tự động, dây chống chuột, nước rửa chén cao cấp.",
+    "store_phones": "[]",
+    "delivery_phones": "[]",
+    "is_active": 1,
+    "created_at": "2026-08-15T09:33:41.612Z"
+  },
+  {
     "id": 1,
     "name": "Cửa hàng Ngọc Gas Dĩ An (Trụ Sở Chính)",
     "address": "7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương",
@@ -11,7 +31,14 @@
     "created_at": "2026-08-14T00:56:07.130Z",
     "store_phones": "[\"0768929396\"]",
     "delivery_phones": "[]",
-    "map_embed": ""
+    "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4206639962883!2d106.7725915!3d10.8555748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398c3b999%3A0xb351314b988f5533!2zNyBOZ3V54buFbiBUcnVuZyBUcuG7sWMsIFRQLiBExKhBbiwgQsDrbmggRMawxqFuZw!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s",
+    "slug": "cua-hang-ngoc-gas-di-an-tru-so-chinh",
+    "fanpage_url": "https://facebook.com/ngocgas.dian",
+    "google_map_url": "https://maps.app.goo.gl/dian",
+    "working_hours": "06:00 - 21:30 (Phục vụ cả Chủ Nhật & Ngày Lễ)",
+    "delivery_time": "10 - 15 phút",
+    "delivery_areas": "nguyễn trung trực, nguyễn an ninh",
+    "guide_content": ""
   },
   {
     "id": 2,

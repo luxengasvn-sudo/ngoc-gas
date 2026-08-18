@@ -8,9 +8,11 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
 export async function generateMetadata() {
+  const settings = await getAllSettings();
+  const brandName = settings.site_name || settings.company_name || 'Ngọc Gas';
   return {
-    title: 'Liên Hệ Đặt Gas & Hỗ Trợ - Ngọc Gas',
-    description: 'Liên hệ Ngọc Gas để đặt gas, tư vấn hệ thống gas công nghiệp hoặc yêu cầu hỗ trợ kỹ thuật. Hotline 24/7, giao gas nhanh 15 phút.',
+    title: 'Liên Hệ Đặt Gas & Hỗ Trợ Kỹ Thuật 24/7',
+    description: `Liên hệ ${brandName} để đặt gas, tư vấn hệ thống gas công nghiệp hoặc yêu cầu hỗ trợ kỹ thuật. Hotline 24/7, giao gas nhanh 15 phút.`,
   };
 }
 
@@ -70,7 +72,7 @@ export default async function ContactPage() {
                 </div>
                 <div>
                   <strong>Số điện thoại:</strong>
-                  <p><a href={`tel:${settings.phone.replace(/\./g, '')}`}>{settings.phone}</a></p>
+                  <p><a href={`tel:${(settings.phone || '19009396').replace(/\./g, '')}`}>{settings.phone || '19009396'}</a></p>
                 </div>
               </li>
               <li>

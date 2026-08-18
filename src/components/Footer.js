@@ -57,7 +57,15 @@ export default function Footer({ initialSettings }) {
           <div className="footer-col brand-col">
             <Link href="/" className="footer-logo">
               {settings.logo_url ? (
-                <img src={settings.logo_url} alt="Ngọc Gas Logo" className="logo-img" />
+                <img 
+                  src={settings.logo_url} 
+                  alt="Ngọc Gas Logo" 
+                  className="logo-img" 
+                  width="160" 
+                  height="48" 
+                  loading="lazy" 
+                  decoding="async" 
+                />
               ) : (
                 <Flame className="footer-logo-icon" size={32} />
               )}

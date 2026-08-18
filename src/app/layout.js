@@ -1,21 +1,8 @@
-import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import { getAllSettings } from '@/lib/settingsHelper';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "700"],
-});
 
 export async function generateMetadata() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ngocgas.com';
@@ -97,37 +84,45 @@ export async function generateMetadata() {
   };
 }
 
+import { Roboto } from 'next/font/google';
 import ScrollRestoration from "@/components/ScrollRestoration";
 import PageLoader from "@/components/PageLoader";
 
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
+  variable: '--font-roboto',
+});
+
 export default async function RootLayout({ children }) {
-  let faviconUrl = '/favicon.ico';
-  let iconType = 'image/png';
+  let settings = {};
   try {
-    const settings = await getAllSettings();
-    if (settings.favicon_url) {
-      faviconUrl = settings.favicon_url;
-      const lowerUrl = faviconUrl.toLowerCase();
-      if (lowerUrl.endsWith('.png')) iconType = 'image/png';
-      else if (lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg')) iconType = 'image/jpeg';
-      else if (lowerUrl.endsWith('.svg')) iconType = 'image/svg+xml';
-      else if (lowerUrl.endsWith('.ico')) iconType = 'image/x-icon';
-    }
+    settings = await getAllSettings();
   } catch (e) {}
 
-  const antiCacheUrl = faviconUrl.includes('?') ? faviconUrl : `${faviconUrl}?v=${encodeURIComponent(faviconUrl)}`;
-
   return (
-    <html lang="vi" className={`${inter.variable} ${roboto.variable}`} data-scroll-behavior="smooth">
+    <html lang="vi" data-scroll-behavior="smooth" className={roboto.variable} suppressHydrationWarning>
       <head>
-        <link rel="icon" href={antiCacheUrl} type={iconType} sizes="any" />
-        <link rel="shortcut icon" href={antiCacheUrl} type={iconType} />
-        <link rel="apple-touch-icon" href={antiCacheUrl} />
+        {settings.custom_header_code && (
+          <div 
+            id="custom-header-scripts" 
+            dangerouslySetInnerHTML={{ __html: settings.custom_header_code }} 
+            style={{ display: 'contents' }} 
+          />
+        )}
       </head>
-      <body style={{ fontFamily: 'var(--font-roboto), sans-serif', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <body className={roboto.className} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <PageLoader />
         <ScrollRestoration />
         {children}
+        {settings.custom_footer_code && (
+          <div 
+            id="custom-footer-scripts" 
+            dangerouslySetInnerHTML={{ __html: settings.custom_footer_code }} 
+            style={{ display: 'contents' }} 
+          />
+        )}
       </body>
     </html>
   );

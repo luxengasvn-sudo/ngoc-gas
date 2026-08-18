@@ -27,7 +27,13 @@ import {
   ListOrdered,
   Quote,
   Heading2,
-  Heading3
+  Heading3,
+  BarChart2,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Calendar,
+  Edit3
 } from 'lucide-react';
 import Link from 'next/link';
 import MediaLibraryModal from '@/components/MediaLibraryModal';
@@ -45,6 +51,20 @@ export default function AdminGasPricePage() {
   const [commitments, setCommitments] = useState([]);
   const [faqs, setFaqs] = useState([]);
   const [products, setProducts] = useState([]);
+
+  // Price History State
+  const [priceHistoryList, setPriceHistoryList] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+  const [editingHistoryId, setEditingHistoryId] = useState(null);
+  const [newPriceEntry, setNewPriceEntry] = useState({
+    gas_type: 'luxen-12kg',
+    effective_month: `Tháng ${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
+    price: 420000,
+    sale_price: 395000,
+    change_type: 'same',
+    change_amount: 0,
+    notes: 'Giá giữ nguyên ổn định theo giá hợp đồng CP thế giới.'
+  });
 
   // SEO Article Block State
   const [seoTitle, setSeoTitle] = useState('');
@@ -208,6 +228,118 @@ export default function AdminGasPricePage() {
     setPendingImageUrl('');
   };
 
+  // Load Price History
+  const fetchPriceHistory = async () => {
+    setLoadingHistory(true);
+    try {
+      const res = await fetch('/api/gas-price-history?t=' + Date.now());
+      const data = await res.json();
+      if (data.success) {
+        setPriceHistoryList(data.data || []);
+      }
+    } catch (e) {
+      console.error('Error fetching price history:', e);
+    } finally {
+      setLoadingHistory(false);
+    }
+  };
+
+  const handleAddOrUpdatePriceEntry = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    const gasNameMap = {
+      'luxen-12kg': 'Gas Cao Cấp 12kg (Luxen Gas)',
+      'phothong-12kg': 'Gas Phổ Thông 12kg (Sopet & Phoenix)',
+      'congnghiep-45kg': 'Gas Công Nghiệp 45kg (Luxen 45kg)'
+    };
+
+    try {
+      const method = editingHistoryId ? 'PUT' : 'POST';
+      const bodyPayload = {
+        ...newPriceEntry,
+        id: editingHistoryId || undefined,
+        gas_name: gasNameMap[newPriceEntry.gas_type] || 'Gas Dân Dụng 12kg'
+      };
+
+      const res = await fetch('/api/gas-price-history', {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(bodyPayload)
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSuccess(editingHistoryId ? '🎉 Đã cập nhật biến động giá thành công!' : '🎉 Đã ghi nhận đợt biến động giá mới vào lịch sử thành công!');
+        fetchPriceHistory();
+        setEditingHistoryId(null);
+        setNewPriceEntry({
+          gas_type: 'luxen-12kg',
+          effective_month: `Tháng ${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
+          price: 420000,
+          sale_price: 395000,
+          change_type: 'same',
+          change_amount: 0,
+          notes: ''
+        });
+        setTimeout(() => setSuccess(''), 4000);
+      } else {
+        setError(data.message || 'Lỗi lưu biến động giá');
+      }
+    } catch (err) {
+      setError('Lỗi kết nối khi lưu biến động giá');
+    }
+  };
+
+  const handleEditPriceEntry = (item) => {
+    setEditingHistoryId(item.id);
+    setNewPriceEntry({
+      gas_type: item.gas_type || 'luxen-12kg',
+      effective_month: item.effective_month || '',
+      price: item.price || 0,
+      sale_price: item.sale_price || 0,
+      change_type: item.change_type || 'same',
+      change_amount: item.change_amount || 0,
+      notes: item.notes || ''
+    });
+  };
+
+  const handleCancelEditHistory = () => {
+    setEditingHistoryId(null);
+    setNewPriceEntry({
+      gas_type: 'luxen-12kg',
+      effective_month: `Tháng ${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
+      price: 420000,
+      sale_price: 395000,
+      change_type: 'same',
+      change_amount: 0,
+      notes: ''
+    });
+  };
+
+  const handleDeletePriceEntry = async (id) => {
+    if (!window.confirm('Bạn có chắc chắn muốn xóa bản ghi lịch sử giá này?')) return;
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    try {
+      const res = await fetch(`/api/gas-price-history?id=${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccess('🗑️ Đã xóa bản ghi lịch sử giá thành công!');
+        fetchPriceHistory();
+        setTimeout(() => setSuccess(''), 3000);
+      } else {
+        setError(data.message || 'Lỗi khi xóa lịch sử giá');
+      }
+    } catch (err) {
+      setError('Lỗi kết nối khi xóa lịch sử giá');
+    }
+  };
+
   // Load Settings & Products
   const loadData = async () => {
     setLoading(true);
@@ -282,6 +414,8 @@ export default function AdminGasPricePage() {
       if (dataProd.success && dataProd.data) {
         setProducts(dataProd.data);
       }
+      // 3. Fetch price history
+      fetchPriceHistory();
     } catch (err) {
       console.error(err);
       setError('Lỗi kết nối khi tải cài đặt.');
@@ -493,6 +627,13 @@ export default function AdminGasPricePage() {
           >
             <ShoppingBag size={16} />
             <span>5. Giá Sản Phẩm ({products.length})</span>
+          </button>
+          <button 
+            className={`admin-tab-btn ${activeTab === 'history' ? 'active' : ''}`}
+            onClick={() => setActiveTab('history')}
+          >
+            <BarChart2 size={16} />
+            <span>6. Lịch Sử Biến Động Giá ({priceHistoryList.length})</span>
           </button>
         </div>
 
@@ -806,6 +947,237 @@ export default function AdminGasPricePage() {
                       </td>
                     </tr>
                   ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 6: Price History Management */}
+        {activeTab === 'history' && (
+          <div className="admin-tab-content card">
+            <div className="section-header-flex" style={{ marginBottom: '20px' }}>
+              <div>
+                <h3 className="section-title">📊 Quản Lý Lịch Sử Biến Động Giá Gas Theo Tháng</h3>
+                <p className="section-hint">
+                  Dữ liệu tại đây sẽ tự động hiển thị trên biểu đồ xu hướng SVG và danh sách đợt điều chỉnh giá khi khách hàng nhấn nút <strong>"Lịch Sử Biến Động Giá"</strong> trên trang chủ và trang Bảng Giá Gas.
+                </p>
+              </div>
+            </div>
+
+            {/* Form thêm mới / Sửa đợt điều chỉnh giá */}
+            <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '20px', marginBottom: '25px' }}>
+              <h4 style={{ margin: '0 0 16px 0', fontSize: '15px', fontWeight: '700', color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {editingHistoryId ? '✏️ Cập Nhật Bản Ghi Biến Động Giá' : '➕ Thêm Đợt Điều Chỉnh Biến Động Giá Mới'}
+              </h4>
+
+              <form onSubmit={handleAddOrUpdatePriceEntry}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '14px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Loại bình gas áp dụng</label>
+                    <select
+                      className="admin-input"
+                      value={newPriceEntry.gas_type}
+                      onChange={(e) => setNewPriceEntry(prev => ({ ...prev, gas_type: e.target.value }))}
+                      required
+                    >
+                      <option value="luxen-12kg">Gas Cao Cấp 12kg (Luxen Gas)</option>
+                      <option value="phothong-12kg">Gas Phổ Thông 12kg (Sopet & Phoenix)</option>
+                      <option value="congnghiep-45kg">Gas Công Nghiệp 45kg (Luxen 45kg)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Kỳ / Tháng áp dụng</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={newPriceEntry.effective_month}
+                      onChange={(e) => setNewPriceEntry(prev => ({ ...prev, effective_month: e.target.value }))}
+                      placeholder="vd: Tháng 8/2026"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Giá niêm yết (đ)</label>
+                    <input
+                      type="number"
+                      className="admin-input"
+                      value={newPriceEntry.price}
+                      onChange={(e) => setNewPriceEntry(prev => ({ ...prev, price: Number(e.target.value) }))}
+                      placeholder="vd: 420000"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Giá bán thực tế (đ)</label>
+                    <input
+                      type="number"
+                      className="admin-input"
+                      value={newPriceEntry.sale_price}
+                      onChange={(e) => setNewPriceEntry(prev => ({ ...prev, sale_price: Number(e.target.value) }))}
+                      placeholder="vd: 395000"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Xu hướng biến động</label>
+                    <select
+                      className="admin-input"
+                      value={newPriceEntry.change_type}
+                      onChange={(e) => setNewPriceEntry(prev => ({ ...prev, change_type: e.target.value }))}
+                    >
+                      <option value="same">➡️ Giữ nguyên giá</option>
+                      <option value="up">↗️ Tăng giá</option>
+                      <option value="down">↘️ Giảm giá</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Mức chênh lệch (đ)</label>
+                    <input
+                      type="number"
+                      className="admin-input"
+                      value={newPriceEntry.change_amount}
+                      onChange={(e) => setNewPriceEntry(prev => ({ ...prev, change_amount: Number(e.target.value) }))}
+                      placeholder="vd: 5000 hoặc 0"
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ display: 'block', marginBottom: '4px', fontSize: '12.5px', fontWeight: '600' }}>Ghi chú / Lý do biến động thị trường</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={newPriceEntry.notes}
+                    onChange={(e) => setNewPriceEntry(prev => ({ ...prev, notes: e.target.value }))}
+                    placeholder="vd: Giá CP thế giới giữ mức 585 USD/tấn, giá gas trong nước ổn định..."
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <button type="submit" className="btn-primary-save" style={{ padding: '10px 20px', fontSize: '13.5px' }}>
+                    <Save size={16} />
+                    <span>{editingHistoryId ? 'Lưu Thay Đổi Bản Ghi' : 'Ghi Lại Biến Động Vào Lịch Sử'}</span>
+                  </button>
+
+                  {editingHistoryId && (
+                    <button type="button" onClick={handleCancelEditHistory} className="btn-view-live" style={{ padding: '10px 18px', fontSize: '13.5px' }}>
+                      Hủy bỏ sửa
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Bảng danh sách lịch sử biến động giá */}
+            <div className="admin-table-container">
+              <table className="admin-table-new">
+                <thead>
+                  <tr>
+                    <th style={{ width: '110px' }}>Kỳ Áp Dụng</th>
+                    <th>Loại Bình Gas</th>
+                    <th style={{ textAlign: 'right', width: '120px' }}>Giá Niêm Yết</th>
+                    <th style={{ textAlign: 'right', width: '120px' }}>Giá Bán</th>
+                    <th style={{ textAlign: 'center', width: '130px' }}>Biến Động</th>
+                    <th>Ghi Chú Lý Do</th>
+                    <th style={{ textAlign: 'center', width: '110px' }}>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {priceHistoryList.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} style={{ textAlign: 'center', padding: '30px', color: '#94A3B8' }}>
+                        Chưa có bản ghi biến động giá nào trong lịch sử. Hãy thêm đợt điều chỉnh ở trên!
+                      </td>
+                    </tr>
+                  ) : (
+                    priceHistoryList.map((item) => {
+                      const trendIcon = item.change_type === 'up' 
+                        ? <TrendingUp size={14} color="#EF4444" /> 
+                        : item.change_type === 'down' 
+                        ? <TrendingDown size={14} color="#10B981" /> 
+                        : <Minus size={14} color="#64748B" />;
+                      
+                      const trendText = item.change_type === 'up'
+                        ? `+${formatVND(item.change_amount)}`
+                        : item.change_type === 'down'
+                        ? `-${formatVND(item.change_amount)}`
+                        : 'Giữ nguyên';
+
+                      const trendBg = item.change_type === 'up'
+                        ? '#FEE2E2'
+                        : item.change_type === 'down'
+                        ? '#DCFCE7'
+                        : '#F1F5F9';
+
+                      const trendColor = item.change_type === 'up'
+                        ? '#B91C1C'
+                        : item.change_type === 'down'
+                        ? '#15803D'
+                        : '#475569';
+
+                      return (
+                        <tr key={item.id}>
+                          <td>
+                            <strong>{item.effective_month}</strong>
+                          </td>
+                          <td>
+                            <span style={{ fontWeight: '600', color: '#0F172A' }}>{item.gas_name}</span>
+                          </td>
+                          <td style={{ textAlign: 'right', color: '#94A3B8', textDecoration: 'line-through' }}>
+                            {formatVND(item.price)}
+                          </td>
+                          <td style={{ textAlign: 'right', fontWeight: '800', color: '#E11D48', fontSize: '15px' }}>
+                            {formatVND(item.sale_price)}
+                          </td>
+                          <td style={{ textAlign: 'center' }}>
+                            <span style={{ 
+                              display: 'inline-flex', 
+                              alignItems: 'center', 
+                              gap: '4px', 
+                              padding: '4px 8px', 
+                              borderRadius: '20px', 
+                              fontSize: '12px', 
+                              fontWeight: '700',
+                              background: trendBg,
+                              color: trendColor
+                            }}>
+                              {trendIcon}
+                              <span>{trendText}</span>
+                            </span>
+                          </td>
+                          <td style={{ fontSize: '13px', color: '#475569' }}>
+                            {item.notes || '—'}
+                          </td>
+                          <td style={{ textAlign: 'center' }}>
+                            <div style={{ display: 'inline-flex', gap: '6px' }}>
+                              <button
+                                type="button"
+                                onClick={() => handleEditPriceEntry(item)}
+                                title="Sửa bản ghi này"
+                                style={{ padding: '6px', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#FFF', cursor: 'pointer' }}
+                              >
+                                <Edit3 size={14} color="#3B82F6" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeletePriceEntry(item.id)}
+                                title="Xóa bản ghi này"
+                                style={{ padding: '6px', borderRadius: '6px', border: '1px solid #FCA5A5', background: '#FEF2F2', cursor: 'pointer' }}
+                              >
+                                <Trash2 size={14} color="#DC2626" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </div>

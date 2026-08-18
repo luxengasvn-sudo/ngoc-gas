@@ -51,7 +51,7 @@ export default async function PublicLayout({ children }) {
       <Header initialSettings={settings} />
       <div className="main-content-wrapper">{children}</div>
       <MobileContactWidget phone={settings.phone} />
-      <BottomNav />
+      <BottomNav initialSettings={settings} />
       <Footer initialSettings={settings} />
     </>
   );

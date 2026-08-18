@@ -54,7 +54,7 @@ export async function POST(request) {
     }
 
     const body = await request.json();
-    const { name, slug, short_description, description, price, sale_price, image_url, images, category_id, is_featured, is_active } = body;
+    const { name, slug, short_description, description, price, sale_price, image_url, images, category_id, is_featured, is_active, rating_value, rating_count, reviews_json, gas_type } = body;
 
     if (!name || !slug) {
       return NextResponse.json({ success: false, message: 'Tên và slug sản phẩm là bắt buộc' }, { status: 400 });
@@ -71,7 +71,11 @@ export async function POST(request) {
       images,
       category_id,
       is_featured,
-      is_active
+      is_active,
+      rating_value: rating_value !== undefined ? Number(rating_value) : 4.9,
+      rating_count: rating_count !== undefined ? Number(rating_count) : 86,
+      reviews_json: reviews_json || '[]',
+      gas_type: gas_type || null
     });
 
     return NextResponse.json({

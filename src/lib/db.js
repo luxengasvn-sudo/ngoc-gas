@@ -76,16 +76,60 @@ async function initTables(pool) {
         CREATE TABLE IF NOT EXISTS stores (
           id INT AUTO_INCREMENT PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
+          slug VARCHAR(255),
           image_url VARCHAR(500),
           address TEXT NOT NULL,
           phone VARCHAR(50) NOT NULL,
           store_phones JSON,
           delivery_phones JSON,
           map_embed TEXT,
+          fanpage_url VARCHAR(500),
+          google_map_url VARCHAR(500),
+          working_hours VARCHAR(255),
+          delivery_time VARCHAR(100),
+          delivery_areas TEXT,
+          guide_content LONGTEXT,
           is_active TINYINT(1) DEFAULT 1,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
       `);
+
+      // Safe column migration for products
+      try {
+        await conn.query(`ALTER TABLE products ADD COLUMN rating_value DECIMAL(3,2) DEFAULT 4.9`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE products ADD COLUMN rating_count INT DEFAULT 86`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE products ADD COLUMN reviews_json LONGTEXT`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE products ADD COLUMN gas_type VARCHAR(50) DEFAULT NULL`);
+      } catch (e) {}
+
+      // Safe column migration for stores
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN slug VARCHAR(255)`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN fanpage_url VARCHAR(500)`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN google_map_url VARCHAR(500)`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN working_hours VARCHAR(255)`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN delivery_time VARCHAR(100)`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN delivery_areas TEXT`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE stores ADD COLUMN guide_content LONGTEXT`);
+      } catch (e) {}
 
       await conn.query(`
         CREATE TABLE IF NOT EXISTS contacts (
@@ -116,6 +160,22 @@ async function initTables(pool) {
           label VARCHAR(255),
           page_url VARCHAR(500),
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+      `);
+
+      await conn.query(`
+        CREATE TABLE IF NOT EXISTS gas_price_history (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          gas_type VARCHAR(50) NOT NULL,
+          gas_name VARCHAR(255) NOT NULL,
+          price DECIMAL(12, 0) NOT NULL DEFAULT 0,
+          sale_price DECIMAL(12, 0) NOT NULL DEFAULT 0,
+          change_type VARCHAR(20) DEFAULT 'same',
+          change_amount DECIMAL(12, 0) DEFAULT 0,
+          effective_month VARCHAR(50) NOT NULL,
+          notes TEXT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
       `);
 

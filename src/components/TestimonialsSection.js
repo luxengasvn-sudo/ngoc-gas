@@ -68,7 +68,7 @@ export default function TestimonialsSection({ settings = {} }) {
               
               <div className="reviewer-info">
                 <div className="avatar-circle">
-                  {rev.type.includes('Nhà hàng') || rev.type.includes('Bếp') ? (
+                  {(rev.type?.includes('Nhà hàng') || rev.type?.includes('Bếp')) ? (
                     <Building2 size={20} />
                   ) : (
                     <UserCheck size={20} />
@@ -131,40 +131,40 @@ export default function TestimonialsSection({ settings = {} }) {
 
         .testimonial-card {
           background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 16px;
+          border: 1px solid var(--border); /* Sử dụng viền ấm V2 */
+          border-radius: var(--radius-lg); /* Tăng bo góc V2 */
           padding: 28px;
           position: relative;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: var(--transition);
         }
-
+ 
         .testimonial-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
-          border-color: #CBD5E1;
+          transform: translateY(-6px); /* Đẩy lên V2 */
+          box-shadow: var(--shadow-lg); /* Đổ bóng V2 */
+          border-color: var(--primary);
         }
-
+ 
         .quote-icon {
           position: absolute;
           top: 20px;
           right: 24px;
-          color: #F1F5F9;
+          color: rgba(12, 96, 105, 0.05); /* Tông màu teal mờ nhạt làm quote */
         }
-
+ 
         .stars-row {
           display: flex;
           gap: 4px;
           margin-bottom: 14px;
         }
-
+ 
         .stars-row :global(.star-filled) {
           color: #F59E0B;
           fill: #F59E0B;
         }
-
+ 
         .comment-text {
           font-size: 14px;
           color: #334155;
@@ -174,13 +174,13 @@ export default function TestimonialsSection({ settings = {} }) {
           position: relative;
           z-index: 1;
         }
-
+ 
         .reviewer-info {
           display: flex;
           align-items: center;
           gap: 12px;
           padding-top: 16px;
-          border-top: 1px solid #F1F5F9;
+          border-top: 1px solid var(--border); /* Sử dụng viền ấm V2 */
         }
 
         .avatar-circle {

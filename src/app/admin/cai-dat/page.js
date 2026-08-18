@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Save, AlertCircle, CheckCircle2, Check, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react';
+import Link from 'next/link';
+import { Save, AlertCircle, CheckCircle2, Check, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, ArrowRight, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2, Compass, ShoppingBag, Store, TrendingUp, BookOpen, Users, MessageSquare, Flame, Sparkles, Eye, EyeOff, Link as LinkIcon, ExternalLink } from 'lucide-react';
 import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 function CollapsibleSection({ id, title, subtitle, isOpen, onToggle, toggleSwitch, children }) {
@@ -88,89 +89,6 @@ export default function AdminSettingsPage() {
   const [activeTab, setActiveTab] = useState('general'); // general | homepage | about
   const [allProducts, setAllProducts] = useState([]);
 
-  // Price History & Notes Management State
-  const [priceHistoryList, setPriceHistoryList] = useState([]);
-  const [loadingHistory, setLoadingHistory] = useState(false);
-  const [newPriceEntry, setNewPriceEntry] = useState({
-    gas_type: 'luxen-12kg',
-    effective_month: `Tháng ${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
-    price: 420000,
-    sale_price: 395000,
-    change_type: 'same',
-    change_amount: 0,
-    notes: ''
-  });
-
-  const fetchPriceHistory = async () => {
-    setLoadingHistory(true);
-    try {
-      const res = await fetch('/api/gas-price-history');
-      const data = await res.json();
-      if (data.success) {
-        setPriceHistoryList(data.data);
-      }
-    } catch (e) {
-      console.error('Error fetching price history:', e);
-    } finally {
-      setLoadingHistory(false);
-    }
-  };
-
-  const handleAddPriceEntry = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('ngoc_gas_admin_token');
-    try {
-      const gasNameMap = {
-        'luxen-12kg': 'Gas Cao Cấp 12kg (Luxen Gas)',
-        'phothong-12kg': 'Gas Phổ Thông 12kg (Sopet & Phoenix)',
-        'congnghiep-45kg': 'Gas Công Nghiệp 45kg (Luxen 45kg)'
-      };
-
-      const res = await fetch('/api/gas-price-history', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          ...newPriceEntry,
-          gas_name: gasNameMap[newPriceEntry.gas_type] || 'Gas Dân Dụng 12kg'
-        })
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setSuccess('Đã lưu nhật ký và ghi chú điều chỉnh giá gas thành công!');
-        fetchPriceHistory();
-        setNewPriceEntry(prev => ({ ...prev, notes: '' }));
-        setTimeout(() => setSuccess(''), 3000);
-      } else {
-        setError(data.message || 'Lỗi thêm nhật ký giá');
-      }
-    } catch (err) {
-      setError('Lỗi kết nối khi lưu nhật ký giá');
-    }
-  };
-
-  const handleDeletePriceEntry = async (id) => {
-    if (!window.confirm('Bạn có chắc muốn xóa dòng nhật ký lịch sử giá này?')) return;
-    const token = localStorage.getItem('ngoc_gas_admin_token');
-    try {
-      const res = await fetch(`/api/gas-price-history?id=${id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setSuccess('Đã xóa dòng nhật ký giá.');
-        fetchPriceHistory();
-        setTimeout(() => setSuccess(''), 3000);
-      }
-    } catch (err) {
-      setError('Lỗi khi xóa nhật ký giá');
-    }
-  };
-
   const [settings, setSettings] = useState({
     // Promo announcement bar
     show_promo_bar: '0',
@@ -196,6 +114,8 @@ export default function AdminSettingsPage() {
     meta_title: '',
     meta_description: '',
     meta_keywords: '',
+    custom_header_code: '',
+    custom_footer_code: '',
     
     // Homepage content
     home_feature_1_title: 'An Toàn Tuyệt Đối',
@@ -526,7 +446,6 @@ export default function AdminSettingsPage() {
     };
 
     fetchSettings();
-    fetchPriceHistory();
   }, []);
 
   const getFeaturesList = () => {
@@ -593,6 +512,7 @@ export default function AdminSettingsPage() {
 
   // Section collapse state: default is empty object {} -> ALL SECTIONS COLLAPSED BY DEFAULT!
   const [openSections, setOpenSections] = useState({});
+  const [copiedFeed, setCopiedFeed] = useState(false);
 
   const toggleSection = (sectionId) => {
     setOpenSections(prev => ({
@@ -611,6 +531,170 @@ export default function AdminSettingsPage() {
     const next = { ...openSections };
     sectionIds.forEach(id => { next[id] = false; });
     setOpenSections(next);
+  };
+
+  // --- MENU & NAVIGATION MANAGEMENT STATE & HANDLERS ---
+  const DEFAULT_HEADER_MENU = [
+    { id: "m1", name: "Trang chủ", path: "/", is_active: true },
+    { id: "m2", name: "Giới thiệu", path: "/gioi-thieu", is_active: true },
+    { id: "m3", name: "Sản phẩm", path: "/san-pham", is_active: true },
+    { id: "m4", name: "Bảng Giá Gas", path: "/gia-gas-hom-nay", is_active: true },
+    { id: "m5", name: "Cửa hàng", path: "/cua-hang", is_active: true },
+    { id: "m6", name: "Tin tức", path: "/tin-tuc", is_active: true },
+    { id: "m7", name: "Liên hệ", path: "/lien-he", is_active: true }
+  ];
+
+  const DEFAULT_MOBILE_BOTTOM_NAV = [
+    { id: "b1", name: "Trang chủ", path: "/", icon: "Home", is_active: true },
+    { id: "b2", name: "Sản phẩm", path: "/san-pham", icon: "ShoppingBag", is_active: true },
+    { id: "b3", name: "Cửa hàng", path: "/cua-hang", icon: "Store", is_active: true },
+    { id: "b4", name: "Giá gas", path: "/gia-gas-hom-nay", icon: "TrendingUp", is_active: true },
+    { id: "b5", name: "Tin tức", path: "/tin-tuc", icon: "BookOpen", is_active: false },
+    { id: "b6", name: "Giới thiệu", path: "/gioi-thieu", icon: "Users", is_active: false }
+  ];
+
+  const [newHeaderItem, setNewHeaderItem] = useState({ name: '', path: '/' });
+  const [newBottomItem, setNewBottomItem] = useState({ name: '', path: '/', icon: 'Home' });
+
+  const getHeaderMenuList = () => {
+    try {
+      if (settings.header_menu_items) {
+        const arr = typeof settings.header_menu_items === 'string' ? JSON.parse(settings.header_menu_items) : settings.header_menu_items;
+        if (Array.isArray(arr) && arr.length > 0) return arr;
+      }
+    } catch (e) {}
+    return DEFAULT_HEADER_MENU;
+  };
+
+  const handleSaveHeaderMenu = (newItems, successMsg = '🎉 Đã tự động lưu cấu hình Menu Header thành công!') => {
+    const jsonStr = JSON.stringify(newItems);
+    setSettings(prev => ({ ...prev, header_menu_items: jsonStr }));
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    fetch('/api/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ header_menu_items: jsonStr })
+    });
+    setSuccess(successMsg);
+    setShowSaveSuccessModal(true);
+  };
+
+  const handleMoveHeaderMenuItem = (index, direction) => {
+    const current = [...getHeaderMenuList()];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= current.length) return;
+    const temp = current[index];
+    current[index] = current[targetIndex];
+    current[targetIndex] = temp;
+    handleSaveHeaderMenu(current, '🎉 Đã cập nhật và lưu thứ tự Menu Header thành công!');
+  };
+
+  const handleToggleHeaderMenuItem = (index) => {
+    const current = [...getHeaderMenuList()];
+    current[index] = { ...current[index], is_active: current[index].is_active === false ? true : false };
+    handleSaveHeaderMenu(current, current[index].is_active ? '🟢 Đã bật hiển thị mục menu' : '🔴 Đã ẩn mục menu');
+  };
+
+  const handleUpdateHeaderMenuItem = (index, field, value) => {
+    const current = [...getHeaderMenuList()];
+    current[index] = { ...current[index], [field]: value };
+    setSettings(prev => ({ ...prev, header_menu_items: JSON.stringify(current) }));
+  };
+
+  const handleDeleteHeaderMenuItem = (index) => {
+    if (confirm('Bạn có chắc chắn muốn xóa mục menu này không?')) {
+      const current = getHeaderMenuList().filter((_, idx) => idx !== index);
+      handleSaveHeaderMenu(current, '🗑️ Đã xóa mục menu thành công!');
+    }
+  };
+
+  const handleAddHeaderMenuItem = (e) => {
+    e.preventDefault();
+    if (!newHeaderItem.name.trim() || !newHeaderItem.path.trim()) {
+      alert('Vui lòng nhập tên và đường dẫn menu.');
+      return;
+    }
+    const current = [...getHeaderMenuList()];
+    const newItem = {
+      id: 'm_' + Date.now(),
+      name: newHeaderItem.name.trim(),
+      path: newHeaderItem.path.trim(),
+      is_active: true
+    };
+    current.push(newItem);
+    handleSaveHeaderMenu(current, '🎉 Đã thêm mục Menu mới thành công!');
+    setNewHeaderItem({ name: '', path: '/' });
+  };
+
+  const getMobileBottomNavList = () => {
+    try {
+      if (settings.mobile_bottom_menu_items) {
+        const arr = typeof settings.mobile_bottom_menu_items === 'string' ? JSON.parse(settings.mobile_bottom_menu_items) : settings.mobile_bottom_menu_items;
+        if (Array.isArray(arr) && arr.length > 0) return arr;
+      }
+    } catch (e) {}
+    return DEFAULT_MOBILE_BOTTOM_NAV;
+  };
+
+  const handleSaveBottomNav = (newItems, successMsg = '🎉 Đã tự động lưu cấu hình Menu Đáy Mobile thành công!') => {
+    const jsonStr = JSON.stringify(newItems);
+    setSettings(prev => ({ ...prev, mobile_bottom_menu_items: jsonStr }));
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    fetch('/api/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ mobile_bottom_menu_items: jsonStr })
+    });
+    setSuccess(successMsg);
+    setShowSaveSuccessModal(true);
+  };
+
+  const handleMoveBottomNavItem = (index, direction) => {
+    const current = [...getMobileBottomNavList()];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= current.length) return;
+    const temp = current[index];
+    current[index] = current[targetIndex];
+    current[targetIndex] = temp;
+    handleSaveBottomNav(current, '🎉 Đã cập nhật và lưu thứ tự Menu Đáy Mobile thành công!');
+  };
+
+  const handleToggleBottomNavItem = (index) => {
+    const current = [...getMobileBottomNavList()];
+    current[index] = { ...current[index], is_active: current[index].is_active === false ? true : false };
+    handleSaveBottomNav(current, current[index].is_active ? '🟢 Đã bật hiển thị nút' : '🔴 Đã ẩn nút trên Mobile');
+  };
+
+  const handleUpdateBottomNavItem = (index, field, value) => {
+    const current = [...getMobileBottomNavList()];
+    current[index] = { ...current[index], [field]: value };
+    setSettings(prev => ({ ...prev, mobile_bottom_menu_items: JSON.stringify(current) }));
+  };
+
+  const handleDeleteBottomNavItem = (index) => {
+    if (confirm('Bạn có chắc chắn muốn xóa nút này trên thanh Mobile không?')) {
+      const current = getMobileBottomNavList().filter((_, idx) => idx !== index);
+      handleSaveBottomNav(current, '🗑️ Đã xóa nút trên Mobile thành công!');
+    }
+  };
+
+  const handleAddBottomNavItem = (e) => {
+    e.preventDefault();
+    if (!newBottomItem.name.trim() || !newBottomItem.path.trim()) {
+      alert('Vui lòng nhập tên và đường dẫn nút.');
+      return;
+    }
+    const current = [...getMobileBottomNavList()];
+    const newItem = {
+      id: 'b_' + Date.now(),
+      name: newBottomItem.name.trim(),
+      path: newBottomItem.path.trim(),
+      icon: newBottomItem.icon || 'Home',
+      is_active: true
+    };
+    current.push(newItem);
+    handleSaveBottomNav(current, '🎉 Đã thêm nút Mobile mới thành công!');
+    setNewBottomItem({ name: '', path: '/', icon: 'Home' });
   };
 
   const handleChange = (e) => {
@@ -1030,7 +1114,7 @@ export default function AdminSettingsPage() {
         )}
 
         {/* Tab Headers điều hướng đồng bộ tab bài viết / sản phẩm */}
-        <div className="status-tabs-row" style={{ marginBottom: '24px', display: 'inline-flex' }}>
+        <div className="status-tabs-row" style={{ marginBottom: '24px', display: 'inline-flex', flexWrap: 'wrap', gap: '8px' }}>
           <button 
             type="button" 
             onClick={() => setActiveTab('general')} 
@@ -1038,6 +1122,14 @@ export default function AdminSettingsPage() {
           >
             <HelpCircle size={15} style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }} />
             <span style={{ verticalAlign: 'middle' }}>Cài đặt chung & Logo</span>
+          </button>
+          <button 
+            type="button" 
+            onClick={() => setActiveTab('navigation')} 
+            className={`status-tab-btn ${activeTab === 'navigation' ? 'active' : ''}`}
+          >
+            <Compass size={15} style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }} />
+            <span style={{ verticalAlign: 'middle' }}>🧭 Menu & Điều Hướng</span>
           </button>
           <button 
             type="button" 
@@ -1071,7 +1163,7 @@ export default function AdminSettingsPage() {
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button
                       type="button"
-                      onClick={() => collapseAllTabSections(['gen_promo', 'gen_info', 'gen_social', 'gen_logo'])}
+                      onClick={() => collapseAllTabSections(['gen_promo', 'gen_info', 'gen_social', 'gen_logo', 'gen_seo', 'gen_custom_code', 'gen_gmc_feed'])}
                       className="btn-outline-new"
                       style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
                     >
@@ -1080,7 +1172,7 @@ export default function AdminSettingsPage() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => expandAllTabSections(['gen_promo', 'gen_info', 'gen_social', 'gen_logo'])}
+                      onClick={() => expandAllTabSections(['gen_promo', 'gen_info', 'gen_social', 'gen_logo', 'gen_seo', 'gen_custom_code', 'gen_gmc_feed'])}
                       className="btn-outline-new"
                       style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
                     >
@@ -1392,6 +1484,554 @@ export default function AdminSettingsPage() {
                     <small style={{ display: 'block', marginTop: '4px', color: 'var(--text-secondary)', fontSize: '12px' }}>
                       Các từ khóa chính ngăn cách nhau bằng dấu phẩy.
                     </small>
+                  </div>
+                </CollapsibleSection>
+
+                <CollapsibleSection
+                  id="gen_custom_code"
+                  title="⚙️ Mã nhúng & Theo dõi (Google Analytics, Facebook Pixel...)"
+                  subtitle="Nhúng các đoạn mã HTML/Javascript tùy chỉnh vào đầu trang (Header) hoặc cuối trang (Footer)"
+                  isOpen={!!openSections.gen_custom_code}
+                  onToggle={() => toggleSection('gen_custom_code')}
+                >
+                  <div className="form-group" style={{ marginBottom: '16px' }}>
+                    <label htmlFor="custom_header_code" className="form-label-new">
+                      💻 Mã nhúng Đầu trang (Chèn trước thẻ &lt;/head&gt;)
+                    </label>
+                    <textarea
+                      id="custom_header_code"
+                      name="custom_header_code"
+                      className="form-control-new"
+                      rows="6"
+                      style={{ fontFamily: 'monospace', fontSize: '13px' }}
+                      value={settings.custom_header_code || ''}
+                      onChange={handleChange}
+                      placeholder="<!-- Ví dụ: Google Analytics, Facebook Pixel, Google Tag Manager... -->&#10;<script>&#10;  // Dán đoạn mã script ở đây...&#10;</script>"
+                    ></textarea>
+                    <small style={{ display: 'block', marginTop: '4px', color: 'var(--text-secondary)', fontSize: '12px' }}>
+                      Các đoạn mã này sẽ được chèn trực tiếp vào phần <code>&lt;head&gt;</code> của trang web công cộng.
+                    </small>
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label htmlFor="custom_footer_code" className="form-label-new">
+                      💻 Mã nhúng Cuối trang (Chèn trước thẻ &lt;/body&gt;)
+                    </label>
+                    <textarea
+                      id="custom_footer_code"
+                      name="custom_footer_code"
+                      className="form-control-new"
+                      rows="6"
+                      style={{ fontFamily: 'monospace', fontSize: '13px' }}
+                      value={settings.custom_footer_code || ''}
+                      onChange={handleChange}
+                      placeholder="<!-- Ví dụ: Zalo Chat Widget, Messenger Chat Widget, Tawk.to... -->&#10;<script>&#10;  // Dán đoạn mã script ở đây...&#10;</script>"
+                    ></textarea>
+                    <small style={{ display: 'block', marginTop: '4px', color: 'var(--text-secondary)', fontSize: '12px' }}>
+                      Các đoạn mã này sẽ được chèn trực tiếp ở cuối trang web trước thẻ đóng <code>&lt;/body&gt;</code>.
+                    </small>
+                  </div>
+                </CollapsibleSection>
+
+                {/* KHỐI CỔNG ĐẤU NỐI GOOGLE MERCHANT CENTER */}
+                <CollapsibleSection
+                  id="gen_gmc_feed"
+                  title="🚀 Cổng Đấu Nối Google Merchant Center & Google Shopping (Product Feed URL)"
+                  subtitle="Cung cấp link nguồn cấp dữ liệu sản phẩm tự động chuẩn XML RSS 2.0 để đồng bộ giá gas và kho hàng lên Google Shopping"
+                  isOpen={!!openSections.gen_gmc_feed}
+                  onToggle={() => toggleSection('gen_gmc_feed')}
+                >
+                  <div style={{ background: '#F0FDF4', border: '1.5px solid #86EFAC', borderRadius: '12px', padding: '18px 20px', marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <span style={{ background: '#16A34A', color: '#FFF', fontSize: '11px', fontWeight: '800', padding: '2px 8px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Tự Động 100%
+                      </span>
+                      <strong style={{ fontSize: '15px', color: '#14532D' }}>
+                        Đường Dẫn Cổng Nguồn Cấp Dữ Liệu Sản Phẩm (GMC XML Feed URL)
+                      </strong>
+                    </div>
+
+                    <p style={{ margin: '0 0 14px 0', fontSize: '13px', color: '#166534', lineHeight: '1.5' }}>
+                      Hệ thống tự động sinh dữ liệu toàn bộ bình gas đang hoạt động theo chuẩn XML quốc tế của Google. Mỗi khi anh đổi giá hay cập nhật sản phẩm trong Admin, Google Merchant Center sẽ tự động nhận diện theo lịch hàng ngày.
+                    </p>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '16px' }}>
+                      <div style={{ flex: 1, minWidth: '280px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '8px', padding: '8px 14px', fontSize: '13.5px', fontFamily: 'monospace', color: '#0F172A', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+                        <span>{typeof window !== 'undefined' ? `${window.location.origin}/api/feed/google-merchant` : 'https://ngocgas.com/api/feed/google-merchant'}</span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const url = typeof window !== 'undefined' ? `${window.location.origin}/api/feed/google-merchant` : 'https://ngocgas.com/api/feed/google-merchant';
+                          navigator.clipboard.writeText(url);
+                          setCopiedFeed(true);
+                          setTimeout(() => setCopiedFeed(false), 3000);
+                        }}
+                        className="btn"
+                        style={{
+                          background: copiedFeed ? '#059669' : '#2563EB',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '8px 18px',
+                          fontSize: '13px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          transition: 'all 0.2s ease',
+                          boxShadow: '0 2px 6px rgba(37, 99, 235, 0.25)'
+                        }}
+                      >
+                        {copiedFeed ? (
+                          <>
+                            <Check size={16} />
+                            <span>Đã sao chép link!</span>
+                          </>
+                        ) : (
+                          <>
+                            <LinkIcon size={16} />
+                            <span>Sao chép Link Feed</span>
+                          </>
+                        )}
+                      </button>
+
+                      <a
+                        href="/api/feed/google-merchant"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                        style={{
+                          background: '#FFFFFF',
+                          color: '#2563EB',
+                          border: '1px solid #BFDBFE',
+                          borderRadius: '8px',
+                          padding: '8px 16px',
+                          fontSize: '13px',
+                          fontWeight: '600',
+                          textDecoration: 'none',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}
+                        title="Mở xem dữ liệu XML trong tab mới"
+                      >
+                        <span>🔗 Mở Xem XML</span>
+                      </a>
+                    </div>
+
+                    <div style={{ background: '#FFFFFF', border: '1px solid #BBF7D0', borderRadius: '8px', padding: '12px 16px' }}>
+                      <strong style={{ fontSize: '13px', color: '#14532D', display: 'block', marginBottom: '6px' }}>
+                        📖 3 Bước Cài Đặt Vào Google Merchant Center (GMC):
+                      </strong>
+                      <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '12.5px', color: '#334155', lineHeight: '1.6' }}>
+                        <li>Đăng nhập <a href="https://merchants.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#2563EB', fontWeight: '600' }}>Google Merchant Center</a> -&gt; Chọn <strong>Sản phẩm</strong> -&gt; <strong>Nguồn cấp dữ liệu (Feeds)</strong>.</li>
+                        <li>Bấm <strong>➕ Thêm nguồn cấp dữ liệu chính</strong> -&gt; Chọn Quốc gia: <strong>Việt Nam</strong> -&gt; Phương thức: <strong>"Lấy dữ liệu theo lịch" (Scheduled Fetch)</strong>.</li>
+                        <li>Dán đường link bên trên vào ô <strong>URL của tệp</strong>, đặt tần suất nạp <strong>Hàng ngày (vd: 02:00 sáng)</strong> rồi bấm <strong>Lưu &amp; Lấy ngay</strong>.</li>
+                      </ol>
+                    </div>
+                  </div>
+                </CollapsibleSection>
+
+              </div>
+            )}
+
+            {/* ======================= TAB: NAVIGATION & MENUS ======================= */}
+            {activeTab === 'navigation' && (
+              <div className="tab-pane animate-fade-in-up">
+                
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                    💡 Quản lý toàn diện thanh Menu Header và thanh Menu Dưới Đáy Điện Thoại (Mobile Bottom Nav).
+                  </span>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      type="button"
+                      onClick={() => collapseAllTabSections(['nav_header', 'nav_bottom'])}
+                      className="btn-outline-new"
+                      style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                    >
+                      <Minimize2 size={13} />
+                      <span>Thu nhỏ tất cả</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => expandAllTabSections(['nav_header', 'nav_bottom'])}
+                      className="btn-outline-new"
+                      style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                    >
+                      <Maximize2 size={13} />
+                      <span>Mở rộng tất cả</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 1. HEADER NAVIGATION */}
+                <CollapsibleSection
+                  id="nav_header"
+                  title="Quản Lý Menu Header (Desktop & Menu Trượt Mobile)"
+                  subtitle="Tự do thêm, bớt, đổi vị trí, bật/ẩn các mục menu hiển thị trên thanh điều hướng đầu trang"
+                  isOpen={openSections.nav_header !== false}
+                  onToggle={() => toggleSection('nav_header')}
+                >
+                  <div style={{ marginBottom: '16px', background: '#F8FAFC', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E2E8F0', fontSize: '13px', color: 'var(--text-secondary)' }}>
+                    💡 <strong>Mẹo hay:</strong> Màn hình Desktop đẹp nhất với <strong>5 - 7 mục menu</strong>. Sử dụng nút ⬆️/⬇️ hoặc Ẩn/Hiện để sắp xếp ưu tiên các trang quan trọng nhất lên đầu (hệ thống tự động lưu ngay khi bấm).
+                  </div>
+
+                  <div className="table-responsive-new" style={{ marginBottom: '24px' }}>
+                    <table className="table-new" style={{ width: '100%' }}>
+                      <thead>
+                        <tr>
+                          <th style={{ width: '60px', textAlign: 'center' }}>Thứ tự</th>
+                          <th>Tên hiển thị trên Menu</th>
+                          <th>Đường dẫn trang (URL)</th>
+                          <th style={{ width: '130px', textAlign: 'center' }}>Trạng thái</th>
+                          <th style={{ width: '160px', textAlign: 'center' }}>Thao tác</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {getHeaderMenuList().map((item, idx) => (
+                          <tr key={item.id || idx} style={{ opacity: item.is_active === false ? 0.6 : 1 }}>
+                            <td style={{ textAlign: 'center', fontWeight: '700', color: 'var(--text-secondary)' }}>
+                              #{idx + 1}
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                className="form-control-new"
+                                style={{ padding: '6px 10px', fontSize: '13px', fontWeight: '600' }}
+                                value={item.name}
+                                onChange={(e) => handleUpdateHeaderMenuItem(idx, 'name', e.target.value)}
+                                onBlur={() => handleSaveHeaderMenu(getHeaderMenuList(), '🎉 Đã cập nhật tên mục Menu!')}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                className="form-control-new"
+                                style={{ padding: '6px 10px', fontSize: '13px', fontFamily: 'monospace' }}
+                                value={item.path}
+                                onChange={(e) => handleUpdateHeaderMenuItem(idx, 'path', e.target.value)}
+                                onBlur={() => handleSaveHeaderMenu(getHeaderMenuList(), '🎉 Đã cập nhật đường dẫn URL!')}
+                              />
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleHeaderMenuItem(idx)}
+                                className={`btn-status-toggle ${item.is_active !== false ? 'active' : 'inactive'}`}
+                                style={{
+                                  padding: '4px 10px',
+                                  fontSize: '12px',
+                                  borderRadius: '20px',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontWeight: '600',
+                                  background: item.is_active !== false ? '#DCFCE7' : '#FEE2E2',
+                                  color: item.is_active !== false ? '#15803D' : '#B91C1C'
+                                }}
+                              >
+                                {item.is_active !== false ? <Eye size={13} /> : <EyeOff size={13} />}
+                                <span>{item.is_active !== false ? 'Đang hiện' : 'Đang ẩn'}</span>
+                              </button>
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              <div style={{ display: 'inline-flex', gap: '6px' }}>
+                                <button
+                                  type="button"
+                                  disabled={idx === 0}
+                                  onClick={() => handleMoveHeaderMenuItem(idx, 'up')}
+                                  className="btn-icon-action"
+                                  title="Di chuyển lên trên"
+                                  style={{ padding: '6px', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#FFF', cursor: idx === 0 ? 'not-allowed' : 'pointer', opacity: idx === 0 ? 0.3 : 1 }}
+                                >
+                                  <ArrowUp size={14} />
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={idx === getHeaderMenuList().length - 1}
+                                  onClick={() => handleMoveHeaderMenuItem(idx, 'down')}
+                                  className="btn-icon-action"
+                                  title="Di chuyển xuống dưới"
+                                  style={{ padding: '6px', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#FFF', cursor: idx === getHeaderMenuList().length - 1 ? 'not-allowed' : 'pointer', opacity: idx === getHeaderMenuList().length - 1 ? 0.3 : 1 }}
+                                >
+                                  <ArrowDown size={14} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteHeaderMenuItem(idx)}
+                                  className="btn-icon-action"
+                                  title="Xóa mục này"
+                                  style={{ padding: '6px', borderRadius: '6px', border: '1px solid #FCA5A5', background: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Form thêm mới mục Header */}
+                  <div style={{ background: '#F8FAFC', border: '1px dashed #CBD5E1', borderRadius: '10px', padding: '16px' }}>
+                    <h4 style={{ margin: '0 0 12px 0', fontSize: '14px', fontWeight: '700', color: 'var(--text)' }}>
+                      ➕ Thêm mục Menu Header mới
+                    </h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.5fr 1fr auto', gap: '10px', alignItems: 'end' }}>
+                      <div>
+                        <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Tên hiển thị</label>
+                        <input
+                          type="text"
+                          className="form-control-new"
+                          placeholder="vd: Tuyển Dụng"
+                          value={newHeaderItem.name}
+                          onChange={(e) => setNewHeaderItem(prev => ({ ...prev, name: e.target.value }))}
+                        />
+                      </div>
+                      <div>
+                        <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Đường dẫn (URL)</label>
+                        <input
+                          type="text"
+                          className="form-control-new"
+                          placeholder="vd: /tuyen-dung hoặc https://..."
+                          value={newHeaderItem.path}
+                          onChange={(e) => setNewHeaderItem(prev => ({ ...prev, path: e.target.value }))}
+                        />
+                      </div>
+                      <div>
+                        <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Gợi ý trang có sẵn</label>
+                        <select
+                          className="form-control-new"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            const [p, n] = e.target.value.split('|');
+                            setNewHeaderItem({ name: n, path: p });
+                          }}
+                          defaultValue=""
+                        >
+                          <option value="" disabled>-- Chọn trang mẫu --</option>
+                          <option value="/|Trang chủ">Trang chủ (/)</option>
+                          <option value="/san-pham|Sản phẩm">Sản phẩm (/san-pham)</option>
+                          <option value="/cua-hang|Hệ thống Cửa hàng">Hệ thống Cửa hàng (/cua-hang)</option>
+                          <option value="/gia-gas-hom-nay|Bảng Giá Gas">Bảng Giá Gas (/gia-gas-hom-nay)</option>
+                          <option value="/gioi-thieu|Giới thiệu">Giới thiệu (/gioi-thieu)</option>
+                          <option value="/tin-tuc|Tin tức">Tin tức (/tin-tuc)</option>
+                          <option value="/lien-he|Liên hệ">Liên hệ (/lien-he)</option>
+                        </select>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleAddHeaderMenuItem}
+                        className="btn-primary-new"
+                        style={{ padding: '10px 18px', display: 'flex', alignItems: 'center', gap: '6px', height: '42px', cursor: 'pointer', whiteSpace: 'nowrap' }}
+                      >
+                        <Plus size={16} />
+                        <span>Thêm vào Menu</span>
+                      </button>
+                    </div>
+                  </div>
+                </CollapsibleSection>
+
+                {/* 2. MOBILE BOTTOM NAVIGATION */}
+                <CollapsibleSection
+                  id="nav_bottom"
+                  title="Quản Lý Thanh Menu Đáy Mobile (Mobile Bottom Navigation)"
+                  subtitle="Tùy biến thanh điều hướng cố định dưới đáy màn hình điện thoại, chọn icon và gán link chuyển đổi cao"
+                  isOpen={openSections.nav_bottom !== false}
+                  onToggle={() => toggleSection('nav_bottom')}
+                >
+                  <div style={{ marginBottom: '16px', background: '#FEF3C7', padding: '12px 16px', borderRadius: '8px', border: '1px solid #FDE68A', fontSize: '13px', color: '#92400E' }}>
+                    📱 <strong>Lưu ý tối ưu màn hình Mobile:</strong> Khuyên dùng <strong>4 - 5 nút hiển thị</strong> để thanh đáy trên điện thoại to rõ, dễ chạm ngón tay. Bạn có thể bấm <strong>"Đang ẩn / Đang hiện"</strong> để tạm thời giấu các nút ít dùng.
+                  </div>
+
+                  <div className="table-responsive-new" style={{ marginBottom: '24px' }}>
+                    <table className="table-new" style={{ width: '100%' }}>
+                      <thead>
+                        <tr>
+                          <th style={{ width: '60px', textAlign: 'center' }}>Thứ tự</th>
+                          <th style={{ width: '180px' }}>Biểu tượng (Icon)</th>
+                          <th>Tên hiển thị trên nút</th>
+                          <th>Đường dẫn trang (URL)</th>
+                          <th style={{ width: '130px', textAlign: 'center' }}>Trạng thái</th>
+                          <th style={{ width: '160px', textAlign: 'center' }}>Thao tác</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {getMobileBottomNavList().map((item, idx) => (
+                          <tr key={item.id || idx} style={{ opacity: item.is_active === false ? 0.6 : 1 }}>
+                            <td style={{ textAlign: 'center', fontWeight: '700', color: 'var(--text-secondary)' }}>
+                              #{idx + 1}
+                            </td>
+                            <td>
+                              <select
+                                className="form-control-new"
+                                style={{ padding: '6px 8px', fontSize: '13px' }}
+                                value={item.icon || 'Home'}
+                                onChange={(e) => {
+                                  handleUpdateBottomNavItem(idx, 'icon', e.target.value);
+                                  const updated = [...getMobileBottomNavList()];
+                                  updated[idx] = { ...updated[idx], icon: e.target.value };
+                                  handleSaveBottomNav(updated, '🎉 Đã cập nhật biểu tượng Icon!');
+                                }}
+                              >
+                                <option value="Home">🏠 Home (Trang chủ)</option>
+                                <option value="ShoppingBag">🛍️ ShoppingBag (Đặt gas / Sản phẩm)</option>
+                                <option value="Store">🏪 Store (Cửa hàng)</option>
+                                <option value="TrendingUp">📈 TrendingUp (Bảng giá gas)</option>
+                                <option value="Phone">📞 Phone (Hotline / Gọi điện)</option>
+                                <option value="MessageSquare">💬 MessageSquare (Zalo / Chat)</option>
+                                <option value="BookOpen">📖 BookOpen (Tin tức)</option>
+                                <option value="Users">👥 Users (Giới thiệu)</option>
+                                <option value="Flame">🔥 Flame (Khuyến mãi)</option>
+                                <option value="MapPin">📍 MapPin (Bản đồ)</option>
+                                <option value="Sparkles">✨ Sparkles (Nổi bật)</option>
+                              </select>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                className="form-control-new"
+                                style={{ padding: '6px 10px', fontSize: '13px', fontWeight: '600' }}
+                                value={item.name}
+                                onChange={(e) => handleUpdateBottomNavItem(idx, 'name', e.target.value)}
+                                onBlur={() => handleSaveBottomNav(getMobileBottomNavList(), '🎉 Đã cập nhật tên nút Mobile!')}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                className="form-control-new"
+                                style={{ padding: '6px 10px', fontSize: '13px', fontFamily: 'monospace' }}
+                                value={item.path}
+                                onChange={(e) => handleUpdateBottomNavItem(idx, 'path', e.target.value)}
+                                onBlur={() => handleSaveBottomNav(getMobileBottomNavList(), '🎉 Đã cập nhật đường dẫn nút Mobile!')}
+                              />
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleBottomNavItem(idx)}
+                                className={`btn-status-toggle ${item.is_active !== false ? 'active' : 'inactive'}`}
+                                style={{
+                                  padding: '4px 10px',
+                                  fontSize: '12px',
+                                  borderRadius: '20px',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontWeight: '600',
+                                  background: item.is_active !== false ? '#DCFCE7' : '#FEE2E2',
+                                  color: item.is_active !== false ? '#15803D' : '#B91C1C'
+                                }}
+                              >
+                                {item.is_active !== false ? <Eye size={13} /> : <EyeOff size={13} />}
+                                <span>{item.is_active !== false ? 'Đang hiện' : 'Đang ẩn'}</span>
+                              </button>
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              <div style={{ display: 'inline-flex', gap: '6px' }}>
+                                <button
+                                  type="button"
+                                  disabled={idx === 0}
+                                  onClick={() => handleMoveBottomNavItem(idx, 'up')}
+                                  className="btn-icon-action"
+                                  title="Di chuyển lên trên"
+                                  style={{ padding: '6px', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#FFF', cursor: idx === 0 ? 'not-allowed' : 'pointer', opacity: idx === 0 ? 0.3 : 1 }}
+                                >
+                                  <ArrowUp size={14} />
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={idx === getMobileBottomNavList().length - 1}
+                                  onClick={() => handleMoveBottomNavItem(idx, 'down')}
+                                  className="btn-icon-action"
+                                  title="Di chuyển xuống dưới"
+                                  style={{ padding: '6px', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#FFF', cursor: idx === getMobileBottomNavList().length - 1 ? 'not-allowed' : 'pointer', opacity: idx === getMobileBottomNavList().length - 1 ? 0.3 : 1 }}
+                                >
+                                  <ArrowDown size={14} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteBottomNavItem(idx)}
+                                  className="btn-icon-action"
+                                  title="Xóa nút này"
+                                  style={{ padding: '6px', borderRadius: '6px', border: '1px solid #FCA5A5', background: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Form thêm mới nút Mobile Bottom */}
+                  <div style={{ background: '#F8FAFC', border: '1px dashed #CBD5E1', borderRadius: '10px', padding: '16px' }}>
+                    <h4 style={{ margin: '0 0 12px 0', fontSize: '14px', fontWeight: '700', color: 'var(--text)' }}>
+                      ➕ Thêm nút bấm mới trên thanh đáy Mobile
+                    </h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.2fr 1.2fr auto', gap: '10px', alignItems: 'end' }}>
+                      <div>
+                        <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Biểu tượng (Icon)</label>
+                        <select
+                          className="form-control-new"
+                          value={newBottomItem.icon}
+                          onChange={(e) => setNewBottomItem(prev => ({ ...prev, icon: e.target.value }))}
+                        >
+                          <option value="Home">🏠 Home (Trang chủ)</option>
+                          <option value="ShoppingBag">🛍️ ShoppingBag (Đặt gas / Sản phẩm)</option>
+                          <option value="Store">🏪 Store (Cửa hàng)</option>
+                          <option value="TrendingUp">📈 TrendingUp (Bảng giá gas)</option>
+                          <option value="Phone">📞 Phone (Hotline / Gọi điện)</option>
+                          <option value="MessageSquare">💬 MessageSquare (Zalo / Chat)</option>
+                          <option value="BookOpen">📖 BookOpen (Tin tức)</option>
+                          <option value="Users">👥 Users (Giới thiệu)</option>
+                          <option value="Flame">🔥 Flame (Khuyến mãi)</option>
+                          <option value="MapPin">📍 MapPin (Bản đồ)</option>
+                          <option value="Sparkles">✨ Sparkles (Nổi bật)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Tên nút</label>
+                        <input
+                          type="text"
+                          className="form-control-new"
+                          placeholder="vd: Đặt Gas"
+                          value={newBottomItem.name}
+                          onChange={(e) => setNewBottomItem(prev => ({ ...prev, name: e.target.value }))}
+                        />
+                      </div>
+                      <div>
+                        <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Đường dẫn (URL)</label>
+                        <input
+                          type="text"
+                          className="form-control-new"
+                          placeholder="vd: /san-pham"
+                          value={newBottomItem.path}
+                          onChange={(e) => setNewBottomItem(prev => ({ ...prev, path: e.target.value }))}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleAddBottomNavItem}
+                        className="btn-primary-new"
+                        style={{ padding: '10px 18px', display: 'flex', alignItems: 'center', gap: '6px', height: '42px', cursor: 'pointer', whiteSpace: 'nowrap' }}
+                      >
+                        <Plus size={16} />
+                        <span>Thêm nút Mobile</span>
+                      </button>
+                    </div>
                   </div>
                 </CollapsibleSection>
 
@@ -1961,132 +2601,18 @@ export default function AdminSettingsPage() {
                     </div>
                   </div>
 
-                  <div className="form-card-sub-new" style={{ marginBottom: '20px' }}>
-                    <strong className="sub-card-header-new">➕ Thêm Nhật Ký Biến Động Giá Mới</strong>
-                    <form onSubmit={handleAddPriceEntry} style={{ marginTop: '12px' }}>
-                      <div className="settings-grid-2" style={{ marginBottom: '12px' }}>
-                        <div className="form-group">
-                          <label className="form-label-new">Chủng loại Gas</label>
-                          <select 
-                            className="form-control-new" 
-                            value={newPriceEntry.gas_type}
-                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, gas_type: e.target.value }))}
-                          >
-                            <option value="luxen-12kg">Gas Cao Cấp 12kg (Luxen Gas)</option>
-                            <option value="phothong-12kg">Gas Phổ Thông 12kg (Sopet & Phoenix)</option>
-                            <option value="congnghiep-45kg">Gas Công Nghiệp 45kg (Luxen 45kg)</option>
-                          </select>
-                        </div>
-
-                        <div className="form-group">
-                          <label className="form-label-new">Thời gian áp dụng (Tháng/Năm)</label>
-                          <input 
-                            type="text" 
-                            className="form-control-new" 
-                            value={newPriceEntry.effective_month}
-                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, effective_month: e.target.value }))}
-                            placeholder="vd: Tháng 9/2026"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div className="settings-grid-3" style={{ marginBottom: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                        <div className="form-group">
-                          <label className="form-label-new">Giá bán niêm yết (VNĐ)</label>
-                          <input 
-                            type="number" 
-                            className="form-control-new" 
-                            value={newPriceEntry.sale_price}
-                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, sale_price: e.target.value, price: e.target.value }))}
-                            placeholder="vd: 395000"
-                            required
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label className="form-label-new">Biến động giá</label>
-                          <select 
-                            className="form-control-new" 
-                            value={newPriceEntry.change_type}
-                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, change_type: e.target.value }))}
-                          >
-                            <option value="up">🔺 Tăng giá (+)</option>
-                            <option value="down">🔻 Giảm giá (-)</option>
-                            <option value="same">➖ Giữ nguyên giá</option>
-                          </select>
-                        </div>
-
-                        <div className="form-group">
-                          <label className="form-label-new">Mức tăng/giảm (VNĐ)</label>
-                          <input 
-                            type="number" 
-                            className="form-control-new" 
-                            value={newPriceEntry.change_amount}
-                            onChange={(e) => setNewPriceEntry(prev => ({ ...prev, change_amount: e.target.value }))}
-                            placeholder="vd: 5000"
-                          />
-                        </div>
-                      </div>
-
-                      <button type="submit" className="btn-primary-new" style={{ padding: '8px 18px', fontSize: '13px' }}>
-                        <Plus size={14} />
-                        <span>Lưu Nhật Ký Giá Mới</span>
-                      </button>
-                    </form>
-                  </div>
-
-                  <div className="form-card-sub-new">
-                    <strong className="sub-card-header-new">📋 Danh sách Nhật ký biến động giá gas hiện tại</strong>
-                    <div style={{ overflowX: 'auto', marginTop: '12px' }}>
-                      <table className="admin-table-new" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-                        <thead>
-                          <tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
-                            <th style={{ padding: '10px' }}>Tháng</th>
-                            <th style={{ padding: '10px' }}>Loại Gas</th>
-                            <th style={{ padding: '10px' }}>Giá Bán</th>
-                            <th style={{ padding: '10px' }}>Biến Động</th>
-                            <th style={{ padding: '10px', textAlign: 'center' }}>Thao tác</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {priceHistoryList && priceHistoryList.length > 0 ? (
-                            [...priceHistoryList].reverse().map(item => (
-                              <tr key={item.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                                <td style={{ padding: '10px', fontWeight: '700' }}>{item.effective_month}</td>
-                                <td style={{ padding: '10px' }}>{item.gas_name}</td>
-                                <td style={{ padding: '10px', fontWeight: '700', color: '#E11D48' }}>
-                                  {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.sale_price || item.price)}
-                                </td>
-                                <td style={{ padding: '10px' }}>
-                                  {item.change_type === 'up' ? (
-                                    <span style={{ color: '#E11D48', fontWeight: '700' }}>🔺 +{item.change_amount?.toLocaleString()}đ</span>
-                                  ) : item.change_type === 'down' ? (
-                                    <span style={{ color: '#059669', fontWeight: '700' }}>🔻 -{Math.abs(item.change_amount)?.toLocaleString()}đ</span>
-                                  ) : (
-                                    <span style={{ color: '#64748B' }}>➖ Giữ giá</span>
-                                  )}
-                                </td>
-                                <td style={{ padding: '10px', textAlign: 'center' }}>
-                                  <button 
-                                    type="button" 
-                                    onClick={() => handleDeletePriceEntry(item.id)}
-                                    style={{ background: 'none', border: 'none', color: '#E11D48', cursor: 'pointer' }}
-                                    title="Xóa nhật ký này"
-                                  >
-                                    <Trash2 size={16} />
-                                  </button>
-                                </td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#94A3B8' }}>Chưa có dữ liệu nhật ký giá.</td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
+                  <div className="form-card-sub-new" style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', padding: '16px 20px', borderRadius: '8px', marginBottom: '16px' }}>
+                    <strong style={{ color: '#1D4ED8', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
+                      <TrendingUp size={18} />
+                      💡 Quản lý Lịch Sử Biến Động Giá & Biểu Đồ Trend
+                    </strong>
+                    <p style={{ margin: '6px 0 12px 0', fontSize: '13px', color: '#1E40AF', lineHeight: '1.5' }}>
+                      Chức năng ghi nhận biến động giá theo từng tháng, vẽ biểu đồ SVG và giải thích lý do thị trường đã được nâng cấp chuyên biệt tại menu <strong>🔥 Quản Lý Giá Gas -&gt; Tab 6. Lịch Sử Biến Động Giá</strong>.
+                    </p>
+                    <Link href="/admin/gia-gas" className="btn-primary-new" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 16px', fontSize: '13px', textDecoration: 'none' }}>
+                      <span>Mở Trang Quản Lý Bảng Giá Gas</span>
+                      <ArrowRight size={14} />
+                    </Link>
                   </div>
                 </CollapsibleSection>
 

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
     const post = await getPostByIdOrSlug(slug);
     if (post) {
       return {
-        title: post.meta_title || `${post.title} - NGỌC GAS`,
+        title: post.meta_title || post.title,
         description: post.meta_description || post.excerpt,
         keywords: post.meta_keywords || 'tin tuc gas, ngoc gas'
       };
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: 'Tin tức & Khuyến mãi - NGỌC GAS',
+    title: 'Tin tức & Khuyến mãi',
     description: 'Tin tức mới nhất, hướng dẫn sử dụng gas an toàn và các chương trình khuyến mãi của Ngọc Gas.'
   };
 }

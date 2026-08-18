@@ -3,6 +3,7 @@ import path from 'path';
 import db from './db.js';
 
 const POSTS_FILE_PATH = path.join(process.cwd(), 'data', 'posts.json');
+const POSTS_DEFAULT_PATH = path.join(process.cwd(), 'data', 'posts.default.json');
 
 let memoryPostsCache = null;
 
@@ -15,6 +16,13 @@ function readPostsFromFile() {
     if (fs.existsSync(POSTS_FILE_PATH)) {
       const content = fs.readFileSync(POSTS_FILE_PATH, 'utf8');
       const parsed = JSON.parse(content || '[]');
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+    // Fallback: copy from .default.json if main file doesn't exist
+    if (fs.existsSync(POSTS_DEFAULT_PATH)) {
+      const defaultContent = fs.readFileSync(POSTS_DEFAULT_PATH, 'utf8');
+      fs.writeFileSync(POSTS_FILE_PATH, defaultContent, 'utf8');
+      const parsed = JSON.parse(defaultContent || '[]');
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
     }
   } catch (err) {
@@ -34,7 +42,7 @@ function savePostsToFile(postsArr) {
 }
 
 export async function getAllPosts() {
-  const sourcePosts = readPostsFromFile();
+  const filePosts = readPostsFromFile();
 
   let dbPosts = [];
   try {
@@ -44,19 +52,23 @@ export async function getAllPosts() {
     }
   } catch (err) {}
 
-  let merged = [...sourcePosts];
-
+  // Merge priority: MySQL (user edits) OVERRIDES JSON (stale defaults)
   if (dbPosts.length > 0) {
-    dbPosts.forEach(dbItem => {
-      const idx = merged.findIndex(p => String(p.id) === String(dbItem.id) || p.slug === dbItem.slug);
-      if (idx === -1) {
-        merged.push(dbItem);
+    let merged = [...dbPosts];
+    // Add any file-only posts that don't exist in DB
+    filePosts.forEach(filePost => {
+      const existsInDb = merged.some(p => String(p.id) === String(filePost.id) || p.slug === filePost.slug);
+      if (!existsInDb) {
+        merged.push(filePost);
       }
     });
+    memoryPostsCache = merged;
+    return merged;
   }
 
-  memoryPostsCache = merged;
-  return merged;
+  // If DB is empty/unavailable, fall back to file posts
+  memoryPostsCache = filePosts;
+  return filePosts;
 }
 
 export async function getPostByIdOrSlug(idOrSlug) {

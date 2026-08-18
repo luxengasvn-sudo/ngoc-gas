@@ -32,7 +32,7 @@ export async function generateMetadata() {
   const brandName = settings.site_name || 'Ngọc Gas';
 
   return {
-    title: `Bảng Giá Gas Hôm Nay Ngày ${fullDateStr} Mới Nhất | ${brandName}`,
+    title: `Bảng Giá Gas Hôm Nay Ngày ${fullDateStr} Mới Nhất`,
     description: `Cập nhật bảng giá gas hôm nay ngày ${fullDateStr} (${monthYearStr}) chính hãng Sopet, Phoenix, Luxen Gas 12kg & 45kg tại TP. HCM & Bình Dương. Giao nhanh 15 phút, cân đủ ký tận nơi.`,
     keywords: [
       'giá gas hôm nay',

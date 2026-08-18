@@ -1,0 +1,86 @@
+[
+  {
+    "click_type": "hotline_click",
+    "click_target": "19009396",
+    "click_date": "2026-08-14",
+    "click_count": 2
+  },
+  {
+    "click_type": "zalo_click",
+    "click_target": "0901234567",
+    "click_date": "2026-08-14",
+    "click_count": 1
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Sopet 12kg (Xám)",
+    "click_date": "2026-08-14",
+    "click_count": 1
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Sopet 12kg (Xanh Đen)1",
+    "click_date": "2026-08-14",
+    "click_count": 4
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Luxen Gas 45kg (Công Nghiệp)",
+    "click_date": "2026-08-14",
+    "click_count": 1
+  },
+  {
+    "click_type": "product_hotline_click",
+    "click_target": "Bình Gas Sopet 12kg (Xanh Đen)1 - 19009396",
+    "click_date": "2026-08-14",
+    "click_count": 2
+  },
+  {
+    "click_type": "zalo_click",
+    "click_target": "19009396",
+    "click_date": "2026-08-14",
+    "click_count": 1
+  },
+  {
+    "click_type": "map_view_click",
+    "click_target": "Cửa hàng Ngọc Gas Dĩ An (Trụ Sở Chính)",
+    "click_date": "2026-08-15",
+    "click_count": 1
+  },
+  {
+    "click_type": "map_view_click",
+    "click_target": "Cửa hàng Ngọc Gas Cây Da",
+    "click_date": "2026-08-15",
+    "click_count": 2
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Sopet 12kg (Xanh)",
+    "click_date": "2026-08-17",
+    "click_count": 2
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Sopet 12kg (Xám)",
+    "click_date": "2026-08-17",
+    "click_count": 3
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Sopet 12kg (Xanh Đen)1",
+    "click_date": "2026-08-17",
+    "click_count": 1
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Luxen Gas 12kg1",
+    "click_date": "2026-08-17",
+    "click_count": 1
+  },
+  {
+    "click_type": "product_card_click",
+    "click_target": "Bình Gas Phoenix Gas 12kg (Đỏ)",
+    "click_date": "2026-08-17",
+    "click_count": 1
+  }
+]

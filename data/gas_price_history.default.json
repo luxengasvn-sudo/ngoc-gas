@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "gas_type": "luxen-12kg",
+    "gas_name": "Gas Cao Cấp 12kg (Luxen Gas)",
+    "price": 420000,
+    "sale_price": 395000,
+    "change_type": "same",
+    "change_amount": 0,
+    "effective_month": "Tháng 8/2026",
+    "notes": "Giá giữ nguyên ổn định theo giá hợp đồng CP thế giới."
+  },
+  {
+    "id": 2,
+    "gas_type": "phothong-12kg",
+    "gas_name": "Gas Phổ Thông 12kg (Sopet & Phoenix)",
+    "price": 410000,
+    "sale_price": 385000,
+    "change_type": "down",
+    "change_amount": 5000,
+    "effective_month": "Tháng 8/2026",
+    "notes": "Chương trình trợ giá mùa tựu trường cho gia đình và sinh viên."
+  },
+  {
+    "id": 3,
+    "gas_type": "congnghiep-45kg",
+    "gas_name": "Gas Công Nghiệp 45kg (Luxen 45kg)",
+    "price": 1550000,
+    "sale_price": 1440000,
+    "change_type": "same",
+    "change_amount": 0,
+    "effective_month": "Tháng 8/2026",
+    "notes": "Chiết khấu đặc biệt cho nhà hàng và bếp ăn công nghiệp."
+  },
+  {
+    "id": 1786788930277,
+    "gas_type": "luxen-12kg",
+    "gas_name": "Gas Cao Cấp 12kg (Luxen Gas)",
+    "price": 420000,
+    "sale_price": 395000,
+    "change_type": "up",
+    "change_amount": 10000,
+    "effective_month": "Tháng 8/2026",
+    "notes": "Gia CP the gioi tang 10 USD/tan, dieu chinh nhe dau thang."
+  },
+  {
+    "id": 1786938503921,
+    "gas_type": "phothong-12kg",
+    "gas_name": "Bình Gas Sopet 12kg (Xám)",
+    "price": 550000,
+    "sale_price": 392000,
+    "change_type": "up",
+    "change_amount": 3000,
+    "effective_month": "Tháng 8/2026",
+    "notes": "Hệ thống tự động ghi nhận thay đổi giá sản phẩm: Bình Gas Sopet 12kg (Xám)"
+  }
+]

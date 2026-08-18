@@ -110,7 +110,7 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
 
   // 1. Gas Cao Cấp 12kg (Luxen Gas 12kg)
   const luxen12kg = getMinPriceProduct(
-    p => (p.name.toLowerCase().includes('luxen') && p.name.includes('12kg')),
+    p => p.gas_type === 'luxen-12kg' || (!p.gas_type && p.name.toLowerCase().includes('luxen') && p.name.includes('12kg')),
     'Gas Cao Cấp 12kg (Luxen Gas)',
     420000,
     390000,
@@ -119,7 +119,7 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
 
   // 2. Gas Phổ Thông 12kg (Sopet & Phoenix 12kg)
   const phoThong12kg = getMinPriceProduct(
-    p => (p.name.includes('12kg') && (p.name.toLowerCase().includes('sopet') || p.name.toLowerCase().includes('phoenix'))),
+    p => p.gas_type === 'phothong-12kg' || (!p.gas_type && p.name.includes('12kg') && (p.name.toLowerCase().includes('sopet') || p.name.toLowerCase().includes('phoenix'))),
     'Gas Phổ Thông 12kg (Sopet & Phoenix)',
     410000,
     385000,
@@ -128,7 +128,7 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
 
   // 3. Gas Công Nghiệp 45kg (Luxen 45kg)
   const congNghiep45kg = getMinPriceProduct(
-    p => p.name.includes('45kg'),
+    p => p.gas_type === 'congnghiep-45kg' || (!p.gas_type && p.name.includes('45kg')),
     'Gas Công Nghiệp 45kg (Cho Nhà Hàng/Bếp Ăn)',
     1550000,
     1440000,
@@ -193,11 +193,24 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
     if (!historyData || historyData.length === 0) return null;
 
     // Filter items to chart
-    const filtered = selectedGasType === 'all' 
+    const rawFiltered = selectedGasType === 'all' 
       ? historyData.filter(d => d.gas_type === 'luxen-12kg')
       : historyData;
 
-    if (filtered.length === 0) return null;
+    if (rawFiltered.length === 0) return null;
+
+    // Group by month and keep the entry with the minimum price (to avoid duplicate months on chart)
+    const monthlyMap = {};
+    rawFiltered.forEach(d => {
+      const month = d.effective_month;
+      const priceVal = Number(d.sale_price || d.price);
+      if (!monthlyMap[month] || priceVal < Number(monthlyMap[month].sale_price || monthlyMap[month].price)) {
+        monthlyMap[month] = d;
+      }
+    });
+
+    // Keep only the minimum price entry for each month, preserving original database order
+    const filtered = rawFiltered.filter(d => monthlyMap[d.effective_month] === d);
 
     const prices = filtered.map(d => Number(d.sale_price || d.price));
     const minP = Math.min(...prices) * 0.98;
@@ -514,6 +527,11 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
                               <span>Giá bán:</span>
                               <strong className="timeline-price-num">{formatVND(item.sale_price || item.price)}</strong>
                             </div>
+                            {item.notes && (
+                              <div style={{ marginTop: '6px', fontSize: '11.5px', color: '#64748B', fontStyle: 'italic', background: '#F8FAFC', padding: '4px 8px', borderRadius: '6px', border: '1px solid #E2E8F0' }}>
+                                💡 {item.notes}
+                              </div>
+                            )}
                           </div>
                         </div>
                       );
@@ -532,10 +550,11 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
                 <table className="history-table">
                   <thead>
                     <tr>
-                      <th>Thời gian</th>
+                      <th style={{ width: '120px' }}>Thời gian</th>
                       <th>Loại Gas</th>
-                      <th style={{ textAlign: 'right' }}>Giá Khuyến Mãi</th>
-                      <th style={{ textAlign: 'center' }}>Biến động</th>
+                      <th style={{ textAlign: 'right', width: '130px' }}>Giá Khuyến Mãi</th>
+                      <th style={{ textAlign: 'center', width: '130px' }}>Biến động</th>
+                      <th>Ghi Chú Lý Do</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -572,12 +591,15 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
                                 </span>
                               )}
                             </td>
+                            <td style={{ fontSize: '12.5px', color: '#475569' }}>
+                              {item.notes || '—'}
+                            </td>
                           </tr>
                         );
                       })
                     ) : (
                       <tr>
-                        <td colSpan="4" style={{ textAlign: 'center', padding: '30px 0', color: '#94A3B8' }}>
+                        <td colSpan="5" style={{ textAlign: 'center', padding: '30px 0', color: '#94A3B8' }}>
                           Chưa có nhật ký giá cho loại gas này.
                         </td>
                       </tr>

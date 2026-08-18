@@ -21,7 +21,19 @@ export default function ProductGallery({ mainImage, imagesJson }) {
         {/* Main large image */}
         <div className="gallery-main-view card">
           {activeImage ? (
-            <img src={activeImage} alt="Sản phẩm Ngọc Gas" className="main-display-img" />
+            <picture>
+              {activeImage.startsWith('/images/') && (
+                <source srcSet={activeImage.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+              )}
+              <img 
+                src={activeImage} 
+                alt="Sản phẩm Ngọc Gas" 
+                className="main-display-img" 
+                width="380" 
+                height="340"
+                decoding="async"
+              />
+            </picture>
           ) : (
             <div className="gallery-placeholder">
               <Flame size={90} className="placeholder-icon" />
@@ -40,7 +52,20 @@ export default function ProductGallery({ mainImage, imagesJson }) {
                 onClick={() => setActiveImage(img)}
                 onMouseEnter={() => setActiveImage(img)}
               >
-                <img src={img} alt="" className="thumb-img" />
+                <picture>
+                  {img.startsWith('/images/') && (
+                    <source srcSet={img.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+                  )}
+                  <img 
+                    src={img} 
+                    alt="" 
+                    className="thumb-img" 
+                    width="60" 
+                    height="60" 
+                    loading="lazy" 
+                    decoding="async" 
+                  />
+                </picture>
               </button>
             ))}
           </div>
@@ -64,6 +89,15 @@ export default function ProductGallery({ mainImage, imagesJson }) {
           overflow: hidden;
           padding: 20px;
           border: 1px solid var(--border);
+        }
+
+        .gallery-main-view picture,
+        .thumb-btn picture {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
         }
 
         .main-display-img {

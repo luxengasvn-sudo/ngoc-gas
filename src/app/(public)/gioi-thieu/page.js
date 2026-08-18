@@ -6,9 +6,11 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Fresh database query always
 
 export async function generateMetadata() {
+  const settings = await getAllSettings();
+  const brandName = settings.site_name || settings.company_name || 'Ngọc Gas';
   return {
-    title: 'Giới Thiệu Công Ty - Ngọc Gas',
-    description: 'Tìm hiểu về lịch sử hình thành, tầm nhìn, sứ mệnh và giá trị cốt lõi của Ngọc Gas - Nhà cung cấp gas uy tín tại Dĩ An, Bình Dương & TP.HCM.',
+    title: settings.about_hero_title || 'Giới Thiệu Về Chúng Tôi',
+    description: settings.about_hero_desc || `Tìm hiểu về lịch sử hình thành, tầm nhìn, sứ mệnh và giá trị cốt lõi của ${brandName} - Nhà cung cấp gas uy tín tại Dĩ An, Bình Dương & TP.HCM.`,
   };
 }
 

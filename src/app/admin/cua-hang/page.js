@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Search, Store, ToggleLeft, ToggleRight, Check, MapPin, Phone, User, PlusCircle, Image as ImageIcon } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, AlertCircle, Upload, Search, Store, ToggleLeft, ToggleRight, Check, MapPin, Phone, User, PlusCircle, Image as ImageIcon, ExternalLink, Globe } from 'lucide-react';
 import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 export default function AdminStoresPage() {
@@ -20,9 +20,16 @@ export default function AdminStoresPage() {
   // Form State
   const [formData, setFormData] = useState({
     name: '',
+    slug: '',
     image_url: '',
     address: '',
     phone: '',
+    fanpage_url: '',
+    google_map_url: '',
+    working_hours: '06:00 - 21:30 (Phục vụ cả Chủ Nhật & Ngày Lễ)',
+    delivery_time: '10 - 15 phút',
+    delivery_areas: '',
+    guide_content: '',
     store_phones: [''],
     delivery_phones: [{ name: '', phone: '' }],
     map_embed: '',
@@ -54,13 +61,25 @@ export default function AdminStoresPage() {
     fetchStores();
   }, []);
 
+const DEFAULT_STORE_GUIDE_TEXT = `- Cân đủ 12kg tại chỗ: Nhân viên mang theo cân điện tử kiểm tra trước mặt khách hàng.
+- Chính hãng 100%: Phân phối độc quyền Sopet Vil, Phoenix Gas, Luxen Gas có tem niêm phong chống giả.
+- Kiểm tra an toàn miễn phí: Miễn phí vệ sinh mâm lửa, kiểm tra rò rỉ van gas và dây dẫn mỗi lần giao.
+- Tích điểm quà tặng: Tích lũy điểm đổi quà van ngắt tự động, dây chống chuột, nước rửa chén cao cấp.`;
+
   const handleOpenAddModal = () => {
     setCurrentStore(null);
     setFormData({
       name: '',
+      slug: '',
       image_url: '',
       address: '',
       phone: '',
+      fanpage_url: '',
+      google_map_url: '',
+      working_hours: '06:00 - 21:30 (Phục vụ cả Chủ Nhật & Ngày Lễ)',
+      delivery_time: '10 - 15 phút',
+      delivery_areas: '',
+      guide_content: DEFAULT_STORE_GUIDE_TEXT,
       store_phones: [''],
       delivery_phones: [{ name: '', phone: '' }],
       map_embed: '',
@@ -76,7 +95,7 @@ export default function AdminStoresPage() {
     let parsedStorePhones = [''];
     try {
       if (store.store_phones) {
-        const parsed = JSON.parse(store.store_phones);
+        const parsed = typeof store.store_phones === 'string' ? JSON.parse(store.store_phones) : store.store_phones;
         if (Array.isArray(parsed) && parsed.length > 0) {
           parsedStorePhones = parsed;
         }
@@ -86,7 +105,7 @@ export default function AdminStoresPage() {
     let parsedDeliveryPhones = [{ name: '', phone: '' }];
     try {
       if (store.delivery_phones) {
-        const parsed = JSON.parse(store.delivery_phones);
+        const parsed = typeof store.delivery_phones === 'string' ? JSON.parse(store.delivery_phones) : store.delivery_phones;
         if (Array.isArray(parsed) && parsed.length > 0) {
           parsedDeliveryPhones = parsed;
         }
@@ -95,9 +114,16 @@ export default function AdminStoresPage() {
 
     setFormData({
       name: store.name,
+      slug: store.slug || '',
       image_url: store.image_url || '',
       address: store.address,
       phone: store.phone,
+      fanpage_url: store.fanpage_url || '',
+      google_map_url: store.google_map_url || '',
+      working_hours: store.working_hours || '06:00 - 21:30 (Phục vụ cả Chủ Nhật & Ngày Lễ)',
+      delivery_time: store.delivery_time || '10 - 15 phút',
+      delivery_areas: store.delivery_areas || '',
+      guide_content: store.guide_content && store.guide_content.trim() !== '' ? store.guide_content : DEFAULT_STORE_GUIDE_TEXT,
       store_phones: parsedStorePhones,
       delivery_phones: parsedDeliveryPhones,
       map_embed: store.map_embed || '',
@@ -213,12 +239,7 @@ export default function AdminStoresPage() {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          name: store.name,
-          image_url: store.image_url,
-          address: store.address,
-          phone: store.phone,
-          store_phones: store.store_phones || '[]',
-          delivery_phones: store.delivery_phones || '[]',
+          ...store,
           is_active: newStatus
         })
       });
@@ -465,6 +486,39 @@ export default function AdminStoresPage() {
                       </td>
                       <td>
                         <strong className="table-primary-text-new">{store.name}</strong>
+                        <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap', fontSize: '11px' }}>
+                          <a 
+                            href={`/cua-hang/${store.slug || store.id}`} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{ color: 'var(--primary)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '3px' }}
+                          >
+                            <Globe size={11} />
+                            <span>/cua-hang/{store.slug || store.id}</span>
+                          </a>
+                          {store.fanpage_url && (
+                            <a 
+                              href={store.fanpage_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              style={{ color: '#1877F2', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '3px' }}
+                            >
+                              <ExternalLink size={11} />
+                              <span>Fanpage</span>
+                            </a>
+                          )}
+                          {store.google_map_url && (
+                            <a 
+                              href={store.google_map_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              style={{ color: '#EA4335', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '3px' }}
+                            >
+                              <MapPin size={11} />
+                              <span>Map</span>
+                            </a>
+                          )}
+                        </div>
                       </td>
                       <td className="table-desc-text-new">{store.address}</td>
                       <td>
@@ -573,15 +627,131 @@ export default function AdminStoresPage() {
                     />
                   </div>
 
+                  {/* Slug & Social URLs */}
+                  <div className="modal-grid-2">
+                    <div className="form-group">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                        <label className="form-label-new" style={{ margin: 0 }}>Đường dẫn tĩnh SEO (Slug/URL)</label>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const generated = formData.name
+                              .toLowerCase()
+                              .normalize('NFD')
+                              .replace(/[\u0300-\u036f]/g, '')
+                              .replace(/[đĐ]/g, 'd')
+                              .replace(/[^a-z0-9\s-]/g, '')
+                              .trim()
+                              .replace(/[\s-]+/g, '-');
+                            setFormData(prev => ({ ...prev, slug: generated }));
+                          }}
+                          style={{ fontSize: '11px', color: 'var(--primary)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '700' }}
+                        >
+                          🪄 Tự tạo từ tên
+                        </button>
+                      </div>
+                      <input 
+                        type="text" 
+                        name="slug" 
+                        className="form-control-new" 
+                        value={formData.slug || ''} 
+                        onChange={handleChange}
+                        placeholder="vd: ngoc-gas-chi-nhanh-di-an"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label-new">📘 Link Fanpage Facebook Chi Nhánh</label>
+                      <input 
+                        type="url" 
+                        name="fanpage_url" 
+                        className="form-control-new" 
+                        value={formData.fanpage_url || ''} 
+                        onChange={handleChange}
+                        placeholder="vd: https://facebook.com/ngocgas.dian"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="modal-grid-2">
+                    <div className="form-group">
+                      <label className="form-label-new">📍 Link Google Maps trực tiếp (Chia sẻ vị trí)</label>
+                      <input 
+                        type="url" 
+                        name="google_map_url" 
+                        className="form-control-new" 
+                        value={formData.google_map_url || ''} 
+                        onChange={handleChange}
+                        placeholder="vd: https://maps.app.goo.gl/..."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label-new">Mã nhúng bản đồ (Mã iframe hoặc link embed)</label>
+                      <textarea 
+                        name="map_embed" 
+                        className="form-control-new code-font-textarea" 
+                        rows="1"
+                        value={formData.map_embed} 
+                        onChange={handleChange}
+                        placeholder="<iframe src='...'></iframe> hoặc link https://www.google.com/maps/embed?..."
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  {/* Giờ làm việc & Thời gian giao */}
+                  <div className="modal-grid-2">
+                    <div className="form-group">
+                      <label className="form-label-new">⏰ Giờ hoạt động trực ban</label>
+                      <input 
+                        type="text" 
+                        name="working_hours" 
+                        className="form-control-new" 
+                        value={formData.working_hours || ''} 
+                        onChange={handleChange}
+                        placeholder="vd: 06:00 - 21:30 (Phục vụ cả Chủ Nhật & Ngày Lễ)"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label-new">⚡ Thời gian giao hàng cam kết</label>
+                      <input 
+                        type="text" 
+                        name="delivery_time" 
+                        className="form-control-new" 
+                        value={formData.delivery_time || ''} 
+                        onChange={handleChange}
+                        placeholder="vd: 10 - 15 phút"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tuyến đường giao chính */}
                   <div className="form-group">
-                    <label className="form-label-new">Mã nhúng bản đồ Google Maps (Mã HTML iframe - Nếu có)</label>
+                    <label className="form-label-new">🚚 Các tuyến đường & khu vực giao chính (Ngăn cách bằng dấu phẩy)</label>
                     <textarea 
-                      name="map_embed" 
-                      className="form-control-new code-font-textarea" 
+                      name="delivery_areas" 
+                      className="form-control-new" 
                       rows="2"
-                      value={formData.map_embed} 
+                      value={formData.delivery_areas || ''} 
                       onChange={handleChange}
-                      placeholder="Dán mã nhúng <iframe> bản đồ từ Google Maps..."
+                      placeholder="vd: Đường Nguyễn Trung Trực, Lý Thường Kiệt, KDC 550, KCN Sóng Thần, Chợ Dĩ An, Quốc Lộ 1K, Phường Đông Hòa..."
+                    ></textarea>
+                    <small style={{ display: 'block', marginTop: '4px', color: 'var(--text-secondary)', fontSize: '12px' }}>
+                      Các địa danh này sẽ hiển thị dạng thẻ Badge nổi bật trên trang chi nhánh và tối ưu từ khóa SEO cho từng khu phố.
+                    </small>
+                  </div>
+
+                  {/* Cẩm nang / Bài viết giới thiệu trạm */}
+                  <div className="form-group">
+                    <label className="form-label-new">📖 Cẩm nang & Bài viết giới thiệu chi nhánh (Nội dung chi tiết)</label>
+                    <textarea 
+                      name="guide_content" 
+                      className="form-control-new" 
+                      rows="5"
+                      value={formData.guide_content || ''} 
+                      onChange={handleChange}
+                      placeholder="Nhập nội dung giới thiệu chi nhánh, quy trình giao nhận, kiểm định an toàn PCCC, hướng dẫn sử dụng gas an toàn cho cư dân..."
                     ></textarea>
                   </div>
 

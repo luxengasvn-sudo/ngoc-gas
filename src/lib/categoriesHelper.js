@@ -3,6 +3,7 @@ import path from 'path';
 import db from './db.js';
 
 const CATEGORIES_FILE_PATH = path.join(process.cwd(), 'data', 'categories.json');
+const CATEGORIES_DEFAULT_PATH = path.join(process.cwd(), 'data', 'categories.default.json');
 
 const initialCategoriesData = [
   {
@@ -34,6 +35,13 @@ export function readCategoriesFromFile() {
       const parsed = JSON.parse(content || '[]');
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
     }
+    // Fallback: copy from .default.json if main file doesn't exist
+    if (fs.existsSync(CATEGORIES_DEFAULT_PATH)) {
+      const defaultContent = fs.readFileSync(CATEGORIES_DEFAULT_PATH, 'utf8');
+      fs.writeFileSync(CATEGORIES_FILE_PATH, defaultContent, 'utf8');
+      const parsed = JSON.parse(defaultContent || '[]');
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
   } catch (err) {
     console.error('Error reading categories.json:', err.message);
   }
@@ -51,7 +59,7 @@ export function saveCategoriesToFile(categoriesArr) {
 }
 
 export async function getAllCategories() {
-  const sourceCategories = readCategoriesFromFile();
+  const fileCategories = readCategoriesFromFile();
 
   let dbCategories = [];
   try {
@@ -61,18 +69,17 @@ export async function getAllCategories() {
     }
   } catch (err) {}
 
-  let merged = [...sourceCategories];
-
+  // Merge priority: MySQL (user edits) OVERRIDES JSON (stale defaults)
   if (dbCategories.length > 0) {
-    dbCategories.forEach(dbItem => {
-      const idx = merged.findIndex(c => String(c.id) === String(dbItem.id) || c.slug === dbItem.slug);
-      if (idx === -1) {
-        merged.push(dbItem);
-      } else {
-        merged[idx] = { ...merged[idx], ...dbItem };
+    let merged = [...dbCategories];
+    fileCategories.forEach(fileCat => {
+      const existsInDb = merged.some(c => String(c.id) === String(fileCat.id) || c.slug === fileCat.slug);
+      if (!existsInDb) {
+        merged.push(fileCat);
       }
     });
+    return merged;
   }
 
-  return merged;
+  return fileCategories;
 }

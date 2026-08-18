@@ -48,7 +48,11 @@ export async function PUT(request, { params }) {
       images, 
       category_id, 
       is_featured, 
-      is_active 
+      is_active,
+      rating_value,
+      rating_count,
+      reviews_json,
+      gas_type
     } = body;
 
     if (!name || !slug) {
@@ -69,7 +73,11 @@ export async function PUT(request, { params }) {
       images: images || '[]',
       category_id: category_id || null,
       is_featured: is_featured ? 1 : 0,
-      is_active: is_active ? 1 : 0
+      is_active: is_active ? 1 : 0,
+      rating_value: rating_value !== undefined ? Number(rating_value) : 4.9,
+      rating_count: rating_count !== undefined ? Number(rating_count) : 86,
+      reviews_json: reviews_json || '[]',
+      gas_type: gas_type !== undefined ? (gas_type || null) : undefined
     });
 
     return NextResponse.json({

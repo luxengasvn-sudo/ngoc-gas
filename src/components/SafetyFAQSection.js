@@ -181,9 +181,9 @@ export default function SafetyFAQSection({ settings: initialSettings }) {
           display: flex;
           gap: 12px;
           align-items: flex-start;
-          background: #F8FAFC;
+          background: var(--bg-surface); /* Sử dụng nền kem ấm */
           padding: 14px;
-          border-radius: 10px;
+          border-radius: var(--radius-sm);
           border-left: 4px solid #10B981;
         }
 
@@ -212,7 +212,7 @@ export default function SafetyFAQSection({ settings: initialSettings }) {
           gap: 16px;
           background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
           padding: 16px 20px;
-          border-radius: 12px;
+          border-radius: var(--radius);
           border: 1px solid #FECDD3;
         }
 
@@ -236,7 +236,7 @@ export default function SafetyFAQSection({ settings: initialSettings }) {
           background: #E11D48;
           color: #FFFFFF;
           padding: 8px 16px;
-          border-radius: 6px;
+          border-radius: var(--radius-sm);
           font-weight: 700;
           font-size: 14px;
           text-decoration: none;
@@ -249,23 +249,23 @@ export default function SafetyFAQSection({ settings: initialSettings }) {
         }
 
         .faq-item-card {
-          background: #F8FAFC;
-          border: 1px solid #E2E8F0;
-          border-radius: 12px;
+          background: var(--bg-surface); /* Sử dụng nền kem ấm */
+          border: 1px solid var(--border); /* Sử dụng viền ấm */
+          border-radius: var(--radius); /* Bo góc V2 */
           padding: 18px 22px;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: var(--transition);
         }
 
         .faq-item-card:hover {
-          border-color: #CBD5E1;
-          background: #F1F5F9;
+          border-color: var(--primary);
+          background: rgba(255, 248, 231, 0.5);
         }
 
         .faq-item-card.active {
           background: #FFFFFF;
-          border-color: #FF6B00;
-          box-shadow: 0 4px 14px rgba(255, 107, 0, 0.08);
+          border-color: var(--accent); /* Dùng màu accent thương hiệu */
+          box-shadow: 0 8px 20px rgba(230, 126, 34, 0.08);
         }
 
         .faq-question {

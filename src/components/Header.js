@@ -17,7 +17,8 @@ export default function Header({ initialSettings }) {
       promo_type: init.promo_type || 'none', // none | bar | popup
       promo_bar_text: init.promo_bar_text || '',
       promo_popup_image: init.promo_popup_image || '',
-      promo_popup_link: init.promo_popup_link || ''
+      promo_popup_link: init.promo_popup_link || '',
+      header_menu_items: init.header_menu_items || null
     };
   });
   const [showPopup, setShowPopup] = useState(false);
@@ -74,7 +75,8 @@ export default function Header({ initialSettings }) {
             promo_type: data.data.promo_type || prev.promo_type || 'none',
             promo_bar_text: data.data.promo_bar_text !== undefined ? data.data.promo_bar_text : prev.promo_bar_text,
             promo_popup_image: data.data.promo_popup_image !== undefined ? data.data.promo_popup_image : prev.promo_popup_image,
-            promo_popup_link: data.data.promo_popup_link !== undefined ? data.data.promo_popup_link : prev.promo_popup_link
+            promo_popup_link: data.data.promo_popup_link !== undefined ? data.data.promo_popup_link : prev.promo_popup_link,
+            header_menu_items: data.data.header_menu_items !== undefined ? data.data.header_menu_items : prev.header_menu_items
           }));
         }
       } catch (e) {
@@ -100,15 +102,25 @@ export default function Header({ initialSettings }) {
     setShowPopup(false);
   };
 
-  const navLinks = [
-    { name: 'Trang chủ', path: '/' },
-    { name: 'Giới thiệu', path: '/gioi-thieu' },
-    { name: 'Sản phẩm', path: '/san-pham' },
-    { name: 'Bảng Giá Gas', path: '/gia-gas-hom-nay' },
-    { name: 'Cửa hàng', path: '/cua-hang' },
-    { name: 'Tin tức', path: '/tin-tuc' },
-    { name: 'Liên hệ', path: '/lien-he' },
+  const DEFAULT_HEADER_MENU = [
+    { id: "m1", name: 'Trang chủ', path: '/' },
+    { id: "m2", name: 'Giới thiệu', path: '/gioi-thieu' },
+    { id: "m3", name: 'Sản phẩm', path: '/san-pham' },
+    { id: "m4", name: 'Bảng Giá Gas', path: '/gia-gas-hom-nay' },
+    { id: "m5", name: 'Cửa hàng', path: '/cua-hang' },
+    { id: "m6", name: 'Tin tức', path: '/tin-tuc' },
+    { id: "m7", name: 'Liên hệ', path: '/lien-he' },
   ];
+
+  let navLinks = DEFAULT_HEADER_MENU;
+  try {
+    if (settings.header_menu_items) {
+      const parsed = typeof settings.header_menu_items === 'string' ? JSON.parse(settings.header_menu_items) : settings.header_menu_items;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        navLinks = parsed.filter(item => item && item.is_active !== false);
+      }
+    }
+  } catch (e) {}
 
   const isActive = (path) => {
     if (path === '/') {
@@ -135,7 +147,15 @@ export default function Header({ initialSettings }) {
         <div className="container header-container">
           <Link href="/" className="logo">
             {settings.logo_url ? (
-              <img src={settings.logo_url} alt="Ngọc Gas Logo" className="logo-img" />
+              <img 
+                src={settings.logo_url} 
+                alt="Ngọc Gas Logo" 
+                className="logo-img" 
+                width="160" 
+                height="48" 
+                fetchPriority="high"
+                decoding="async"
+              />
             ) : (
               <Flame className="logo-icon" size={32} />
             )}
@@ -281,7 +301,7 @@ export default function Header({ initialSettings }) {
           background: transparent;
           border-bottom: 1px solid transparent;
           transition: var(--transition);
-          height: 80px;
+          height: 84px;
           display: flex;
           align-items: center;
         }
@@ -296,11 +316,12 @@ export default function Header({ initialSettings }) {
         }
 
         .header.scrolled {
-          background: #0c6069;
-          box-shadow: 0 4px 20px rgba(12, 96, 105, 0.35);
-          height: 70px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          backdrop-filter: blur(10px);
+          background: rgba(12, 96, 105, 0.92);
+          box-shadow: 0 10px 30px rgba(12, 96, 105, 0.15);
+          height: 72px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
         }
 
         .header-container {
@@ -371,11 +392,12 @@ export default function Header({ initialSettings }) {
           content: '';
           position: absolute;
           bottom: 0;
-          left: 0;
+          left: 50%;
           width: 0;
           height: 2px;
           background-color: var(--primary);
           transition: var(--transition);
+          transform: translateX(-50%);
         }
 
         .nav-link:hover::after, .nav-link.active::after {
@@ -394,17 +416,23 @@ export default function Header({ initialSettings }) {
           gap: 8px;
           background-color: var(--primary);
           color: #111111;
-          padding: 10px 20px;
-          border-radius: var(--radius-sm);
+          padding: 10px 22px;
+          border-radius: var(--radius);
           font-family: var(--font-inter), sans-serif;
-          font-weight: 600;
+          font-weight: 700;
           font-size: 14px;
+          transition: var(--transition);
+          box-shadow: 0 4px 12px rgba(245, 183, 49, 0.15);
         }
 
         .hotline-btn:hover {
           background-color: var(--primary-dark);
-          box-shadow: 0 0 15px rgba(245, 183, 49, 0.4);
-          transform: translateY(-1px);
+          box-shadow: 0 6px 20px rgba(245, 183, 49, 0.3);
+          transform: translateY(-2px);
+        }
+
+        .hotline-btn:active {
+          transform: translateY(0) scale(0.97);
         }
 
         .mobile-menu-btn {

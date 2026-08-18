@@ -94,7 +94,7 @@ export default async function HomePage() {
     console.error('Error fetching homepage data:', error);
   }
 
-  const rawPhone = settings.phone.replace(/[^0-9]/g, '');
+  const rawPhone = (settings.phone || '19009396').replace(/[^0-9]/g, '');
 
   // Parse section order dynamically from Admin Settings
   const sectionOrder = parseSectionOrder(settings.home_sections_order);

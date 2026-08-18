@@ -68,13 +68,13 @@ export default function PostCard({ post }) {
           height: 100%;
           padding: 0 !important;
           overflow: hidden;
-          border-radius: 12px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-radius: var(--radius-lg); /* Sử dụng góc bo V2 */
+          transition: var(--transition);
         }
 
         .post-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+          transform: translateY(-6px);
+          box-shadow: var(--shadow-lg); /* Đổ bóng V2 */
         }
 
         .post-thumb-link {
@@ -87,20 +87,20 @@ export default function PostCard({ post }) {
           width: 100%;
           height: 200px;
           overflow: hidden;
-          background-color: #F8FAFC;
+          background-color: var(--bg-surface); /* Sử dụng nền kem V2 */
           position: relative;
-          border-bottom: 1px solid #E2E8F0;
+          border-bottom: 1px solid var(--border); /* Sử dụng viền ấm */
         }
 
         .post-thumb-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.4s ease;
+          transition: var(--transition);
         }
 
         .post-card:hover .post-thumb-img {
-          transform: scale(1.06);
+          transform: scale(1.05);
         }
 
         .post-card-content {
