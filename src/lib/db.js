@@ -165,7 +165,7 @@ async function initTables(pool) {
 
       await conn.query(`
         CREATE TABLE IF NOT EXISTS gas_price_history (
-          id INT AUTO_INCREMENT PRIMARY KEY,
+          id BIGINT AUTO_INCREMENT PRIMARY KEY,
           gas_type VARCHAR(50) NOT NULL,
           gas_name VARCHAR(255) NOT NULL,
           price DECIMAL(12, 0) NOT NULL DEFAULT 0,
@@ -178,6 +178,10 @@ async function initTables(pool) {
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
       `);
+
+      try {
+        await conn.query(`ALTER TABLE gas_price_history MODIFY COLUMN id BIGINT AUTO_INCREMENT`);
+      } catch (e) {}
 
       // Seed default admin user
       const [admins] = await conn.query('SELECT * FROM admin_users WHERE username = ?', ['admin']);
@@ -293,6 +297,24 @@ async function initTables(pool) {
             `INSERT INTO stores (id, name, slug, address, phone, store_phones, image_url, working_hours, delivery_time, is_active)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name)`,
             s
+          );
+        }
+      }
+
+      // Seed default gas_price_history
+      const [histCount] = await conn.query('SELECT COUNT(*) as count FROM gas_price_history');
+      if (histCount[0].count === 0) {
+        const defaultHistory = [
+          [1, 'luxen-12kg', 'Gas Cao Cấp 12kg (Luxen Gas)', 420000, 395000, 'same', 0, 'Tháng 8/2026', 'Giá giữ nguyên ổn định theo giá hợp đồng CP thế giới.'],
+          [2, 'phothong-12kg', 'Gas Phổ Thông 12kg (Sopet & Phoenix)', 410000, 385000, 'down', 5000, 'Tháng 8/2026', 'Chương trình trợ giá mùa tựu trường cho gia đình và sinh viên.'],
+          [3, 'congnghiep-45kg', 'Gas Công Nghiệp 45kg (Luxen 45kg)', 1550000, 1440000, 'same', 0, 'Tháng 8/2026', 'Chiết khấu đặc biệt cho nhà hàng và bếp ăn công nghiệp.']
+        ];
+
+        for (const h of defaultHistory) {
+          await conn.query(
+            `INSERT INTO gas_price_history (id, gas_type, gas_name, price, sale_price, change_type, change_amount, effective_month, notes)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gas_name=VALUES(gas_name)`,
+            h
           );
         }
       }
