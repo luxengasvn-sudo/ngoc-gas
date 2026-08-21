@@ -103,26 +103,25 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="vi" data-scroll-behavior="smooth" className={roboto.variable} suppressHydrationWarning>
-      <head>
-        {settings.custom_header_code && (
+      <head />
+      <body className={roboto.className} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} suppressHydrationWarning>
+        {settings.custom_header_code ? (
           <div 
             id="custom-header-scripts" 
             dangerouslySetInnerHTML={{ __html: settings.custom_header_code }} 
-            style={{ display: 'contents' }} 
+            style={{ display: 'none' }} 
           />
-        )}
-      </head>
-      <body className={roboto.className} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        ) : null}
         <PageLoader />
         <ScrollRestoration />
         {children}
-        {settings.custom_footer_code && (
+        {settings.custom_footer_code ? (
           <div 
             id="custom-footer-scripts" 
             dangerouslySetInnerHTML={{ __html: settings.custom_footer_code }} 
             style={{ display: 'contents' }} 
           />
-        )}
+        ) : null}
       </body>
     </html>
   );
