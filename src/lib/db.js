@@ -289,9 +289,17 @@ async function initTables(pool) {
   }
 }
 
+function getConnectionString() {
+  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
+  if (process.env.NODE_ENV === 'production') {
+    return 'mysql://user_b9c8ee4a0b58:L8vCFaRFa8H4Z0tSqpyr1Hq4OYz1PoQ8@ts-db-1979-mysql-38039:3306/db_ngoc_gas';
+  }
+  return 'mysql://user_b9c8ee4a0b58:L8vCFaRFa8H4Z0tSqpyr1Hq4OYz1PoQ8@tinhgon.xyz:30039/db_ngoc_gas';
+}
+
 function getPool() {
   if (!global.mysqlPool) {
-    const connectionString = process.env.DATABASE_URL || 'mysql://user_b9c8ee4a0b58:L8vCFaRFa8H4Z0tSqpyr1Hq4OYz1PoQ8@tinhgon.xyz:30039/db_ngoc_gas';
+    const connectionString = getConnectionString();
     global.mysqlPool = mysql.createPool({
       uri: connectionString,
       connectionLimit: 10,
