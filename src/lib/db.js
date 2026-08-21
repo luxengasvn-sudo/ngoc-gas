@@ -291,7 +291,7 @@ async function initTables(pool) {
 
 function getPool() {
   if (!global.mysqlPool) {
-    const connectionString = process.env.DATABASE_URL || 'mysql://localhost:3306/ngoc_gas';
+    const connectionString = process.env.DATABASE_URL || 'mysql://user_b9c8ee4a0b58:L8vCFaRFa8H4Z0tSqpyr1Hq4OYz1PoQ8@tinhgon.xyz:30039/db_ngoc_gas';
     global.mysqlPool = mysql.createPool({
       uri: connectionString,
       connectionLimit: 10,
