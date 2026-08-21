@@ -278,6 +278,24 @@ async function initTables(pool) {
           );
         }
       }
+
+      // Seed default stores
+      const [storeCount] = await conn.query('SELECT COUNT(*) as count FROM stores');
+      if (storeCount[0].count === 0) {
+        const defaultStores = [
+          [1, 'Cửa hàng Ngọc Gas Dĩ An (Trụ Sở Chính)', 'cua-hang-ngoc-gas-di-an-tru-so-chinh', '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương', '19009396', '["0768929396"]', '/uploads/1786692423180-771911156.jpg', '06:00 - 21:30', '10 - 15 phút', 1],
+          [2, 'Trạm Giao Gas Nhanh VietSing (KCN VSIP 1)', 'tram-giao-gas-nhanh-vietsing-kcn-vsip-1', 'Đường D1, KDC VietSing, Phường An Phú, TP. Thuận An, Bình Dương', '19009396', '[]', '/images/sopet-xam.png', '06:00 - 21:30', '10 - 15 phút', 1],
+          [3, 'Cửa hàng Ngọc Gas Cây Da', 'cua-hang-ngoc-gas-cay-da', '7/14 Cây Da, KP. Tân Phú 1, P, Tân Đông Hiệp, Hồ Chí Minh 700000, Việt Nam', '19009396', '["0769919396"]', '/uploads/1786692517925-581101285.png', '06:00 - 21:30', '10 - 15 phút', 1]
+        ];
+
+        for (const s of defaultStores) {
+          await conn.query(
+            `INSERT INTO stores (id, name, slug, address, phone, store_phones, image_url, working_hours, delivery_time, is_active)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name)`,
+            s
+          );
+        }
+      }
     } finally {
       conn.release();
     }
