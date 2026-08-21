@@ -156,21 +156,122 @@ export async function getAllSettings() {
   return merged;
 }
 
+const SNAPSHOTS_DIR = path.join(process.cwd(), 'data', 'snapshots');
+
+function ensureSnapshotsDir() {
+  try {
+    if (!fs.existsSync(SNAPSHOTS_DIR)) {
+      fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
+    }
+  } catch (err) {
+    console.error('Error ensuring snapshots dir:', err.message);
+  }
+}
+
+export function saveSettingsSnapshot(currentSettings, note = 'auto-save') {
+  try {
+    ensureSnapshotsDir();
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const snapshotFile = path.join(SNAPSHOTS_DIR, `settings_${timestamp}.json`);
+    const snapshotData = {
+      timestamp: new Date().toISOString(),
+      note,
+      data: currentSettings
+    };
+    fs.writeFileSync(snapshotFile, JSON.stringify(snapshotData, null, 2), 'utf8');
+
+    // Keep only last 30 snapshots
+    const files = fs.readdirSync(SNAPSHOTS_DIR)
+      .filter(f => f.startsWith('settings_') && f.endsWith('.json'))
+      .sort()
+      .reverse();
+
+    if (files.length > 30) {
+      for (let i = 30; i < files.length; i++) {
+        try {
+          fs.unlinkSync(path.join(SNAPSHOTS_DIR, files[i]));
+        } catch (e) {}
+      }
+    }
+    return snapshotFile;
+  } catch (err) {
+    console.error('Error saving settings snapshot:', err.message);
+    return null;
+  }
+}
+
+export function getSettingsSnapshots() {
+  try {
+    ensureSnapshotsDir();
+    const files = fs.readdirSync(SNAPSHOTS_DIR)
+      .filter(f => f.startsWith('settings_') && f.endsWith('.json'))
+      .sort()
+      .reverse();
+
+    return files.slice(0, 20).map(file => {
+      try {
+        const content = fs.readFileSync(path.join(SNAPSHOTS_DIR, file), 'utf8');
+        const parsed = JSON.parse(content);
+        return {
+          filename: file,
+          timestamp: parsed.timestamp,
+          note: parsed.note || 'Tự động sao lưu'
+        };
+      } catch (e) {
+        return { filename: file, timestamp: file, note: 'Bản sao lưu' };
+      }
+    });
+  } catch (err) {
+    return [];
+  }
+}
+
+export async function restoreSettingsSnapshot(filename) {
+  try {
+    ensureSnapshotsDir();
+    const safeFile = path.basename(filename);
+    const fullPath = path.join(SNAPSHOTS_DIR, safeFile);
+    if (!fs.existsSync(fullPath)) {
+      return { success: false, message: 'Không tìm thấy tệp sao lưu' };
+    }
+
+    const content = fs.readFileSync(fullPath, 'utf8');
+    const parsed = JSON.parse(content);
+    if (parsed && parsed.data) {
+      const restored = await updateAllSettings(parsed.data);
+      return { success: true, message: 'Khôi phục bản sao lưu thành công!', data: restored };
+    }
+    return { success: false, message: 'Dữ liệu sao lưu không hợp lệ' };
+  } catch (err) {
+    return { success: false, message: err.message };
+  }
+}
+
 export async function updateAllSettings(newSettings) {
   const reg = getCacheRegistry();
   const current = await getAllSettings();
-  const updated = {
-    ...current,
-    ...newSettings
-  };
+
+  // 1. Auto-backup snapshot before writing new changes
+  saveSettingsSnapshot(current, 'Trước khi cập nhật cài đặt');
+
+  // 2. Atomic merge: only override keys explicitly provided and not undefined
+  const updated = { ...current };
+  const keysToUpdate = [];
+
+  for (const key of Object.keys(newSettings || {})) {
+    const val = newSettings[key];
+    if (val !== undefined) {
+      updated[key] = val;
+      keysToUpdate.push(key);
+    }
+  }
 
   reg.settings = updated;
   saveToFile(updated);
 
   try {
-    const keys = Object.keys(newSettings);
-    for (const key of keys) {
-      let val = newSettings[key];
+    for (const key of keysToUpdate) {
+      let val = updated[key];
       if (val !== undefined) {
         if (typeof val === 'object' && val !== null) {
           val = JSON.stringify(val);
@@ -189,3 +290,4 @@ export async function updateAllSettings(newSettings) {
 
   return updated;
 }
+

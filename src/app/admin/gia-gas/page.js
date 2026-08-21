@@ -113,17 +113,127 @@ export default function AdminGasPricePage() {
     }
   ];
 
-  const defaultSeoContent = `<h2>1. Tổng Quan Thị Trường & Xu Hướng Giá Gas Hôm Nay</h2>
-<p>Thị trường gas dân dụng và công nghiệp tại khu vực TP. Hồ Chí Minh và Tỉnh Bình Dương hiện nay đang có những biến động theo giá hợp đồng thế giới (CP). Ngọc Gas luôn cập nhật bảng giá chính xác, niêm yết công khai hàng ngày để người tiêu dùng an tâm lựa chọn.</p>
-<h2>2. Ưu Điểm Vượt Trội Của Bình Gas Chính Hãng Tại Ngọc Gas</h2>
-<p>Tất cả các sản phẩm bình gas 12kg và 45kg phân phối bởi Ngọc Gas (Sopet Gas One, Phoenix Gas, Luxen Gas) đều trải qua quy trình kiểm định chất lượng nghiêm ngặt:</p>
+  const defaultSeoContent = `<h2>1. Tóm Tắt Nhanh Thị Trường Giá Gas Hôm Nay</h2>
 <ul>
-  <li><strong>Vỏ bình tiêu chuẩn:</strong> Chế tạo từ thép cao cấp chịu áp lực cao, kiểm định định kỳ 5 năm/lần.</li>
-  <li><strong>Gas tinh khiết:</strong> Tỷ lệ phối trộn Propane & Butane chuẩn giúp ngọn lửa xanh, không đen đáy nồi, tiết kiệm 15% nhiên liệu.</li>
-  <li><strong>Niêm phong an toàn:</strong> 100% bình gas đều có tem chống hàng giả và màng co nhiệt nguyên vẹn từ nhà máy chiết nạp.</li>
+  <li><strong>Mặt bằng giá bình gas 12kg gia đình:</strong> Giá đổi gas chính hãng hôm nay duy trì ở mức ổn định, dao động trong khoảng từ <strong>495.000đ – 535.000đ/bình</strong> tùy thuộc vào thương hiệu phân phối (<strong>Luxen Gas</strong>, <strong>Sopet Gas One chuẩn Nhật Bản</strong>, <strong>Phoenix Gas</strong>) và quy cách van (van ngang POL hoặc van chụp Compact).</li>
+  <li><strong>Mặt bằng giá bình gas công nghiệp 45kg – 48kg:</strong> Dao động từ <strong>1.950.000đ – 2.120.000đ/bình</strong>, đáp ứng công suất đun nấu lớn liên tục cho nhà hàng, khách sạn, xưởng sản xuất thực phẩm.</li>
+  <li><strong>Chính sách ưu đãi độc quyền tại Ngọc Gas:</strong> Hỗ trợ giảm giá trực tiếp từ <strong>30.000đ – 50.000đ/bình</strong> cho khách hàng đặt đổi gas hôm nay, kèm gói quà tặng dây dẫn gas cao cấp chống chuột cắn hoặc van điều áp ngắt tự động.</li>
 </ul>
-<h2>3. Dịch Vụ Giao Gas Nhanh Chóng & Cân Đủ Ký Tận Nhà</h2>
-<p>Với hệ thống cửa hàng trải dài tại TP. Dĩ An, Thuận An, VietSing và TP. Thủ Đức, đội ngũ giao nhận của Ngọc Gas cam kết có mặt trong 15 - 20 phút. Nhân viên luôn chủ động mang cân điện tử cân kiểm tra trực tiếp trước mặt khách hàng và hỗ trợ kiểm tra an toàn van dây miễn phí.</p>`;
+
+<h2>2. Bảng Giá Gas Hôm Nay Tại Ngọc Gas (Luxen, Sopet, Phoenix)</h2>
+<p><strong>Ngọc Gas</strong> là nhà phân phối gas các thương hiệu uy tín như: <strong>Luxen Gas</strong>, <strong>Sopet Gas One</strong> và <strong>Phoenix Gas</strong>. Mọi sản phẩm xuất kho đều có tem niêm phong chống giả, chứng nhận kiểm định an toàn và bảo hiểm trách nhiệm sản phẩm.</p>
+
+<h2>3. Đánh Giá Chuyên Sâu 3 Thương Hiệu Gas Phân Phối Tại Ngọc Gas</h2>
+<p>Không phải ngẫu nhiên mà <strong>Ngọc Gas</strong> quyết định chọn lựa chuyên sâu 3 dòng sản phẩm <strong>Luxen Gas</strong>, <strong>Sopet Gas One</strong> và <strong>Phoenix Gas</strong>. Dưới đây là phân tích kỹ thuật và trải nghiệm thực tế của từng thương hiệu:</p>
+
+<h3>3.1 Luxen Gas — Ngọn Lửa Xanh Tinh Khiết, Không Đen Đáy Nồi</h3>
+<ul>
+  <li><strong>Thành phần khí hóa lỏng (LPG):</strong> Tỷ lệ phối trộn hoàn hảo giữa khí Propan (C3H8) và Butan (C4H10) theo tiêu chuẩn quốc tế 30:70 hoặc 50:50, giúp khí cháy hoàn toàn trong không khí mà không sinh ra muội than hay mùi hôi khét.</li>
+  <li><strong>Hiệu suất sinh nhiệt cao:</strong> Đạt nhiệt trị xấp xỉ 11.000 kcal/kg, giúp đun sôi nước và nấu chín thực phẩm nhanh hơn 15% so với các dòng gas tạp chất, giảm thiểu tối đa hao phí nhiệt năng.</li>
+  <li><strong>Tiêu chuẩn vỏ bình:</strong> Vỏ bình Luxen được sản xuất từ thép chịu áp lực cao chuyên dụng chịu được áp suất phá hủy lớn.</li>
+</ul>
+
+<h3>3.2 Sopet Gas One — Đỉnh Cao Công Nghệ An Toàn Tiêu Chuẩn Nhật Bản</h3>
+<ul>
+  <li><strong>Thương hiệu liên doanh Nhật Bản:</strong> Sopet Gas One là kết quả hợp tác chiến lược giữa các tập đoàn năng lượng hàng đầu Nhật Bản (Saisan Co., Ltd) và đối tác Việt Nam, áp dụng quy trình kiểm soát chất lượng chuẩn ISO 9001:2015.</li>
+  <li><strong>Hệ thống van chống cháy nổ:</strong> Bình gas Sopet được trang bị cụm van điều áp thông minh.</li>
+  <li><strong>Kiểm định chất lượng:</strong> 100% bình gas Sopet One xuất xưởng đều được kiểm định đúng tiêu chuẩn được công bố.</li>
+</ul>
+
+<h3>3.3 Phoenix Gas — Bền Bỉ, Hiệu Suất Mạnh Mẽ, Tối Ưu Chi Phí</h3>
+<ul>
+  <li><strong>Lựa chọn hàng đầu cho kinh doanh ăn uống:</strong> Phoenix Gas được thiết kế tối ưu cho các bếp khè công nghiệp, bếp chiên xào công suất lớn của các nhà hàng, quán ăn nhờ áp suất dòng khí cực kỳ ổn định.</li>
+  <li><strong>Độ bền vỏ bình vượt trội:</strong> Thân bình được mạ kẽm chống ăn mòn điện hóa, sơn tĩnh điện ngoài trời chống rỉ sét ngay cả trong môi trường bếp ẩm ướt nhiều dầu mỡ.</li>
+  <li><strong>Giá thành cạnh tranh:</strong> Mức giá hợp lý giúp các đơn vị kinh doanh ẩm thực tối ưu hóa chi phí vận hành hàng tháng mà vẫn đảm bảo an toàn PCCC.</li>
+</ul>
+
+<h2>4. Cơ Chế Hình Thành Giá Gas Và Các Yếu Tố Ảnh Hưởng Đến Giá Thị Trường</h2>
+<p>Nhiều người tiêu dùng thường băn khoăn: <em>"Tại sao giá gas trong nước lại thay đổi liên tục theo từng tháng?"</em>. Về bản chất, giá bán lẻ gas tại Việt Nam được quyết định bởi 4 yếu tố cốt lõi:</p>
+<blockquote style="background: #F8FAFC; border-left: 4px solid #FF6B00; padding: 12px 18px; margin: 16px 0; border-radius: 0 8px 8px 0;">
+  <strong>GIÁ GAS BÁN LẺ = (GIÁ CP THẾ GIỚI × TỶ GIÁ USD/VND) + CHI PHÍ PREMIUM + THUẾ NHẬP KHẨU & VAT + CHI PHÍ CHIẾT NẠP & VẬN HÀNH</strong>
+</blockquote>
+<ol>
+  <li><strong>Giá hợp đồng CP thế giới (Contract Price):</strong> Do Việt Nam vẫn phải nhập khẩu khoảng 50% – 60% lượng khí LPG từ Trung Đông, giá nhập khẩu trong nước hoàn toàn phụ thuộc vào giá CP do <a href="https://www.aramco.com/" target="_blank" rel="noopener noreferrer" title="Tập đoàn Saudi Aramco">Tập đoàn Dầu khí Quốc gia Saudi Arabia (Saudi Aramco)</a> công bố cố định vào ngày cuối cùng của mỗi tháng.</li>
+  <li><strong>Chi phí cước vận chuyển tàu biển (Premium) & Bảo hiểm hàng hải:</strong> Biến động của thị trường vận tải biển quốc tế và căng thẳng địa chính trị tại các eo biển vận tải dầu mỡ đều làm tăng chi phí đưa gas về các cảng đầu mối như Thị Vải (Bà Rịa - Vũng Tàu) hay Đình Vũ (Hải Phòng).</li>
+  <li><strong>Thuế nhập khẩu và Thuế Giá trị Gia tăng (VAT):</strong> Thuế nhập khẩu áp dụng đối với khí LPG dao động từ 0% – 5% tùy hiệp định thương mại, cộng với 10% thuế VAT theo quy định của Bộ Tài chính.</li>
+  <li><strong>Chi phí kiểm định an toàn và tái kiểm chuẩn vỏ bình:</strong> Mỗi bình gas trước khi lưu thông phải trải qua quy trình nghiêm ngặt: thử áp lực thủy lực, siêu âm chiều dày thân bình, vệ sinh làm sạch bên trong, thay thế van mới và sơn tĩnh điện bảo vệ.</li>
+</ol>
+
+<h2>5. 7 Mẹo Sử Dụng Gas Tiết Kiệm Đến 20% Chi Phí Hàng Tháng Cho Gia Đình</h2>
+<p>Giá gas biến động theo thị trường, nhưng bạn hoàn toàn có thể kiểm soát chi phí sinh hoạt bằng việc áp dụng các mẹo nấu nướng khoa học dưới đây:</p>
+<ul>
+  <li><strong>1. Điều chỉnh ngọn lửa vừa vặn đáy nồi:</strong> Ngọn lửa lý tưởng nhất là khi chụm đều vào tâm đáy nồi và có màu xanh biếc. Nếu ngọn lửa xòe ra ngoài thành nồi, phần nhiệt lượng đó sẽ bị tỏa ra không khí vô ích, gây lãng phí tới 15% lượng gas.</li>
+  <li><strong>2. Chọn kích cỡ nồi nấu phù hợp với lượng thức ăn:</strong> Nấu lượng thức ăn nhỏ trong một chiếc nồi quá dày và to sẽ tiêu tốn rất nhiều nhiệt lượng chỉ để làm nóng kim loại của nồi trước khi làm chín thức ăn.</li>
+  <li><strong>3. Sử dụng nắp đậy khi đun nấu:</strong> Việc đậy kín nắp giúp giữ lại hơi nóng bốc lên, làm tăng áp suất bên trong nồi và giúp thức ăn sôi nhanh hơn gấp 2 lần.</li>
+  <li><strong>4. Vệ sinh mâm chia lửa và béc phun gas định kỳ:</strong> Cặn dầu mỡ, thức ăn trào ra bám vào các khe chia lửa sẽ làm tắc nghẽn dòng khí, khiến gas cháy không hết, sinh ra ngọn lửa đỏ gây hao gas và làm đen đáy nồi.</li>
+  <li><strong>5. Rã đông thực phẩm hoàn toàn trước khi cho lên bếp:</strong> Đặt thực phẩm còn đông đá trực tiếp lên chảo/nồi sẽ buộc bếp gas phải tiêu thụ gấp 3 lần nhiệt lượng để làm tan băng rồi mới bắt đầu làm chín.</li>
+  <li><strong>6. Chuẩn bị sẵn toàn bộ nguyên liệu trước khi bật bếp:</strong> Tránh thói quen bật bếp gas rồi mới bắt đầu nhặt rau, thái thịt hay tìm gia vị. Việc để bếp cháy "chờ" vài phút mỗi bữa cộng dồn lại sẽ làm bình gas hết sớm hơn từ 7 – 10 ngày.</li>
+  <li><strong>7. Khóa van bình gas ngay sau khi nấu xong:</strong> Luôn tuân thủ quy tắc an toàn: <strong>Tắt bếp trước, Khóa van bình gas sau</strong>. Điều này vừa ngăn ngừa triệt để nguy cơ rò rỉ khí gas trong đường ống, vừa bảo vệ gia đình bạn an toàn tuyệt đối.</li>
+</ul>
+
+<h2>6. Hướng Dẫn Xử Lý Khẩn Cấp Khi Phát Hiện Mùi Gas Rò Rỉ</h2>
+<p>Khí LPG nguyên bản không màu, không mùi. Để giúp người tiêu dùng dễ dàng nhận biết rò rỉ, các nhà sản xuất đã chủ động pha trộn thêm chất tạo mùi đặc trưng mang tên <strong>Ethyl Mercaptan</strong> (có mùi khét giống bắp cải thối hoặc trứng thối). Khi bước vào phòng bếp và ngửi thấy mùi gas nồng nặc, <strong>HÃY TUÂN THỦ NGHIÊM NGẶT QUY TẮC 5 KHÔNG - 3 NÊN</strong>:</p>
+<div style="background: #FEF2F2; border: 1px solid #FECACA; padding: 14px 18px; border-radius: 8px; margin: 16px 0;">
+  <strong style="color: #991B1B;">❌ TUYỆT ĐỐI KHÔNG:</strong>
+  <ul style="margin-top: 8px; color: #991B1B;">
+    <li><strong>KHÔNG</strong> bật/tắt bất kỳ công tắc điện nào trong nhà (kể cả công tắc đèn, quạt điện, chuông cửa). Tia lửa điện li ti phát ra từ công tắc có thể kích nổ khối khí gas đang tích tụ.</li>
+    <li><strong>KHÔNG</strong> cắm hoặc rút phích cắm điện của các thiết bị (nồi cơm, tủ lạnh, lò vi sóng).</li>
+    <li><strong>KHÔNG</strong> sử dụng điện thoại di động trong khu vực đang có mùi gas.</li>
+    <li><strong>KHÔNG</strong> quẹt diêm, bật lửa hoặc hút thuốc lá.</li>
+    <li><strong>KHÔNG</strong> mở quạt hút mùi điện để thổi gas ra ngoài (motor quạt có thể phát sinh tia lửa điện).</li>
+  </ul>
+</div>
+<div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 14px 18px; border-radius: 8px; margin: 16px 0;">
+  <strong style="color: #166534;">✅ HÀNH ĐỘNG CẦN THỰC HIỆN NGAY:</strong>
+  <ol style="margin-top: 8px; color: #166534;">
+    <li><strong>Khóa chặt van bình gas ngay lập tức:</strong> Xoay núm van bình gas theo chiều kim đồng hồ để ngăn khí gas tiếp tục thoát ra ngoài.</li>
+    <li><strong>Mở toang tất cả các cửa sổ, cửa chính:</strong> Dùng quạt nan, bìa carton hoặc quạt tay để xua luồng khí gas ra ngoài theo hướng gió tự nhiên (khí LPG nặng hơn không khí nên sẽ chìm sát mặt sàn).</li>
+    <li><strong>Di chuyển mọi người ra nơi thoáng khí an toàn:</strong> Sau đó dùng điện thoại gọi ngay cho đội kỹ thuật của Ngọc Gas qua hotline <strong>19009396</strong> để được cử nhân viên đến xử lý bằng máy đo khí chuyên nghiệp.</li>
+  </ol>
+</div>
+
+<h2>7. Vấn Nạn Gas Lậu & Bộ Tiêu Chuẩn 6 Bước Nhận Biết Gas Chính Hãng Ngọc Gas</h2>
+<p>Hiện nay, trên thị trường xuất hiện rất nhiều cơ sở sang chiết gas trái phép. Họ thu gom vỏ bình trôi nổi cũ nát, mài mòn logo thương hiệu, chiết nạp gas bẩn pha tạp chất và <strong>rút bớt từ 2kg đến 4kg gas</strong> mỗi bình để bán giá rẻ đánh lừa người tiêu dùng. Để bảo vệ quyền lợi và sự an toàn của gia đình, khi nhân viên <strong>Ngọc Gas</strong> giao hàng đến nhà, quý khách luôn được khuyến khích kiểm tra theo <strong>6 bước tiêu chuẩn</strong>:</p>
+<ol>
+  <li><strong>Cân trọng lượng tại chỗ:</strong> Tổng cân = Vỏ dập nổi trên quai bình + 12kg ruột gas.</li>
+  <li><strong>Màng co nhiệt niêm phong (Seal):</strong> Màng co chính hãng ôm khít cổ van, không bị cắt vá.</li>
+  <li><strong>Tem chống hàng giả công nghệ cao:</strong> Quét mã QR Code hoặc soi tem Hologram phát quang.</li>
+  <li><strong>Logo dập chìm trên thân bình:</strong> Thương hiệu Luxen, Sopet Gas One, Phoenix Gas dập rõ nét.</li>
+  <li><strong>Hạn kiểm định an toàn:</strong> Kiểm tra chữ dập hạn kiểm định an toàn PCCC trên quai xách.</li>
+  <li><strong>Kiểm tra độ kín khít:</strong> Kỹ thuật viên dùng máy dò bọt xà phòng hoặc máy đo khí sau khi lắp van.</li>
+</ol>
+
+<h2>8. Quy Trình 5 Bước Giao Gas Chuyên Nghiệp Tại Ngọc Gas</h2>
+<p>Để khẳng định vị thế đại lý gas uy tín hàng đầu, hệ thống <strong>Ngọc Gas</strong> áp dụng quy trình phục vụ chuẩn mực 5 sao:</p>
+<ul>
+  <li><strong>Bước 1: Tiếp nhận yêu cầu & điều phối trạm gần nhất:</strong> Ngay khi nhận được cuộc gọi qua hotline hoặc tin nhắn Zalo, hệ thống tự động định vị và chuyển đơn hàng đến kỹ thuật viên gần bạn nhất.</li>
+  <li><strong>Bước 2: Giao gas hỏa tốc trong 15 phút:</strong> Nhân viên mang bình gas chính hãng được bọc lót cẩn thận đến tận căn bếp của khách hàng.</li>
+  <li><strong>Bước 3: Cân gas công khai trước mặt khách:</strong> Đặt bình gas lên cân điện tử cầm tay để khách hàng tự tay xác thực trọng lượng đủ 100%.</li>
+  <li><strong>Bước 4: Lắp đặt & Kiểm tra an toàn PCCC:</strong> Tháo niêm phong màng co, lắp van điều áp chuẩn xác, dùng thiết bị kiểm tra rò rỉ khí gas tại các khớp nối.</li>
+  <li><strong>Bước 5: Vệ sinh bếp & Bàn giao hóa đơn bảo hành:</strong> Vệ sinh mâm lửa miễn phí, dán tem bảo hành và hướng dẫn khách hàng lưu số tổng đài hỗ trợ 24/7.</li>
+</ul>
+
+<h2>9. Bộ Câu Hỏi Thường Gặp Về Giá Gas Hôm Nay (FAQ)</h2>
+<h3>❓ Giá gas hôm nay tại Ngọc Gas bao nhiêu tiền một bình 12kg?</h3>
+<p><strong>Trả lời:</strong> Giá đổi bình gas 12kg chính hãng tại Ngọc Gas được hệ thống tự động cập nhật liên tục ở bảng giá phía trên theo thời gian thực đối với 3 dòng: <strong>Phoenix Gas</strong>, <strong>Luxen Gas</strong> và <strong>Sopet Gas One</strong>. Mức giá luôn cam kết cạnh tranh nhất thị trường đi kèm gói quà tặng giá trị.</p>
+
+<h3>❓ Bình gas 12kg Luxen hoặc Sopet dùng được trong bao lâu?</h3>
+<p><strong>Trả lời:</strong> Với gia đình từ 3 – 4 người nấu ăn 2 bữa chính mỗi ngày, một bình 12kg đủ cân chuẩn của Luxen hoặc Sopet cho thời gian sử dụng trung bình từ <strong>65 đến 80 ngày (hơn 2 đến 2.5 tháng)</strong>. Nếu bình gas nhà bạn hết trước 45 ngày dù tần suất nấu không tăng, rất có thể bạn đã mua phải bình gas thiếu cân từ các cơ sở không uy tín.</p>
+
+<h3>❓ Đổi vỏ bình gas của hãng khác sang Luxen, Sopet, Phoenix có mất tiền đổi vỏ không?</h3>
+<p><strong>Trả lời:</strong> <strong>Hoàn toàn KHÔNG</strong>. Ngọc Gas thực hiện chính sách hỗ trợ người tiêu dùng: <strong>Thu hồi và đổi ngang tất cả các loại vỏ bình gas hợp pháp trên thị trường</strong> (như Petrolimex, Saigon Petro, PV Gas, Total, Gia Đình Gas...) sang bình gas chính hãng Luxen, Sopet Gas One hoặc Phoenix Gas mà <strong>quý khách không phải trả thêm bất kỳ chi phí đổi vỏ nào</strong>.</p>
+
+<h3>❓ Bình gas van ngang và bình gas van chụp (van rút) khác nhau như thế nào?</h3>
+<p><strong>Trả lời:</strong> Van ngang (POL) sử dụng núm vặn ren ngoài thông dụng; còn van chụp/van rút tích hợp cơ chế khớp bấm tháo lắp nhanh và có bi ngắt gas tự động bên trong cổ van, chống xì gas tuyệt đối khi gặp sự cố đứt dây dẫn.</p>
+
+<h3>❓ Tôi muốn mua bình gas mới lần đầu thì cần trả những chi phí gì?</h3>
+<p><strong>Trả lời:</strong> Khi mua mới bộ bình gas lần đầu, chi phí sẽ bao gồm: <strong>Tiền cọc vỏ bình gas chính hãng</strong> (khoảng 300.000đ) + <strong>Tiền ruột gas bên trong</strong> theo bảng giá hôm nay + <strong>Bộ van điều áp & dây dẫn gas an toàn</strong>. Vỏ bình gas là tài sản của quý khách và có thể hoàn trả lại tiền cọc khi không còn nhu cầu sử dụng.</p>
+
+<h3>❓ Làm sao để biết bình gas sắp hết gas?</h3>
+<p><strong>Trả lời:</strong> Có 3 dấu hiệu nhận biết: Ngọn lửa chuyển từ xanh sang vàng cam yếu dần; thân bình gas xuất hiện lớp mồ hôi đọng nước lạnh ở đáy bình; nhấc bình thấy nhẹ tay.</p>
+
+<h2>10. Đặt Đổi Gas Chính Hãng Ngay Hôm Nay Tại Ngọc Gas</h2>
+<p>Đừng chấp nhận rủi ro với những bình gas trôi nổi không rõ nguồn gốc! Hãy để <strong>Ngọc Gas</strong> đồng hành cùng gian bếp ấm cúng và an toàn của gia đình bạn.</p>`;
 
   // Range helper for WYSIWYG
   const saveVisualRange = () => {
@@ -176,10 +286,9 @@ export default function AdminGasPricePage() {
   };
 
   const handleSelectFromMedia = (url) => {
-    saveVisualRange();
-    setPendingImageUrl(url);
-    setAltTextValue(seoTitle || 'Hình ảnh bảng giá gas Ngọc Gas');
-    setIsAltModalOpen(true);
+    const altText = seoTitle || 'Hình ảnh bảng giá gas Ngọc Gas';
+    const figureHtml = `<figure style="margin: 24px auto; text-align: center; max-width: 100%;"><img src="${url}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 8px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
+    insertHTMLAtSavedRange(figureHtml);
     setIsMediaOpen(false);
   };
 
@@ -202,11 +311,10 @@ export default function AdminGasPricePage() {
       });
       const data = await res.json();
 
-      if (data.success) {
-        saveVisualRange();
-        setPendingImageUrl(data.url);
-        setAltTextValue(seoTitle || 'Hình ảnh bảng giá gas Ngọc Gas');
-        setIsAltModalOpen(true);
+      if (data.success && data.url) {
+        const altText = seoTitle || 'Hình ảnh bảng giá gas Ngọc Gas';
+        const figureHtml = `<figure style="margin: 24px auto; text-align: center; max-width: 100%;"><img src="${data.url}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 8px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
+        insertHTMLAtSavedRange(figureHtml);
       } else {
         setError(data.message || 'Lỗi khi upload ảnh');
       }
@@ -215,6 +323,7 @@ export default function AdminGasPricePage() {
       setError('Lỗi kết nối upload ảnh.');
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -368,8 +477,8 @@ export default function AdminGasPricePage() {
       if (dataSettings.success && dataSettings.data) {
         const s = dataSettings.data;
         setPageDesc(s.gas_price_page_desc || 'Bảng giá niêm yết chính hãng các loại bình gas Sopet Gas One, Phoenix Gas, Luxen Gas 12kg và 45kg tại TP. Dĩ An, Thuận An, Bình Dương & TP. HCM. Đủ ký 100%, bảo hiểm an toàn 5 tỷ đồng.');
-        setSeoTitle(s.gas_price_seo_title || 'Thông Tin & Phân Tích Xu Hướng Thị Trường Giá Gas');
-        setSeoContent(s.gas_price_seo_content || defaultSeoContent);
+        setSeoTitle(s.gas_price_seo_title || 'Báo Cáo Xu Hướng Giá Gas Tháng 8/2026');
+        setSeoContent(s.gas_price_seo_content && s.gas_price_seo_content.length > 200 ? s.gas_price_seo_content : defaultSeoContent);
 
         // Parse notes
         if (s.gas_price_notes_json) {
@@ -464,8 +573,8 @@ export default function AdminGasPricePage() {
       gas_price_notes_json: JSON.stringify(notes.filter(n => n.trim() !== '')),
       gas_price_commitments_json: JSON.stringify(commitments.filter(c => c.title.trim() !== '')),
       gas_price_faqs_json: JSON.stringify(faqs.filter(f => f.q.trim() !== '' && f.a.trim() !== '')),
-      gas_price_seo_title: seoTitle,
-      gas_price_seo_content: seoContent
+      gas_price_seo_title: seoTitle || 'Báo Cáo Xu Hướng Giá Gas Tháng 8/2026',
+      gas_price_seo_content: (seoContent && seoContent.trim().length > 100) ? seoContent : defaultSeoContent
     };
 
     try {
@@ -514,6 +623,15 @@ export default function AdminGasPricePage() {
       setError('Lỗi kết nối khi lưu cài đặt.');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleResetTo10Sections = () => {
+    if (window.confirm('Khôi phục lại toàn bộ 10 phần bài viết chuẩn SEO đầy đủ?')) {
+      setSeoContent(defaultSeoContent);
+      if (visualEditorRef.current) {
+        visualEditorRef.current.innerHTML = defaultSeoContent;
+      }
     }
   };
 
@@ -772,6 +890,16 @@ export default function AdminGasPricePage() {
                       <span>{uploading ? 'Đang tải...' : 'Tải ảnh lên'}</span>
                       <input type="file" accept="image/*" onChange={handleUploadImageFile} style={{ display: 'none' }} />
                     </label>
+                    <button
+                      type="button"
+                      onClick={handleResetTo10Sections}
+                      className="tool-btn tool-btn-action"
+                      style={{ background: '#FFF7ED', color: '#FF6B00', borderColor: '#FFEDD5' }}
+                      title="Khôi phục lại toàn bộ bài viết 10 phần gốc chuẩn SEO"
+                    >
+                      <RefreshCw size={14} />
+                      <span>Khôi phục 10 phần gốc</span>
+                    </button>
                   </div>
                 </div>
 

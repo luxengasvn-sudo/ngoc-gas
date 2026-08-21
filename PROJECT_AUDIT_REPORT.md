@@ -1,6 +1,6 @@
 # BÁO CÁO KIỂM TRA TOÀN DIỆN DỰ ÁN NGỌC GAS (PROJECT AUDIT REPORT)
 
-* Thời gian kiểm tra: **08:57:36 18/8/2026**
+* Thời gian kiểm tra: **14:17:10 21/8/2026**
 * Tổng số điểm kiểm tra: **56**
 * Đạt (PASS): **56** ✅
 * Thất bại (FAIL): **0** ❌
@@ -15,16 +15,16 @@
 
 | Trạng thái | Điểm kiểm tra | Chi tiết |
 |:---:|---|---|
-| ✅ PASS | **Kết nối MySQL Database** | Chế độ Fallback An Toàn (JSON + Memory Cache hoạt động) |
-| ✅ PASS | **Bảng CSDL 'products'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Bảng CSDL 'settings'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Bảng CSDL 'stores'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Bảng CSDL 'posts'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Bảng CSDL 'categories'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Bảng CSDL 'gas_price_history'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
+| ✅ PASS | **Kết nối MySQL Database** | Kết nối thành công (tinhgon.xyz:30039) |
+| ✅ PASS | **Bảng CSDL 'products'** | Bảng tồn tại trong CSDL |
+| ✅ PASS | **Bảng CSDL 'settings'** | Bảng tồn tại trong CSDL |
+| ✅ PASS | **Bảng CSDL 'stores'** | Bảng tồn tại trong CSDL |
+| ✅ PASS | **Bảng CSDL 'posts'** | Bảng tồn tại trong CSDL |
+| ✅ PASS | **Bảng CSDL 'categories'** | Bảng tồn tại trong CSDL |
+| ✅ PASS | **Bảng CSDL 'gas_price_history'** | Bảng tồn tại trong CSDL |
 | ✅ PASS | **Bảng CSDL 'users'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Bảng CSDL 'contacts'** | Tự động khởi tạo cấu trúc bảng qua db.initTables() |
-| ✅ PASS | **Cột mở rộng 'products.gas_type'** | Khởi tạo linh hoạt theo migration |
+| ✅ PASS | **Bảng CSDL 'contacts'** | Bảng tồn tại trong CSDL |
+| ✅ PASS | **Cột mở rộng 'products.gas_type'** | Cột tồn tại phục vụ phân khúc giá |
 
 ### 📁 Tầng 2: Bảo Vệ Dữ Liệu & Fallback Contract
 
@@ -72,7 +72,7 @@
 | ✅ PASS | **Trang: Trang Liên Hệ & Đặt Gas (/lien-he)** | HTTP 200 | Title: Có | Schema JSON-LD: Có |
 | ✅ PASS | **Trang: Tệp robots.txt (/robots.txt)** | HTTP 200 Robots.txt chuẩn |
 | ✅ PASS | **Trang: Tệp sitemap.xml (/sitemap.xml)** | HTTP 200 XML |
-| ✅ PASS | **Trang chi tiết sản phẩm (/san-pham/binh-gas-sopet-12kg-xam)** | HTTP 200 |
+| ✅ PASS | **Trang chi tiết sản phẩm (/san-pham/binh-gas-luxen-gas-12kg)** | HTTP 200 |
 
 ### 📁 Tầng 5: Trang Quản Trị Admin
 
@@ -94,7 +94,7 @@
 |:---:|---|---|
 | ✅ PASS | **Thư mục tài nguyên tĩnh /public** | Tồn tại |
 | ✅ PASS | **Thư mục hình ảnh /public/images (26 tệp)** | Tồn tại |
-| ✅ PASS | **Thư mục tải lên /public/uploads (38 tệp)** | Tồn tại |
+| ✅ PASS | **Thư mục tải lên /public/uploads (40 tệp)** | Tồn tại |
 | ✅ PASS | **Kiểm tra đường dẫn ảnh sản phẩm (11 ảnh)** | 100% ảnh tồn tại vật lý |
 
 ---

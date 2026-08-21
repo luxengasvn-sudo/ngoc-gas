@@ -114,9 +114,9 @@ export default async function PostDetailPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <div className="post-detail-header bg-warm">
-        <div className="container">
-          <div className="breadcrumb">
+      <div className="post-detail-header-custom">
+        <div className="container" style={{ maxWidth: '860px', margin: '0 auto', padding: '0 20px' }}>
+          <div className="post-breadcrumb-custom">
             <Link href="/">Trang chủ</Link>
             <span className="separator">/</span>
             <Link href="/tin-tuc">Tin tức</Link>
@@ -124,41 +124,41 @@ export default async function PostDetailPage({ params }) {
             <span className="current">{post.title}</span>
           </div>
 
-          <h1 className="post-detail-title">{post.title}</h1>
+          <h1 className="post-title-custom">{post.title}</h1>
 
-          <div className="post-meta-bar">
-            <div className="meta-item">
-              <Calendar size={16} />
+          <div className="post-meta-bar-custom">
+            <div className="meta-pill-item">
+              <Calendar size={15} />
               <span>{formatDate(post.created_at)}</span>
             </div>
-            <div className="meta-item">
-              <User size={16} />
+            <div className="meta-pill-item">
+              <User size={15} />
               <span>Ngọc Gas Team</span>
             </div>
-            <div className="meta-item">
-              <Clock size={16} />
+            <div className="meta-pill-item">
+              <Clock size={15} />
               <span>3 phút đọc</span>
             </div>
           </div>
         </div>
       </div>
 
-      <section className="section-padding">
-        <div className="container post-detail-container">
-          <article className="post-article">
+      <section className="post-detail-section-custom">
+        <div className="container" style={{ padding: '0 20px' }}>
+          <article className="post-card-container">
             {post.excerpt && (
-              <div className="post-excerpt-lead">
+              <div className="post-excerpt-lead-custom">
                 <p>{post.excerpt}</p>
               </div>
             )}
 
             <div 
-              className="post-content-body"
+              className="post-content-body-custom"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            <div className="post-footer-nav">
-              <Link href="/tin-tuc" className="btn btn-outline">
+            <div className="post-footer-nav-custom">
+              <Link href="/tin-tuc" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '8px', fontWeight: 'bold' }}>
                 <ArrowLeft size={16} />
                 Quay lại danh sách tin tức
               </Link>
@@ -167,9 +167,9 @@ export default async function PostDetailPage({ params }) {
 
           {/* Related Posts */}
           {otherPosts.length > 0 && (
-            <div className="related-posts-section">
-              <h3 className="related-title">Bài Viết Khác</h3>
-              <div className="grid-3" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
+            <div className="related-posts-section-custom">
+              <h3 className="related-title-custom">Bài Viết Liên Quan Khác</h3>
+              <div className="grid-3" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
                 {otherPosts.map(relPost => (
                   <PostCard key={relPost.id} post={relPost} />
                 ))}

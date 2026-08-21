@@ -1,12 +1,18 @@
 import { requireRole } from '@/lib/auth';
-import { getAllSettings, updateAllSettings } from '@/lib/settingsHelper';
+import { getAllSettings, updateAllSettings, getSettingsSnapshots, restoreSettingsSnapshot } from '@/lib/settingsHelper';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    if (searchParams.get('snapshots') === '1') {
+      const snapshots = getSettingsSnapshots();
+      return NextResponse.json({ success: true, data: snapshots });
+    }
+
     const settings = await getAllSettings();
     return NextResponse.json({ success: true, data: settings });
   } catch (error) {
@@ -26,8 +32,14 @@ export async function PUT(request) {
     }
 
     const body = await request.json();
+
+    // Check for snapshot rollback action
+    if (body && body.action === 'restore_snapshot' && body.filename) {
+      const result = await restoreSettingsSnapshot(body.filename);
+      return NextResponse.json(result, { status: result.success ? 200 : 400 });
+    }
+
     const keys = Object.keys(body || {});
-    
     if (keys.length === 0) {
       return NextResponse.json(
         { success: false, message: 'Không có thông tin cài đặt để cập nhật' },
@@ -54,3 +66,4 @@ export async function PUT(request) {
 export async function POST(request) {
   return PUT(request);
 }
+

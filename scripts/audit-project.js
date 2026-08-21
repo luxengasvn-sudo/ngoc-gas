@@ -36,7 +36,7 @@ if (fs.existsSync(envLocalPath)) {
   });
 }
 
-const BASE_URL = process.env.AUDIT_BASE_URL || 'http://localhost:4000';
+const BASE_URL = process.env.AUDIT_BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 const auditResults = {
   timestamp: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),

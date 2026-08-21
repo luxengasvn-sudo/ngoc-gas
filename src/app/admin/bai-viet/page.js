@@ -495,10 +495,10 @@ export default function AdminPostsPage() {
 
       const data = await res.json();
 
-      if (data.success) {
-        setPendingImageUrl(data.url);
-        setAltTextValue(formData.title || 'Hình ảnh bài viết Ngọc Gas');
-        setIsAltModalOpen(true);
+      if (data.success && data.url) {
+        const altText = formData.title || 'Hình ảnh bài viết Ngọc Gas';
+        const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${data.url}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
+        insertHTMLAtSavedRange(figureHtml);
       } else {
         setError(data.message || 'Lỗi khi upload ảnh cho bài viết');
       }
@@ -507,6 +507,7 @@ export default function AdminPostsPage() {
       setError('Lỗi kết nối upload ảnh.');
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -519,10 +520,9 @@ export default function AdminPostsPage() {
 
   const handleSelectFromMedia = (url) => {
     if (mediaTarget === 'content') {
-      saveVisualRange();
-      setPendingImageUrl(url);
-      setAltTextValue(formData.title || 'Hình ảnh bài viết Ngọc Gas');
-      setIsAltModalOpen(true);
+      const altText = formData.title || 'Hình ảnh bài viết Ngọc Gas';
+      const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${url}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
+      insertHTMLAtSavedRange(figureHtml);
     } else {
       setFormData(prev => ({ ...prev, image_url: url }));
     }
@@ -532,7 +532,7 @@ export default function AdminPostsPage() {
   const confirmInsertImageWithAlt = () => {
     if (!pendingImageUrl) return;
     const altText = altTextValue.trim() || formData.title || 'Hình ảnh bài viết Ngọc Gas';
-    const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${pendingImageUrl}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" />${altText ? `<figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption>` : ''}</figure><p><br/></p>`;
+    const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${pendingImageUrl}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
 
     insertHTMLAtSavedRange(figureHtml);
     setIsAltModalOpen(false);

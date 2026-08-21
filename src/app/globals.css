@@ -1992,3 +1992,248 @@ body.has-promo-bar .main-content-wrapper {
   gap: 4px;
 }
 
+/* =========================================================
+   NEWSPAPER & POST DETAIL MODERN DESIGN STYLES
+   ========================================================= */
+.post-detail-header-custom {
+  padding: 105px 0 30px;
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.post-breadcrumb-custom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13.5px;
+  margin-bottom: 16px;
+  color: #64748B;
+}
+
+.post-breadcrumb-custom a {
+  color: #64748B;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.post-breadcrumb-custom a:hover {
+  color: #FF6B00;
+}
+
+.post-breadcrumb-custom .separator {
+  color: #CBD5E1;
+}
+
+.post-breadcrumb-custom .current {
+  color: #0F172A;
+  font-weight: 600;
+  max-width: 480px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-title-custom {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(24px, 3.5vw, 34px);
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.35;
+  margin: 0 0 18px 0;
+  letter-spacing: -0.5px;
+}
+
+.post-meta-bar-custom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-pill-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #475569;
+  background: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  font-weight: 600;
+}
+
+.meta-pill-item svg {
+  color: #FF6B00;
+}
+
+.post-detail-section-custom {
+  padding: 40px 0 80px;
+  background-color: #F8FAFC;
+}
+
+.post-card-container {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 40px 48px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  border: 1px solid #E2E8F0;
+}
+
+.post-excerpt-lead-custom {
+  background: #FFF7ED;
+  border-left: 4px solid #FF6B00;
+  padding: 18px 22px;
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 32px;
+  font-size: 16.5px;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.post-excerpt-lead-custom p {
+  margin: 0;
+}
+
+.post-content-body-custom {
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: #1E293B;
+}
+
+.post-content-body-custom h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #FFEDD5;
+  letter-spacing: -0.3px;
+}
+
+.post-content-body-custom h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #EA580C;
+  margin: 28px 0 12px;
+}
+
+.post-content-body-custom h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 20px 0 10px;
+}
+
+.post-content-body-custom p {
+  margin-bottom: 18px;
+}
+
+.post-content-body-custom ul,
+.post-content-body-custom ol {
+  margin-bottom: 22px;
+  padding-left: 24px;
+}
+
+.post-content-body-custom li {
+  margin-bottom: 8px;
+  line-height: 1.75;
+}
+
+.post-content-body-custom figure {
+  margin: 32px auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.post-content-body-custom figure img,
+.post-content-body-custom img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  display: block;
+  margin: 0 auto;
+}
+
+.post-content-body-custom figcaption {
+  margin-top: 8px;
+  font-size: 13.5px;
+  color: #64748B;
+  font-style: italic;
+}
+
+.post-content-body-custom a {
+  color: #FF6B00;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.post-footer-nav-custom {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.related-posts-section-custom {
+  max-width: 860px;
+  margin: 50px auto 0;
+}
+
+.related-title-custom {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.related-title-custom::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background-color: #FF6B00;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .post-detail-header-custom {
+    padding: 85px 0 20px;
+  }
+
+  .post-card-container {
+    padding: 24px 18px;
+    border-radius: 12px;
+  }
+
+  .post-title-custom {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .post-meta-bar-custom {
+    gap: 8px;
+  }
+
+  .meta-pill-item {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .post-content-body-custom {
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+}
+
+

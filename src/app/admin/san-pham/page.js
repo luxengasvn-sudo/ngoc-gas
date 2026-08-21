@@ -298,10 +298,9 @@ export default function AdminProductsPage() {
         images: JSON.stringify(currentImages)
       }));
     } else if (mediaTarget === 'content') {
-      saveVisualRange();
-      setPendingImageUrl(url);
-      setAltTextValue(formData.name || 'Hình ảnh sản phẩm Ngọc Gas');
-      setIsAltModalOpen(true);
+      const altText = formData.name || 'Hình ảnh sản phẩm Ngọc Gas';
+      const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${url}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
+      insertHTMLAtSavedRange(figureHtml);
     }
     setIsMediaOpen(false);
   };
@@ -651,11 +650,10 @@ export default function AdminProductsPage() {
       });
       const data = await res.json();
 
-      if (data.success) {
-        saveVisualRange();
-        setPendingImageUrl(data.url);
-        setAltTextValue(formData.name || 'Hình ảnh sản phẩm Ngọc Gas');
-        setIsAltModalOpen(true);
+      if (data.success && data.url) {
+        const altText = formData.name || 'Hình ảnh sản phẩm Ngọc Gas';
+        const figureHtml = `<figure style="margin: 20px auto; text-align: center; max-width: 100%;"><img src="${data.url}" alt="${altText}" title="${altText}" style="max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" /><figcaption style="margin-top: 6px; font-size: 13.5px; color: #64748B; font-style: italic;">📷 ${altText}</figcaption></figure><p><br/></p>`;
+        insertHTMLAtSavedRange(figureHtml);
       } else {
         setError(data.message || 'Lỗi khi upload ảnh cho mô tả');
       }
@@ -664,6 +662,7 @@ export default function AdminProductsPage() {
       setError('Lỗi kết nối upload ảnh.');
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
