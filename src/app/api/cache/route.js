@@ -6,13 +6,34 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-// GET /api/cache - View cache statistics
+import db from '@/lib/db';
+
+// GET /api/cache - View cache statistics & DB status
 export async function GET(request) {
   try {
     const stats = getCacheStats();
+    let dbStatus = 'disconnected';
+    let dbProductCount = 0;
+    let dbError = null;
+
+    try {
+      const [rows] = await db.query('SELECT COUNT(*) as count FROM products');
+      if (rows && rows[0]) {
+        dbStatus = 'connected';
+        dbProductCount = rows[0].count;
+      }
+    } catch (e) {
+      dbError = e.message;
+    }
+
     return NextResponse.json({
       success: true,
-      data: stats
+      data: stats,
+      database: {
+        status: dbStatus,
+        productCount: dbProductCount,
+        error: dbError
+      }
     });
   } catch (error) {
     console.error('GET /api/cache error:', error.message);
