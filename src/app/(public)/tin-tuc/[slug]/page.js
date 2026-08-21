@@ -146,16 +146,6 @@ export default async function PostDetailPage({ params }) {
       <section className="section-padding">
         <div className="container post-detail-container">
           <article className="post-article">
-            {post.image_url && (
-              <div className="post-featured-image-wrapper">
-                <img 
-                  src={post.image_url} 
-                  alt={post.title} 
-                  className="post-featured-image"
-                />
-              </div>
-            )}
-
             {post.excerpt && (
               <div className="post-excerpt-lead">
                 <p>{post.excerpt}</p>

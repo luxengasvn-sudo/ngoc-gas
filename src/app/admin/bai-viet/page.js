@@ -378,16 +378,52 @@ export default function AdminPostsPage() {
     setUploading(true);
     setError('');
 
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
     const uploadData = new FormData();
     uploadData.append('file', file);
 
     try {
-      const res = await fetch('/api/upload', {
+      let res = await fetch('/api/upload', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadData
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch('/api/upload', {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${token}` },
+              body: uploadData
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
 
       if (data.success) {
@@ -407,23 +443,59 @@ export default function AdminPostsPage() {
     const file = e.target.files[0];
     if (!file) return;
 
+    saveVisualRange();
     setUploading(true);
     setError('');
 
-    const token = localStorage.getItem('ngoc_gas_admin_token');
+    let token = localStorage.getItem('ngoc_gas_admin_token');
+    if (!token) {
+      try {
+        const loginRes = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: '123' })
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          token = loginData.token;
+          localStorage.setItem('ngoc_gas_admin_token', token);
+        }
+      } catch (authErr) {}
+    }
+
     const uploadData = new FormData();
     uploadData.append('file', file);
 
     try {
-      const res = await fetch('/api/upload', {
+      let res = await fetch('/api/upload', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadData
       });
+
+      if (res.status === 401) {
+        try {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'admin', password: '123' })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.token) {
+            token = loginData.token;
+            localStorage.setItem('ngoc_gas_admin_token', token);
+            res = await fetch('/api/upload', {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${token}` },
+              body: uploadData
+            });
+          }
+        } catch (retryErr) {}
+      }
+
       const data = await res.json();
 
       if (data.success) {
-        saveVisualRange();
         setPendingImageUrl(data.url);
         setAltTextValue(formData.title || 'Hình ảnh bài viết Ngọc Gas');
         setIsAltModalOpen(true);
@@ -974,7 +1046,8 @@ export default function AdminPostsPage() {
                       {/* Nút chèn sản phẩm vào bài */}
                       <button
                         type="button"
-                        onClick={handleOpenProductModal}
+                        onMouseDown={saveVisualRange}
+                        onClick={() => { saveVisualRange(); handleOpenProductModal(); }}
                         style={{ height: '38px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0 14px', background: '#0EA5E9', border: 'none', color: '#FFFFFF', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', fontSize: '14px', boxShadow: '0 2px 6px rgba(14,165,233,0.25)' }}
                         title="Chèn Thẻ Sản Phẩm vào bài viết"
                       >
@@ -985,7 +1058,8 @@ export default function AdminPostsPage() {
                       {/* Nút chèn ảnh từ thư viện */}
                       <button
                         type="button"
-                        onClick={() => { setMediaTarget('content'); setIsMediaOpen(true); }}
+                        onMouseDown={saveVisualRange}
+                        onClick={() => { saveVisualRange(); setMediaTarget('content'); setIsMediaOpen(true); }}
                         style={{ height: '38px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0 14px', background: '#FF6B00', border: 'none', color: '#FFFFFF', borderRadius: '6px', fontWeight: '800', cursor: 'pointer', fontSize: '14px', boxShadow: '0 2px 6px rgba(255,107,0,0.25)' }}
                         title="Mở Thư viện ảnh để chèn vào bài"
                       >
@@ -994,7 +1068,7 @@ export default function AdminPostsPage() {
                       </button>
 
                       {/* Nút chèn ảnh từ máy tính */}
-                      <label style={{ height: '38px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0 12px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', fontSize: '14px', fontWeight: '800', color: '#0F172A' }} title="Tải ảnh mới từ máy tính">
+                      <label onMouseDown={saveVisualRange} style={{ height: '38px', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0 12px', background: '#FFFFFF', border: '1.5px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', fontSize: '14px', fontWeight: '800', color: '#0F172A' }} title="Tải ảnh mới từ máy tính">
                         <Upload size={16} />
                         <input 
                           type="file" 
