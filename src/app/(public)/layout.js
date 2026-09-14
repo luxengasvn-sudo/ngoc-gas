@@ -4,8 +4,7 @@ import MobileContactWidget from "@/components/MobileContactWidget";
 import BottomNav from "@/components/BottomNav";
 import { getAllSettings } from "@/lib/settingsHelper";
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default async function PublicLayout({ children }) {
   let settings = {};

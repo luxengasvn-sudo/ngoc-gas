@@ -8,13 +8,17 @@ export const revalidate = 0;
 
 import db from '@/lib/db';
 
-// GET /api/cache - View cache statistics & DB status
+// GET /api/cache - View cache statistics & DB status (Yêu cầu đăng nhập Quản trị viên)
 export async function GET(request) {
   try {
+    const auth = requireRole(request, ['admin', 'editor']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
+    }
+
     const stats = getCacheStats();
     let dbStatus = 'disconnected';
     let dbProductCount = 0;
-    let dbError = null;
 
     try {
       const [rows] = await db.query('SELECT COUNT(*) as count FROM products');
@@ -23,7 +27,7 @@ export async function GET(request) {
         dbProductCount = rows[0].count;
       }
     } catch (e) {
-      dbError = e.message;
+      console.error('DB query error in /api/cache:', e.message);
     }
 
     return NextResponse.json({
@@ -31,14 +35,13 @@ export async function GET(request) {
       data: stats,
       database: {
         status: dbStatus,
-        productCount: dbProductCount,
-        error: dbError
+        productCount: dbProductCount
       }
     });
   } catch (error) {
     console.error('GET /api/cache error:', error.message);
     return NextResponse.json(
-      { success: false, message: 'Lỗi khi lấy thông tin bộ nhớ đệm: ' + error.message },
+      { success: false, message: 'Lỗi máy chủ khi lấy thông tin bộ nhớ đệm.' },
       { status: 500 }
     );
   }

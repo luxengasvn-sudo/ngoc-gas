@@ -15,6 +15,12 @@ export async function POST(request) {
         { status: 401 }
       );
     }
+    if (user.id === 'ai-publisher') {
+      return NextResponse.json(
+        { success: false, message: 'API Key không có quyền đổi mật khẩu tài khoản người dùng.' },
+        { status: 403 }
+      );
+    }
 
     const body = await request.json().catch(() => ({}));
     const current_password = String(body.current_password || '').trim();

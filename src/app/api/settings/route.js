@@ -9,6 +9,10 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     if (searchParams.get('snapshots') === '1') {
+      const auth = requireRole(request, ['admin']);
+      if (!auth.authorized) {
+        return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
+      }
       const snapshots = getSettingsSnapshots();
       return NextResponse.json({ success: true, data: snapshots });
     }

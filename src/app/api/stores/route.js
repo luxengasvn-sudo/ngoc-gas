@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAuthenticatedUser } from '@/lib/auth';
+import { requireRole } from '@/lib/auth';
 import { getAllStores, createStoreData } from '@/lib/storesHelper';
 
 export const dynamic = 'force-dynamic';
@@ -32,12 +32,9 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const user = getAuthenticatedUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin', 'sales']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const body = await request.json();

@@ -4,8 +4,7 @@ import PostCard from '@/components/PostCard';
 import { Calendar, User, Clock, ArrowLeft } from 'lucide-react';
 import { getPostByIdOrSlug, getAllPosts } from '@/lib/postsHelper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Fresh database query always
+export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

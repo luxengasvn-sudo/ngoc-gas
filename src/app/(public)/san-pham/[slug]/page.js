@@ -8,8 +8,7 @@ import { Flame, ShieldCheck, Star, CheckCircle2, Award } from 'lucide-react';
 import { getProductByIdOrSlug, getAllProducts, getDefaultProductReviews } from '@/lib/productsHelper';
 import { getAllSettings } from '@/lib/settingsHelper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Fresh database query always
+export const revalidate = 60;
 
 // Helper function to build humanized, 100% Google Keyword-Trust Article structure with branch linking
 const createKeywordTrustSEOArticle = (productName, imageSrc, productTypeDesc, phone = '19009396', address = '7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương') => {

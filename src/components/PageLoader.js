@@ -9,19 +9,19 @@ export default function PageLoader() {
 
   useEffect(() => {
     const handleLoad = () => {
-      setTimeout(() => {
-        setFadeOut(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 350);
-      }, 200);
+      // Immediate fade out once page is ready
+      setFadeOut(true);
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 150);
+      return () => clearTimeout(timer);
     };
 
     if (document.readyState === 'complete') {
       handleLoad();
     } else {
-      window.addEventListener('load', handleLoad);
-      const fallbackTimer = setTimeout(handleLoad, 600);
+      window.addEventListener('load', handleLoad, { once: true });
+      const fallbackTimer = setTimeout(handleLoad, 300);
       return () => {
         window.removeEventListener('load', handleLoad);
         clearTimeout(fallbackTimer);
@@ -42,7 +42,7 @@ export default function PageLoader() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: 'opacity 0.35s ease, visibility 0.35s ease',
+        transition: 'opacity 0.15s ease, visibility 0.15s ease',
         opacity: fadeOut ? 0 : 1,
         visibility: fadeOut ? 'hidden' : 'visible',
         pointerEvents: fadeOut ? 'none' : 'all'

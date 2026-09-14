@@ -330,32 +330,40 @@ async function initTables(pool) {
 }
 
 function getConnectionString() {
-  return process.env.DATABASE_URL || 'mysql://user_b9c8ee4a0b58:L8vCFaRFa8H4Z0tSqpyr1Hq4OYz1PoQ8@tinhgon.xyz:30039/db_ngoc_gas';
+  return process.env.DATABASE_URL || '';
 }
 
 function getPool() {
   if (!global.mysqlPool) {
     const connectionString = getConnectionString();
+    if (!connectionString) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('DB Notice: process.env.DATABASE_URL is not configured. Falling back to local data store.');
+      }
+      return null;
+    }
     global.mysqlPool = mysql.createPool({
       uri: connectionString,
       connectionLimit: 10,
       waitForConnections: true,
       queueLimit: 0
     });
+    initTables(global.mysqlPool).catch(err => {
+      // Suppress dev overlay popup on fallback
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('DB Init notice:', err.message);
+      }
+    });
   }
-  initTables(global.mysqlPool).catch(err => {
-    // Suppress dev overlay popup on fallback
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('DB Init notice:', err.message);
-    }
-  });
   return global.mysqlPool;
 }
 
 const db = {
   query: async (...args) => {
     try {
-      return await getPool().query(...args);
+      const pool = getPool();
+      if (!pool) return [[], []];
+      return await pool.query(...args);
     } catch (err) {
       if (process.env.NODE_ENV !== 'production') {
         console.warn('DB Query fallback:', err.message);
@@ -365,7 +373,9 @@ const db = {
   },
   execute: async (...args) => {
     try {
-      return await getPool().execute(...args);
+      const pool = getPool();
+      if (!pool) return [{ affectedRows: 0, insertId: 0 }, []];
+      return await pool.execute(...args);
     } catch (err) {
       if (process.env.NODE_ENV !== 'production') {
         console.warn('DB Execute fallback:', err.message);
@@ -374,7 +384,9 @@ const db = {
     }
   },
   getConnection: async (...args) => {
-    return await getPool().getConnection(...args);
+    const pool = getPool();
+    if (!pool) throw new Error('Database connection pool is not configured');
+    return await pool.getConnection(...args);
   }
 };
 

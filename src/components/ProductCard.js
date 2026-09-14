@@ -22,7 +22,7 @@ export default function ProductCard({ product }) {
           <div className="product-image-container">
             {product.image_url ? (
               <picture>
-                {product.image_url.startsWith('/images/') && (
+                {(product.image_url.startsWith('/images/') || product.image_url.startsWith('/uploads/')) && (
                   <source srcSet={product.image_url.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
                 )}
                 <img 

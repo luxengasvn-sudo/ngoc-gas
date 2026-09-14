@@ -7,6 +7,8 @@ const PRODUCTS_FILE_PATH = path.join(process.cwd(), 'data', 'products.json');
 const PRODUCTS_DEFAULT_PATH = path.join(process.cwd(), 'data', 'products.default.json');
 
 let memoryProductsCache = null;
+let productsCacheTime = 0;
+const PRODUCTS_CACHE_TTL = 30 * 1000; // 30 seconds RAM TTL
 
 const initialProductsData = [];
 
@@ -43,6 +45,10 @@ function saveProductsToFile(productsArr) {
 }
 
 export async function getAllProducts() {
+  if (memoryProductsCache && (Date.now() - productsCacheTime < PRODUCTS_CACHE_TTL)) {
+    return memoryProductsCache;
+  }
+
   const fileProducts = readProductsFromFile();
 
   let dbProducts = [];
@@ -72,11 +78,13 @@ export async function getAllProducts() {
     });
 
     memoryProductsCache = merged;
+    productsCacheTime = Date.now();
     return merged;
   }
 
   // If DB is empty/unavailable, fall back to file products
   memoryProductsCache = fileProducts;
+  productsCacheTime = Date.now();
   return fileProducts;
 }
 
@@ -173,6 +181,7 @@ export async function updateProductData(id, updateFields) {
   }
 
   memoryProductsCache = all;
+  productsCacheTime = Date.now();
   saveProductsToFile(all);
 
   // Sync to MySQL in background
@@ -312,6 +321,7 @@ export async function createProductData(productFields) {
 
   all.unshift(newProduct);
   memoryProductsCache = all;
+  productsCacheTime = Date.now();
   saveProductsToFile(all);
 
   // Sync to MySQL in background

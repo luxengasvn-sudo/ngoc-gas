@@ -1,5 +1,5 @@
 import db from '@/lib/db';
-import { getAuthenticatedUser } from '@/lib/auth';
+import { requireRole } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import { getProductByIdOrSlug, updateProductData } from '@/lib/productsHelper';
 
@@ -27,12 +27,9 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const user = getAuthenticatedUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin', 'editor']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const { id } = await params;
@@ -48,11 +45,11 @@ export async function PUT(request, { params }) {
       images, 
       category_id, 
       is_featured, 
-      is_active,
-      rating_value,
-      rating_count,
-      reviews_json,
-      gas_type
+      is_active, 
+      rating_value, 
+      rating_count, 
+      reviews_json, 
+      gas_type 
     } = body;
 
     if (!name || !slug) {
@@ -65,19 +62,19 @@ export async function PUT(request, { params }) {
     const updated = await updateProductData(id, {
       name,
       slug,
-      short_description: short_description || '',
-      description: description || '',
-      price: price !== undefined && price !== '' && price !== null ? Number(price) : null,
-      sale_price: sale_price !== undefined && sale_price !== '' && sale_price !== null ? Number(sale_price) : null,
-      image_url: image_url || '',
-      images: images || '[]',
-      category_id: category_id || null,
+      short_description,
+      description,
+      price: price ? Number(price) : null,
+      sale_price: sale_price ? Number(sale_price) : null,
+      image_url,
+      images,
+      category_id: category_id ? parseInt(category_id) : null,
       is_featured: is_featured ? 1 : 0,
       is_active: is_active ? 1 : 0,
-      rating_value: rating_value !== undefined ? Number(rating_value) : 4.9,
-      rating_count: rating_count !== undefined ? Number(rating_count) : 86,
-      reviews_json: reviews_json || '[]',
-      gas_type: gas_type !== undefined ? (gas_type || null) : undefined
+      rating_value: rating_value ? Number(rating_value) : 5.0,
+      rating_count: rating_count ? parseInt(rating_count) : 86,
+      reviews_json: reviews_json ? (typeof reviews_json === 'string' ? reviews_json : JSON.stringify(reviews_json)) : null,
+      gas_type: gas_type || null
     });
 
     return NextResponse.json({
@@ -96,12 +93,9 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const user = getAuthenticatedUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
-        { status: 401 }
-      );
+    const auth = requireRole(request, ['admin']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const { id } = await params;

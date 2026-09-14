@@ -1,6 +1,6 @@
 import db from '@/lib/db';
 import { NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { requireRole } from '@/lib/auth';
 import { getAllProducts, createProductData, updateProductData } from '@/lib/productsHelper';
 
 export const dynamic = 'force-dynamic';
@@ -46,11 +46,9 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split(' ')[1];
-    const decoded = verifyToken(token);
-    if (!decoded) {
-      return NextResponse.json({ success: false, message: 'Không có quyền truy cập' }, { status: 401 });
+    const auth = requireRole(request, ['admin', 'editor']);
+    if (!auth.authorized) {
+      return NextResponse.json({ success: false, message: auth.message }, { status: auth.status });
     }
 
     const body = await request.json();

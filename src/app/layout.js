@@ -1,9 +1,6 @@
 import "./globals.css";
 import { getAllSettings } from '@/lib/settingsHelper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export async function generateMetadata() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ngocgas.com';
   let faviconUrl = '/favicon.ico';

@@ -4,8 +4,7 @@ import GasPriceWidget from '@/components/GasPriceWidget';
 import { getAllProducts } from '@/lib/productsHelper';
 import { getAllSettings } from '@/lib/settingsHelper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 function getCurrentDateInfo() {
   const now = new Date();

@@ -14,22 +14,66 @@ export default function AdminLayout({ children }) {
   const isLoginPage = pathname === '/admin/login';
 
   useEffect(() => {
-    const token = localStorage.getItem('ngoc_gas_admin_token');
-    const userStr = localStorage.getItem('ngoc_gas_admin_user');
-    
-    if (!token && !isLoginPage) {
-      router.push('/admin/login');
-    } else if (token && isLoginPage) {
-      router.push('/admin');
-    } else {
-      setIsAuthenticated(!!token);
-      if (userStr) {
-        try {
-          setCurrentUser(JSON.parse(userStr));
-        } catch (e) {}
+    let isMounted = true;
+
+    async function verifySession() {
+      const token = localStorage.getItem('ngoc_gas_admin_token');
+
+      if (!token) {
+        if (!isLoginPage) {
+          router.push('/admin/login');
+        }
+        if (isMounted) setLoading(false);
+        return;
+      }
+
+      // Có token: Gọi API /api/auth/me để kiểm tra tính hợp lệ với máy chủ
+      try {
+        const res = await fetch('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted) {
+            setCurrentUser(data.user);
+            setIsAuthenticated(true);
+            localStorage.setItem('ngoc_gas_admin_user', JSON.stringify(data.user));
+            if (isLoginPage) {
+              router.push('/admin');
+            }
+          }
+        } else {
+          // Token không hợp lệ, giả mạo hoặc tài khoản bị khóa
+          localStorage.removeItem('ngoc_gas_admin_token');
+          localStorage.removeItem('ngoc_gas_admin_user');
+          if (isMounted) {
+            setIsAuthenticated(false);
+            setCurrentUser(null);
+            if (!isLoginPage) {
+              router.push('/admin/login');
+            }
+          }
+        }
+      } catch (err) {
+        // Fallback kiểm tra cấu trúc cơ bản khi mất kết nối mạng cục bộ
+        const userStr = localStorage.getItem('ngoc_gas_admin_user');
+        if (userStr && isMounted) {
+          try {
+            setCurrentUser(JSON.parse(userStr));
+            setIsAuthenticated(true);
+          } catch (e) {}
+        }
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
-    setLoading(false);
+
+    verifySession();
+
+    return () => {
+      isMounted = false;
+    };
   }, [pathname, isLoginPage, router]);
 
   if (loading) {

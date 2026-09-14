@@ -2,8 +2,7 @@ import { getAllSettings } from '@/lib/settingsHelper';
 import Link from 'next/link';
 import { Flame, Shield, Users, Heart, Award, ArrowRight } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Fresh database query always
+export const revalidate = 60;
 
 export async function generateMetadata() {
   const settings = await getAllSettings();

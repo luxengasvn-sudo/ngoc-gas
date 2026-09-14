@@ -22,7 +22,7 @@ export default function ProductGallery({ mainImage, imagesJson }) {
         <div className="gallery-main-view card">
           {activeImage ? (
             <picture>
-              {activeImage.startsWith('/images/') && (
+              {(activeImage.startsWith('/images/') || activeImage.startsWith('/uploads/')) && (
                 <source srcSet={activeImage.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
               )}
               <img 
@@ -53,7 +53,7 @@ export default function ProductGallery({ mainImage, imagesJson }) {
                 onMouseEnter={() => setActiveImage(img)}
               >
                 <picture>
-                  {img.startsWith('/images/') && (
+                  {(img.startsWith('/images/') || img.startsWith('/uploads/')) && (
                     <source srcSet={img.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
                   )}
                   <img 

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "bot": "node scripts/telegram-bot/server.js",
-    "audit": "node scripts/audit-project.js"
+    "audit": "node scripts/audit-project.js",
+    "backup": "node scripts/backup-ngocgas.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

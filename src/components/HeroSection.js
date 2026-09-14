@@ -99,7 +99,7 @@ export default function HeroSection({ initialSettings }) {
     slides.push('/images/gas-cylinder.webp');
   }
 
-  const optimizedSlides = slides.map(s => (s && s.startsWith('/images/') ? s.replace(/\.(jpe?g|png)$/i, '.webp') : s));
+  const optimizedSlides = slides.map(s => (s && (s.startsWith('/images/') || s.startsWith('/uploads/')) ? s.replace(/\.(jpe?g|png)$/i, '.webp') : s));
 
   useEffect(() => {
     if (settings.hero_mode !== 'slide' || slides.length <= 1) return;

@@ -11,7 +11,7 @@ const defaultUsersData = [
   {
     id: 1,
     username: 'admin',
-    password_hash: '$2a$10$wE96rV2k789fXpGqXqE1.eHk3kIuB7v8rF0hRzQ9qY8gV3jO5m8eW', // admin123
+    password_hash: '$2b$10$eELJvc6AoNhwq2VN9Z.sVuyB.iNbb8emil62gKXPd1Um8hWwqh8ke',
     display_name: 'Quản trị viên Ngọc Gas',
     role: 'admin',
     is_active: 1,

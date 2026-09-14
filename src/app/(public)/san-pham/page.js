@@ -3,8 +3,7 @@ import ProductCard from '@/components/ProductCard';
 import { getAllProducts } from '@/lib/productsHelper';
 import { getAllCategories } from '@/lib/categoriesHelper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Fresh database query always
+export const revalidate = 60;
 
 export async function generateMetadata() {
   return {

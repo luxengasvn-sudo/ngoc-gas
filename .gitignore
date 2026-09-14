@@ -44,6 +44,7 @@ next-env.d.ts
 /scratch/
 .claude/
 CLAUDE.md
+/backups/
 
 # Dynamic data files (user data — NEVER deploy these, they overwrite production data)
 # Only *.default.json files are tracked for first-time server setup

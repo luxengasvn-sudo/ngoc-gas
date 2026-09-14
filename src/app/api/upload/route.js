@@ -1,6 +1,7 @@
 import { writeFile, mkdir, readdir, stat, unlink } from 'fs/promises';
 import { NextResponse } from 'next/server';
 import path from 'path';
+import sharp from 'sharp';
 import { getAuthenticatedUser } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -100,6 +101,18 @@ export async function GET(request) {
   }
 }
 
+const ALLOWED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif', '.ico']);
+const ALLOWED_MIME_TYPES = new Set([
+  'image/png',
+  'image/jpeg',
+  'image/webp',
+  'image/svg+xml',
+  'image/gif',
+  'image/x-icon',
+  'image/vnd.microsoft.icon'
+]);
+const MAX_FILE_SIZE = 8 * 1024 * 1024; // Tối đa 8MB
+
 export async function POST(request) {
   try {
     const user = getAuthenticatedUser(request);
@@ -113,9 +126,34 @@ export async function POST(request) {
     const formData = await request.formData();
     const file = formData.get('file');
 
-    if (!file) {
+    if (!file || typeof file === 'string') {
       return NextResponse.json(
-        { success: false, message: 'Không tìm thấy tệp tin tải lên' },
+        { success: false, message: 'Không tìm thấy tệp tin tải lên hợp lệ' },
+        { status: 400 }
+      );
+    }
+
+    // 1. Kiểm tra kích thước tệp
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        { success: false, message: 'Dung lượng tệp vượt quá giới hạn tối đa cho phép (8MB).' },
+        { status: 400 }
+      );
+    }
+
+    // 2. Kiểm tra định dạng phần mở rộng (Extension Whitelist)
+    const rawExt = path.extname(file.name || '').toLowerCase();
+    if (!ALLOWED_EXTENSIONS.has(rawExt)) {
+      return NextResponse.json(
+        { success: false, message: 'Định dạng tệp không được hỗ trợ. Chỉ chấp nhận ảnh (.png, .jpg, .jpeg, .webp, .svg, .gif, .ico)' },
+        { status: 400 }
+      );
+    }
+
+    // 3. Kiểm tra MIME-type
+    if (file.type && !ALLOWED_MIME_TYPES.has(file.type.toLowerCase())) {
+      return NextResponse.json(
+        { success: false, message: 'MIME type của tệp không hợp lệ.' },
         { status: 400 }
       );
     }
@@ -123,17 +161,30 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create unique filename
+    // 4. Tạo tên file ngẫu nhiên an toàn, loại bỏ ký tự đặc biệt
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const filename = uniqueSuffix + path.extname(file.name);
+    const filename = uniqueSuffix + rawExt;
     
-    const uploadDir = path.join(process.cwd(), 'public/uploads');
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     
     // Ensure directory exists
     await mkdir(uploadDir, { recursive: true });
     
     const filePath = path.join(uploadDir, filename);
     await writeFile(filePath, buffer);
+
+    // Auto generate optimized WebP version for images
+    if (['.png', '.jpg', '.jpeg'].includes(rawExt)) {
+      try {
+        const webpFilename = `${uniqueSuffix}.webp`;
+        const webpPath = path.join(uploadDir, webpFilename);
+        await sharp(buffer)
+          .webp({ quality: 82, effort: 4 })
+          .toFile(webpPath);
+      } catch (sharpErr) {
+        console.warn('Auto WebP conversion warning:', sharpErr.message);
+      }
+    }
 
     return NextResponse.json({
       success: true,
@@ -144,7 +195,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error uploading file:', error);
     return NextResponse.json(
-      { success: false, message: 'Lỗi máy chủ khi tải tệp tin lên' },
+      { success: false, message: 'Lỗi máy chủ khi tải tệp tin lên.' },
       { status: 500 }
     );
   }
@@ -170,18 +221,26 @@ export async function DELETE(request) {
       );
     }
 
-    // Only allow deleting files in /uploads/
-    if (!fileUrl.startsWith('/uploads/')) {
+    // Chặn Path Traversal và chỉ cho phép xóa file trong /uploads/
+    if (!fileUrl.startsWith('/uploads/') || fileUrl.includes('..')) {
       return NextResponse.json(
-        { success: false, message: 'Chỉ được phép xóa các ảnh trong thư mục /uploads/' },
+        { success: false, message: 'Đường dẫn tệp tin không hợp lệ hoặc bị từ chối truy cập.' },
         { status: 403 }
       );
     }
 
     const filename = path.basename(fileUrl);
-    const filePath = path.join(process.cwd(), 'public/uploads', filename);
+    const filePath = path.join(process.cwd(), 'public', 'uploads', filename);
 
     await unlink(filePath);
+
+    // Also remove webp companion if exists
+    const ext = path.extname(filename).toLowerCase();
+    if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+      const base = path.basename(filename, ext);
+      const webpPath = path.join(process.cwd(), 'public', 'uploads', `${base}.webp`);
+      await unlink(webpPath).catch(() => {});
+    }
 
     return NextResponse.json({
       success: true,
@@ -190,7 +249,7 @@ export async function DELETE(request) {
   } catch (error) {
     console.error('Error deleting media file:', error);
     return NextResponse.json(
-      { success: false, message: 'Lỗi khi xóa file khỏi server' },
+      { success: false, message: 'Lỗi khi xóa file khỏi server.' },
       { status: 500 }
     );
   }

@@ -4,8 +4,7 @@ import Link from 'next/link';
 import ContactForm from '@/components/ContactForm';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Fresh database query always
+export const revalidate = 60;
 
 export async function generateMetadata() {
   const settings = await getAllSettings();

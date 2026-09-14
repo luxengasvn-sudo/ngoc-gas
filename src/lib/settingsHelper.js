@@ -110,10 +110,19 @@ export function parseSectionOrder(jsonStr) {
   return validOrder;
 }
 
-import { getCacheRegistry } from './cacheManager.js';
+import { getCacheRegistry, recordCacheHit, recordCacheMiss } from './cacheManager.js';
+
+let settingsCacheTime = 0;
+const SETTINGS_CACHE_TTL = 30 * 1000; // 30 seconds RAM TTL
 
 export async function getAllSettings() {
   const reg = getCacheRegistry();
+  if (reg.settings && (Date.now() - settingsCacheTime < SETTINGS_CACHE_TTL)) {
+    recordCacheHit();
+    return reg.settings;
+  }
+  recordCacheMiss();
+
   const fileSettings = readFromFile();
   let dbSettings = {};
 
@@ -153,6 +162,7 @@ export async function getAllSettings() {
   }
 
   reg.settings = merged;
+  settingsCacheTime = Date.now();
   return merged;
 }
 
@@ -267,6 +277,7 @@ export async function updateAllSettings(newSettings) {
   }
 
   reg.settings = updated;
+  settingsCacheTime = Date.now();
   saveToFile(updated);
 
   try {

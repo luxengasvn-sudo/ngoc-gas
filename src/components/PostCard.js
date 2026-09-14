@@ -32,12 +32,18 @@ export default function PostCard({ post }) {
         {coverImg && (
           <Link href={postUrl} className="post-thumb-link">
             <div className="post-thumb-box">
-              <img 
-                src={coverImg} 
-                alt={post.title || 'Bài viết Ngọc Gas'} 
-                className="post-thumb-img" 
-                loading="lazy" 
-              />
+              <picture>
+                {(coverImg.startsWith('/images/') || coverImg.startsWith('/uploads/')) && (
+                  <source srcSet={coverImg.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+                )}
+                <img 
+                  src={coverImg} 
+                  alt={post.title || 'Bài viết Ngọc Gas'} 
+                  className="post-thumb-img" 
+                  loading="lazy" 
+                  decoding="async"
+                />
+              </picture>
             </div>
           </Link>
         )}

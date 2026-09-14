@@ -9,8 +9,7 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import GasPriceWidget from '@/components/GasPriceWidget';
 import HeroSection from '@/components/HeroSection';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Fresh database query always
+export const revalidate = 60; // ISR cached with 60s window or on-demand purge
 
 export async function generateMetadata() {
   const settings = await getAllSettings();

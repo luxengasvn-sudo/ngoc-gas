@@ -4,8 +4,7 @@ import { Phone, MapPin, Store, ArrowLeft, Clock, ShieldCheck, Truck, CheckCircle
 import { getStoreBySlug, getAllStores } from '@/lib/storesHelper';
 import { getAllSettings } from '@/lib/settingsHelper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
