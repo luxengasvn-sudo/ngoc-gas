@@ -562,6 +562,13 @@ export default function AdminProductsPage() {
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadData
       });
+
+      if (res.status === 401) {
+        setError('Phiên đăng nhập đã hết hạn. Đang chuyển về trang đăng nhập...');
+        setTimeout(() => { window.location.href = '/admin/login'; }, 1500);
+        return;
+      }
+
       const data = await res.json();
 
       if (data.success) {
@@ -594,6 +601,13 @@ export default function AdminProductsPage() {
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadData
       });
+
+      if (res.status === 401) {
+        setError('Phiên đăng nhập đã hết hạn. Đang chuyển về trang đăng nhập...');
+        setTimeout(() => { window.location.href = '/admin/login'; }, 1500);
+        return;
+      }
+
       const data = await res.json();
 
       if (data.success) {
@@ -648,6 +662,13 @@ export default function AdminProductsPage() {
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadData
       });
+
+      if (res.status === 401) {
+        setError('Phiên đăng nhập đã hết hạn. Đang chuyển về trang đăng nhập...');
+        setTimeout(() => { window.location.href = '/admin/login'; }, 1500);
+        return;
+      }
+
       const data = await res.json();
 
       if (data.success && data.url) {

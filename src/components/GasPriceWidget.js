@@ -112,8 +112,8 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
   const luxen12kg = getMinPriceProduct(
     p => p.gas_type === 'luxen-12kg' || (!p.gas_type && p.name.toLowerCase().includes('luxen') && p.name.includes('12kg')),
     'Gas Cao Cấp 12kg (Luxen Gas)',
-    420000,
-    390000,
+    585000,
+    460000,
     'binh-gas-luxen-gas-12kg-xam'
   );
 
@@ -121,8 +121,8 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
   const phoThong12kg = getMinPriceProduct(
     p => p.gas_type === 'phothong-12kg' || (!p.gas_type && p.name.includes('12kg') && (p.name.toLowerCase().includes('sopet') || p.name.toLowerCase().includes('phoenix'))),
     'Gas Phổ Thông 12kg (Sopet & Phoenix)',
-    410000,
-    385000,
+    585000,
+    430000,
     'binh-gas-phoenix-gas-12kg-xam'
   );
 
@@ -130,8 +130,8 @@ export default function GasPriceWidget({ products: initialProducts = [], setting
   const congNghiep45kg = getMinPriceProduct(
     p => p.gas_type === 'congnghiep-45kg' || (!p.gas_type && p.name.includes('45kg')),
     'Gas Công Nghiệp 45kg (Cho Nhà Hàng/Bếp Ăn)',
-    1550000,
-    1440000,
+    2193000,
+    1725000,
     'binh-gas-luxen-gas-45kg-cong-nghiep'
   );
 

@@ -92,7 +92,7 @@ export default async function GasPriceTodayPage() {
   let faqs = [
     {
       q: `Giá bình gas 12kg hôm nay ngày ${fullDateStr} là bao nhiêu?`,
-      a: `Giá bình gas 12kg tại Ngọc Gas hôm nay dao động từ 385.000đ đến 399.000đ tùy thương hiệu (Sopet, Phoenix, Luxen Gas). Mức giá này đã bao gồm công vận chuyển và cân thử tại nhà.`
+      a: `Giá bình gas 12kg tại Ngọc Gas hôm nay dao động từ 430.000đ đến 460.000đ tùy thương hiệu (Phoenix, Sopet, Luxen Gas). Mức giá này đã bao gồm công vận chuyển và cân thử tại nhà.`
     },
     {
       q: 'Khi đổi bình gas khác hãng có bị mất tiền cọc vỏ không?',

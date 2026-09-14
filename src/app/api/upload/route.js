@@ -104,12 +104,16 @@ export async function GET(request) {
 const ALLOWED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif', '.ico']);
 const ALLOWED_MIME_TYPES = new Set([
   'image/png',
+  'image/x-png',
   'image/jpeg',
+  'image/jpg',
+  'image/pjpeg',
   'image/webp',
   'image/svg+xml',
   'image/gif',
   'image/x-icon',
-  'image/vnd.microsoft.icon'
+  'image/vnd.microsoft.icon',
+  'application/octet-stream'
 ]);
 const MAX_FILE_SIZE = 8 * 1024 * 1024; // Tối đa 8MB
 
@@ -118,7 +122,7 @@ export async function POST(request) {
     const user = getAuthenticatedUser(request);
     if (!user) {
       return NextResponse.json(
-        { success: false, message: 'Không có quyền truy cập. Vui lòng đăng nhập.' },
+        { success: false, message: 'Phiên làm việc đã hết hạn hoặc bạn chưa đăng nhập. Vui lòng đăng nhập lại.' },
         { status: 401 }
       );
     }
@@ -150,8 +154,8 @@ export async function POST(request) {
       );
     }
 
-    // 3. Kiểm tra MIME-type
-    if (file.type && !ALLOWED_MIME_TYPES.has(file.type.toLowerCase())) {
+    // 3. Kiểm tra MIME-type (Hỗ trợ mở rộng cho các biến thể trình duyệt Windows)
+    if (file.type && !ALLOWED_MIME_TYPES.has(file.type.toLowerCase()) && !ALLOWED_EXTENSIONS.has(rawExt)) {
       return NextResponse.json(
         { success: false, message: 'MIME type của tệp không hợp lệ.' },
         { status: 400 }

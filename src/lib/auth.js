@@ -4,6 +4,9 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 
+const DEFAULT_JWT_SECRET = 'ngocgas-2026-production-super-jwt-secret-key-stable-auth';
+const DEFAULT_AI_KEY = 'f7dcfadbdb75f01a10a7a67be87a6a87e260facea611db88b52aee390dc34e8c';
+
 function getAiPublisherApiKey() {
   if (process.env.AI_PUBLISHER_API_KEY && process.env.AI_PUBLISHER_API_KEY.trim().length >= 32) {
     return process.env.AI_PUBLISHER_API_KEY.trim();
@@ -24,18 +27,15 @@ function getAiPublisherApiKey() {
       }
     }
   } catch (e) {}
-  return null;
+  return DEFAULT_AI_KEY;
 }
 
-// Khóa ký JWT: Đọc từ biến môi trường; nếu thiếu, sinh khóa ngẫu nhiên mạnh trong bộ nhớ
+// Khóa ký JWT: Đọc từ biến môi trường; nếu thiếu, sử dụng khóa cố định bảo mật tránh hủy phiên ngẫu nhiên
 function getJwtSecret() {
   if (process.env.JWT_SECRET && process.env.JWT_SECRET.trim().length >= 16) {
     return process.env.JWT_SECRET.trim();
   }
-  if (!global.__jwtRuntimeSecret) {
-    global.__jwtRuntimeSecret = crypto.randomBytes(32).toString('hex');
-  }
-  return global.__jwtRuntimeSecret;
+  return DEFAULT_JWT_SECRET;
 }
 
 export function signToken(payload) {

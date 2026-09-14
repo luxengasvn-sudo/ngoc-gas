@@ -79,6 +79,12 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelectImage }) {
         },
         body: formData
       });
+      if (res.status === 401) {
+        alert('Phiên làm việc đã hết hạn. Đang chuyển về trang đăng nhập...');
+        window.location.href = '/admin/login';
+        return;
+      }
+
       const data = await res.json();
       if (data.success) {
         setNotification('🎉 Tải ảnh mới lên thư viện thành công!');
@@ -106,6 +112,13 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelectImage }) {
           'Authorization': `Bearer ${token}`
         }
       });
+
+      if (res.status === 401) {
+        alert('Phiên làm việc đã hết hạn. Đang chuyển về trang đăng nhập...');
+        window.location.href = '/admin/login';
+        return;
+      }
+
       const data = await res.json();
       if (data.success) {
         setNotification('Đã xóa ảnh khỏi server!');
