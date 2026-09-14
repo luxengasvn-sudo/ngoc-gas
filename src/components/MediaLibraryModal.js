@@ -343,6 +343,22 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelectImage }) {
                         src={item.url} 
                         alt={item.name} 
                         style={{ height: '100%', width: '100%', objectFit: 'contain' }}
+                        onError={(e) => {
+                          // Nếu ảnh .webp bị lỗi, tự động fallback sang ảnh gốc companion (.jpg hoặc .png)
+                          if (item.url && item.url.endsWith('.webp')) {
+                            const jpgFallback = item.url.replace(/\.webp$/, '.jpg');
+                            if (e.target.src !== window.location.origin + jpgFallback) {
+                              e.target.src = jpgFallback;
+                              return;
+                            }
+                            const pngFallback = item.url.replace(/\.webp$/, '.png');
+                            if (e.target.src !== window.location.origin + pngFallback) {
+                              e.target.src = pngFallback;
+                              return;
+                            }
+                          }
+                          e.target.style.opacity = '0.3';
+                        }}
                       />
                       {isSelected && (
                         <div style={{
