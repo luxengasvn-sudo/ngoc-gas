@@ -1,9 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Calendar, ArrowRight } from 'lucide-react';
 
 export default function PostCard({ post }) {
+  const [imgError, setImgError] = useState(false);
+  const fallbackImg = '/images/sopet-xam.png';
+
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
@@ -24,29 +28,38 @@ export default function PostCard({ post }) {
   };
 
   const coverImg = getCoverImage();
+  const displayImg = imgError || !coverImg ? fallbackImg : coverImg;
   const postUrl = `/tin-tuc/${post.slug}`;
 
   return (
     <>
       <div className="post-card card">
-        {coverImg && (
-          <Link href={postUrl} className="post-thumb-link">
-            <div className="post-thumb-box">
+        <Link href={postUrl} className="post-thumb-link">
+          <div className="post-thumb-box">
+            {!imgError && (displayImg.startsWith('/images/') || displayImg.startsWith('/uploads/')) && !displayImg.endsWith('.webp') ? (
               <picture>
-                {(coverImg.startsWith('/images/') || coverImg.startsWith('/uploads/')) && (
-                  <source srcSet={coverImg.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
-                )}
+                <source srcSet={displayImg.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
                 <img 
-                  src={coverImg} 
+                  src={displayImg} 
                   alt={post.title || 'Bài viết Ngọc Gas'} 
                   className="post-thumb-img" 
                   loading="lazy" 
                   decoding="async"
+                  onError={() => setImgError(true)}
                 />
               </picture>
-            </div>
-          </Link>
-        )}
+            ) : (
+              <img 
+                src={displayImg} 
+                alt={post.title || 'Bài viết Ngọc Gas'} 
+                className="post-thumb-img" 
+                loading="lazy" 
+                decoding="async"
+                onError={() => setImgError(true)}
+              />
+            )}
+          </div>
+        </Link>
 
         <div className="post-card-content">
           <div className="post-meta">

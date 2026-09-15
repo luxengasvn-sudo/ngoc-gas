@@ -101,9 +101,18 @@ export async function createPostData(postFields) {
   savePostsToFile(all);
 
   try {
-    await db.query(
+    const [res] = await db.query(
       `INSERT INTO posts (title, slug, excerpt, content, image_url, meta_title, meta_description, meta_keywords, is_published) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ON DUPLICATE KEY UPDATE 
+         title = VALUES(title), 
+         excerpt = VALUES(excerpt), 
+         content = VALUES(content), 
+         image_url = VALUES(image_url), 
+         meta_title = VALUES(meta_title), 
+         meta_description = VALUES(meta_description), 
+         meta_keywords = VALUES(meta_keywords), 
+         is_published = VALUES(is_published)`,
       [
         newPost.title,
         newPost.slug,
@@ -116,7 +125,12 @@ export async function createPostData(postFields) {
         newPost.is_published
       ]
     );
-  } catch (err) {}
+    if (res && res.insertId) {
+      newPost.id = res.insertId;
+    }
+  } catch (err) {
+    console.error('Error in createPostData MySQL:', err.message);
+  }
 
   return newPost;
 }
@@ -154,7 +168,7 @@ export async function updatePostData(id, updateFields) {
   savePostsToFile(all);
 
   try {
-    await db.query(
+    const [updateResult] = await db.query(
       `UPDATE posts 
        SET title = ?, slug = ?, excerpt = ?, content = ?, image_url = ?, meta_title = ?, meta_description = ?, meta_keywords = ?, is_published = ? 
        WHERE id = ?`,
@@ -171,7 +185,36 @@ export async function updatePostData(id, updateFields) {
         id
       ]
     );
-  } catch (err) {}
+
+    if (updateResult && updateResult.affectedRows === 0) {
+      await db.query(
+        `INSERT INTO posts (title, slug, excerpt, content, image_url, meta_title, meta_description, meta_keywords, is_published)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE 
+           title = VALUES(title), 
+           excerpt = VALUES(excerpt), 
+           content = VALUES(content), 
+           image_url = VALUES(image_url), 
+           meta_title = VALUES(meta_title), 
+           meta_description = VALUES(meta_description), 
+           meta_keywords = VALUES(meta_keywords), 
+           is_published = VALUES(is_published)`,
+        [
+          updateFields.title,
+          updateFields.slug,
+          updateFields.excerpt || '',
+          updateFields.content || '',
+          updateFields.image_url || '',
+          updateFields.meta_title || updateFields.title,
+          updateFields.meta_description || updateFields.excerpt || '',
+          updateFields.meta_keywords || '',
+          updateFields.is_published ? 1 : 0
+        ]
+      );
+    }
+  } catch (err) {
+    console.error('Error in updatePostData MySQL:', err.message);
+  }
 
   return updatedPost;
 }
