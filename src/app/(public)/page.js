@@ -127,16 +127,17 @@ export default async function HomePage() {
         if (settings.show_home_testimonials === '0') return null;
         return <TestimonialsSection key="customer-reviews" settings={settings} />;
 
+      case 'latest-news':
       case 'latest-posts':
-        if (settings.show_home_posts === '0') return null;
+        if (settings.show_home_news === '0' || settings.show_home_posts === '0') return null;
         if (!displayPosts || displayPosts.length === 0) return null;
         return (
-          <section key="latest-posts" className="section-padding bg-warm">
+          <section key={sectionId} className="section-padding bg-warm">
             <div className="container">
               <div className="section-header text-center">
                 <span className="section-subtitle">TIN TỨC & KINH NGHIỆM</span>
-                <h2 className="section-title">Kiến Thức & An Toàn Sử Dụng Gas</h2>
-                <p className="section-desc">Cập nhật tin tức thị trường gas, mẹo tiết kiệm gas và kiến thức an toàn PCCC cho gia đình.</p>
+                <h2 className="section-title">{settings.home_news_title || 'Kiến Thức & An Toàn Sử Dụng Gas'}</h2>
+                <p className="section-desc">{settings.home_news_subtitle || 'Cập nhật tin tức thị trường gas, mẹo tiết kiệm gas và kiến thức an toàn PCCC cho gia đình.'}</p>
               </div>
 
               <div className="posts-grid">
