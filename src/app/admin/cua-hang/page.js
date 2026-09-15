@@ -62,7 +62,7 @@ export default function AdminStoresPage() {
   }, []);
 
 const DEFAULT_STORE_GUIDE_TEXT = `- Cân đủ 12kg tại chỗ: Nhân viên mang theo cân điện tử kiểm tra trước mặt khách hàng.
-- Chính hãng 100%: Phân phối độc quyền Sopet Vil, Phoenix Gas, Luxen Gas có tem niêm phong chống giả.
+- Chính hãng 100%: Phân phối độc quyền Sopet Gas One, Phoenix Gas, Luxen Gas có tem niêm phong chống giả.
 - Kiểm tra an toàn miễn phí: Miễn phí vệ sinh mâm lửa, kiểm tra rò rỉ van gas và dây dẫn mỗi lần giao.
 - Tích điểm quà tặng: Tích lũy điểm đổi quà van ngắt tự động, dây chống chuột, nước rửa chén cao cấp.`;
 

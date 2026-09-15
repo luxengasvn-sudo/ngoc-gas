@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Banner Local SEO Phường Dĩ An</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+      background: #0A192F;
+    }
+
+    /* Background Photo */
+    .bg-photo {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 680px;
+      height: 630px;
+      background-image: url('file:///d:/Antigravity/Ngọc Gas/public/images/xe-giao-gas-dong-phuc-chuan-ngoc-gas.jpg');
+      background-size: cover;
+      background-position: center 20%;
+    }
+
+    /* Subtle overlay & smooth transition gradient */
+    .gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1200px;
+      height: 630px;
+      background: linear-gradient(90deg, #091528 0%, #091528 48%, rgba(9, 21, 40, 0.88) 60%, rgba(9, 21, 40, 0.15) 85%, transparent 100%);
+      z-index: 1;
+    }
+
+    /* Content Area */
+    .content-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 650px;
+      height: 630px;
+      padding: 46px 50px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #FFFFFF;
+    }
+
+    /* Header brand */
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #FFB703;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.3px;
+    }
+
+    /* Local Area Tag */
+    .local-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 107, 0, 0.18);
+      border: 1.5px solid #FF6B00;
+      color: #FF8A3D;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    /* Headline */
+    .main-headline {
+      font-size: 40px;
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .main-headline span.highlight {
+      color: #FFB703;
+      display: block;
+    }
+
+    .main-headline span.locality {
+      color: #38BDF8;
+      font-size: 34px;
+    }
+
+    /* Trust commitments */
+    .trust-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0 20px 0;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+
+    .trust-icon {
+      width: 22px;
+      height: 22px;
+      background: #10B981;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    /* Hotline CTA Bar */
+    .cta-bar {
+      background: linear-gradient(135deg, #FF6B00 0%, #EA580C 100%);
+      padding: 14px 22px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 25px rgba(234, 88, 12, 0.4);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cta-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cta-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #FFF7ED;
+    }
+
+    .cta-number {
+      font-size: 28px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    .cta-badge {
+      background: #FFFFFF;
+      color: #C2410C;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Footer info */
+    .footer-row {
+      font-size: 11.5px;
+      color: #64748B;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Seal badge in top right corner */
+    .floating-seal {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      z-index: 3;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .seal-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .seal-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #F8FAFC;
+    }
+
+    .seal-sub {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #10B981;
+    }
+  </style>
+</head>
+<body>
+  <!-- Right Photo -->
+  <div class="bg-photo"></div>
+
+  <!-- Smooth Dark Gradient Transition -->
+  <div class="gradient-overlay"></div>
+
+  <!-- Top Right Verified Badge -->
+  <div class="floating-seal">
+    <div style="font-size: 22px;">🛡️</div>
+    <div class="seal-text">
+      <span class="seal-title">CAM KẾT AN TOÀN PCCC</span>
+      <span class="seal-sub">Bảo Hiểm Trách Nhiệm 5 Tỷ</span>
+    </div>
+  </div>
+
+  <!-- Left Content Box -->
+  <div class="content-box">
+    <!-- Top Branding -->
+    <div class="brand-row">
+      <img class="brand-logo-img" src="file:///d:/Antigravity/Ngọc Gas/public/uploads/1784863563190-682917009.png" alt="Logo Ngọc Gas" />
+      <div class="brand-meta">
+        <span class="brand-name">HỆ THỐNG ĐẠI LÝ NGỌC GAS</span>
+        <span class="brand-sub">Phân Phối Chính Hãng: Sopet • Phoenix • Luxen</span>
+      </div>
+    </div>
+
+    <!-- Main Text Content -->
+    <div>
+      <div class="local-pill">
+        <span>📍 ĐỊA BÀN PHỤC VỤ TRỌNG ĐIỂM</span>
+      </div>
+
+      <h1 class="main-headline">
+        <span class="highlight">GIAO GAS NHANH 15P</span>
+        <span class="locality">PHƯỜNG DĨ AN — CÂN ĐỦ KÝ</span>
+      </h1>
+
+      <ul class="trust-list">
+        <li class="trust-item">
+          <span class="trust-icon">✓</span>
+          <span>Mang cân điện tử, cân đủ 100% trọng lượng tại bếp</span>
+        </li>
+        <li class="trust-item">
+          <span class="trust-icon">✓</span>
+          <span>Đổi ngang vỏ bình mọi thương hiệu (Petrolimex, SP, PV Gas)</span>
+        </li>
+        <li class="trust-item">
+          <span class="trust-icon">✓</span>
+          <span>Kiểm tra độ kín van điều áp bằng bọt chuyên dụng miễn phí</span>
+        </li>
+      </ul>
+
+      <!-- Hotline CTA -->
+      <div class="cta-bar">
+        <div class="cta-left">
+          <span class="cta-label">TỔNG ĐÀI ĐẶT GAS HỎA TỐC 24/7</span>
+          <span class="cta-number">1900 9396</span>
+        </div>
+        <div class="cta-badge">GỌI LÀ CÓ NGAY ⚡</div>
+      </div>
+    </div>
+
+    <!-- Footer Meta -->
+    <div class="footer-row">
+      <span>📍 Trụ sở: 7 Nguyễn Trung Trực, TP. Dĩ An</span>
+      <span>🌐 ngocgas.com</span>
+      <span>⚡ Giao 06:00 – 21:30</span>
+    </div>
+  </div>
+</body>
+</html>

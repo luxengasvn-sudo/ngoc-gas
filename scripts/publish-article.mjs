@@ -140,32 +140,58 @@ export async function publishArticle({
     }
   }
 
-  // Bước 2: Tạo bài viết qua POST /api/posts
+  // Bước 2: Tạo hoặc Cập nhật bài viết qua /api/posts
   console.log(`📝 Đang lưu bài viết vào CSDL máy chủ...`);
   const postPayload = {
     title,
     slug: finalSlug,
     summary: summary || title,
+    excerpt: summary || title,
     content: finalContent,
     image_url: finalImageUrl,
     is_published: 1
   };
 
-  const postRes = await fetch(`${target}/api/posts`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': API_KEY
-    },
-    body: JSON.stringify(postPayload)
-  });
+  // Kiểm tra bài viết đã tồn tại chưa để dùng PUT thay vì POST tạo trùng
+  let existingPost = null;
+  try {
+    const listRes = await fetch(`${target}/api/posts`, {
+      headers: { 'x-api-key': API_KEY }
+    });
+    const listData = await listRes.json().catch(() => ({}));
+    if (listData.success && Array.isArray(listData.data)) {
+      existingPost = listData.data.find(p => p.slug === finalSlug);
+    }
+  } catch (e) {}
+
+  let postRes;
+  if (existingPost && existingPost.id) {
+    console.log(`🔄 Bài viết đã tồn tại (ID: ${existingPost.id}), đang cập nhật bằng PUT...`);
+    postRes = await fetch(`${target}/api/posts/${existingPost.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY
+      },
+      body: JSON.stringify(postPayload)
+    });
+  } else {
+    postRes = await fetch(`${target}/api/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY
+      },
+      body: JSON.stringify(postPayload)
+    });
+  }
 
   const postJson = await postRes.json().catch(() => ({}));
   if (!postRes.ok || !postJson.success) {
-    throw new Error(`Tạo bài viết thất bại (HTTP ${postRes.status}): ${postJson.message || 'Lỗi không xác định'}`);
+    throw new Error(`Lưu bài viết thất bại (HTTP ${postRes.status}): ${postJson.message || 'Lỗi không xác định'}`);
   }
 
-  console.log(`✅ Tạo bài viết thành công vào MySQL! ID: ${postJson.data?.id || 'mới'}`);
+  console.log(`✅ Lưu bài viết thành công! ID: ${postJson.data?.id || existingPost?.id || 'mới'}`);
 
   // Bước 3: Làm mới bộ nhớ đệm (Purge Cache)
   console.log(`⚡ Đang làm mới bộ nhớ đệm (Cache Revalidation)...`);
@@ -221,9 +247,9 @@ Các tùy chọn:
     slug: args.slug,
     summary: args.summary,
     content: args.content,
-    contentFile: args['content-file'],
+    contentFile: args['content-file'] || args.contentFile,
     imagePath: args.image,
-    imageUrl: args['image-url'],
+    imageUrl: args['image-url'] || args.imageUrl,
     targetUrl: args.target
   }).catch(err => {
     console.error(`❌ LỖI: ${err.message}`);

@@ -8,14 +8,49 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ngocgas.com';
   
   try {
     const post = await getPostByIdOrSlug(slug);
     if (post) {
+      const title = post.meta_title || post.title;
+      const description = post.meta_description || post.excerpt;
+      const canonicalUrl = `${baseUrl}/tin-tuc/${post.slug}`;
+
+      let imageUrl = post.image_url;
+      if (imageUrl && !imageUrl.startsWith('http')) {
+        imageUrl = `${baseUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+      }
+
+      const images = imageUrl ? [{
+        url: imageUrl,
+        width: 1200,
+        height: 630,
+        alt: title
+      }] : [];
+
       return {
-        title: post.meta_title || post.title,
-        description: post.meta_description || post.excerpt,
-        keywords: post.meta_keywords || 'tin tuc gas, ngoc gas'
+        title,
+        description,
+        keywords: post.meta_keywords || 'tin tuc gas, ngoc gas',
+        alternates: {
+          canonical: canonicalUrl
+        },
+        openGraph: {
+          title,
+          description,
+          url: canonicalUrl,
+          siteName: 'Ngọc Gas',
+          locale: 'vi_VN',
+          type: 'article',
+          images: images.length > 0 ? images : undefined
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title,
+          description,
+          images: imageUrl ? [imageUrl] : undefined
+        }
       };
     }
   } catch (e) {
@@ -148,6 +183,16 @@ export default async function PostDetailPage({ params }) {
             {post.excerpt && (
               <div className="post-excerpt-lead-custom">
                 <p>{post.excerpt}</p>
+              </div>
+            )}
+
+            {post.image_url && !post.content?.includes(post.image_url) && (
+              <div className="post-featured-image-wrapper" style={{ margin: '0 0 28px 0', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}>
+                <img 
+                  src={post.image_url} 
+                  alt={post.title} 
+                  style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '520px', objectFit: 'cover' }} 
+                />
               </div>
             )}
 

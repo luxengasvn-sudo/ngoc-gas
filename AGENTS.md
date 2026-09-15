@@ -33,11 +33,12 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 ---
 
 ## 📌 4. CHUẨN THÔNG TIN THƯƠNG HIỆU & GIÁ TRỊ MẶC ĐỊNH (ZERO STATIC HARDCODING)
-- **Địa chỉ trụ sở chính**: `7 Nguyễn Trung Trực, TP. Dĩ An, Tỉnh Bình Dương`.
+- **Địa chỉ trụ sở văn phòng & Điểm giao gas số 1**: `7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương`.
+- **Quy tắc địa chỉ hệ thống cửa hàng**: Luôn tra cứu danh sách cửa hàng (`/cua-hang` hoặc bảng CSDL `stores`) để có thông tin địa chỉ hợp nhất chính xác nhất.
 - **Bản đồ Google Maps**: Trỏ đúng vị trí Dĩ An, Bình Dương.
-- **Thương hiệu phân phối**: `Sopet, Phoenix, Luxen Gas`.
+- **Thương hiệu phân phối chính hãng**: `Sopet Gas One, Phoenix Gas, Luxen Gas` (Lưu ý: Tên chuẩn là "Sopet Gas One", tuyệt đối không dùng "Sopet Vil").
 - **Copyright năm**: `new Date().getFullYear()` (Tự động hóa theo năm hiện tại).
-- **Hotline**: Đọc động từ `settings.phone`.
+- **Hotline mặc định luôn là**: `19009396` (hoặc hiển thị `1900 9396`). Luôn đọc động từ `settings.phone`. CẤM TUYỆT ĐỐI việc sử dụng bất kỳ số điện thoại lạ nào khác (như 0913 943 772...) trong bài viết, hình ảnh infographic, banner hay ấn phẩm thiết kế.
 - **Zalo Widget Mobile**: Ưu tiên đọc từ `settings.social_zalo`.
 
 ---

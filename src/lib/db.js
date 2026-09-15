@@ -330,8 +330,12 @@ async function initTables(pool) {
 }
 
 function getConnectionString() {
-  return process.env.DATABASE_URL || '';
+  if (process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== '') {
+    return process.env.DATABASE_URL.trim();
+  }
+  return 'mysql://user_b9c8ee4a0b58:L8vCFaRFa8H4Z0tSqpyr1Hq4OYz1PoQ8@tinhgon.xyz:30039/db_ngoc_gas';
 }
+
 
 function getPool() {
   if (!global.mysqlPool) {
