@@ -1,0 +1,2844 @@
+/* ==========================================================================
+   TINHTHANHVN.COM CLONE - DEDICATED STYLESHEET FOR /tinh-thanh PORTAL
+   Zero Tailwind dependency, 100% Pure Standard CSS
+   ========================================================================== */
+
+/* 1. Global Reset & Wrapper */
+.tt-portal-root {
+  background-color: #f0f7fc;
+  color: #1e293b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tt-portal-root * {
+  box-sizing: border-box;
+}
+
+.tt-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
+}
+
+/* 2. Top Navigation Bar (Chuẩn ĐịaGiớiVN: Sticky Top 0, Hide on scroll down, Show on scroll up) */
+.tt-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
+  will-change: transform;
+}
+
+.tt-navbar.tt-nav-hidden {
+  transform: translateY(-100%);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.tt-navbar.tt-nav-visible {
+  transform: translateY(0);
+}
+
+.tt-navbar.tt-nav-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+}
+
+.tt-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 64px;
+}
+
+.tt-mobile-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+@media (min-width: 992px) {
+  .tt-mobile-menu-btn {
+    display: none !important;
+  }
+}
+
+.tt-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #0f172a;
+  transition: opacity 0.2s ease;
+}
+
+.tt-brand:hover {
+  opacity: 0.92;
+}
+
+.tt-brand-pin {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tt-brand-text {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: baseline;
+  line-height: 1.1;
+}
+
+.tt-nav-links {
+  display: none;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (min-width: 992px) {
+  .tt-nav-links {
+    display: flex;
+  }
+}
+
+.tt-nav-item {
+  color: #334155;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  white-space: nowrap !important;
+}
+
+.tt-nav-item:hover {
+  color: #ea580c;
+}
+
+/* Hide global Ngọc Gas header, footer & mobile bottom nav inside /tinh-thanh sub-portal */
+body:has(.tt-portal-root) .promo-announcement-bar,
+body:has(.tt-portal-root) header.header,
+body:has(.tt-portal-root) footer.footer,
+body:has(.tt-portal-root) .bottom-nav-container {
+  display: none !important;
+}
+
+/* Eliminate top gap to snap navbar flush against top edge */
+body:has(.tt-portal-root) .main-content-wrapper {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.tt-nav-item-highlight-green {
+  color: #16a34a !important;
+}
+
+.tt-nav-item-highlight-orange {
+  color: #ea580c !important;
+}
+
+.tt-nav-search-form {
+  display: none;
+  position: relative;
+  align-items: center;
+  width: 280px;
+}
+
+@media (min-width: 768px) {
+  .tt-nav-search-form {
+    display: flex;
+  }
+}
+
+.tt-nav-search-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 44px 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #ffffff;
+}
+
+.tt-nav-search-input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.tt-nav-search-btn {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  bottom: 3px;
+  width: 36px;
+  border: none;
+  background-color: #0284c7;
+  color: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s;
+}
+
+.tt-nav-search-btn:hover {
+  background-color: #0369a1;
+}
+
+/* 3. Bố Cục 2 Cột Chuẩn TinhThanh (Main Content + Sidebar) */
+.tt-2col-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding-top: 18px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 1024px) {
+  .tt-2col-layout {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+}
+
+.tt-main-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.tt-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .tt-sidebar-column {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+  }
+}
+
+/* 4. Thẻ Trắng Tiêu Chuẩn (Card) */
+.tt-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.tt-card-padded {
+  padding: 24px;
+}
+
+/* 5. Breadcrumb */
+.tt-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.tt-breadcrumb a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.tt-breadcrumb a:hover {
+  color: #ea580c;
+}
+
+.tt-breadcrumb-separator {
+  color: #cbd5e1;
+}
+
+.tt-breadcrumb-active {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* 6. Top Administrative Meta Card (Mã Bưu Chính & Trụ Sở) */
+.tt-admin-meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  gap: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.tt-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tt-meta-icon {
+  font-size: 20px;
+}
+
+.tt-meta-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.tt-meta-val-red {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ef4444;
+  font-family: monospace, monospace;
+}
+
+.tt-meta-val-green {
+  font-size: 14px;
+  font-weight: 700;
+  color: #16a34a;
+  text-decoration: none;
+}
+
+.tt-meta-val-green:hover {
+  text-decoration: underline;
+}
+
+/* 7. Hero Cover Banner (Chữ trên nền ảnh bo tròn) */
+.tt-hero-banner {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 280px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tt-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.65) 0%, rgba(15, 23, 42, 0.25) 100%);
+  z-index: 1;
+}
+
+.tt-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 16px;
+}
+
+.tt-hero-glass-title {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 16px 20px;
+  max-width: 540px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tt-hero-title-h1 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #c2410c;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.tt-hero-subtitle {
+  font-size: 13px;
+  color: #475569;
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.tt-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.tt-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tt-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.45);
+}
+
+.tt-btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  color: #1e293b;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.15s;
+}
+
+.tt-btn-white:hover {
+  background-color: #f8fafc;
+}
+
+/* 8. BỐ CỤC 4 THẺ THỐNG KÊ PASTEL CHUẨN 100% TINHTHANH */
+.tt-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .tt-stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+.tt-stat-card {
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  border-width: 1px;
+  border-style: solid;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tt-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* Green: Diện tích */
+.tt-stat-green {
+  background-color: #dcfce7;
+  border-color: #bbf7d0;
+}
+.tt-stat-green .tt-stat-icon-wrap {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+.tt-stat-green .tt-stat-value {
+  color: #15803d;
+}
+.tt-stat-green .tt-stat-badge {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #166534;
+}
+
+/* Pink: Dân số */
+.tt-stat-pink {
+  background-color: #fce7f3;
+  border-color: #fbcfe8;
+}
+.tt-stat-pink .tt-stat-icon-wrap {
+  background-color: #ec4899;
+  color: #ffffff;
+}
+.tt-stat-pink .tt-stat-value {
+  color: #be185d;
+}
+.tt-stat-pink .tt-stat-badge {
+  background-color: rgba(236, 72, 153, 0.2);
+  color: #9d174d;
+}
+
+/* Orange: Mật độ */
+.tt-stat-orange {
+  background-color: #ffedd5;
+  border-color: #fed7aa;
+}
+.tt-stat-orange .tt-stat-icon-wrap {
+  background-color: #f97316;
+  color: #ffffff;
+}
+.tt-stat-orange .tt-stat-value {
+  color: #c2410c;
+}
+.tt-stat-orange .tt-stat-badge {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #9a3412;
+}
+
+/* Blue: Đơn vị sáp nhập */
+.tt-stat-blue {
+  background-color: #dbeafe;
+  border-color: #bfdbfe;
+}
+.tt-stat-blue .tt-stat-icon-wrap {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+.tt-stat-blue .tt-stat-value {
+  color: #1d4ed8;
+}
+.tt-stat-blue .tt-stat-badge {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #1e40af;
+}
+
+.tt-stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tt-stat-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.tt-stat-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.tt-stat-label {
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 500;
+  margin: 0;
+}
+
+.tt-stat-value-group {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.tt-stat-value {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.tt-stat-unit {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+/* 9. Card Tổng Quan & Lịch Sử Hình Thành */
+.tt-overview-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 800;
+  color: #ea580c;
+  margin-bottom: 14px;
+}
+
+.tt-overview-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.tt-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tt-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background-color: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ea580c;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.tt-pill-btn:hover {
+  background-color: #fff7ed;
+  border-color: #f97316;
+  transform: translateY(-1px);
+}
+
+/* 10. OpenStreetMap Frame & Footer Attribution */
+.tt-map-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.tt-map-header {
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+.tt-map-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.tt-map-iframe-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background-color: #e2e8f0;
+}
+
+.tt-map-footer {
+  padding: 10px 18px;
+  background-color: #fff7ed;
+  border-top: 1px solid #ffedd5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.tt-map-footer a {
+  color: #0284c7;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tt-map-footer a:hover {
+  text-decoration: underline;
+}
+
+/* 11. Bảng Thông Tin Trụ Sở UBND & Công An */
+.tt-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .tt-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tt-info-item {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tt-info-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.tt-info-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.tt-info-sub {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* 12. Lưới Tiện Ích 6 Ô (Khám Phá Bản Đồ Số & Dịch Vụ) */
+.tt-utilities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .tt-utilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-utilities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tt-util-card {
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.tt-util-card:hover {
+  border-color: #fed7aa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.tt-util-card-highlight {
+  border: 2px solid #fdba74;
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+}
+
+/* 13. Thanh Tiến Độ Dân Số & Diện Tích */
+.tt-progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.tt-progress-track {
+  width: 100%;
+  height: 10px;
+  background-color: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.tt-progress-bar-orange {
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  border-radius: 9999px;
+}
+
+.tt-progress-bar-green {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 9999px;
+}
+
+/* 14. FAQ Accordion */
+.tt-faq-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.tt-faq-btn {
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 13px;
+  color: #1e293b;
+  background-color: #f8fafc;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: background-color 0.15s;
+}
+
+.tt-faq-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.tt-faq-content {
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+  background-color: #ffffff;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* 15. Sidebar Widgets */
+.tt-sidebar-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.tt-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tt-sidebar-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tt-sidebar-pill {
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+  display: inline-block;
+}
+
+.tt-sidebar-pill-xa {
+  background-color: #ffffff;
+  border: 1px solid #86efac;
+  color: #16a34a;
+}
+
+.tt-sidebar-pill-xa:hover {
+  background-color: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(34, 197, 94, 0.15);
+}
+
+.tt-sidebar-pill-phuong {
+  background-color: #ffffff;
+  border: 1px solid #fed7aa;
+  color: #ea580c;
+}
+
+.tt-sidebar-pill-phuong:hover {
+  background-color: #fff7ed;
+  border-color: #f97316;
+  color: #c2410c;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.15);
+}
+
+/* 15b. Khối Card Chuẩn 1:1 TinhThanhVN */
+.tt-hero-banner-v2 {
+  min-height: 400px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 2px solid #ffffff;
+  background: linear-gradient(135deg, #fef08a 0%, #fed7aa 35%, #fde68a 70%, #fdba74 100%);
+}
+
+.tt-hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  z-index: 2;
+}
+
+.tt-hero-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  z-index: 2;
+}
+
+.tt-glass-box {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.tt-merge-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tt-merge-pill {
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #b45309;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tt-area-badge-green {
+  background-color: #16a34a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+}
+
+.tt-explore-list {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.tt-explore-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.tt-explore-item:last-child {
+  border-bottom: none;
+}
+
+.tt-explore-item:hover {
+  background-color: #f8fafc;
+  color: #ea580c;
+}
+
+/* Khối Cam Header Panel */
+.tt-orange-header-panel {
+  border-radius: 16px;
+  border: 1px solid #fed7aa;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
+  background-color: #ffffff;
+}
+
+.tt-orange-header {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tt-orange-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tt-update-badge {
+  background-color: #dc2626;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.tt-info-grid-2x2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 20px;
+}
+
+@media (min-width: 640px) {
+  .tt-info-grid-2x2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tt-info-box-item {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #f1f5f9;
+}
+
+.tt-ubnd-cta-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: 2px solid #fdba74;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+  margin-top: 16px;
+}
+
+/* Khối Biểu Đồ Mật Độ Dân Cư */
+.tt-density-panel {
+  border-radius: 16px;
+  border: 1px solid #fed7aa;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
+  background-color: #ffffff;
+}
+
+.tt-density-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.tt-mini-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tt-mini-stat {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+/* Khối NQ 112 */
+.tt-nq112-panel {
+  border-radius: 16px;
+  border: 1px solid #fed7aa;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
+  background-color: #ffffff;
+}
+
+.tt-nq112-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .tt-nq112-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tt-nq112-card-right {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Khối Cổng Thông Tin Điện Tử (Blue Header) */
+.tt-blue-header-panel {
+  border-radius: 16px;
+  border: 1px solid #bfdbfe;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+  background-color: #ffffff;
+}
+
+.tt-blue-header {
+  background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
+  color: #ffffff;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tt-blue-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .tt-blue-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+/* Sidebar Specific Widgets */
+.tt-weather-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.tt-views-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.tt-views-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #f1f5f9;
+}
+
+.tt-social-share-row {
+  display: flex;
+  gap: 8px;
+}
+
+.tt-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+
+.tt-social-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* 16. Chân Trang Chuyên Biệt (SubPortalFooter Chuẩn TinhThanh) */
+.tt-footer {
+  margin-top: auto;
+  background-color: #0f172a;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+  padding-top: 40px;
+  padding-bottom: 24px;
+}
+
+.tt-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #1e293b;
+}
+
+@media (min-width: 768px) {
+  .tt-footer-grid {
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+  }
+}
+
+.tt-footer-col-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+  border-left: 3px solid #ea580c;
+  padding-left: 8px;
+}
+
+.tt-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.tt-footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.tt-footer-links a:hover {
+  color: #ffffff;
+}
+
+.tt-footer-quick-cities {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.tt-city-pill {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.tt-city-pill:hover {
+  background-color: #ea580c;
+  border-color: #ea580c;
+  color: #ffffff;
+}
+
+.tt-footer-bottom {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.tt-footer-bottom a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.tt-footer-bottom a:hover {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   HOMEPAGE PORTAL STYLES (Chuẩn 1:1 TinhThanhVN.com)
+   ========================================================================== */
+.tt-home-hero {
+  background: linear-gradient(135deg, #0d9488 0%, #06b6d4 40%, #84cc16 100%);
+  padding: 40px 16px 50px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tt-home-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .tt-home-hero-grid {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 32px;
+  }
+}
+
+.tt-hero-main-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.tt-hero-badge-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ea580c;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+  margin-bottom: 14px;
+}
+
+.tt-hero-heading-teal {
+  font-size: 32px;
+  font-weight: 900;
+  color: #0d9488;
+  line-height: 1.15;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .tt-hero-heading-teal {
+    font-size: 40px;
+  }
+}
+
+.tt-hero-heading-gradient {
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ea580c 0%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.15;
+  margin: 4px 0 12px 0;
+}
+
+@media (min-width: 640px) {
+  .tt-hero-heading-gradient {
+    font-size: 40px;
+  }
+}
+
+.tt-hero-sub-pills {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.tt-hero-search-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tt-hero-search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 2px solid #06b6d4;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+}
+
+.tt-hero-search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  color: #0f172a;
+}
+
+.tt-hero-search-select {
+  border: none;
+  border-left: 1px solid #e2e8f0;
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  background-color: #f8fafc;
+  outline: none;
+  cursor: pointer;
+}
+
+.tt-hero-search-btn {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #ffffff;
+  border: none;
+  padding: 14px 20px;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.15s;
+}
+
+.tt-hero-search-btn:hover {
+  opacity: 0.95;
+}
+
+.tt-hero-quick-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tt-quick-pill {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #1e293b;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tt-quick-pill:hover {
+  border-color: #ea580c;
+  color: #ea580c;
+  transform: translateY(-1px);
+}
+
+/* 6 Thẻ Stat Pastel Bên Phải */
+.tt-hero-stat-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.tt-hero-stat-card {
+  border-radius: 18px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.tt-hero-stat-card-blue {
+  background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+}
+
+.tt-hero-stat-card-peach {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+}
+
+.tt-hero-stat-card-green {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+}
+
+.tt-hero-stat-card-pink {
+  background: linear-gradient(135deg, #ffe4e6, #fecdd3);
+}
+
+.tt-hero-stat-card-purple {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+}
+
+.tt-hero-stat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.tt-hero-stat-val-num {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 10px;
+}
+
+.tt-hero-stat-val-unit {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+/* Tỉnh Thành Nổi Bật */
+.tt-section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tt-section-title-cursive {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ea580c;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.tt-section-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.tt-featured-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .tt-featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-featured-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tt-featured-card {
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.tt-featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tt-featured-img-wrap {
+  height: 160px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+}
+
+.tt-featured-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 60%);
+}
+
+.tt-featured-name {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.tt-featured-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.tt-featured-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.tt-featured-stat-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Tabs Vùng Kinh Tế */
+.tt-regions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.tt-region-tab-btn {
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tt-region-tab-btn:hover {
+  background: #e2e8f0;
+}
+
+.tt-region-tab-btn.active {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* Lưới 34 Tỉnh Thành */
+.tt-provinces-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .tt-provinces-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-provinces-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tt-province-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s, border-color 0.15s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tt-province-card:hover {
+  transform: translateY(-2px);
+  border-color: #ea580c;
+}
+
+.tt-province-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.tt-province-card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tt-province-card-type-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PROVINCE DETAIL PAGE STYLES (Chuẩn 1:1 TinhThanhVN.com/province/ho-chi-minh)
+   ========================================================================== */
+.tt-prov-hero-orange {
+  background: linear-gradient(135deg, #ff6b00 0%, #ea580c 100%);
+  border-radius: 24px;
+  padding: 24px;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.25);
+  margin-bottom: 24px;
+}
+
+.tt-prov-hero-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.tt-prov-hero-title {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tt-prov-merge-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.tt-prov-merge-pill {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tt-prov-skyline-cover {
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tt-prov-skyline-banner-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 16px 28px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tt-prov-skyline-h2 {
+  font-size: 26px;
+  font-weight: 900;
+  margin: 0 0 4px 0;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.tt-prov-skyline-sub {
+  font-size: 14px;
+  margin: 0;
+  color: #fed7aa;
+  font-weight: 600;
+}
+
+/* 10 Stat Cards (5x2 Grid) */
+.tt-prov-stat-grid-10 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+@media (min-width: 640px) {
+  .tt-prov-stat-grid-10 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-prov-stat-grid-10 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.tt-prov-stat-box {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tt-prov-stat-box-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.tt-prov-stat-box-val {
+  font-size: 20px;
+  font-weight: 900;
+  color: #c2410c;
+  line-height: 1.1;
+}
+
+.tt-prov-stat-box-unit {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+/* 2-Column Section on Province Page */
+.tt-prov-layout-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+  .tt-prov-layout-2col {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+/* Ward/Commune Grid Inside Province Page */
+.tt-prov-ward-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .tt-prov-ward-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-prov-ward-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tt-prov-ward-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.15s;
+}
+
+.tt-prov-ward-card:hover {
+  border-color: #ea580c;
+  transform: translateX(3px);
+  background-color: #fff7ed;
+}
+
+/* Province Sidebar Analytical Stat Cards */
+.tt-prov-stat-widget {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.tt-prov-stat-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tt-prov-stat-widget-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.tt-prov-stat-widget-val {
+  font-size: 16px;
+  font-weight: 900;
+  color: #c2410c;
+}
+
+.tt-prov-stat-minmax-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tt-prov-stat-minmax-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.tt-prov-stat-minmax-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.tt-prov-stat-minmax-val {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.tt-prov-stat-minmax-name {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+
+/* ==========================================================================
+   TOOLS & UTILITY STYLES (Tra Cứu Sáp Nhập, Zipcode, Biển Số Xe, Tiêu Chuẩn)
+   ========================================================================== */
+.tt-tool-page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px 60px 16px;
+}
+
+.tt-tool-header {
+  margin-bottom: 24px;
+}
+
+.tt-tool-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.tt-tool-desc {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.tt-tool-search-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tt-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+}
+
+.tt-data-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tt-data-table td {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tt-data-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Biển số xe visual badge */
+.tt-plate-box {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 2px solid #0f172a;
+  border-radius: 8px;
+  padding: 6px 14px;
+  min-width: 80px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: monospace, monospace;
+}
+
+.tt-plate-number {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: 1px;
+}
+
+/* Explore 3-link box (Khám phá thêm) */
+.tt-explore-list {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.tt-explore-header {
+  padding: 10px 16px;
+  background-color: #f8fafc;
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tt-explore-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  text-decoration: none;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.15s;
+}
+
+.tt-explore-link:last-child {
+  border-bottom: none;
+}
+
+.tt-explore-link:hover {
+  background-color: #fff7ed;
+  color: #ea580c;
+  padding-left: 20px;
+}
+
+/* ==========================================================================
+   TRA CỨU SÁP NHẬP PAGE STYLES (Chuẩn 1:1 TinhThanhVN.com/tra-cuu-sap-nhap)
+   ========================================================================== */
+.tt-tc-hero {
+  background: radial-gradient(circle at 50% 20%, #f0f9ff 0%, #bae6fd 60%, #7dd3fc 100%);
+  border-radius: 24px;
+  padding: 36px 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+  border: 1px solid #bae6fd;
+  position: relative;
+  overflow: hidden;
+}
+
+.tt-tc-hero-content {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.tt-tc-hero-svg {
+  width: 90px;
+  height: 140px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 10px rgba(220, 38, 38, 0.35));
+}
+
+.tt-tc-hero-titles {
+  flex: 1;
+}
+
+.tt-tc-hero-title-yellow {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0 0 6px 0;
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.tt-tc-hero-title-green {
+  font-size: 26px;
+  font-weight: 900;
+  color: #059669;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+.tt-tc-hero-desc {
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+  max-width: 700px;
+}
+
+.tt-tc-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  border: 1px solid #fed7aa;
+  color: #c2410c;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Tra Cứu Search & Filter Container */
+.tt-tc-filter-wrap {
+  background: linear-gradient(135deg, #10b981 0%, #84cc16 100%);
+  padding: 4px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
+  margin-bottom: 28px;
+}
+
+.tt-tc-filter-inner {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+
+/* 1:1 Result Card (Card View) */
+.tt-tc-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid #2563eb;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.tt-tc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.12);
+  border-color: #cbd5e1;
+  border-left-color: #ea580c;
+}
+
+.tt-tc-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tt-tc-card-heading {
+  font-size: 18px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tt-tc-card-heading mark {
+  background-color: #fef08a;
+  color: #854d0e;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.tt-tc-badge-type {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.tt-tc-badge-phuong {
+  background-color: #ffedd5;
+  color: #c2410c;
+}
+
+.tt-tc-badge-xa {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.tt-tc-badge-dackhu {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.tt-tc-card-sub {
+  font-size: 13px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tt-tc-badge-found {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0284c7;
+  background-color: #e0f2fe;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.tt-tc-merger-box {
+  background-color: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tt-tc-merger-label {
+  font-weight: 800;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.tt-tc-merger-units {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* 4 Sub-Boxes at bottom of card */
+.tt-tc-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .tt-tc-bottom-grid {
+    grid-template-columns: 1.1fr 1.1fr 1.2fr 1.6fr;
+  }
+}
+
+.tt-tc-subbox {
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tt-tc-subbox-amber {
+  background-color: #fffbeb;
+  border: 1px solid #fef3c7;
+}
+
+.tt-tc-subbox-green {
+  background-color: #f0fdf4;
+  border: 1px solid #dcfce7;
+}
+
+.tt-tc-subbox-pink {
+  background-color: #fdf2f8;
+  border: 1px solid #fce7f3;
+}
+
+.tt-tc-subbox-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+.tt-tc-subbox-val {
+  font-size: 14px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.tt-tc-btn-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tt-tc-detail-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+.tt-tc-detail-btn:hover {
+  opacity: 0.92;
+}
+
+.tt-tc-pin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tt-tc-pin-btn:hover {
+  background-color: #ea580c;
+  color: #ffffff;
+  border-color: #ea580c;
+}
+
+/* ==========================================================
+   BẢN ĐỒ SỐ 34 TỈNH THÀNH TOÀN QUỐC (NATIONAL PROVINCES MAP)
+   ========================================================== */
+
+.tt-national-map-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tt-national-map-card.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  border-radius: 0;
+  margin: 0;
+}
+
+.tt-national-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tt-national-map-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tt-national-pulse-icon {
+  width: 12px;
+  height: 12px;
+  background-color: #ea580c;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7);
+  animation: ttPulse 1.8s infinite;
+}
+
+.tt-national-map-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tt-national-map-sub {
+  font-size: 12px;
+  color: #64748b;
+  display: block;
+}
+
+.tt-national-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tt-map-ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tt-map-ctrl-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.tt-layer-picker-wrapper {
+  position: relative;
+}
+
+.tt-layer-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+  min-width: 180px;
+}
+
+.tt-layer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.tt-layer-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.tt-layer-item.active {
+  background: #f0fdf4;
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.tt-national-map-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  background: #e2e8f0;
+}
+
+.tt-national-map-card.fullscreen .tt-national-map-canvas-wrap {
+  height: calc(100vh - 65px);
+}
+
+/* Custom DivIcon Marker for 34 Provinces */
+.tt-national-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.tt-national-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.tt-national-marker:hover,
+.tt-national-marker.active {
+  transform: scale(1.15);
+  z-index: 9999 !important;
+}
+
+.tt-national-marker-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--marker-color, #0284c7);
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.tt-national-marker.active .tt-national-marker-dot {
+  box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.4);
+}
+
+.tt-national-marker-badge {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.tt-national-marker.active .tt-national-marker-badge {
+  background: #ea580c;
+  border-color: #ffffff;
+}
+
+/* Map Legend Overlay */
+.tt-national-legend-overlay {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-width: 220px;
+}
+
+.tt-national-legend-title {
+  font-size: 10px;
+  font-weight: 900;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.tt-national-legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tt-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tt-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tt-legend-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+}
+
+/* Brand Overlay */
+.tt-national-brand-overlay {
+  position: absolute;
+  bottom: 24px;
+  right: 60px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+/* View Switcher */
+.tt-map-view-switcher {
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  gap: 4px;
+}
+
+.tt-view-switch-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tt-view-switch-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Comparative Table for 34 Provinces */
+.tt-nat-table-wrap {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.tt-nat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.tt-nat-table th {
+  background: #f8fafc;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tt-nat-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.tt-nat-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.tt-nat-table tr:last-child td {
+  border-bottom: none;
+}
+
+.tt-card-pin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tt-card-pin-btn:hover {
+  background-color: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}

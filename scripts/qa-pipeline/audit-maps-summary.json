@@ -1,0 +1,723 @@
+{
+  "totalUnitsAudited": 3319,
+  "totalGoogleMapsUrlsAudited": 6638,
+  "totalGoogleDirectionsAudited": 6638,
+  "comparisonResults": [
+    {
+      "slug": "ha-noi",
+      "name": "Thành phố Hà Nội",
+      "wikiName": "Hà Nội",
+      "center": "Hoàn Kiếm",
+      "areaKm2": 3359.84,
+      "population": 8807523,
+      "density": 2621,
+      "wards": 51,
+      "communes": 75,
+      "specialZones": 0,
+      "totalUnits": 126,
+      "matched": true
+    },
+    {
+      "slug": "hai-phong",
+      "name": "Thành phố Hải Phòng",
+      "wikiName": "Hải Phòng",
+      "center": "Thủy Nguyên",
+      "areaKm2": 3194.72,
+      "population": 4664124,
+      "density": 1460,
+      "wards": 45,
+      "communes": 67,
+      "specialZones": 2,
+      "totalUnits": 114,
+      "matched": true
+    },
+    {
+      "slug": "quang-ninh",
+      "name": "Tỉnh Quảng Ninh",
+      "wikiName": "Quảng Ninh",
+      "center": "Hạ Long",
+      "areaKm2": 6207.95,
+      "population": 1497447,
+      "density": 241,
+      "wards": 30,
+      "communes": 22,
+      "specialZones": 2,
+      "totalUnits": 54,
+      "matched": true
+    },
+    {
+      "slug": "bac-ninh",
+      "name": "Tỉnh Bắc Ninh",
+      "wikiName": "Bắc Ninh",
+      "center": "Bắc Giang",
+      "areaKm2": 4718.6,
+      "population": 3619433,
+      "density": 767,
+      "wards": 33,
+      "communes": 66,
+      "specialZones": 0,
+      "totalUnits": 99,
+      "matched": true
+    },
+    {
+      "slug": "hung-yen",
+      "name": "Tỉnh Hưng Yên",
+      "wikiName": "Hưng Yên",
+      "center": "Phố Hiến",
+      "areaKm2": 2514.81,
+      "population": 3567943,
+      "density": 1419,
+      "wards": 11,
+      "communes": 93,
+      "specialZones": 0,
+      "totalUnits": 104,
+      "matched": true
+    },
+    {
+      "slug": "ninh-binh",
+      "name": "Tỉnh Ninh Bình",
+      "wikiName": "Ninh Bình",
+      "center": "Hoa Lư",
+      "areaKm2": 3942.62,
+      "population": 4412264,
+      "density": 1119,
+      "wards": 32,
+      "communes": 97,
+      "specialZones": 0,
+      "totalUnits": 129,
+      "matched": true
+    },
+    {
+      "slug": "cao-bang",
+      "name": "Tỉnh Cao Bằng",
+      "wikiName": "Cao Bằng",
+      "center": "Thục Phán",
+      "areaKm2": 6700.39,
+      "population": 573119,
+      "density": 86,
+      "wards": 3,
+      "communes": 53,
+      "specialZones": 0,
+      "totalUnits": 56,
+      "matched": true
+    },
+    {
+      "slug": "dien-bien",
+      "name": "Tỉnh Điện Biên",
+      "wikiName": "Điện Biên",
+      "center": "Điện Biên Phủ",
+      "areaKm2": 9539.93,
+      "population": 673091,
+      "density": 71,
+      "wards": 3,
+      "communes": 42,
+      "specialZones": 0,
+      "totalUnits": 45,
+      "matched": true
+    },
+    {
+      "slug": "lai-chau",
+      "name": "Tỉnh Lai Châu",
+      "wikiName": "Lai Châu",
+      "center": "Tân Phong",
+      "areaKm2": 9068.73,
+      "population": 512601,
+      "density": 57,
+      "wards": 2,
+      "communes": 36,
+      "specialZones": 0,
+      "totalUnits": 38,
+      "matched": true
+    },
+    {
+      "slug": "lang-son",
+      "name": "Tỉnh Lạng Sơn",
+      "wikiName": "Lạng Sơn",
+      "center": "Lương Văn Tri",
+      "areaKm2": 8310.18,
+      "population": 881384,
+      "density": 106,
+      "wards": 4,
+      "communes": 61,
+      "specialZones": 0,
+      "totalUnits": 65,
+      "matched": true
+    },
+    {
+      "slug": "lao-cai",
+      "name": "Tỉnh Lào Cai",
+      "wikiName": "Lào Cai",
+      "center": "Yên Bái",
+      "areaKm2": 13256.92,
+      "population": 1778785,
+      "density": 134,
+      "wards": 10,
+      "communes": 89,
+      "specialZones": 0,
+      "totalUnits": 99,
+      "matched": true
+    },
+    {
+      "slug": "phu-tho",
+      "name": "Tỉnh Phú Thọ",
+      "wikiName": "Phú Thọ",
+      "center": "Việt Trì",
+      "areaKm2": 9361.38,
+      "population": 4022638,
+      "density": 430,
+      "wards": 15,
+      "communes": 133,
+      "specialZones": 0,
+      "totalUnits": 148,
+      "matched": true
+    },
+    {
+      "slug": "son-la",
+      "name": "Tỉnh Sơn La",
+      "wikiName": "Sơn La",
+      "center": "Chiềng Cơi",
+      "areaKm2": 14108.89,
+      "population": 1404587,
+      "density": 100,
+      "wards": 8,
+      "communes": 67,
+      "specialZones": 0,
+      "totalUnits": 75,
+      "matched": true
+    },
+    {
+      "slug": "thai-nguyen",
+      "name": "Tỉnh Thái Nguyên",
+      "wikiName": "Thái Nguyên",
+      "center": "Phan Đình Phùng",
+      "areaKm2": 8375.21,
+      "population": 1799489,
+      "density": 215,
+      "wards": 15,
+      "communes": 76,
+      "specialZones": 0,
+      "totalUnits": 91,
+      "matched": true
+    },
+    {
+      "slug": "tuyen-quang",
+      "name": "Tỉnh Tuyên Quang",
+      "wikiName": "Tuyên Quang",
+      "center": "Minh Xuân",
+      "areaKm2": 13795.5,
+      "population": 1865270,
+      "density": 135,
+      "wards": 7,
+      "communes": 117,
+      "specialZones": 0,
+      "totalUnits": 124,
+      "matched": true
+    },
+    {
+      "slug": "hue",
+      "name": "Thành phố Huế",
+      "wikiName": "Huế",
+      "center": "Thuận Hóa",
+      "areaKm2": 4947.11,
+      "population": 1432986,
+      "density": 290,
+      "wards": 21,
+      "communes": 19,
+      "specialZones": 0,
+      "totalUnits": 40,
+      "matched": true
+    },
+    {
+      "slug": "ha-tinh",
+      "name": "Tỉnh Hà Tĩnh",
+      "wikiName": "Hà Tĩnh",
+      "center": "Thành Sen",
+      "areaKm2": 5994.45,
+      "population": 1622901,
+      "density": 271,
+      "wards": 9,
+      "communes": 60,
+      "specialZones": 0,
+      "totalUnits": 69,
+      "matched": true
+    },
+    {
+      "slug": "nghe-an",
+      "name": "Tỉnh Nghệ An",
+      "wikiName": "Nghệ An",
+      "center": "Trường Vinh",
+      "areaKm2": 16486.5,
+      "population": 3831694,
+      "density": 232,
+      "wards": 11,
+      "communes": 119,
+      "specialZones": 0,
+      "totalUnits": 130,
+      "matched": true
+    },
+    {
+      "slug": "quang-tri",
+      "name": "Tỉnh Quảng Trị",
+      "wikiName": "Quảng Trị",
+      "center": "Đồng Hới",
+      "areaKm2": 12700,
+      "population": 1870845,
+      "density": 147,
+      "wards": 8,
+      "communes": 69,
+      "specialZones": 1,
+      "totalUnits": 78,
+      "matched": true
+    },
+    {
+      "slug": "thanh-hoa",
+      "name": "Tỉnh Thanh Hóa",
+      "wikiName": "Thanh Hóa",
+      "center": "Hạc Thành",
+      "areaKm2": 11114.71,
+      "population": 4324783,
+      "density": 389,
+      "wards": 19,
+      "communes": 147,
+      "specialZones": 0,
+      "totalUnits": 166,
+      "matched": true
+    },
+    {
+      "slug": "da-nang",
+      "name": "Thành phố Đà Nẵng",
+      "wikiName": "Đà Nẵng",
+      "center": "Hải Châu",
+      "areaKm2": 11859.59,
+      "population": 3065628,
+      "density": 258,
+      "wards": 23,
+      "communes": 70,
+      "specialZones": 1,
+      "totalUnits": 94,
+      "matched": true
+    },
+    {
+      "slug": "khanh-hoa",
+      "name": "Tỉnh Khánh Hòa",
+      "wikiName": "Khánh Hòa",
+      "center": "Nha Trang",
+      "areaKm2": 8555.86,
+      "population": 2243554,
+      "density": 262,
+      "wards": 16,
+      "communes": 48,
+      "specialZones": 1,
+      "totalUnits": 65,
+      "matched": true
+    },
+    {
+      "slug": "quang-ngai",
+      "name": "Tỉnh Quảng Ngãi",
+      "wikiName": "Quảng Ngãi",
+      "center": "Cẩm Thành",
+      "areaKm2": 14832.55,
+      "population": 2161755,
+      "density": 146,
+      "wards": 9,
+      "communes": 86,
+      "specialZones": 1,
+      "totalUnits": 96,
+      "matched": true
+    },
+    {
+      "slug": "dak-lak",
+      "name": "Tỉnh Đắk Lắk",
+      "wikiName": "Đắk Lắk",
+      "center": "Buôn Ma Thuột",
+      "areaKm2": 18096.4,
+      "population": 3346853,
+      "density": 185,
+      "wards": 14,
+      "communes": 88,
+      "specialZones": 0,
+      "totalUnits": 102,
+      "matched": true
+    },
+    {
+      "slug": "gia-lai",
+      "name": "Tỉnh Gia Lai",
+      "wikiName": "Gia Lai",
+      "center": "Quy Nhơn",
+      "areaKm2": 21576.93,
+      "population": 3583693,
+      "density": 166,
+      "wards": 25,
+      "communes": 110,
+      "specialZones": 0,
+      "totalUnits": 135,
+      "matched": true
+    },
+    {
+      "slug": "lam-dong",
+      "name": "Tỉnh Lâm Đồng",
+      "wikiName": "Lâm Đồng",
+      "center": "Xuân Hương – Đà Lạt",
+      "areaKm2": 24233.07,
+      "population": 3872999,
+      "density": 160,
+      "wards": 20,
+      "communes": 103,
+      "specialZones": 1,
+      "totalUnits": 124,
+      "matched": true
+    },
+    {
+      "slug": "ho-chi-minh",
+      "name": "Thành phố Hồ Chí Minh",
+      "wikiName": "Thành phố Hồ Chí Minh",
+      "center": "Sài Gòn",
+      "areaKm2": 6772.59,
+      "population": 14002598,
+      "density": 2068,
+      "wards": 113,
+      "communes": 54,
+      "specialZones": 1,
+      "totalUnits": 168,
+      "matched": true
+    },
+    {
+      "slug": "dong-nai",
+      "name": "Tỉnh Đồng Nai",
+      "wikiName": "Đồng Nai",
+      "center": "Trấn Biên",
+      "areaKm2": 12737.18,
+      "population": 4491408,
+      "density": 353,
+      "wards": 33,
+      "communes": 62,
+      "specialZones": 0,
+      "totalUnits": 95,
+      "matched": true
+    },
+    {
+      "slug": "tay-ninh",
+      "name": "Tỉnh Tây Ninh",
+      "wikiName": "Tây Ninh",
+      "center": "Long An",
+      "areaKm2": 8536.44,
+      "population": 3254170,
+      "density": 381,
+      "wards": 14,
+      "communes": 82,
+      "specialZones": 0,
+      "totalUnits": 96,
+      "matched": true
+    },
+    {
+      "slug": "can-tho",
+      "name": "Thành phố Cần Thơ",
+      "wikiName": "Cần Thơ",
+      "center": "Ninh Kiều",
+      "areaKm2": 6360.83,
+      "population": 4199824,
+      "density": 660,
+      "wards": 31,
+      "communes": 72,
+      "specialZones": 0,
+      "totalUnits": 103,
+      "matched": true
+    },
+    {
+      "slug": "an-giang",
+      "name": "Tỉnh An Giang",
+      "wikiName": "An Giang",
+      "center": "Rạch Giá",
+      "areaKm2": 9888.91,
+      "population": 4952238,
+      "density": 501,
+      "wards": 14,
+      "communes": 85,
+      "specialZones": 3,
+      "totalUnits": 102,
+      "matched": true
+    },
+    {
+      "slug": "ca-mau",
+      "name": "Tỉnh Cà Mau",
+      "wikiName": "Cà Mau",
+      "center": "Tân Thành",
+      "areaKm2": 7942.39,
+      "population": 2606672,
+      "density": 328,
+      "wards": 9,
+      "communes": 55,
+      "specialZones": 0,
+      "totalUnits": 64,
+      "matched": true
+    },
+    {
+      "slug": "dong-thap",
+      "name": "Tỉnh Đồng Tháp",
+      "wikiName": "Đồng Tháp",
+      "center": "Mỹ Tho",
+      "areaKm2": 5938.64,
+      "population": 4370046,
+      "density": 736,
+      "wards": 20,
+      "communes": 82,
+      "specialZones": 0,
+      "totalUnits": 102,
+      "matched": true
+    },
+    {
+      "slug": "vinh-long",
+      "name": "Tỉnh Vĩnh Long",
+      "wikiName": "Vĩnh Long",
+      "center": "Long Châu",
+      "areaKm2": 6296.2,
+      "population": 4257581,
+      "density": 676,
+      "wards": 19,
+      "communes": 105,
+      "specialZones": 0,
+      "totalUnits": 124,
+      "matched": true
+    }
+  ],
+  "provinceSummary": [
+    {
+      "stt": 1,
+      "name": "Thành phố Hà Nội",
+      "slug": "ha-noi",
+      "totalUnits": 126,
+      "mapsAudited": 252
+    },
+    {
+      "stt": 2,
+      "name": "Thành phố Hải Phòng",
+      "slug": "hai-phong",
+      "totalUnits": 114,
+      "mapsAudited": 228
+    },
+    {
+      "stt": 3,
+      "name": "Tỉnh Quảng Ninh",
+      "slug": "quang-ninh",
+      "totalUnits": 54,
+      "mapsAudited": 108
+    },
+    {
+      "stt": 4,
+      "name": "Tỉnh Bắc Ninh",
+      "slug": "bac-ninh",
+      "totalUnits": 99,
+      "mapsAudited": 198
+    },
+    {
+      "stt": 5,
+      "name": "Tỉnh Hưng Yên",
+      "slug": "hung-yen",
+      "totalUnits": 103,
+      "mapsAudited": 206
+    },
+    {
+      "stt": 6,
+      "name": "Tỉnh Ninh Bình",
+      "slug": "ninh-binh",
+      "totalUnits": 129,
+      "mapsAudited": 258
+    },
+    {
+      "stt": 7,
+      "name": "Tỉnh Cao Bằng",
+      "slug": "cao-bang",
+      "totalUnits": 56,
+      "mapsAudited": 112
+    },
+    {
+      "stt": 8,
+      "name": "Tỉnh Điện Biên",
+      "slug": "dien-bien",
+      "totalUnits": 45,
+      "mapsAudited": 90
+    },
+    {
+      "stt": 9,
+      "name": "Tỉnh Lai Châu",
+      "slug": "lai-chau",
+      "totalUnits": 38,
+      "mapsAudited": 76
+    },
+    {
+      "stt": 10,
+      "name": "Tỉnh Lạng Sơn",
+      "slug": "lang-son",
+      "totalUnits": 65,
+      "mapsAudited": 130
+    },
+    {
+      "stt": 11,
+      "name": "Tỉnh Lào Cai",
+      "slug": "lao-cai",
+      "totalUnits": 99,
+      "mapsAudited": 198
+    },
+    {
+      "stt": 12,
+      "name": "Tỉnh Phú Thọ",
+      "slug": "phu-tho",
+      "totalUnits": 148,
+      "mapsAudited": 296
+    },
+    {
+      "stt": 13,
+      "name": "Tỉnh Sơn La",
+      "slug": "son-la",
+      "totalUnits": 75,
+      "mapsAudited": 150
+    },
+    {
+      "stt": 14,
+      "name": "Tỉnh Thái Nguyên",
+      "slug": "thai-nguyen",
+      "totalUnits": 92,
+      "mapsAudited": 184
+    },
+    {
+      "stt": 15,
+      "name": "Tỉnh Tuyên Quang",
+      "slug": "tuyen-quang",
+      "totalUnits": 124,
+      "mapsAudited": 248
+    },
+    {
+      "stt": 16,
+      "name": "Thành phố Huế",
+      "slug": "hue",
+      "totalUnits": 40,
+      "mapsAudited": 80
+    },
+    {
+      "stt": 17,
+      "name": "Tỉnh Hà Tĩnh",
+      "slug": "ha-tinh",
+      "totalUnits": 69,
+      "mapsAudited": 138
+    },
+    {
+      "stt": 18,
+      "name": "Tỉnh Nghệ An",
+      "slug": "nghe-an",
+      "totalUnits": 130,
+      "mapsAudited": 260
+    },
+    {
+      "stt": 19,
+      "name": "Tỉnh Quảng Trị",
+      "slug": "quang-tri",
+      "totalUnits": 78,
+      "mapsAudited": 156
+    },
+    {
+      "stt": 20,
+      "name": "Tỉnh Thanh Hóa",
+      "slug": "thanh-hoa",
+      "totalUnits": 166,
+      "mapsAudited": 332
+    },
+    {
+      "stt": 21,
+      "name": "Thành phố Đà Nẵng",
+      "slug": "da-nang",
+      "totalUnits": 93,
+      "mapsAudited": 186
+    },
+    {
+      "stt": 22,
+      "name": "Tỉnh Khánh Hòa",
+      "slug": "khanh-hoa",
+      "totalUnits": 65,
+      "mapsAudited": 130
+    },
+    {
+      "stt": 23,
+      "name": "Tỉnh Quảng Ngãi",
+      "slug": "quang-ngai",
+      "totalUnits": 96,
+      "mapsAudited": 192
+    },
+    {
+      "stt": 24,
+      "name": "Tỉnh Đắk Lắk",
+      "slug": "dak-lak",
+      "totalUnits": 102,
+      "mapsAudited": 204
+    },
+    {
+      "stt": 25,
+      "name": "Tỉnh Gia Lai",
+      "slug": "gia-lai",
+      "totalUnits": 135,
+      "mapsAudited": 270
+    },
+    {
+      "stt": 26,
+      "name": "Tỉnh Lâm Đồng",
+      "slug": "lam-dong",
+      "totalUnits": 124,
+      "mapsAudited": 248
+    },
+    {
+      "stt": 27,
+      "name": "Thành phố Hồ Chí Minh",
+      "slug": "ho-chi-minh",
+      "totalUnits": 168,
+      "mapsAudited": 336
+    },
+    {
+      "stt": 28,
+      "name": "Tỉnh Đồng Nai",
+      "slug": "dong-nai",
+      "totalUnits": 95,
+      "mapsAudited": 190
+    },
+    {
+      "stt": 29,
+      "name": "Tỉnh Tây Ninh",
+      "slug": "tay-ninh",
+      "totalUnits": 96,
+      "mapsAudited": 192
+    },
+    {
+      "stt": 30,
+      "name": "Thành phố Cần Thơ",
+      "slug": "can-tho",
+      "totalUnits": 103,
+      "mapsAudited": 206
+    },
+    {
+      "stt": 31,
+      "name": "Tỉnh An Giang",
+      "slug": "an-giang",
+      "totalUnits": 102,
+      "mapsAudited": 204
+    },
+    {
+      "stt": 32,
+      "name": "Tỉnh Cà Mau",
+      "slug": "ca-mau",
+      "totalUnits": 64,
+      "mapsAudited": 128
+    },
+    {
+      "stt": 33,
+      "name": "Tỉnh Đồng Tháp",
+      "slug": "dong-thap",
+      "totalUnits": 102,
+      "mapsAudited": 204
+    },
+    {
+      "stt": 34,
+      "name": "Tỉnh Vĩnh Long",
+      "slug": "vinh-long",
+      "totalUnits": 124,
+      "mapsAudited": 248
+    }
+  ]
+}

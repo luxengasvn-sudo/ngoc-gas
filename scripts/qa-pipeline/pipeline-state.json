@@ -1,0 +1,274 @@
+{
+  "ha-noi": {
+    "index": 1,
+    "name": "Thành phố Hà Nội",
+    "slug": "ha-noi",
+    "status": "PASS",
+    "totalUnits": 126,
+    "verifiedAt": "2026-09-16T07:20:34.553Z"
+  },
+  "hai-phong": {
+    "index": 2,
+    "name": "Thành phố Hải Phòng",
+    "slug": "hai-phong",
+    "status": "PASS",
+    "totalUnits": 114,
+    "verifiedAt": "2026-09-16T07:21:27.743Z"
+  },
+  "quang-ninh": {
+    "index": 3,
+    "name": "Tỉnh Quảng Ninh",
+    "slug": "quang-ninh",
+    "status": "PASS",
+    "totalUnits": 54,
+    "verifiedAt": "2026-09-16T07:23:12.698Z"
+  },
+  "bac-ninh": {
+    "index": 4,
+    "name": "Tỉnh Bắc Ninh",
+    "slug": "bac-ninh",
+    "status": "PASS",
+    "totalUnits": 99,
+    "verifiedAt": "2026-09-16T07:23:16.856Z"
+  },
+  "hung-yen": {
+    "index": 5,
+    "name": "Tỉnh Hưng Yên",
+    "slug": "hung-yen",
+    "status": "PASS",
+    "totalUnits": 103,
+    "verifiedAt": "2026-09-16T07:23:28.870Z"
+  },
+  "ninh-binh": {
+    "index": 6,
+    "name": "Tỉnh Ninh Bình",
+    "slug": "ninh-binh",
+    "status": "PASS",
+    "totalUnits": 129,
+    "verifiedAt": "2026-09-16T07:23:36.283Z"
+  },
+  "cao-bang": {
+    "index": 7,
+    "name": "Tỉnh Cao Bằng",
+    "slug": "cao-bang",
+    "status": "PASS",
+    "totalUnits": 56,
+    "verifiedAt": "2026-09-17T06:56:48.368Z"
+  },
+  "dien-bien": {
+    "index": 8,
+    "name": "Tỉnh Điện Biên",
+    "slug": "dien-bien",
+    "status": "PASS",
+    "totalUnits": 45,
+    "verifiedAt": "2026-09-17T06:56:52.587Z"
+  },
+  "lai-chau": {
+    "index": 9,
+    "name": "Tỉnh Lai Châu",
+    "slug": "lai-chau",
+    "status": "PASS",
+    "totalUnits": 38,
+    "verifiedAt": "2026-09-17T06:56:52.601Z"
+  },
+  "lang-son": {
+    "index": 10,
+    "name": "Tỉnh Lạng Sơn",
+    "slug": "lang-son",
+    "status": "PASS",
+    "totalUnits": 65,
+    "verifiedAt": "2026-09-17T06:56:52.629Z"
+  },
+  "lao-cai": {
+    "index": 11,
+    "name": "Tỉnh Lào Cai",
+    "slug": "lao-cai",
+    "status": "PASS",
+    "totalUnits": 99,
+    "verifiedAt": "2026-09-17T06:56:52.682Z"
+  },
+  "phu-tho": {
+    "index": 12,
+    "name": "Tỉnh Phú Thọ",
+    "slug": "phu-tho",
+    "status": "PASS",
+    "totalUnits": 148,
+    "verifiedAt": "2026-09-17T06:57:03.209Z"
+  },
+  "son-la": {
+    "index": 13,
+    "name": "Tỉnh Sơn La",
+    "slug": "son-la",
+    "status": "PASS",
+    "totalUnits": 75,
+    "verifiedAt": "2026-09-17T06:56:52.725Z"
+  },
+  "thai-nguyen": {
+    "index": 14,
+    "name": "Tỉnh Thái Nguyên",
+    "slug": "thai-nguyen",
+    "status": "PASS",
+    "totalUnits": 92,
+    "verifiedAt": "2026-09-17T06:57:03.245Z"
+  },
+  "tuyen-quang": {
+    "index": 15,
+    "name": "Tỉnh Tuyên Quang",
+    "slug": "tuyen-quang",
+    "status": "PASS",
+    "totalUnits": 124,
+    "verifiedAt": "2026-09-17T06:56:52.799Z"
+  },
+  "hue": {
+    "index": 16,
+    "name": "Thành phố Huế",
+    "slug": "hue",
+    "status": "PASS",
+    "totalUnits": 40,
+    "verifiedAt": "2026-09-17T06:57:03.539Z"
+  },
+  "ha-tinh": {
+    "index": 17,
+    "name": "Tỉnh Hà Tĩnh",
+    "slug": "ha-tinh",
+    "status": "PASS",
+    "totalUnits": 69,
+    "verifiedAt": "2026-09-17T06:57:03.452Z"
+  },
+  "nghe-an": {
+    "index": 18,
+    "name": "Tỉnh Nghệ An",
+    "slug": "nghe-an",
+    "status": "PASS",
+    "totalUnits": 130,
+    "verifiedAt": "2026-09-17T06:57:03.415Z"
+  },
+  "quang-tri": {
+    "index": 19,
+    "name": "Tỉnh Quảng Trị",
+    "slug": "quang-tri",
+    "status": "PASS",
+    "totalUnits": 78,
+    "verifiedAt": "2026-09-17T06:57:03.507Z"
+  },
+  "thanh-hoa": {
+    "index": 20,
+    "name": "Tỉnh Thanh Hóa",
+    "slug": "thanh-hoa",
+    "status": "PASS",
+    "totalUnits": 166,
+    "verifiedAt": "2026-09-17T06:57:03.340Z"
+  },
+  "da-nang": {
+    "index": 21,
+    "name": "Thành phố Đà Nẵng",
+    "slug": "da-nang",
+    "status": "PASS",
+    "totalUnits": 93,
+    "verifiedAt": "2026-09-17T06:57:08.644Z"
+  },
+  "khanh-hoa": {
+    "index": 22,
+    "name": "Tỉnh Khánh Hòa",
+    "slug": "khanh-hoa",
+    "status": "PASS",
+    "totalUnits": 65,
+    "verifiedAt": "2026-09-17T06:57:08.731Z"
+  },
+  "quang-ngai": {
+    "index": 23,
+    "name": "Tỉnh Quảng Ngãi",
+    "slug": "quang-ngai",
+    "status": "PASS",
+    "totalUnits": 96,
+    "verifiedAt": "2026-09-17T06:57:08.686Z"
+  },
+  "dak-lak": {
+    "index": 24,
+    "name": "Tỉnh Đắk Lắk",
+    "slug": "dak-lak",
+    "status": "PASS",
+    "totalUnits": 102,
+    "verifiedAt": "2026-09-17T06:57:08.888Z"
+  },
+  "gia-lai": {
+    "index": 25,
+    "name": "Tỉnh Gia Lai",
+    "slug": "gia-lai",
+    "status": "PASS",
+    "totalUnits": 135,
+    "verifiedAt": "2026-09-17T06:57:08.830Z"
+  },
+  "lam-dong": {
+    "index": 26,
+    "name": "Tỉnh Lâm Đồng",
+    "slug": "lam-dong",
+    "status": "PASS",
+    "totalUnits": 124,
+    "verifiedAt": "2026-09-17T06:57:08.958Z"
+  },
+  "ho-chi-minh": {
+    "index": 27,
+    "name": "Thành phố Hồ Chí Minh",
+    "slug": "ho-chi-minh",
+    "status": "PASS",
+    "totalUnits": 168,
+    "verifiedAt": "2026-09-16T07:28:49.909Z"
+  },
+  "dong-nai": {
+    "index": 28,
+    "name": "Tỉnh Đồng Nai",
+    "slug": "dong-nai",
+    "status": "PASS",
+    "totalUnits": 95,
+    "verifiedAt": "2026-09-17T06:57:15.305Z"
+  },
+  "tay-ninh": {
+    "index": 29,
+    "name": "Tỉnh Tây Ninh",
+    "slug": "tay-ninh",
+    "status": "PASS",
+    "totalUnits": 96,
+    "verifiedAt": "2026-09-17T06:57:15.342Z"
+  },
+  "can-tho": {
+    "index": 30,
+    "name": "Thành phố Cần Thơ",
+    "slug": "can-tho",
+    "status": "PASS",
+    "totalUnits": 103,
+    "verifiedAt": "2026-09-17T06:57:15.400Z"
+  },
+  "an-giang": {
+    "index": 31,
+    "name": "Tỉnh An Giang",
+    "slug": "an-giang",
+    "status": "PASS",
+    "totalUnits": 102,
+    "verifiedAt": "2026-09-17T06:57:15.447Z"
+  },
+  "ca-mau": {
+    "index": 32,
+    "name": "Tỉnh Cà Mau",
+    "slug": "ca-mau",
+    "status": "PASS",
+    "totalUnits": 64,
+    "verifiedAt": "2026-09-17T06:57:15.599Z"
+  },
+  "dong-thap": {
+    "index": 33,
+    "name": "Tỉnh Đồng Tháp",
+    "slug": "dong-thap",
+    "status": "PASS",
+    "totalUnits": 102,
+    "verifiedAt": "2026-09-17T06:57:15.507Z"
+  },
+  "vinh-long": {
+    "index": 34,
+    "name": "Tỉnh Vĩnh Long",
+    "slug": "vinh-long",
+    "status": "PASS",
+    "totalUnits": 124,
+    "verifiedAt": "2026-09-17T06:57:15.562Z"
+  }
+}

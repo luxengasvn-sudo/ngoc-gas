@@ -42,6 +42,7 @@ next-env.d.ts
 
 # scratch & test scripts
 /scratch/
+/scripts/scratch/
 .claude/
 CLAUDE.md
 /backups/
@@ -50,3 +51,6 @@ CLAUDE.md
 # Only *.default.json files are tracked for first-time server setup
 data/*.json
 !data/*.default.json
+
+# User uploads (dynamic media — separate from code repository)
+public/uploads/*

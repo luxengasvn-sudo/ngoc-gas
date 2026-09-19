@@ -9,11 +9,13 @@
     "lint": "eslint",
     "bot": "node scripts/telegram-bot/server.js",
     "audit": "node scripts/audit-project.js",
+    "audit:agencies": "node scripts/qa-pipeline/ai-verifier/run-deep-audit.mjs",
     "backup": "node scripts/backup-ngocgas.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.3",
+    "leaflet": "^1.9.4",
     "lucide-react": "^1.26.0",
     "mysql2": "^3.23.1",
     "next": "16.2.11",

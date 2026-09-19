@@ -1,0 +1,450 @@
+[
+  {
+    "province": "Hà Nội",
+    "code": "100000",
+    "newProvince": "Thành phố Hà Nội",
+    "licensePlate": "29 - 33, 40",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Hà Tây (cũ)",
+    "code": "150000",
+    "newProvince": "Thành phố Hà Nội",
+    "licensePlate": "33",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Hải Phòng",
+    "code": "180000",
+    "newProvince": "Thành phố Hải Phòng",
+    "licensePlate": "15, 16",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Quảng Ninh",
+    "code": "200000",
+    "newProvince": "Thành phố Quảng Ninh",
+    "licensePlate": "14",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Bắc Ninh",
+    "code": "160000",
+    "newProvince": "Tỉnh Bắc Ninh",
+    "licensePlate": "99",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Hưng Yên",
+    "code": "170000",
+    "newProvince": "Tỉnh Hưng Yên",
+    "licensePlate": "89",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Hải Dương",
+    "code": "030000",
+    "newProvince": "Tỉnh Hưng Yên & Hải Phòng",
+    "licensePlate": "34",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Thái Bình",
+    "code": "060000",
+    "newProvince": "Tỉnh Hưng Yên",
+    "licensePlate": "17",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Nam Định",
+    "code": "070000",
+    "newProvince": "Tỉnh Ninh Bình",
+    "licensePlate": "18",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Hà Nam",
+    "code": "180000",
+    "newProvince": "Tỉnh Ninh Bình",
+    "licensePlate": "90",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Ninh Bình",
+    "code": "430000",
+    "newProvince": "Tỉnh Ninh Bình",
+    "licensePlate": "35",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Vĩnh Phúc",
+    "code": "150000",
+    "newProvince": "Thành phố Hà Nội",
+    "licensePlate": "88",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Bắc Giang",
+    "code": "260000",
+    "newProvince": "Tỉnh Bắc Ninh",
+    "licensePlate": "98",
+    "region": "Đồng bằng sông Hồng"
+  },
+  {
+    "province": "Cao Bằng",
+    "code": "270000",
+    "newProvince": "Tỉnh Cao Bằng",
+    "licensePlate": "11",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Bắc Kạn",
+    "code": "970000",
+    "newProvince": "Tỉnh Thái Nguyên",
+    "licensePlate": "97",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Điện Biên",
+    "code": "380000",
+    "newProvince": "Tỉnh Điện Biên",
+    "licensePlate": "27",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Lai Châu",
+    "code": "390000",
+    "newProvince": "Tỉnh Lai Châu",
+    "licensePlate": "25",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Lạng Sơn",
+    "code": "240000",
+    "newProvince": "Tỉnh Lạng Sơn",
+    "licensePlate": "12",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Lào Cai",
+    "code": "330000",
+    "newProvince": "Tỉnh Lào Cai",
+    "licensePlate": "24",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Yên Bái",
+    "code": "320000",
+    "newProvince": "Tỉnh Lào Cai",
+    "licensePlate": "21",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Phú Thọ",
+    "code": "290000",
+    "newProvince": "Tỉnh Phú Thọ",
+    "licensePlate": "19",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Sơn La",
+    "code": "360000",
+    "newProvince": "Tỉnh Sơn La",
+    "licensePlate": "26",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Hòa Bình",
+    "code": "350000",
+    "newProvince": "Tỉnh Sơn La",
+    "licensePlate": "28",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Thái Nguyên",
+    "code": "250000",
+    "newProvince": "Tỉnh Thái Nguyên",
+    "licensePlate": "20",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Tuyên Quang",
+    "code": "300000",
+    "newProvince": "Tỉnh Tuyên Quang",
+    "licensePlate": "22",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Hà Giang",
+    "code": "310000",
+    "newProvince": "Tỉnh Tuyên Quang",
+    "licensePlate": "23",
+    "region": "Trung du miền núi phía Bắc"
+  },
+  {
+    "province": "Thừa Thiên Huế",
+    "code": "530000",
+    "newProvince": "Thành phố Huế",
+    "licensePlate": "75",
+    "region": "Bắc Trung Bộ"
+  },
+  {
+    "province": "Hà Tĩnh",
+    "code": "480000",
+    "newProvince": "Tỉnh Hà Tĩnh",
+    "licensePlate": "38",
+    "region": "Bắc Trung Bộ"
+  },
+  {
+    "province": "Nghệ An",
+    "code": "460000",
+    "newProvince": "Tỉnh Nghệ An",
+    "licensePlate": "37",
+    "region": "Bắc Trung Bộ"
+  },
+  {
+    "province": "Quảng Trị",
+    "code": "520000",
+    "newProvince": "Tỉnh Quảng Trị",
+    "licensePlate": "74",
+    "region": "Bắc Trung Bộ"
+  },
+  {
+    "province": "Quảng Bình",
+    "code": "510000",
+    "newProvince": "Tỉnh Quảng Trị",
+    "licensePlate": "73",
+    "region": "Bắc Trung Bộ"
+  },
+  {
+    "province": "Thanh Hóa",
+    "code": "440000",
+    "newProvince": "Tỉnh Thanh Hóa",
+    "licensePlate": "36",
+    "region": "Bắc Trung Bộ"
+  },
+  {
+    "province": "Đà Nẵng",
+    "code": "550000",
+    "newProvince": "Thành phố Đà Nẵng",
+    "licensePlate": "43",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Quảng Nam",
+    "code": "560000",
+    "newProvince": "Thành phố Đà Nẵng",
+    "licensePlate": "92",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Quảng Ngãi",
+    "code": "570000",
+    "newProvince": "Tỉnh Quảng Ngãi",
+    "licensePlate": "76",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Bình Định",
+    "code": "590000",
+    "newProvince": "Tỉnh Quảng Ngãi",
+    "licensePlate": "77",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Khánh Hòa",
+    "code": "650000",
+    "newProvince": "Tỉnh Khánh Hòa",
+    "licensePlate": "79",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Ninh Thuận",
+    "code": "660000",
+    "newProvince": "Tỉnh Khánh Hòa",
+    "licensePlate": "85",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Phú Yên",
+    "code": "620000",
+    "newProvince": "Tỉnh Khánh Hòa",
+    "licensePlate": "78",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Bình Thuận",
+    "code": "800000",
+    "newProvince": "Tỉnh Lâm Đồng",
+    "licensePlate": "86",
+    "region": "Duyên hải Nam Trung Bộ"
+  },
+  {
+    "province": "Đắk Lắk",
+    "code": "630000",
+    "newProvince": "Tỉnh Đắk Lắk",
+    "licensePlate": "47",
+    "region": "Tây Nguyên"
+  },
+  {
+    "province": "Đắk Nông",
+    "code": "640000",
+    "newProvince": "Tỉnh Đắk Lắk",
+    "licensePlate": "48",
+    "region": "Tây Nguyên"
+  },
+  {
+    "province": "Gia Lai",
+    "code": "600000",
+    "newProvince": "Tỉnh Gia Lai",
+    "licensePlate": "81",
+    "region": "Tây Nguyên"
+  },
+  {
+    "province": "Kon Tum",
+    "code": "580000",
+    "newProvince": "Tỉnh Gia Lai",
+    "licensePlate": "82",
+    "region": "Tây Nguyên"
+  },
+  {
+    "province": "Lâm Đồng",
+    "code": "670000",
+    "newProvince": "Tỉnh Lâm Đồng",
+    "licensePlate": "49",
+    "region": "Tây Nguyên"
+  },
+  {
+    "province": "TP. Hồ Chí Minh",
+    "code": "700000",
+    "newProvince": "Thành phố Hồ Chí Minh",
+    "licensePlate": "50 - 59",
+    "region": "Đông Nam Bộ"
+  },
+  {
+    "province": "Bình Dương",
+    "code": "820000",
+    "newProvince": "Thành phố Hồ Chí Minh",
+    "licensePlate": "61",
+    "region": "Đông Nam Bộ"
+  },
+  {
+    "province": "Bà Rịa - Vũng Tàu",
+    "code": "790000",
+    "newProvince": "Thành phố Hồ Chí Minh",
+    "licensePlate": "72",
+    "region": "Đông Nam Bộ"
+  },
+  {
+    "province": "Đồng Nai",
+    "code": "810000",
+    "newProvince": "Tỉnh Đồng Nai",
+    "licensePlate": "60",
+    "region": "Đông Nam Bộ"
+  },
+  {
+    "province": "Tây Ninh",
+    "code": "840000",
+    "newProvince": "Tỉnh Tây Ninh",
+    "licensePlate": "70",
+    "region": "Đông Nam Bộ"
+  },
+  {
+    "province": "Bình Phước",
+    "code": "830000",
+    "newProvince": "Tỉnh Bình Phước",
+    "licensePlate": "93",
+    "region": "Đông Nam Bộ"
+  },
+  {
+    "province": "Cần Thơ",
+    "code": "900000",
+    "newProvince": "Thành phố Cần Thơ",
+    "licensePlate": "65",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Hậu Giang",
+    "code": "910000",
+    "newProvince": "Thành phố Cần Thơ",
+    "licensePlate": "95",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Sóc Trăng",
+    "code": "950000",
+    "newProvince": "Thành phố Cần Thơ",
+    "licensePlate": "83",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "An Giang",
+    "code": "880000",
+    "newProvince": "Tỉnh An Giang",
+    "licensePlate": "67",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Kiên Giang",
+    "code": "920000",
+    "newProvince": "Tỉnh An Giang",
+    "licensePlate": "68",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Cà Mau",
+    "code": "970000",
+    "newProvince": "Tỉnh Cà Mau",
+    "licensePlate": "69",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Bạc Liêu",
+    "code": "960000",
+    "newProvince": "Tỉnh Cà Mau",
+    "licensePlate": "94",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Đồng Tháp",
+    "code": "870000",
+    "newProvince": "Tỉnh Đồng Tháp",
+    "licensePlate": "66",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Long An",
+    "code": "850000",
+    "newProvince": "Tỉnh Đồng Tháp",
+    "licensePlate": "62",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Tiền Giang",
+    "code": "860000",
+    "newProvince": "Tỉnh Đồng Tháp",
+    "licensePlate": "63",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Vĩnh Long",
+    "code": "890000",
+    "newProvince": "Tỉnh Vĩnh Long",
+    "licensePlate": "64",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Bến Tre",
+    "code": "930000",
+    "newProvince": "Tỉnh Vĩnh Long",
+    "licensePlate": "71",
+    "region": "Đồng bằng sông Cửu Long"
+  },
+  {
+    "province": "Trà Vinh",
+    "code": "940000",
+    "newProvince": "Tỉnh Vĩnh Long",
+    "licensePlate": "84",
+    "region": "Đồng bằng sông Cửu Long"
+  }
+]

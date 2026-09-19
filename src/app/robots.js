@@ -8,6 +8,10 @@ export default function robots() {
         disallow: ['/admin/', '/api/'],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: [
+      `${baseUrl}/sitemap.xml`,
+      `${baseUrl}/sitemap-gas.xml`,
+      `${baseUrl}/sitemap-diagioi.xml`,
+    ],
   };
 }

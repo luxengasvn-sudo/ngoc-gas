@@ -1,0 +1,1198 @@
+[
+  {
+    "slug": "ha-noi",
+    "name": "Thành phố Hà Nội",
+    "type": "Thành phố trực thuộc Trung ương",
+    "region": "Đồng bằng sông Hồng",
+    "regionSlug": "dong-bang-song-hong",
+    "totalUnits": 126,
+    "wards": 51,
+    "communes": 75,
+    "specialZones": 0,
+    "areaKm2": 3359.84,
+    "population": 8807523,
+    "density": 2621,
+    "licensePlates": [
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "40"
+    ],
+    "postalCode": "100000",
+    "center": "Hoàn Kiếm",
+    "description": "Thủ đô Hà Nội - trung tâm đầu não chính trị, văn hóa, giáo dục và kinh tế hàng đầu cả nước, sắp xếp tinh gọn 126 đơn vị hành chính cấp xã theo đề án quy hoạch thủ đô hiện đại.",
+    "legacyProvinces": [
+      "Hà Nội"
+    ],
+    "ubndInfo": {
+      "cityId": "1157",
+      "address": "Số 79 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội",
+      "phone": "(024) 38253536",
+      "fax": "(024) 38243126",
+      "email": "vanthu@hanoi.gov.vn",
+      "website": "http://hanoi.gov.vn",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Vũ Đại Thắng"
+    }
+  },
+  {
+    "slug": "hai-phong",
+    "name": "Thành phố Hải Phòng",
+    "type": "Thành phố trực thuộc Trung ương",
+    "region": "Đồng bằng sông Hồng",
+    "regionSlug": "dong-bang-song-hong",
+    "totalUnits": 114,
+    "wards": 45,
+    "communes": 67,
+    "specialZones": 2,
+    "areaKm2": 3194.72,
+    "population": 4664124,
+    "density": 1460,
+    "licensePlates": [
+      "15",
+      "16",
+      "34"
+    ],
+    "postalCode": "180000",
+    "center": "Thủy Nguyên",
+    "description": "Thành phố cảng Hải Phòng - cửa ngõ giao thương hàng hải quốc tế trọng điểm miền Bắc, hợp nhất không gian phát triển kinh tế biển Hải Phòng và trung tâm công nghiệp Hải Dương.",
+    "legacyProvinces": [
+      "Hải Phòng",
+      "Hải Dương"
+    ],
+    "ubndInfo": {
+      "cityId": "1344",
+      "address": "Tòa nhà B, Trung tâm Chính trị - Hành chính thành phố, phường Thủy Nguyên, thành phố Hải Phòng.",
+      "phone": "(0225) 080.31253 - 080.31254",
+      "fax": "(0225) 3842368",
+      "email": "ubnd@haiphong.gov.vn; vpubnd@haiphong.gov.vn",
+      "website": "http://haiphong.gov.vn",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Đỗ Thành Trung"
+    }
+  },
+  {
+    "slug": "quang-ninh",
+    "name": "Tỉnh Quảng Ninh",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Hồng",
+    "regionSlug": "dong-bang-song-hong",
+    "totalUnits": 54,
+    "wards": 30,
+    "communes": 22,
+    "specialZones": 2,
+    "areaKm2": 6207.95,
+    "population": 1497447,
+    "density": 241,
+    "licensePlates": [
+      "14"
+    ],
+    "postalCode": "200000",
+    "center": "Hạ Long",
+    "description": "Tỉnh Quảng Ninh - trung tâm kinh tế biển, du lịch di sản thiên nhiên thế giới vịnh Hạ Long và vùng công nghiệp than - năng lượng trọng điểm quốc gia, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Quảng Ninh"
+    ],
+    "ubndInfo": {
+      "cityId": "3685",
+      "address": "Phường Hồng Hà, Thành phố Hạ Long, Quảng Ninh",
+      "phone": "(0203) 3835852",
+      "fax": "(0203) 3835353",
+      "email": "vpubnd@quangninh.gov.vn",
+      "website": "http://www.quangninh.gov.vn",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Bùi Văn Khắng"
+    }
+  },
+  {
+    "slug": "bac-ninh",
+    "name": "Tỉnh Bắc Ninh",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Hồng",
+    "regionSlug": "dong-bang-song-hong",
+    "totalUnits": 99,
+    "wards": 33,
+    "communes": 66,
+    "specialZones": 0,
+    "areaKm2": 4718.6,
+    "population": 3619433,
+    "density": 767,
+    "licensePlates": [
+      "99",
+      "98"
+    ],
+    "postalCode": "790000",
+    "center": "Bắc Giang",
+    "description": "Tỉnh Bắc Ninh - cực tăng trưởng công nghiệp công nghệ cao và bán dẫn vùng Thủ đô, hình thành trên cơ sở hợp nhất toàn diện hai tỉnh Bắc Ninh và Bắc Giang.",
+    "legacyProvinces": [
+      "Bắc Ninh",
+      "Bắc Giang"
+    ],
+    "ubndInfo": {
+      "cityId": "1164",
+      "address": "Số 82 Hùng Vương, phường Bắc Giang, tỉnh Bắc Ninh",
+      "phone": "(0222) 3898777 - 3852666 - 3828899",
+      "fax": "(0222) 3822492",
+      "email": "tinbacninh@bacninh.gov.vn",
+      "website": "https://bacninh.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Phạm Hoàng Sơn"
+    }
+  },
+  {
+    "slug": "hung-yen",
+    "name": "Tỉnh Hưng Yên",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Hồng",
+    "regionSlug": "dong-bang-song-hong",
+    "totalUnits": 104,
+    "wards": 11,
+    "communes": 93,
+    "specialZones": 0,
+    "areaKm2": 2514.81,
+    "population": 3567943,
+    "density": 1419,
+    "licensePlates": [
+      "89",
+      "17"
+    ],
+    "postalCode": "160000",
+    "center": "Phố Hiến",
+    "description": "Tỉnh Hưng Yên - vành đai kinh tế công nghiệp đô thị vệ tinh kết hợp nông nghiệp công nghệ cao đồng bằng sông Hồng, hình thành từ hợp nhất tỉnh Hưng Yên và Thái Bình.",
+    "legacyProvinces": [
+      "Hưng Yên",
+      "Thái Bình"
+    ],
+    "ubndInfo": {
+      "cityId": "1351",
+      "address": "Số 10 đường Chùa Chuông - Phường Phố Hiến, tỉnh Hưng Yên",
+      "phone": "(0221) 3863823 - 3864436",
+      "fax": "(0221) 3863932",
+      "email": "hungyen@chinhphu.vn",
+      "website": "http://hungyen.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Mạnh Quyền"
+    }
+  },
+  {
+    "slug": "ninh-binh",
+    "name": "Tỉnh Ninh Bình",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Hồng",
+    "regionSlug": "dong-bang-song-hong",
+    "totalUnits": 129,
+    "wards": 32,
+    "communes": 97,
+    "specialZones": 0,
+    "areaKm2": 3942.62,
+    "population": 4412264,
+    "density": 1119,
+    "licensePlates": [
+      "35",
+      "90",
+      "18"
+    ],
+    "postalCode": "430000",
+    "center": "Hoa Lư",
+    "description": "Tỉnh Ninh Bình - trung tâm văn hóa di sản thế giới Tràng An, kinh tế du lịch và công nghiệp logistics cửa ngõ phía Nam đồng bằng Bắc Bộ, hình thành từ hợp nhất Ninh Bình, Hà Nam và Nam Định.",
+    "legacyProvinces": [
+      "Ninh Bình",
+      "Hà Nam",
+      "Nam Định"
+    ],
+    "ubndInfo": {
+      "cityId": "1369",
+      "address": "Số 3 đường Lê Hồng Phong, phường Hoa Lư, tỉnh Ninh Bình",
+      "phone": "(0229) 3871059",
+      "fax": "(0229) 3871890",
+      "email": "vpubnd@ninhbinh.gov.vn",
+      "website": "https://ninhbinh.gov.vn/",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Thanh Bình"
+    }
+  },
+  {
+    "slug": "cao-bang",
+    "name": "Tỉnh Cao Bằng",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 56,
+    "wards": 3,
+    "communes": 53,
+    "specialZones": 0,
+    "areaKm2": 6700.39,
+    "population": 573119,
+    "density": 86,
+    "licensePlates": [
+      "11"
+    ],
+    "postalCode": "270000",
+    "center": "Thục Phán",
+    "description": "Tỉnh Cao Bằng - vùng phên dậu Đông Bắc thiêng liêng của Tổ quốc, giàu truyền thống cội nguồn cách mạng và công viên địa chất toàn cầu Non Nước Cao Bằng, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Cao Bằng"
+    ],
+    "ubndInfo": {
+      "cityId": "1340",
+      "address": "Khu đô thị mới, phường Đề Thám, thành phố Cao Bằng, tỉnh Cao Bằng",
+      "phone": "(0206) 3852139",
+      "fax": "(0206) 3852866",
+      "email": "portal@caobang.gov.vn",
+      "website": "https://caobang.gov.vn/",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Lê Hải Hòa"
+    }
+  },
+  {
+    "slug": "dien-bien",
+    "name": "Tỉnh Điện Biên",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 45,
+    "wards": 3,
+    "communes": 42,
+    "specialZones": 0,
+    "areaKm2": 9539.93,
+    "population": 673091,
+    "density": 71,
+    "licensePlates": [
+      "27"
+    ],
+    "postalCode": "380000",
+    "center": "Điện Biên Phủ",
+    "description": "Tỉnh Điện Biên - mảnh đất lịch sử hào hùng với chiến thắng Điện Biên Phủ lừng lẫy năm châu, cửa ngõ biên cương Tây Bắc kết nối kinh tế với Lào và khu vực, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Điện Biên"
+    ],
+    "ubndInfo": {
+      "cityId": "1354",
+      "address": "Số 851 - Đường Võ Nguyên Giáp - Phường Điện Biên Phủ - Tỉnh Điện Biên",
+      "phone": "(0215) 3827726 - 3827319",
+      "fax": "(0215) 3825076",
+      "email": "vpubnd@dienbien.gov.vn; portal@dienbien.gov.vn",
+      "website": "http://www.dienbien.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Lê Văn Lương"
+    }
+  },
+  {
+    "slug": "lai-chau",
+    "name": "Tỉnh Lai Châu",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 38,
+    "wards": 2,
+    "communes": 36,
+    "specialZones": 0,
+    "areaKm2": 9068.73,
+    "population": 512601,
+    "density": 57,
+    "licensePlates": [
+      "25"
+    ],
+    "postalCode": "390000",
+    "center": "Tân Phong",
+    "description": "Tỉnh Lai Châu - địa bàn chiến lược quốc phòng an ninh Tây Bắc với các đỉnh núi hùng vĩ, tiềm năng thủy điện và phát triển cây dược liệu quý, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Lai Châu"
+    ],
+    "ubndInfo": {
+      "cityId": "1362",
+      "address": "Nhà B, Tầng 1, 2, 3, Trung tâm Hành chính, Đại lộ Lê Lợi, Phường Tân Phong, tỉnh Lai Châu",
+      "phone": "(0213) 3876337 - 3876359",
+      "fax": "(0213) 3876356",
+      "email": "laichau@chinhphu.vn",
+      "website": "http://laichau.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Hà Quang Trung"
+    }
+  },
+  {
+    "slug": "lang-son",
+    "name": "Tỉnh Lạng Sơn",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 65,
+    "wards": 4,
+    "communes": 61,
+    "specialZones": 0,
+    "areaKm2": 8310.18,
+    "population": 881384,
+    "density": 106,
+    "licensePlates": [
+      "12"
+    ],
+    "postalCode": "240000",
+    "center": "Lương Văn Tri",
+    "description": "Tỉnh Lạng Sơn - phên dậu biên cương Đông Bắc, đầu mối xuất nhập khẩu hàng hóa đường bộ lớn nhất cả nước kết nối thị trường Trung Quốc, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Lạng Sơn"
+    ],
+    "ubndInfo": {
+      "cityId": "1366",
+      "address": "Số 2, đường Hùng Vương, Phường Lương Văn Tri, tỉnh Lạng Sơn",
+      "phone": "(0205) 3814302",
+      "fax": "(0205) 3812336",
+      "email": "ubndls@langson.gov.vn",
+      "website": "https://langson.gov.vn/vi",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Cảnh Toàn"
+    }
+  },
+  {
+    "slug": "lao-cai",
+    "name": "Tỉnh Lào Cai",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 99,
+    "wards": 10,
+    "communes": 89,
+    "specialZones": 0,
+    "areaKm2": 13256.92,
+    "population": 1778785,
+    "density": 134,
+    "licensePlates": [
+      "24",
+      "21"
+    ],
+    "postalCode": "330000",
+    "center": "Yên Bái",
+    "description": "Tỉnh Lào Cai - trung tâm hành lang kinh tế Côn Minh - Hà Nội - Hải Phòng, sở hữu khu du lịch quốc gia Sa Pa và tiềm năng kinh tế lâm nghiệp, hình thành từ hợp nhất tỉnh Lào Cai và Yên Bái.",
+    "legacyProvinces": [
+      "Lào Cai",
+      "Yên Bái"
+    ],
+    "ubndInfo": {
+      "cityId": "1364",
+      "address": "Số 1227 đường Yên Ninh, phường Yên Bái, tỉnh Lào Cai",
+      "phone": "(0216) 3.852.808",
+      "fax": "(0216) 3840006",
+      "email": "contact-ubnd@laocai.gov.vn",
+      "website": "http://laocai.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Tuấn Anh"
+    }
+  },
+  {
+    "slug": "phu-tho",
+    "name": "Tỉnh Phú Thọ",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 148,
+    "wards": 15,
+    "communes": 133,
+    "specialZones": 0,
+    "areaKm2": 9361.38,
+    "population": 4022638,
+    "density": 430,
+    "licensePlates": [
+      "19",
+      "88",
+      "28"
+    ],
+    "postalCode": "290000",
+    "center": "Việt Trì",
+    "description": "Tỉnh Phú Thọ - miền đất Tổ cội nguồn dân tộc Việt Nam, hợp nhất không gian kinh tế công nghiệp - dịch vụ - văn hóa của ba tỉnh Phú Thọ, Vĩnh Phúc và Hòa Bình.",
+    "legacyProvinces": [
+      "Phú Thọ",
+      "Vĩnh Phúc",
+      "Hòa Bình"
+    ],
+    "ubndInfo": {
+      "cityId": "1371",
+      "address": "Đường Trần Phú, phường Việt Trì, tỉnh Phú Thọ",
+      "phone": "(0210) 3846647 - 3847393",
+      "fax": "(0210) 3846816",
+      "email": "vpub@phutho.gov.vn",
+      "website": "https://phutho.gov.vn/",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Trần Duy Đông"
+    }
+  },
+  {
+    "slug": "son-la",
+    "name": "Tỉnh Sơn La",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 75,
+    "wards": 8,
+    "communes": 67,
+    "specialZones": 0,
+    "areaKm2": 14108.89,
+    "population": 1404587,
+    "density": 100,
+    "licensePlates": [
+      "26"
+    ],
+    "postalCode": "360000",
+    "center": "Chiềng Cơi",
+    "description": "Tỉnh Sơn La - trung tâm năng lượng thủy điện và vựa nông sản, hoa quả chất lượng cao của cả nước với cao nguyên Mộc Châu trù phú, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Sơn La"
+    ],
+    "ubndInfo": {
+      "cityId": "1379",
+      "address": "Khu quảng trường Tây Bắc, Phường Chiềng Cơi, Tỉnh Sơn La",
+      "phone": "(0212) 3852010- 3852011",
+      "fax": "(0212) 3852028",
+      "email": "ubnd@sonla.gov.vn",
+      "website": "http://sonla.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Đình Việt"
+    }
+  },
+  {
+    "slug": "thai-nguyen",
+    "name": "Tỉnh Thái Nguyên",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 91,
+    "wards": 15,
+    "communes": 76,
+    "specialZones": 0,
+    "areaKm2": 8375.21,
+    "population": 1799489,
+    "density": 215,
+    "licensePlates": [
+      "20",
+      "97"
+    ],
+    "postalCode": "250000",
+    "center": "Phan Đình Phùng",
+    "description": "Tỉnh Thái Nguyên - trung tâm giáo dục, y tế và công nghiệp điện tử lớn của vùng Trung du miền núi Bắc Bộ, hình thành từ hợp nhất tỉnh Thái Nguyên và Bắc Kạn.",
+    "legacyProvinces": [
+      "Thái Nguyên",
+      "Bắc Kạn"
+    ],
+    "ubndInfo": {
+      "cityId": "1382",
+      "address": "Số 18 đường Nha Trang, phường Phan Đình Phùng, tỉnh Thái Nguyên",
+      "phone": "(0208) 3858543 - 3855214",
+      "fax": "(0208) 3855385",
+      "email": "vpubndt@thainguyen.gov.vn",
+      "website": "http://thainguyen.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Vương Quốc Tuấn"
+    }
+  },
+  {
+    "slug": "tuyen-quang",
+    "name": "Tỉnh Tuyên Quang",
+    "type": "Tỉnh",
+    "region": "Trung du và miền núi phía Bắc",
+    "regionSlug": "trung-du-mien-nui-phia-bac",
+    "totalUnits": 124,
+    "wards": 7,
+    "communes": 117,
+    "specialZones": 0,
+    "areaKm2": 13795.5,
+    "population": 1865270,
+    "density": 135,
+    "licensePlates": [
+      "22",
+      "23"
+    ],
+    "postalCode": "300000",
+    "center": "Minh Xuân",
+    "description": "Tỉnh Tuyên Quang - thủ đô kháng chiến Tân Trào kết hợp cao nguyên đá Đồng Văn hùng vĩ, hình thành từ việc sắp xếp toàn diện hai tỉnh Hà Giang và Tuyên Quang.",
+    "legacyProvinces": [
+      "Tuyên Quang",
+      "Hà Giang"
+    ],
+    "ubndInfo": {
+      "cityId": "1386",
+      "address": "Số 160, đường Trần Hưng Đạo, phường Minh Xuân, tỉnh Tuyên Quang",
+      "phone": "(0207) 3822484-3822475",
+      "fax": "(0207) 3822897",
+      "email": "tuyenquang@chinhphu.vn",
+      "website": "https://tuyenquang.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Phan Huy Ngọc"
+    }
+  },
+  {
+    "slug": "hue",
+    "name": "Thành phố Huế",
+    "type": "Thành phố trực thuộc Trung ương",
+    "region": "Bắc Trung Bộ",
+    "regionSlug": "bac-trung-bo",
+    "totalUnits": 40,
+    "wards": 21,
+    "communes": 19,
+    "specialZones": 0,
+    "areaKm2": 4947.11,
+    "population": 1432986,
+    "density": 290,
+    "licensePlates": [
+      "75"
+    ],
+    "postalCode": "530000",
+    "center": "Thuận Hóa",
+    "description": "Thành phố Huế - đô thị di sản đặc thù trực thuộc Trung ương, trung tâm văn hóa, du lịch, giáo dục và y tế chuyên sâu của miền Trung và cả nước, giữ nguyên địa giới Thừa Thiên Huế.",
+    "legacyProvinces": [
+      "Thừa Thiên Huế"
+    ],
+    "ubndInfo": {
+      "cityId": "3609",
+      "address": "Số 16 Lê Lợi, phường Thuận Hóa, thành phố Huế",
+      "phone": "(0234) 3822584",
+      "fax": "(0234) 3822803",
+      "email": "ubnd@hue.gov.vn",
+      "website": "https://hue.gov.vn/",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Lê Trí Thanh"
+    }
+  },
+  {
+    "slug": "ha-tinh",
+    "name": "Tỉnh Hà Tĩnh",
+    "type": "Tỉnh",
+    "region": "Bắc Trung Bộ",
+    "regionSlug": "bac-trung-bo",
+    "totalUnits": 69,
+    "wards": 9,
+    "communes": 60,
+    "specialZones": 0,
+    "areaKm2": 5994.45,
+    "population": 1622901,
+    "density": 271,
+    "licensePlates": [
+      "38"
+    ],
+    "postalCode": "480000",
+    "center": "Thành Sen",
+    "description": "Tỉnh Hà Tĩnh - quê hương Đại thi hào Nguyễn Du, địa bàn giàu tiềm năng phát triển công nghiệp nặng và cảng nước sâu Vũng Áng, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Hà Tĩnh"
+    ],
+    "ubndInfo": {
+      "cityId": "1350",
+      "address": "Số 19 đường Nguyễn Tất Thành - phường Thành Sen - tỉnh Hà Tĩnh",
+      "phone": "(02393) 857.717",
+      "fax": "(02393) 3856141",
+      "email": "ubhatinh@hatinh.gov.vn",
+      "website": "https://hatinh.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Phan Thiên Định"
+    }
+  },
+  {
+    "slug": "nghe-an",
+    "name": "Tỉnh Nghệ An",
+    "type": "Tỉnh",
+    "region": "Bắc Trung Bộ",
+    "regionSlug": "bac-trung-bo",
+    "totalUnits": 130,
+    "wards": 11,
+    "communes": 119,
+    "specialZones": 0,
+    "areaKm2": 16486.5,
+    "population": 3831694,
+    "density": 232,
+    "licensePlates": [
+      "37"
+    ],
+    "postalCode": "460000",
+    "center": "Trường Vinh",
+    "description": "Tỉnh Nghệ An - tỉnh có diện tích tự nhiên lớn nhất cả nước, quê hương Chủ tịch Hồ Chí Minh vĩ đại, trung tâm kinh tế - văn hóa lớn của vùng Bắc Trung Bộ, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Nghệ An"
+    ],
+    "ubndInfo": {
+      "cityId": "1368",
+      "address": "Số 3 đường Trường Thi, Phường Trường Vinh, tỉnh Nghệ An.",
+      "phone": "(0238) 3844522",
+      "fax": "(0238) 3843049",
+      "email": "banbientap@nghean.gov.vn",
+      "website": "http://nghean.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Võ Trọng Hải"
+    }
+  },
+  {
+    "slug": "quang-tri",
+    "name": "Tỉnh Quảng Trị",
+    "type": "Tỉnh",
+    "region": "Bắc Trung Bộ",
+    "regionSlug": "bac-trung-bo",
+    "totalUnits": 78,
+    "wards": 8,
+    "communes": 69,
+    "specialZones": 1,
+    "areaKm2": 12700,
+    "population": 1870845,
+    "density": 147,
+    "licensePlates": [
+      "74",
+      "73"
+    ],
+    "postalCode": "520000",
+    "center": "Đồng Hới",
+    "description": "Tỉnh Quảng Trị - mảnh đất anh hùng miền Trung, sở hữu Vườn quốc gia Phong Nha - Kẻ Bàng và hành lang kinh tế Đông Tây (EWEC), hình thành từ việc sáp nhập tỉnh Quảng Bình và Quảng Trị.",
+    "legacyProvinces": [
+      "Quảng Trị",
+      "Quảng Bình"
+    ],
+    "ubndInfo": {
+      "cityId": "1377",
+      "address": "06 Hùng Vương, phường Đồng Hới, tỉnh Quảng Trị",
+      "phone": "(0233) 3852501",
+      "fax": "(0233) 3852827",
+      "email": "vpubndt@quangtri.gov.vn",
+      "website": "http://www.quangtri.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Lê Hồng Vinh"
+    }
+  },
+  {
+    "slug": "thanh-hoa",
+    "name": "Tỉnh Thanh Hóa",
+    "type": "Tỉnh",
+    "region": "Bắc Trung Bộ",
+    "regionSlug": "bac-trung-bo",
+    "totalUnits": 166,
+    "wards": 19,
+    "communes": 147,
+    "specialZones": 0,
+    "areaKm2": 11114.71,
+    "population": 4324783,
+    "density": 389,
+    "licensePlates": [
+      "36"
+    ],
+    "postalCode": "440000",
+    "center": "Hạc Thành",
+    "description": "Tỉnh Thanh Hóa - vùng đất địa linh nhân kiệt, quy mô dân số lớn thứ 3 cả nước, cực tăng trưởng kinh tế mới của vùng Bắc Trung Bộ với khu kinh tế Nghi Sơn, giữ nguyên địa giới hành chính.",
+    "legacyProvinces": [
+      "Thanh Hóa"
+    ],
+    "ubndInfo": {
+      "cityId": "1380",
+      "address": "35 Đại lộ Lê Lợi, phường Hạc Thành, tỉnh Thanh Hóa",
+      "phone": "(0237) 3852246",
+      "fax": "(0237) 3851255",
+      "email": "vanphongub@thanhhoa.gov.vn",
+      "website": "https://thanhhoa.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Tô Anh Dũng"
+    }
+  },
+  {
+    "slug": "da-nang",
+    "name": "Thành phố Đà Nẵng",
+    "type": "Thành phố trực thuộc Trung ương",
+    "region": "Duyên hải Nam Trung Bộ",
+    "regionSlug": "duyen-hai-nam-trung-bo",
+    "totalUnits": 94,
+    "wards": 23,
+    "communes": 70,
+    "specialZones": 1,
+    "areaKm2": 11859.59,
+    "population": 3065628,
+    "density": 258,
+    "licensePlates": [
+      "43",
+      "92"
+    ],
+    "postalCode": "550000",
+    "center": "Hải Châu",
+    "description": "Thành phố Đà Nẵng - đô thị đáng sống, trung tâm đổi mới sáng tạo, tài chính quốc tế và du lịch biển đẳng cấp thế giới, quản lý toàn vẹn chủ quyền Quần đảo Hoàng Sa thiêng liêng của Tổ quốc Việt Nam, hợp nhất mở rộng không gian phát triển cùng tỉnh Quảng Nam.",
+    "legacyProvinces": [
+      "Đà Nẵng",
+      "Quảng Nam"
+    ],
+    "ubndInfo": {
+      "cityId": "1345",
+      "address": "Số 24 Trần Phú, phường Hải Châu, thành phố Đà Nẵng",
+      "phone": "(0236) 3821293",
+      "fax": "(0236) 3825321",
+      "email": "vpub@danang.gov.vn",
+      "website": "http://danang.gov.vn",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Nguyễn Mạnh Hùng"
+    }
+  },
+  {
+    "slug": "khanh-hoa",
+    "name": "Tỉnh Khánh Hòa",
+    "type": "Tỉnh",
+    "region": "Duyên hải Nam Trung Bộ",
+    "regionSlug": "duyen-hai-nam-trung-bo",
+    "totalUnits": 65,
+    "wards": 16,
+    "communes": 48,
+    "specialZones": 1,
+    "areaKm2": 8555.86,
+    "population": 2243554,
+    "density": 262,
+    "licensePlates": [
+      "79",
+      "85"
+    ],
+    "postalCode": "650000",
+    "center": "Nha Trang",
+    "description": "Tỉnh Khánh Hòa - trung tâm dịch vụ du lịch biển, kinh tế biển công nghệ cao và cảng trung chuyển quốc tế Vân Phong, quản lý toàn vẹn chủ quyền Quần đảo Trường Sa thiêng liêng của Tổ quốc Việt Nam, hình thành từ việc sáp nhập tỉnh Khánh Hòa và Ninh Thuận.",
+    "legacyProvinces": [
+      "Khánh Hòa",
+      "Ninh Thuận"
+    ],
+    "ubndInfo": {
+      "cityId": "1359",
+      "address": "Số 46, đường Trần Phú, phường Nha Trang, tỉnh Khánh Hòa",
+      "phone": "(0258) 3822661",
+      "fax": "(0258) 3810891",
+      "email": "vp.ubnd@khanhhoa.gov.vn",
+      "website": "https://khanhhoa.gov.vn/",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Việt Hùng"
+    }
+  },
+  {
+    "slug": "quang-ngai",
+    "name": "Tỉnh Quảng Ngãi",
+    "type": "Tỉnh",
+    "region": "Duyên hải Nam Trung Bộ",
+    "regionSlug": "duyen-hai-nam-trung-bo",
+    "totalUnits": 96,
+    "wards": 9,
+    "communes": 86,
+    "specialZones": 1,
+    "areaKm2": 14832.55,
+    "population": 2161755,
+    "density": 146,
+    "licensePlates": [
+      "76",
+      "82"
+    ],
+    "postalCode": "570000",
+    "center": "Cẩm Thành",
+    "description": "Tỉnh Quảng Ngãi - trung tâm lọc hóa dầu Dung Quất kết hợp hành lang kinh tế cửa khẩu Bờ Y và cao nguyên Kon Tum đại ngàn, hình thành từ hợp nhất tỉnh Quảng Ngãi và Kon Tum.",
+    "legacyProvinces": [
+      "Quảng Ngãi",
+      "Kon Tum"
+    ],
+    "ubndInfo": {
+      "cityId": "1375",
+      "address": "Số 52 Hùng Vương, phường Cẩm Thành, tỉnh Quảng Ngãi",
+      "phone": "(0255) 3822855",
+      "fax": "(0255) 3822217",
+      "email": "ubnd@quangngai.gov.vn",
+      "website": "http://www.quangngai.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Đức Tâm"
+    }
+  },
+  {
+    "slug": "dak-lak",
+    "name": "Tỉnh Đắk Lắk",
+    "type": "Tỉnh",
+    "region": "Tây Nguyên",
+    "regionSlug": "tay-nguyen",
+    "totalUnits": 102,
+    "wards": 14,
+    "communes": 88,
+    "specialZones": 0,
+    "areaKm2": 18096.4,
+    "population": 3346853,
+    "density": 185,
+    "licensePlates": [
+      "47",
+      "78"
+    ],
+    "postalCode": "630000",
+    "center": "Buôn Ma Thuột",
+    "description": "Tỉnh Đắk Lắk - thủ phủ cà phê thế giới và trung tâm văn hóa không gian cồng chiêng Tây Nguyên kết nối duyên hải Nam Phú Yên, hình thành từ hợp nhất tỉnh Đắk Lắk và Phú Yên.",
+    "legacyProvinces": [
+      "Đắk Lắk",
+      "Phú Yên"
+    ],
+    "ubndInfo": {
+      "cityId": "1355",
+      "address": "Số 09 Lê Duẩn - phường Buôn Ma Thuột - tỉnh Đắk Lắk",
+      "phone": "(0262) 08050557",
+      "fax": "(0262) 08050554",
+      "email": "ubnd@daklak.gov.vn",
+      "website": "https://daklak.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Đỗ Hữu Huy"
+    }
+  },
+  {
+    "slug": "gia-lai",
+    "name": "Tỉnh Gia Lai",
+    "type": "Tỉnh",
+    "region": "Tây Nguyên",
+    "regionSlug": "tay-nguyen",
+    "totalUnits": 135,
+    "wards": 25,
+    "communes": 110,
+    "specialZones": 0,
+    "areaKm2": 21576.93,
+    "population": 3583693,
+    "density": 166,
+    "licensePlates": [
+      "81",
+      "77"
+    ],
+    "postalCode": "600000",
+    "center": "Quy Nhơn",
+    "description": "Tỉnh Gia Lai - hành lang kết nối kinh tế rừng - năng lượng tái tạo Tây Nguyên vươn ra kinh tế biển cảng Quy Nhơn, hình thành từ hợp nhất tỉnh Gia Lai và Bình Định.",
+    "legacyProvinces": [
+      "Gia Lai",
+      "Bình Định"
+    ],
+    "ubndInfo": {
+      "cityId": "1346",
+      "address": "01 Trần Phú, Phường Quy Nhơn, Tỉnh Gia Lai",
+      "phone": "(0256) 3822294",
+      "fax": "(0256) 3822057",
+      "email": "UBND@gialai.gov.vn",
+      "website": "http://gialai.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Phạm Anh Tuấn"
+    }
+  },
+  {
+    "slug": "lam-dong",
+    "name": "Tỉnh Lâm Đồng",
+    "type": "Tỉnh",
+    "region": "Tây Nguyên",
+    "regionSlug": "tay-nguyen",
+    "totalUnits": 124,
+    "wards": 20,
+    "communes": 103,
+    "specialZones": 1,
+    "areaKm2": 24233.07,
+    "population": 3872999,
+    "density": 160,
+    "licensePlates": [
+      "49",
+      "86",
+      "48"
+    ],
+    "postalCode": "670000",
+    "center": "Xuân Hương – Đà Lạt",
+    "description": "Tỉnh Lâm Đồng - trung tâm du lịch sinh thái nghỉ dưỡng Đà Lạt, kinh tế khoáng sản bauxite và năng lượng tái tạo duyên hải Bình Thuận, hình thành từ hợp nhất Lâm Đồng, Bình Thuận và Đắk Nông.",
+    "legacyProvinces": [
+      "Lâm Đồng",
+      "Bình Thuận",
+      "Đắk Nông"
+    ],
+    "ubndInfo": {
+      "cityId": "1365",
+      "address": "Số 4 , Trần Hưng Đạo, phường Xuân Hương, Đà Lạt, tỉnh Lâm Đồng",
+      "phone": "(0263) 3822307 - 3822430",
+      "fax": "(0263) 3821138",
+      "email": "vpubnd@lamdong.gov.vn",
+      "website": "http://www.lamdong.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Hồ Văn Mười"
+    }
+  },
+  {
+    "slug": "ho-chi-minh",
+    "name": "Thành phố Hồ Chí Minh",
+    "type": "Đô thị đặc biệt trực thuộc Trung ương",
+    "region": "Đông Nam Bộ",
+    "regionSlug": "dong-nam-bo",
+    "totalUnits": 168,
+    "wards": 113,
+    "communes": 54,
+    "specialZones": 1,
+    "areaKm2": 6772.59,
+    "population": 14002598,
+    "density": 2068,
+    "licensePlates": [
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "61",
+      "72"
+    ],
+    "postalCode": "700000",
+    "center": "Sài Gòn",
+    "description": "Siêu đô thị đặc biệt TP. Hồ Chí Minh - đầu tàu kinh tế, công nghệ và tài chính số 1 của cả nước, hợp nhất mở rộng liên vùng kinh tế trọng điểm phía Nam gồm TP.HCM, Bình Dương và Bà Rịa - Vũng Tàu.",
+    "legacyProvinces": [
+      "TP. Hồ Chí Minh",
+      "Bình Dương",
+      "Bà Rịa - Vũng Tàu"
+    ],
+    "ubndInfo": {
+      "cityId": "1158",
+      "address": "Số 86 đường Lê Thánh Tôn, phường Sài Gòn, TP Hồ Chí Minh",
+      "phone": "(028) 38296052 - 38295026",
+      "fax": "(028) 38295675",
+      "email": "vpubndtp@tphcm.gov.vn",
+      "website": "http://www.hochiminhcity.gov.vn",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Nguyễn Văn Được"
+    }
+  },
+  {
+    "slug": "dong-nai",
+    "name": "Tỉnh Đồng Nai",
+    "type": "Tỉnh",
+    "region": "Đông Nam Bộ",
+    "regionSlug": "dong-nam-bo",
+    "totalUnits": 95,
+    "wards": 33,
+    "communes": 62,
+    "specialZones": 0,
+    "areaKm2": 12737.18,
+    "population": 4491408,
+    "density": 353,
+    "licensePlates": [
+      "39",
+      "60",
+      "93"
+    ],
+    "postalCode": "810000",
+    "center": "Trấn Biên",
+    "description": "Tỉnh Đồng Nai - trung tâm công nghiệp hàng đầu cả nước, sở hữu đại dự án Cảng hàng không quốc tế Long Thành, hợp nhất phát triển cùng tỉnh Bình Phước.",
+    "legacyProvinces": [
+      "Đồng Nai",
+      "Bình Phước"
+    ],
+    "ubndInfo": {
+      "cityId": "3684",
+      "address": "Số 02, đường Nguyễn Văn Trị, phường Trần Biên, thành phố Đồng Nai",
+      "phone": "(0251) 3822501",
+      "fax": "(0251) 3823854",
+      "email": "ubnd-vpubnd@dongnai.gov.vn",
+      "website": "https://dongnai.gov.vn/",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Nguyễn Văn Út"
+    }
+  },
+  {
+    "slug": "tay-ninh",
+    "name": "Tỉnh Tây Ninh",
+    "type": "Tỉnh",
+    "region": "Đông Nam Bộ",
+    "regionSlug": "dong-nam-bo",
+    "totalUnits": 96,
+    "wards": 14,
+    "communes": 82,
+    "specialZones": 0,
+    "areaKm2": 8536.44,
+    "population": 3254170,
+    "density": 381,
+    "licensePlates": [
+      "70",
+      "62"
+    ],
+    "postalCode": "840000",
+    "center": "Long An",
+    "description": "Tỉnh Tây Ninh - cầu nối thương mại chiến lược giữa vùng kinh tế trọng điểm phía Nam và đồng bằng sông Cửu Long, hợp nhất từ hai tỉnh Tây Ninh và Long An.",
+    "legacyProvinces": [
+      "Tây Ninh",
+      "Long An"
+    ],
+    "ubndInfo": {
+      "cityId": "1387",
+      "address": "61 Nguyễn Huệ, phường Long An, tỉnh Tây Ninh",
+      "phone": "(02723) 838454/823810",
+      "fax": "(02723) 3827290",
+      "email": "vpubnd@tayninh.gov.vn",
+      "website": "https://tayninh.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Lê Văn Hẳn"
+    }
+  },
+  {
+    "slug": "can-tho",
+    "name": "Thành phố Cần Thơ",
+    "type": "Thành phố trực thuộc Trung ương",
+    "region": "Đồng bằng sông Cửu Long",
+    "regionSlug": "dong-bang-song-cuu-long",
+    "totalUnits": 103,
+    "wards": 31,
+    "communes": 72,
+    "specialZones": 0,
+    "areaKm2": 6360.83,
+    "population": 4199824,
+    "density": 660,
+    "licensePlates": [
+      "65",
+      "95",
+      "83"
+    ],
+    "postalCode": "900000",
+    "center": "Ninh Kiều",
+    "description": "Thành phố Cần Thơ - trung tâm kinh tế, văn hóa, giáo dục và y tế của toàn vùng Tây Nam Bộ, mở rộng hợp nhất cùng tỉnh Hậu Giang và Sóc Trăng theo Nghị quyết Quốc hội.",
+    "legacyProvinces": [
+      "Cần Thơ",
+      "Hậu Giang",
+      "Sóc Trăng"
+    ],
+    "ubndInfo": {
+      "cityId": "1342",
+      "address": "Số 2 đường Hòa Bình, phường Ninh Kiều, thành phố Cần Thơ",
+      "phone": "(080) 71162",
+      "fax": "(080) 71182",
+      "email": "vpubndtp@cantho.gov.vn",
+      "website": "http://www.cantho.gov.vn",
+      "leaderRole": "Chủ tịch UBND Thành phố",
+      "leaderName": "Trương Cảnh Tuyên"
+    }
+  },
+  {
+    "slug": "an-giang",
+    "name": "Tỉnh An Giang",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Cửu Long",
+    "regionSlug": "dong-bang-song-cuu-long",
+    "totalUnits": 102,
+    "wards": 14,
+    "communes": 85,
+    "specialZones": 3,
+    "areaKm2": 9888.91,
+    "population": 4952238,
+    "density": 501,
+    "licensePlates": [
+      "67",
+      "68"
+    ],
+    "postalCode": "880000",
+    "center": "Rạch Giá",
+    "description": "Tỉnh An Giang - vựa lúa gạo và thủy sản xuất khẩu lớn nhất đồng bằng sông Cửu Long, sở hữu thành phố đảo Phú Quốc và đường biên giới giao thương với Campuchia, hình thành từ hợp nhất An Giang và Kiên Giang.",
+    "legacyProvinces": [
+      "An Giang",
+      "Kiên Giang"
+    ],
+    "ubndInfo": {
+      "cityId": "1159",
+      "address": "Số 06 đường Nguyễn Công Trứ, phường Rạch Giá, tỉnh An Giang",
+      "phone": "(0296) 3854070",
+      "fax": "(0296) 3852037",
+      "email": "vpubnd@angiang.gov.vn",
+      "website": "https://angiang.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Hồ Văn Mừng"
+    }
+  },
+  {
+    "slug": "ca-mau",
+    "name": "Tỉnh Cà Mau",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Cửu Long",
+    "regionSlug": "dong-bang-song-cuu-long",
+    "totalUnits": 64,
+    "wards": 9,
+    "communes": 55,
+    "specialZones": 0,
+    "areaKm2": 7942.39,
+    "population": 2606672,
+    "density": 328,
+    "licensePlates": [
+      "69",
+      "94"
+    ],
+    "postalCode": "970000",
+    "center": "Tân Thành",
+    "description": "Tỉnh Cà Mau - điểm cực Nam thiêng liêng của Tổ quốc, giàu tiềm năng kinh tế thủy hải sản và năng lượng gió ngoài khơi, hình thành từ việc sáp nhập tỉnh Cà Mau và Bạc Liêu.",
+    "legacyProvinces": [
+      "Cà Mau",
+      "Bạc Liêu"
+    ],
+    "ubndInfo": {
+      "cityId": "1341",
+      "address": "Số 02 đường Hùng Vương, phường Tân Thành, tỉnh Cà Mau",
+      "phone": "(0290) 3831352",
+      "fax": "(0290) 3833343",
+      "email": "ubndt@camau.gov.vn",
+      "website": "http://www.camau.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Lữ Quang Ngời"
+    }
+  },
+  {
+    "slug": "dong-thap",
+    "name": "Tỉnh Đồng Tháp",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Cửu Long",
+    "regionSlug": "dong-bang-song-cuu-long",
+    "totalUnits": 102,
+    "wards": 20,
+    "communes": 82,
+    "specialZones": 0,
+    "areaKm2": 5938.64,
+    "population": 4370046,
+    "density": 736,
+    "licensePlates": [
+      "66",
+      "63"
+    ],
+    "postalCode": "870000",
+    "center": "Mỹ Tho",
+    "description": "Tỉnh Đồng Tháp - trung tâm sản xuất cây ăn trái và nông nghiệp sinh thái hiện đại đôi bờ sông Tiền, hình thành từ việc hợp nhất tỉnh Đồng Tháp và Tiền Giang.",
+    "legacyProvinces": [
+      "Đồng Tháp",
+      "Tiền Giang"
+    ],
+    "ubndInfo": {
+      "cityId": "1358",
+      "address": "Số 23, đường 30/4, phường Mỹ Tho, tỉnh Đồng Tháp.",
+      "phone": "(0273) 3873153",
+      "fax": "(0273) 3851615",
+      "email": "vp-ubnd@dongthap.gov.vn",
+      "website": "http://dongthap.gov.vn",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Nguyễn Thanh Nhàn"
+    }
+  },
+  {
+    "slug": "vinh-long",
+    "name": "Tỉnh Vĩnh Long",
+    "type": "Tỉnh",
+    "region": "Đồng bằng sông Cửu Long",
+    "regionSlug": "dong-bang-song-cuu-long",
+    "totalUnits": 124,
+    "wards": 19,
+    "communes": 105,
+    "specialZones": 0,
+    "areaKm2": 6296.2,
+    "population": 4257581,
+    "density": 676,
+    "licensePlates": [
+      "64",
+      "71",
+      "84"
+    ],
+    "postalCode": "890000",
+    "center": "Long Châu",
+    "description": "Tỉnh Vĩnh Long - trái tim miệt vườn sông nước Cửu Long bao bọc bởi hệ thống sông Tiền và sông Hậu, hình thành từ việc hợp nhất ba tỉnh Vĩnh Long, Bến Tre và Trà Vinh.",
+    "legacyProvinces": [
+      "Vĩnh Long",
+      "Bến Tre",
+      "Trà Vinh"
+    ],
+    "ubndInfo": {
+      "cityId": "1388",
+      "address": "Số 88 Võ Văn Kiệt, Phường Long Châu, tỉnh Vĩnh Long.",
+      "phone": "(0270) 3825531-3823100",
+      "fax": "(0270) 3823774",
+      "email": "vpubnd@vinhlong.gov.vn",
+      "website": "https://vinhlong.gov.vn/",
+      "leaderRole": "Chủ tịch UBND tỉnh",
+      "leaderName": "Trần Trí Quang"
+    }
+  }
+]

@@ -3,155 +3,119 @@ name: seo-article-writer
 description: Tiêu chuẩn và quy trình biên soạn bài viết chuẩn SEO E-E-A-T chuyên ngành Gas (Ngọc Gas) và xuất bản tự động qua API trực tiếp lên website ngocgas.com.
 ---
 
-# ✍️ Ngọc Gas SEO Article Writer Skill
-
-Kỹ năng chuyên sâu hướng dẫn biên soạn và xuất bản bài viết chuẩn SEO E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) chuyên ngành Gas dành riêng cho hệ thống **Ngọc Gas**.
-
----
-
-## 📌 1. Nguyên Tắc Cốt Lõi Thương Hiệu Ngọc Gas (Zero Compromise)
-
-Mọi bài viết xuất bản trên hệ thống **ngocgas.com** BẮT BUỘC tuân thủ nghiêm ngặt bảng thông tin thương hiệu đã chốt:
-
-- **Địa chỉ trụ sở văn phòng & Điểm giao gas số 1**: `7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương`.
-- **Quy tắc địa chỉ hệ thống cửa hàng**: Luôn vào danh sách cửa hàng (`/cua-hang` hoặc bảng `stores` trong CSDL) để lấy địa chỉ hợp nhất của các chi nhánh.
-- **Hotline mặc định luôn là**: `19009396` (hoặc hiển thị `1900 9396`). TUYỆT ĐỐI KHÔNG sử dụng bất kỳ số điện thoại lạ nào khác (như 0913 943 772...) trong nội dung bài viết, hình ảnh minh họa hay infographic đính kèm.
-- **Thương hiệu phân phối chính hãng**: `Sopet Gas One, Phoenix Gas, Luxen Gas` (Chuẩn xác tên thương hiệu: "Sopet Gas One", tuyệt đối không ghi sai thành "Sopet Vil").
-- **Địa bàn phục vụ trọng điểm**: Phường Dĩ An, TP. Thuận An, KDC VietSing, KCN Sóng Thần, KCN VSIP 1, Bình Dương và khu vực lân cận.
-- **Cam kết "4 Vàng" của Ngọc Gas**:
-  1. **100% Đủ Ký**: Giao tới tận nhà, nhân viên chủ động cân thử tại chỗ trước sự chứng kiến của khách.
-  2. **Bình Gas An Toàn**: Có màng co niêm phong, tem chống giả, vỏ bình dập nổi tên hãng và còn nguyên hạn kiểm định an toàn PCCC.
-  3. **Giao Nhanh 15 - 20 Phút**: Đội ngũ trực trạm giao hỏa tốc đến tận căn bếp gia đình và quán ăn, nhà hàng.
-  4. **Bảo Trì Miễn Phí**: Kỹ thuật viên kiểm tra độ kín của van điều áp, ống dẫn gas bằng bọt chuyên dụng mỗi lần đổi bình.
-- **Quy Tắc Bảo Vệ Giá Gas Biến Động (ZERO STATIC PRICES MANDATE)**:
-  - Giá gas biến động định kỳ theo thị trường năng lượng.
-  - **TUYỆT ĐỐI KHÔNG ghi số tiền giá gas cố định** (như 430.000đ, 450.000đ, 460.000đ...) vào nội dung bài viết để tránh bài viết bị cũ hoặc sai lệch giá theo thời gian.
-  - **BẮT BUỘC điều hướng bằng liên kết nội bộ**: Hướng dẫn khách hàng bấm vào trang cập nhật tự động: `<a href="/gia-gas-hom-nay">Xem Bảng Giá Gas Hôm Nay Mới Nhất</a>` hoặc liên hệ hotline để nhận báo giá chính xác theo ngày.
+# ✍️ BỘ TIÊU CHÍ VÀNG BIÊN SOẠN & HIỆU ĐÍNH BÀI VIẾT CHUẨN SEO E-E-A-T NGỌC GAS
+*(Áp dụng cho toàn bộ bài viết Local SEO, Bài viết Kiến thức và Danh mục sản phẩm)*
 
 ---
 
-## 📐 2. Tiêu Chuẩn Kỹ Thuật SEO On-Page (Google E-E-A-T 2026)
-
-### 2.1. Tiêu Đề Bài Viết (`title` & `meta_title`)
-- **Độ dài**: 55 - 65 ký tự.
-- **Cấu trúc vàng**: `[Từ Khóa Chính] + [Địa Điểm / Thương Hiệu] - [Lợi Ích Độc Đáo / Cam Kết]`
-- *Ví dụ mẫu*:
-  - *Dịch Vụ Giao Gas Nhanh Tại Dĩ An - Bình Gas Luxen & Sopet Cân Đủ Ký*
-  - *Bình Gas 12kg Dùng Được Bao Lâu? Mẹo Đun Nấu Tiết Kiệm Gas Ngọc Gas*
-  - *Bảng Giá Gas Cho Quán Ăn & Nhà Hàng Tại KDC VietSing Mới Nhất*
-
-### 2.2. Mô Tả Tóm Tắt (`summary` / `meta_description`)
-- **Độ dài**: 140 - 160 ký tự.
-- Tóm tắt cô đọng giá trị bài viết, chứa từ khóa chính, từ khóa phụ và lời kêu gọi hành động (Call To Action).
-
-### 2.3. Bố Cục Nội Dung HTML (`content`)
-Bài viết sử dụng mã HTML sạch, cấu trúc phân cấp thẻ rõ ràng:
-- **Thẻ `<h2>`**: Dành cho các phân đoạn nội dung chính (từ 2 đến 4 thẻ `<h2>` mỗi bài).
-- **Thẻ `<h3>`**: Dành cho các luận điểm, bước hướng dẫn hoặc tiêu chí so sánh.
-- **Thẻ `<strong>`**: Bôi đậm từ khóa quan trọng, thông số an toàn, địa chỉ và hotline.
-- **Thẻ `<ul>` / `<ol>`**: Trình bày danh sách gạch đầu dòng ngắn gọn, thoáng mắt cho người đọc trên điện thoại.
-- **Liên Kết Nội Bộ (Internal Links)**: Tối thiểu 1 - 2 liên kết trỏ tự nhiên đến:
-  - `<a href="/gia-gas-hom-nay">Bảng giá gas hôm nay</a>`
-  - `<a href="/san-pham">Danh mục sản phẩm bình gas chính hãng</a>`
-  - `<a href="/cua-hang">Hệ thống cửa hàng Ngọc Gas</a>`
+## 🎯 I. MỤC TIÊU VÀ NGUYÊN TẮC CỐT LÕI
+Mọi bài viết xuất bản trên hệ thống **ngocgas.com** phải đóng vai trò là một chuyên gia năng lượng gia đình và dịch vụ gas dân dụng/công nghiệp uy tín, giải quyết triệt để nỗi đau của khách hàng và đạt thứ hạng cao trên Google Search theo chuẩn **E-E-A-T 2026** (Experience - Expertise - Authoritativeness - Trustworthiness).
 
 ---
 
-## 🧠 3. Bộ Quy Tắc "Humanizer" - Xóa Bỏ Hoàn Toàn Dấu Vết Robot AI (Chống Google Phạt)
+## 🏛️ II. BẢNG TIÊU CHÍ VÀNG 9 TRỤ CỘT BẮT BUỘC (THE 9-PILLAR CRITERIA)
 
-Google 2026 sử dụng hệ thống đánh giá nội dung hữu ích (Helpful Content System & SpamBrain) để phát hiện và trừng phạt các bài viết sinh tự động bằng AI có văn phong sáo rỗng. Mọi bài viết BẮT BUỘC tuân thủ các quy tắc "Humanizer" sau:
+### 📌 Trụ Cột 1: Chuẩn Xác Địa Giới Hành Chính Mới (New Administrative Boundary)
+- **Đúng phường mới của TP. Hồ Chí Minh**: Phải áp dụng đúng địa giới hành chính các **Phường Mới** theo Nghị quyết số 1685/NQ-UBTVQH15 (hiệu lực từ 01/07/2025). Tuyệt đối không dùng tên quận cũ như đơn vị hành chính đang quản lý hoặc các số phường cũ đã bị xóa bỏ/sáp nhập.
+  - *Ví dụ*: Phường Tam Bình mới (sáp nhập từ Bình Chiểu, Tam Bình, Tam Phú); Phường Hiệp Bình (Hiệp Bình Chánh + Hiệp Bình Phước); Phường Gia Định, Bình Lợi Trung, Thạnh Mỹ Tây, Hạnh Thông, An Nhơn, Thông Tây Hội, v.v.
+- **Bản đồ địa phương thực tế**: Nêu tên đích danh các tuyến đường xương sống, ngõ hẻm, chợ dân sinh/chợ đầu mối, chung cư cao tầng, KCN thuộc địa bàn phường để tạo tính bản địa hóa (Local Signals) mạnh mẽ cho Google.
 
-### 3.1. Danh Sách CẤM KỴ Tuyệt Đối (Loại Bỏ Dấu Vết Văn Phong Robot)
-- **CẤM Dạo Đầu Sáo Rỗng (Staged Run-up)**: Không dùng các câu như *"Hãy cùng chúng tôi khám phá..."*, *"Hãy cùng lặn ngụp vào..."*, *"Trong thế giới hiện đại ngày nay..."*. Hãy vào thẳng vấn đề hoặc giải pháp thực tế.
-- **CẤM Cấu Trúc Nhị Phân Giả Tạo (Not X but Y)**: Không dùng *"Không chỉ là một bình gas, mà còn là người bạn đồng hành..."*. Hãy nói thẳng công dụng kỹ thuật và lợi ích thật.
-- **CẤM Tâng Bốc & Đao To Búa Lớn (Inflated Significance)**: Không dùng *"Bước đột phá mang tính cách mạng"*, *"Minh chứng hùng hồn cho..."*, *"Bức tranh toàn cảnh..."*, *"Hành trình nâng tầm ẩm thực..."*.
-- **CẤM Tránh Từ Đơn Giản**: Không dùng *"Đóng vai trò như..."*, *"Tự hào sở hữu..."* khi có thể nói gãy gọn là *"Là..."*, *"Có..."*.
-- **CẤM Dẫn Nguồn Ma (Borrowed Authority)**: Không viết *"Các chuyên gia hàng đầu khẳng định..."* mà hãy dẫn chiếu quy chuẩn PCCC, hướng dẫn của nhà sản xuất (Sopet, Luxen, Phoenix) hoặc kinh nghiệm thực tế của thợ gas.
-- **CẤM Lạm Dụng Emoji & Bôi Đậm Rác**: Tiêu đề H2, H3 không gắn emoji 🚀, 💡, 🔥, ✨. Chỉ bôi đậm `<strong>` các thông số an toàn, hotline và địa chỉ thật sự cần nhấn mạnh.
-- **CẤM Tàn Dư Chatbot (Chatbot Residue)**: Tuyệt đối không để sót các câu chào/kết của chatbot: *"Hy vọng bài viết này hữu ích cho bạn..."*, *"Nếu có bất kỳ thắc mắc nào, đừng ngần ngại..."*.
+### 📌 Trụ Cột 2: Đầy Đủ 3 Thương Hiệu & 4 Màu Sắc Vỏ Bình & 2 Loại Van
+Bài viết không chỉ nói riêng một hãng hay một màu vỏ, mà phải cung cấp cái nhìn toàn diện:
+- **3 Thương hiệu phân phối chính hãng**:
+  1. `Sopet Gas One` (Lưu ý: Tên chuẩn là "Sopet Gas One", tuyệt đối KHÔNG dùng "Sopet Vil").
+  2. `Luxen Gas` (Khí gas sạch, áp suất ổn định).
+  3. `Phoenix Gas` (Thương hiệu uy tín, ngọn lửa xanh thuần khiết).
+- **4 Màu sắc vỏ bình phổ biến**:
+  - `Vỏ Xám` (Màu xám sáng sang trọng, phổ biến nhất ở hộ gia đình).
+  - `Vỏ Đỏ` (Nhận diện nổi bật, bền bỉ).
+  - `Vỏ Xanh` (Xanh dương / xanh lá nhã nhặn, chống bám bẩn).
+  - `Vỏ Vàng` (Màu sắc ấm cúng, chuẩn phong thủy gian bếp).
+- **2 Chủng loại van điều áp tiêu chuẩn**:
+  - `Van Ngang (POL)`: Ren xoay ngược truyền thống, siết ốc chắc chắn, thích hợp mọi loại bếp.
+  - `Van Chụp (Compact)`: Khóa bấm tiện lợi, tự động ngắt gas khi có sự cố đứt dây hoặc tụt áp đột ngột.
 
-### 3.2. Văn Phong Người Thật Trong Ngành Gas (Hands-On Practical Voice)
-- **Giọng điệu chuyên môn thực chiến**: Viết với tư cách của một người thợ gas / chủ đại lý lâu năm chia sẻ kinh nghiệm thực tế với người dân địa phương.
-- **Dùng từ ngữ kỹ thuật chính xác & bình dị**: "Bọt xà phòng thử kín", "ron cao su cổ van", "kiềng bếp", "ngọn lửa xanh chụm đáy nồi", "quai xách dập nổi trọng lượng vỏ", "màng co nhiệt nguyên bản".
-- **Thông tin cụ thể, minh bạch**: Nêu rõ thông số thật (vỏ nặng 12.5 - 14kg, ruột 12kg ± 200g, thời gian giao 15 - 20 phút).
+### 📌 Trụ Cột 3: Bảng Thông Số Kỹ Thuật Tiêu Chuẩn Minh Bạch
+Mỗi bài viết bắt buộc phải có bảng đối chứng kỹ thuật để khách hàng tự kiểm tra tại nhà:
+| Thông Số Tiêu Chuẩn | Quy Chuẩn Kỹ Thuật Chi Tiết |
+| :--- | :--- |
+| **Khối lượng tịnh khí gas (Net)** | 12.0 kg ± 0.1 kg (Bình 12kg) / 45.0 kg (Bình 45kg công nghiệp) |
+| **Khối lượng vỏ bình (Tare)** | 12.5 kg – 14.0 kg (Được dập chìm sắc nét trên tai xách quai bình) |
+| **Tổng trọng lượng chuẩn (Gross)** | **24.5 kg – 26.0 kg** (Nhân viên cân điện tử trực tiếp trước mặt khách tại bếp) |
+| **Thành phần khí đốt (LPG)** | Hỗn hợp Propane : Butane chuẩn (tỷ lệ 30:70 hoặc 50:50) |
+| **Áp suất kiểm nghiệm vỏ bình** | **34 bar** theo tiêu chuẩn TCVN 6292 / JIS G3116 |
+| **Áp suất làm việc danh định** | 17 bar |
+| **Nhiệt trị tiêu chuẩn** | ~11.800 kcal/kg (Cho ngọn lửa xanh chụm, đun sôi nhanh, tiết kiệm gas) |
 
-### 3.3. Quy Chuẩn Riêng Cho Trang Chi Tiết Sản Phẩm (Product Pages)
-- **Tuyệt đối không nhân bản (No Duplicate Content)**: Mỗi sản phẩm (Luxen, Sopet, Phoenix) phải có nội dung mô tả kỹ thuật độc bản, không copy-paste qua lại chỉ đổi tên nhãn hiệu.
-- **Bắt buộc có Bảng Thông Số Kỹ Thuật**: Trọng lượng ruột, trọng lượng vỏ, loại van (van ngang hay van chụp), tiêu chuẩn thép, áp suất thử, bảo hiểm.
-- **Mật độ từ khóa tự nhiên**: Duy trì ở mức 1% - 1.8%, phân bổ rải rác tự nhiên, tuyệt đối không nhồi nhét.
+### 📌 Trụ Cột 4: Quy Tắc Tuyệt Đối Về Thông Tin Bảo Hiểm (Insurance Rule)
+- **CẤM TUYỆT ĐỐI**: Công ty chưa công bố mức bồi thường bằng số tiền cụ thể, vì vậy **CẤM TUYỆT ĐỐI ghi các con số tự suy diễn như "Bảo hiểm 5 tỷ đồng"** hoặc bất kỳ mệnh giá tiền cụ thể nào.
+- **CÂU CHUẨN ĐƯỢC PHÉP DÙNG**:
+  > *"Bình gas chính hãng được bảo hiểm trách nhiệm sản phẩm đầy đủ theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật."*
+
+### 📌 Trụ Cột 5: Đánh Trúng 5 "Nỗi Đau" Khách Hàng (Customer Pain Points)
+Bài viết phải phân tích sâu sắc các mối lo ngại thực tế của người nội trợ và chủ quán ăn:
+1. **Nỗi sợ gas thiếu ký / gian lận rút ruột**: Sang chiết lậu, bình chỉ có 8-9kg gas, đun nhanh hết.
+2. **Lửa đỏ phè phè, muội than đen đáy nồi chảo**: Do gas bẩn pha tạp chất hoặc tỷ lệ gió sai, làm hỏng nồi inox đắt tiền.
+3. **Hiểm họa rò rỉ khí gas trong phòng kín / căn hộ chung cư**: Van kém chất lượng, ron cao su chai cứng, chuột bọ cắn thủng dây dẫn ngầm.
+4. **Vỏ bình gas rỉ sét, móp méo, van kẹt cứng**: Bình trôi nổi hết hạn kiểm định an toàn áp lực.
+5. **Giao trễ giờ nấu cơm & thợ phục vụ thiếu vệ sinh**: Đang nấu thì hết gas phải chờ 1-2 tiếng, nhân viên đi dép bẩn làm dơ sàn nhà của khách.
+
+### 📌 Trụ Cột 6: Cẩm Nang Xử Lý 4 Sự Cố Thường Gặp (Hands-on Troubleshooting)
+Cung cấp giá trị thực chiến hữu ích để giữ chân người đọc (tăng Time on Page):
+1. **Bếp không đánh lửa**: Kiểm tra pin IC (hết pin), dây nối đứt do chuột cắn, đầu kim sứ đánh lửa bị dầu mỡ bám dính hoặc lệch góc.
+2. **Chỉnh lửa đỏ thành lửa xanh**: Hướng dẫn chỉnh lá chắn gió (lá gió) dưới gầm bếp để tăng oxy hòa trộn, khắc phục triệt để muội than.
+3. **Kẹt van / Rò rỉ ron cao su**: Nhận biết gioăng cao su O-ring ở cổ bình bị chai cứng, cách kiểm tra bọt xà phòng an toàn.
+4. **Quy trình 4 bước khẩn cấp khi phát hiện mùi gas**:
+   - *Bước 1*: Khóa chặt van bình gas ngay lập tức.
+   - *Bước 2*: Mở toang tất cả các cửa sổ, cửa chính để khí gas thoát tự nhiên ra ngoài.
+   - *Bước 3*: **TUYỆT ĐỐI KHÔNG** bật/tắt bất kỳ công tắc điện, quạt hút hay quẹt lửa nào (tránh phát sinh tia lửa điện).
+   - *Bước 4*: Di chuyển ngay ra khu vực thoáng gió ngoài nhà và bấm gọi Hotline **1900 9396** để kỹ thuật viên ứng cứu khẩn cấp.
+
+### 📌 Trụ Cột 7: Tốc Độ Phục Vụ & Cam Kết Dịch Vụ Vàng (10 - 15 Phút)
+- **Tốc độ hỏa tốc**: Giao hàng tận bếp trong vòng 10 – 15 phút nhờ mạng lưới trạm giao phân bổ đều.
+- **Cân đối chứng minh bạch**: Thợ mang cân điện tử, cân trực tiếp trước sự chứng kiến của khách.
+- **Miễn phí công lắp & leo lầu**: Giao tận căn hộ chung cư cao tầng, nhà phố nhiều tầng không phát sinh phụ phí vác thang bộ.
+- **Quy tắc văn minh**: Tháo dép, kiểm tra rò rỉ bằng máy đo / bọt xà phòng, vệ sinh sơ bộ cổ van và khu vực đặt bình trước khi bàn giao.
+
+### 📌 Trụ Cột 8: Độ Dài Chuẩn SEO & Cấu Trúc Trình Bày
+- **Độ dài bài viết**: Tối thiểu > 1.000 từ. Tiêu chuẩn chuyên sâu đạt **1.500 – 2.200 từ** (dung lượng mã HTML sạch đạt từ 6.500 đến 11.000 ký tự).
+- **Phân cấp Heading chuẩn**: `<h2>` cho các tuyến chủ đề chính, `<h3>` cho các luận điểm, bảng biểu `<table>` có style bo góc hiện đại.
+- **Callout box nổi bật**: Khung màu cam/vàng nhạt chứa Hotline và lời kêu gọi hành động (CTA) đặt ở vị trí giữa và cuối bài.
+- **Hình ảnh minh họa**: 100% có Banner địa phương chuẩn 1200x630px hiển thị rõ nhận diện thương hiệu và tên phường.
+
+### 📌 Trụ Cột 9: Liên Kết Nội Bộ & FAQ Schema (Internal Links & Schema)
+- **Liên kết nội bộ tự nhiên**:
+  - Bảng giá: `<a href="/gia-gas-hom-nay">Xem Bảng Giá Gas Hôm Nay Mới Nhất</a>` *(CẤM dán số tiền tĩnh)*.
+  - Danh mục bình gas: `<a href="/san-pham">Bình Gas Chính Hãng Sopet, Luxen, Phoenix</a>`.
+  - Hệ thống cửa hàng: `<a href="/cua-hang">Hệ Thống Trạm Giao Gas Ngọc Gas</a>`.
+  - Liên hệ: `<a href="/lien-he">Thông Tin Liên Hệ & Đặt Gas Hỏa Tốc</a>`.
+- **Khối Câu Hỏi Thường Gặp (FAQ)**: 3 – 5 câu hỏi đáp sát sườn với cư dân địa phương (ví dụ: quy định an toàn chung cư, cách gọi gas đêm, cách nhận biết nhân viên chính hãng).
 
 ---
 
-## 🚀 4. Quy Trình Xuất Bản Bài Viết Trực Tiếp Qua API
+## 🚫 III. BẢNG DANH MỤC CẤM KỴ TUYỆT ĐỐI (ZERO TOLERANCE)
 
-**TUYỆT ĐỐI KHÔNG SỬA CODE MÃ NGUỒN - KHÔNG COMMIT GIT - KHÔNG PUSH GITHUB ĐỂ ĐĂNG BÀI.**
-
-Agent sử dụng script tự động hóa xuất bản trực tiếp qua API RESTful:
-
-### Cách thực thi:
-```bash
-node scripts/publish-article.mjs \
-  --title "Tiêu đề bài viết chuẩn SEO" \
-  --summary "Mô tả ngắn hấp dẫn 150 ký tự" \
-  --content "<h2>Đoạn mở đầu...</h2><p>Nội dung chi tiết...</p>" \
-  --image "public/images/sopet-xam.png"
-```
-
-### Các bước script tự động xử lý ngầm:
-1. Nạp khóa bảo mật `AI_PUBLISHER_API_KEY` từ `.env.local`.
-2. Gửi tệp ảnh lên máy chủ qua `POST https://ngocgas.com/api/upload` (tự động nén sang WebP).
-3. Đăng bài viết vào bảng `posts` trên cơ sở dữ liệu MySQL qua `POST https://ngocgas.com/api/posts`.
-4. Gọi `POST https://ngocgas.com/api/cache` làm mới cache để bài hiển thị lên trang chủ và trang tin tức ngay lập tức.
-5. Trả về đường link trực tiếp `https://ngocgas.com/tin-tuc/[slug]` cho người dùng.
+1. **CẤM DÁN SỐ TIỀN GIÁ GAS CỐ ĐỊNH**: Không bao giờ viết "giá 420k, 450k...". Mọi điều hướng về giá đều phải dùng link `/gia-gas-hom-nay`.
+2. **CẤM NÊU CON SỐ BẢO HIỂM 5 TỶ**: Không được ghi mức bồi thường cụ thể khi chưa có công bố chính thức.
+3. **CẤM SỬ DỤNG SỐ HOTLINE LẠ**: Hotline duy nhất là `1900 9396` (hoặc `19009396`). Tuyệt đối không dùng các đầu số cá nhân trôi nổi.
+4. **CẤM NỘI DUNG MỎNG (THIN CONTENT)**: Cấm viết bài cụt lủn, dăm ba đoạn văn chung chung (< 800 từ) không có thông tin kỹ thuật và địa phương.
+5. **CẤM VĂN PHONG ROBOT AI SÁO RỖNG**: Không dùng các cụm từ "Hãy cùng khám phá", "Bức tranh toàn cảnh", "Không chỉ là... mà còn là...".
+6. **CẤM TỰ ĐỘNG PUBLIC BÀI KHI CHƯA DUYỆT**: Tất cả bài mới tạo hoặc đồng bộ phải để ở trạng thái Draft (`is_published: 0`). 16 bài đang chạy trên web (`is_published: 1`) được bảo vệ nghiêm ngặt.
 
 ---
 
-## 📝 5. Khung Mẫu Bài Viết Chuẩn Mực (Template Mẫu)
+## 📋 IV. CHECKLIST KIỂM ĐỊNH BÀI VIẾT TRƯỚC KHI XUẤT BẢN
 
-```html
-<h2>1. Nhu Cầu Đổi Gas Chính Hãng Tại Dĩ An & Bình Dương</h2>
-<p>
-  Tại khu vực <strong>TP. Dĩ An, TP. Thuận An và KDC VietSing</strong>, việc lựa chọn đại lý giao gas uy tín là yếu tố then chốt bảo vệ an toàn cho cả gia đình và cơ sở kinh doanh. <strong>Ngọc Gas</strong> tự hào là đối tác phân phối chính hãng các thương hiệu gas đầu ngành như <strong>Sopet Gas, Phoenix Gas và Luxen Gas</strong>.
-</p>
-
-<h2>2. Cách Kiểm Tra Bình Gas Chính Hãng Đủ Ký</h2>
-<p>Để tránh mua phải bình gas sang chiết lậu kém chất lượng, quý khách nên kiểm tra 3 điểm sau:</p>
-<ul>
-  <li><strong>Màng co & tem niêm phong:</strong> Còn nguyên vẹn, không bị rách hay can thiệp nhiệt.</li>
-  <li><strong>Trọng lượng bình gas:</strong> Tổng trọng lượng bình = Trọng lượng vỏ (dập nổi trên tai bình) + 12kg khí gas. Nhân viên Ngọc Gas luôn chủ động mang cân điện tử và cân trực tiếp tại nhà.</li>
-  <li><strong>Kiểm định vỏ bình:</strong> Dãy số hạn kiểm định trên quai bình còn giá trị sử dụng.</li>
-</ul>
-
-<h2>3. Cam Kết Dịch Vụ Giao Gas Nhanh Từ Ngọc Gas</h2>
-<p>
-  Quý khách có thể xem nhanh <a href="/gia-gas-hom-nay">bảng giá gas hôm nay</a> hoặc tham khảo các dòng <a href="/san-pham">bình gas gia đình và công nghiệp</a>. Đội ngũ giao nhận của chúng tôi túc trực 24/7 để phục vụ nhanh nhất trong 15 - 20 phút.
-</p>
-
-<div style="background:#FFF7ED;border-left:4px solid #FF6B00;padding:16px;margin:20px 0;border-radius:8px;">
-  <p style="margin:0;font-weight:700;color:#C2410C;">📞 ĐẶT GAS NHANH - CÂN THỬ TẬN BẾP:</p>
-  <p style="margin:6px 0 0 0;color:#7C2D12;">
-    Trụ sở văn phòng &amp; Điểm giao gas số 1: <strong>7 Nguyễn Trung Trực, Phường Dĩ An</strong> • <a href="/cua-hang">Danh sách cửa hàng hợp nhất</a><br/>
-    Hotline hỗ trợ &amp; giao hỏa tốc: <strong>1900 9396</strong>
-  </p>
-</div>
-```
-
----
-
-## 🖼️ 6. Quy Chuẩn Banner Local SEO Tối Giản Cho Từng Phường (Minimal Ward Banner Mandate)
-
-Mọi bài viết theo khu vực (phường, xã) BẮT BUỘC sử dụng ảnh banner chuẩn hóa tối giản, tập trung vào nhận diện thương hiệu và giải quyết nỗi lo của khách hàng, TUYỆT ĐỐI KHÔNG nhồi nhét quá nhiều chữ hay chi tiết rườm rà.
-
-### 4 Thành phần cốt lõi duy nhất trên Banner:
-1. **Hệ thống Ngọc Gas**: Logo tròn chính hãng + Chữ in hoa rõ nét.
-2. **Giao Gas Nhanh — Cân Đủ Ký**: Slogan định vị giá trị cốt lõi.
-3. **[TÊN PHƯỜNG]**: Bôi đậm, màu vàng nổi bật (`#FFB703`), font chữ to, viết hoa toàn bộ (ví dụ: `PHƯỜNG DĨ AN`, `PHƯỜNG TÂN ĐÔNG HIỆP`, `PHƯỜNG AN BÌNH`...).
-4. **Hotline 1900 9396**: Hiển thị trong khung nút nổi bật màu cam đậm.
-
-### Công cụ sinh Banner tự động:
-Sử dụng script tự động hóa:
-```bash
-node scripts/generate-ward-banner.mjs --ward "Tên Phường" --output "scratch/banner-ten-phuong.jpg"
-```
-Script sẽ tự động nạp mẫu HTML, sử dụng ảnh nhân viên thật của Ngọc Gas trên xe chở gas chuyên dụng, chụp ảnh kích thước chuẩn 1200x630px và nén tối ưu dung lượng web.
-
+| Hạng Mục | Tiêu Chí Đạt | Đánh Giá |
+| :--- | :--- | :---: |
+| **Tiêu đề & Slug** | Chứa từ khóa chính + Tên phường mới chuẩn + Lợi ích. Slug chuẩn tiếng Việt không dấu. | [ ] |
+| **Độ dài nội dung** | Từ 1.500 đến 2.200 từ (Mã HTML >= 6.500 ký tự). | [ ] |
+| **Thương hiệu & Màu sắc** | Nêu rõ Sopet Gas One, Luxen Gas, Phoenix Gas; Vỏ Xám, Đỏ, Xanh, Vàng; Van Ngang & Van Chụp. | [ ] |
+| **Bảng thông số kỹ thuật** | Đủ 12kg/45kg, vỏ 12.5-14kg, tổng 24.5-26kg, áp suất 34 bar, tỷ lệ LPG, nhiệt trị 11.800 kcal/kg. | [ ] |
+| **Thông tin bảo hiểm** | Đúng câu pháp lý chuẩn, KHÔNG chứa con số "5 tỷ" hay số tiền cụ thể. | [ ] |
+| **Nỗi đau & Xử lý sự cố** | Đủ 5 nỗi đau khách hàng + 4 cẩm nang xử lý kỹ thuật (có quy trình 4 bước rò rỉ gas). | [ ] |
+| **Dữ liệu địa phương** | Nêu đúng các tuyến đường, ngõ hẻm, chợ, chung cư của phường mới. | [ ] |
+| **Internal links** | Đủ link tới `/gia-gas-hom-nay`, `/san-pham`, `/cua-hang`. Không ghi giá tĩnh. | [ ] |
+| **Hotline & Địa chỉ** | Hotline `1900 9396`. Địa chỉ số 1: `7 Nguyễn Trung Trực, Phường Dĩ An`. | [ ] |
+| **Banner hình ảnh** | Banner chuẩn nhận diện Ngọc Gas với tên phường mới. | [ ] |
+| **Trạng thái xuất bản** | Lưu ở chế độ Draft (`is_published: 0`) sẵn sàng để kiểm duyệt. | [ ] |

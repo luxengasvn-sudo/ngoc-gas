@@ -1,0 +1,132 @@
+{
+  "national": {
+    "mps": {
+      "name": "Cổng Thông tin điện tử Bộ Công an",
+      "url": "https://www.facebook.com/mpsgov",
+      "badge": "verified_blue",
+      "followers": "1.2M+ người theo dõi",
+      "desc": "Kênh thông tin chính thức của Bộ Công an Việt Nam trên mạng xã hội Facebook"
+    },
+    "vneid": {
+      "name": "Trung tâm Dữ liệu quốc gia về dân cư - C06",
+      "url": "https://www.facebook.com/vneid.gov.vn",
+      "badge": "verified_blue",
+      "followers": "800K+ người theo dõi",
+      "desc": "Hỗ trợ định danh điện tử VNeID, cấp đổi Căn cước và thủ tục cư trú trực tuyến"
+    },
+    "cyber": {
+      "name": "Cục An ninh mạng và PCTP sử dụng công nghệ cao - A05",
+      "url": "https://www.facebook.com/a05bocongan",
+      "badge": "verified_blue",
+      "desc": "Cảnh báo thủ đoạn lừa đảo qua mạng và tiếp nhận tố giác tội phạm công nghệ cao"
+    },
+    "traffic": {
+      "name": "Cục Cảnh sát Giao thông - C08",
+      "url": "https://www.facebook.com/truyenthongc08",
+      "badge": "verified_blue",
+      "desc": "Thông tin an toàn giao thông, tra cứu phạt nguội và thủ tục cấp biển số xe"
+    },
+    "pccc": {
+      "name": "Cục Cảnh sát PCCC và CNCH - C07",
+      "url": "https://www.facebook.com/pcccvacnchvietnam",
+      "badge": "verified_blue",
+      "desc": "Kỹ năng an toàn PCCC dân sinh, thoát nạn và cứu nạn cứu hộ khẩn cấp"
+    }
+  },
+  "provinces": {
+    "ho-chi-minh": {
+      "name": "Công an Thành phố Hồ Chí Minh",
+      "url": "https://www.facebook.com/catphochiminhofficial",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.3187.111",
+      "address": "Số 268 Trần Hưng Đạo, Phường Cầu Ông Lãnh, Quận 1, TP. Hồ Chí Minh"
+    },
+    "binh-duong": {
+      "name": "Công an tỉnh Bình Dương",
+      "url": "https://www.facebook.com/conganbinhduong",
+      "badge": "verified_blue",
+      "hotline": "113 / 0274.3822.444",
+      "address": "Số 681 Cách Mạng Tháng Tám, Phường Chánh Nghĩa, TP. Thủ Dầu Một, Tỉnh Bình Dương"
+    },
+    "ba-ria-vung-tau": {
+      "name": "Công an tỉnh Bà Rịa - Vũng Tàu",
+      "url": "https://www.facebook.com/conganbrvt",
+      "badge": "verified_blue",
+      "hotline": "113 / 0254.3852.115",
+      "address": "Số 15 Trường Chinh, Phường Phước Trung, TP. Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu"
+    },
+    "ha-noi": {
+      "name": "Công an thành phố Hà Nội",
+      "url": "https://www.facebook.com/ConganThudo",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.2196.777",
+      "address": "Số 87 Trần Hưng Đạo, Quận Hoàn Kiếm, TP. Hà Nội"
+    },
+    "da-nang": {
+      "name": "Công an thành phố Đà Nẵng",
+      "url": "https://www.facebook.com/catpdanang",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.4260.111",
+      "address": "Số 47 Lý Tự Trọng, Quận Hải Châu, TP. Đà Nẵng"
+    },
+    "dong-nai": {
+      "name": "Công an tỉnh Đồng Nai",
+      "url": "https://www.facebook.com/congan.dongnai",
+      "badge": "verified_blue",
+      "hotline": "113 / 0251.3820.100",
+      "address": "Số 161 Phạm Văn Thuận, Phường Tân Tiến, TP. Biên Hòa, Tỉnh Đồng Nai"
+    },
+    "can-tho": {
+      "name": "Công an thành phố Cần Thơ",
+      "url": "https://www.facebook.com/conganthanhphocantho",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.3672.111",
+      "address": "Số 9B Trần Phú, Phường Cái Khế, Quận Ninh Kiều, TP. Cần Thơ"
+    },
+    "hai-phong": {
+      "name": "Công an thành phố Hải Phòng",
+      "url": "https://www.facebook.com/ConganTPHaiPhong",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.2785.111",
+      "address": "Số 4 Lê Đại Hành, Quận Hồng Bàng, TP. Hải Phòng"
+    }
+  },
+  "districts": {
+    "tp-thu-duc": {
+      "name": "Công an thành phố Thủ Đức",
+      "url": "https://www.facebook.com/conganthanhphothuduc",
+      "badge": "verified_blue",
+      "hotline": "028.3897.2019"
+    },
+    "tp-di-an": {
+      "name": "Công an thành phố Dĩ An",
+      "url": "https://www.facebook.com/conganthanhphodian",
+      "badge": "verified_blue",
+      "hotline": "0274.3752.666"
+    },
+    "tp-thuan-an": {
+      "name": "Công an thành phố Thuận An",
+      "url": "https://www.facebook.com/conganthanhphothuanan",
+      "badge": "verified_blue",
+      "hotline": "0274.3755.113"
+    },
+    "quan-binh-thanh": {
+      "name": "Công an quận Bình Thạnh",
+      "url": "https://www.facebook.com/conganquanbinhthanh",
+      "badge": "verified_blue",
+      "hotline": "028.3841.2124"
+    },
+    "quan-go-vap": {
+      "name": "Công an quận Gò Vấp",
+      "url": "https://www.facebook.com/conganquangovap",
+      "badge": "verified_blue",
+      "hotline": "028.3895.7281"
+    },
+    "quan-12": {
+      "name": "Công an Quận 12",
+      "url": "https://www.facebook.com/conganquan12",
+      "badge": "verified_blue",
+      "hotline": "028.3891.7475"
+    }
+  }
+}

@@ -1,0 +1,736 @@
+import fs from 'fs';
+import path from 'path';
+
+// Đọc banner URLs Phase 4
+const banners = JSON.parse(fs.readFileSync(path.resolve('scratch/phase4_banner_urls.json'), 'utf8'));
+
+const articles = [
+  // -------------------------------------------------------------
+  // ID 111: THỊ TRẤN HÓC MÔN (HUYỆN HÓC MÔN)
+  // -------------------------------------------------------------
+  {
+    id: 111,
+    slug: 'giao-gas-thi-tran-hoc-mon',
+    title: 'Đổi Bình Gas Thị Trấn Hóc Môn — Chợ Hóc Môn & Lý Thường Kiệt',
+    summary: 'Đại lý giao gas chính hãng Thị trấn Hóc Môn (Huyện Hóc Môn). Cung cấp Sopet Gas One, Luxen Gas, Phoenix Gas đủ vỏ xám, đỏ, xanh, vàng. Giao hỏa tốc 15 phút Lý Thường Kiệt, Song Hành Quốc Lộ 22, Chợ Hóc Môn, Lê Thị Hà, Quang Trung. Cân đủ 12kg tại bếp, van Compact tự ngắt an toàn, ngọn lửa xanh nhiệt cao. Hotline 1900 9396.',
+    imageUrl: banners['giao-gas-thi-tran-hoc-mon'],
+    is_published: 0,
+    content: `
+<div class="quick-summary" style="background:#EFF6FF;border-left:5px solid #2563EB;padding:18px 20px;margin-bottom:28px;border-radius:8px;font-size:15px;line-height:1.7;color:#1E40AF;">
+  <strong>Dịch vụ đổi bình gas chính hãng Thị trấn Hóc Môn uy tín chuẩn PCCC (thủ phủ giao thương sầm uất vùng 18 Thôn Vườn Trầu - Huyện Hóc Môn):</strong> Chuyên cung ứng hỏa tốc các dòng bình gas sạch chính hãng <strong>Sopet Gas One, Luxen Gas, Phoenix Gas</strong> với 4 màu sắc vỏ bình phong thủy: <em>vỏ xám công nghệ Nhật Bản, vỏ đỏ may mắn, vỏ xanh tươi mát, vỏ vàng cam nhiệt lượng lớn</em> (sẵn sàng hệ van bấm Compact ngắt gas tự động và van xoay POL). Phục vụ chu đáo tiểu thương và hộ gia đình tại <em>trục đường Lý Thường Kiệt, Song Hành Quốc Lộ 22, Chợ Hóc Môn, đường Lê Thị Hà, Quang Trung, Bà Triệu, KDC Thị Trấn Hóc Môn</em>. Cam kết giao gas nhanh Thị trấn Hóc Môn trong 15 phút, cân đủ 12kg tại bếp, ngọn lửa xanh nhiệt cao không đen đáy nồi. Xem ngay <a href="/gia-gas-hom-nay" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Bảng giá gas hôm nay</a> hoặc liên hệ <a href="/cua-hang" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Hệ thống cửa hàng Ngọc Gas</a> qua hotline: <a href="tel:19009396" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">1900 9396</a>.
+</div>
+
+<div class="article-banner-wrap" style="text-align:center;margin:24px 0 32px 0;">
+  <img src="${banners['giao-gas-thi-tran-hoc-mon']}" alt="Giao gas chính hãng Thị trấn Hóc Môn Chợ Hóc Môn Lý Thường Kiệt" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+</div>
+
+<h2>1. Vị Thế Trái Tim Giao Thương Huyện Hóc Môn &amp; Tiêu Chuẩn Năng Lượng Phố Thị</h2>
+<p>
+  Tọa lạc ở trung tâm vùng đất lịch sử 18 Thôn Vườn Trầu, <strong>Thị trấn Hóc Môn</strong> là đô thị hành chính và thương mại lâu đời nhất phía Tây Bắc thành phố. Nơi đây tập trung ngôi chợ đầu mối truyền thống sầm uất <em>Chợ Hóc Môn, cùng các tuyến phố kinh doanh tấp nập như Lý Thường Kiệt, Lê Thị Hà, Quang Trung, Bà Triệu, đường Song Hành Quốc Lộ 22 và khu dân cư đô thị hóa hiện đại</em>.
+</p>
+<p>
+  Mật độ kinh doanh ăn uống và sinh hoạt gia đình dày đặc tại Thị trấn Hóc Môn tạo nên những yêu cầu khắt khe về dịch vụ gas:
+</p>
+<ul>
+  <li><strong>Hàng quán ăn uống truyền thống và cơ sở chế biến thực phẩm:</strong> Các tiệm phở, bún bò, lò quay thịt quanh khu vực chợ Hóc Môn cần nguồn gas có nhiệt trị cao, đun sôi nhanh và cung cấp liên tục suốt cả ngày.</li>
+  <li><strong>Khu dân cư phố cổ với các hẻm buôn bán đông đúc:</strong> Nhân viên giao gas phải thông thuộc địa bàn, sử dụng xe máy luồn lách nhanh nhẹn để giao gas nhanh Thị trấn Hóc Môn tận nơi trong 15 phút.</li>
+  <li><strong>Ý thức bảo vệ an toàn PCCC cao của tiểu thương:</strong> Bình gas đưa vào nhà phải có van khóa tự ngắt, kiểm tra rò rỉ cẩn thận để tránh nguy cơ cháy nổ trong khu phố chợ.</li>
+</ul>
+
+<h2>2. Bảng Tiêu Chuẩn Năng Lượng Đun Nấu Cho Phố Chợ &amp; Nhà Phố Thị Trấn Hóc Môn</h2>
+<p>
+  Nhằm đáp ứng tần suất đun nấu liên tục của tiểu thương chợ Hóc Môn và các gia đình phố thị, Ngọc Gas áp dụng bộ tiêu chí kỹ thuật chuyên biệt:
+</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;">
+    <thead>
+      <tr style="background:#1E40AF;color:#fff;">
+        <th style="padding:12px;border:1px solid #1D4ED8;">Chỉ Tiêu Vận Hành Khí Đốt</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Bình Gas Sang Chiết Thủ Công Trôi Nổi</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Quy Chuẩn Cung Ứng Của Ngọc Gas Tại Hóc Môn</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Lưu lượng van điều áp liên tục</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Chỉ đạt 0.8 - 1.0 kg/h, lửa bị hụt khi xào nấu lớn</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Đạt 1.8 - 2.0 kg/h, cấp dòng khí ổn định cho cả bếp đôi và bếp khè</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Khối lượng khí nạp kiểm định</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Bị bòn rút từ 1.8kg đến 2.5kg gas lỏng</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cân điện tử chuẩn xác đủ 12.0kg ± 0.1kg (Vỏ 12.5 - 14kg, tổng 24.5 - 26kg)</td>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Mức độ sạch cặn dầu đáy bình</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Nhiều cặn nhựa dầu hôi, gây nghẹt béc phun định kỳ</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Lọc ly tâm khí hóa lỏng không cặn, cháy sạch 100% không để lại tạp chất</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Tốc độ khóa an toàn khi xì vỡ ống</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Không có cảm ứng ngắt tự động, khí xì liên tục</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cơ chế bi thép Compact khóa dòng gas kín khít tức thì dưới 0.5 giây</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Hệ Thống 3 Thương Hiệu Uy Tín &amp; 4 Sắc Màu Bình Gas Tại Thị Trấn Hóc Môn</h2>
+<p>
+  Đại lý giao gas chính hãng Thị trấn Hóc Môn phân phối trọn vẹn 3 thương hiệu dẫn đầu thị trường:
+</p>
+<ul>
+  <li><strong>Sopet Gas One (Vỏ Xám Chuẩn Nhật):</strong> Dòng sản phẩm ứng dụng công nghệ lọc tách ẩm tối tân của Nhật Bản, loại bỏ tạp chất gây nghẹt kim phun, bảo vệ tuyệt đối buồng đốt bếp gas âm cho các hộ gia đình trên đường Lê Thị Hà và Lý Thường Kiệt.</li>
+  <li><strong>Luxen Gas (Vỏ Xanh Dương, Vỏ Đỏ, Vỏ Vàng):</strong> Tỷ lệ phối trộn Propane/Butane đạt chuẩn xuất sắc, ngọn lửa xanh biếc gom nhiệt đáy chảo giúp các quán phở, bún bò quanh Chợ Hóc Môn sôi bùng nước lèo trong thời gian ngắn kỷ lục.</li>
+  <li><strong>Phoenix Gas (Vỏ Vàng Cam, Vỏ Xám):</strong> Áp suất dòng khí bền bỉ và ổn định cao, vỏ bình chịu áp lực thủy lực 34 bar cực kỳ an toàn cho các quán cơm và cơ sở chế biến thực phẩm hoạt động liên tục.</li>
+</ul>
+<p>
+  Tất cả sản phẩm bình gas 12kg tại Ngọc Gas đều được niêm phong màng co nhiệt chống giả và gắn kèm tem bảo hiểm chính hãng. Sản phẩm được bảo chứng bởi <strong>bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật</strong>. Khách hàng được hỗ trợ đổi vỏ ngang miễn phí 100% giữa 4 gam màu xám, đỏ, xanh, vàng mà không phát sinh thêm chi phí cược vỏ.
+</p>
+
+<h2>4. Cẩm Nang Kỹ Thuật: Hướng Dẫn Thông Tắc Béc Phun Gas Bằng Sợi Đồng Mảnh Khi Lửa Bị Nhỏ</h2>
+<p>
+  Trong quá trình đun nấu, bụi than hoặc dầu mỡ trào xuống có thể làm nghẹt lỗ kim phun khí (béc phun đồng thau). Khi thấy bếp cháy lửa nhỏ liu riu dù bình gas còn đầy, gia chủ có thể tự xử lý theo các bước:
+</p>
+<ol>
+  <li><strong>Đóng chặt van cổ bình và tháo kiềng bếp:</strong> Xoay núm van bình theo chiều kim đồng hồ để ngắt gas. Nhấc kiềng sắt và mâm đồng chia lửa ra khỏi họng bếp.</li>
+  <li><strong>Xác định vị trí lỗ béc phun hạt bắp:</strong> Quan sát sâu bên trong họng dẫn khí, bạn sẽ thấy một đầu ốc đồng nhỏ có lỗ kim li ti ở chính giữa (đường kính khoảng 0.5 - 0.7mm).</li>
+  <li><strong>Dùng một sợi dây đồng mảnh thông nhẹ:</strong> Tách lấy một sợi dây đồng nhỏ từ lõi dây điện gia dụng, nhẹ nhàng luồn đầu dây vào lỗ kim phun và xoay tròn vài lần để cào sạch cặn than đóng tảng. Tuyệt đối không dùng tăm tre vì dễ gãy ngậm bên trong.</li>
+  <li><strong>Lắp lại mâm đồng và đánh lửa thử:</strong> Thổi sạch bụi bẩn rơi ra, lắp mâm chia lửa đúng khớp ren, mở van gas và bật bếp kiểm tra ngọn lửa xanh bùng to trở lại.</li>
+</ol>
+
+<h2>5. Quy Trình Giao Gas Hỏa Tốc 5 Bước Tại Thị Trấn Hóc Môn</h2>
+<ol>
+  <li><strong>Tổng đài 1900 9396 định vị hẻm chợ:</strong> Nhân viên ghi nhận chính xác vị trí nhà khách hàng tại đường Lý Thường Kiệt, Chợ Hóc Môn, Song Hành QL22 hoặc Lê Thị Hà.</li>
+  <li><strong>Điều phối xe chuyên dụng xuất phát trong 15 phút:</strong> Kỹ thuật viên di chuyển nhanh nhẹn qua các ngõ hẻm phố cổ để có mặt trước cửa nhà đúng giờ cam kết.</li>
+  <li><strong>Cân đối chứng công khai trước mặt khách:</strong> Sử dụng cân điện tử xách tay có kiểm định để khách hàng tự tay kiểm tra đủ 12kg ruột gas tinh khiết.</li>
+  <li><strong>Gắn bình và quét bọt xà phòng kiểm tra rò rỉ:</strong> Lắp đặt van điều áp khớp với cổ bình, quét nước xà phòng kiểm tra bọt khí tại mọi mối nối để triệt tiêu nguy cơ xì gas.</li>
+  <li><strong>Dán tem bảo hành và bàn giao hóa đơn:</strong> Cung cấp biên nhận rõ ràng và dán tem hotline 1900 9396 hỗ trợ kỹ thuật và kiểm tra an toàn miễn phí 24/7.</li>
+</ol>
+
+<h2>6. Câu Hỏi Thường Gặp Của Cư Dân Thị Trấn Hóc Môn</h2>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Nhà tôi ở sâu trong hẻm Chợ Hóc Môn thì thời gian giao hàng mất bao lâu?</h3>
+  <p style="margin:0;color:#374151;">Ngọc Gas bố trí trạm giao vận ngay sát Chợ Hóc Môn, nhân viên thông thuộc từng ngõ ngách nên cam kết giao bình gas tới tận bếp trong vòng 10 đến 15 phút kể từ khi nhận đơn.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Tôi đang dùng vỏ bình màu đỏ cũ thì có đổi sang bình xám Sopet Gas One được không?</h3>
+  <p style="margin:0;color:#374151;">Được đổi hoàn toàn miễn phí! Ngọc Gas áp dụng chính sách đổi vỏ ngang linh hoạt giữa 4 màu sắc xám, đỏ, xanh, vàng mà khách hàng không phải bù thêm tiền vỏ.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Làm thế nào để biết nhân viên giao gas đã cân đủ ký cho gia đình?</h3>
+  <p style="margin:0;color:#374151;">Mỗi kỹ thuật viên Ngọc Gas đều mang theo cân móc điện tử chính xác. Bạn chỉ cần lấy tổng trọng lượng cân được trừ đi số cân vỏ dập nổi trên tai bình, số dư đúng 12.0kg là gas chuẩn.</p>
+</div>
+    `
+  },
+
+  // -------------------------------------------------------------
+  // ID 112: XÃ BÀ ĐIỂM (HUYỆN HÓC MÔN)
+  // -------------------------------------------------------------
+  {
+    id: 112,
+    slug: 'giao-gas-xa-ba-diem',
+    title: 'Đổi Bình Gas Xã Bà Điểm (Hóc Môn) — Phan Văn Hớn & Ngã 3 Giồng',
+    summary: 'Đại lý giao gas chính hãng Xã Bà Điểm (Huyện Hóc Môn). Phân phối Sopet Gas One, Luxen Gas, Phoenix Gas vỏ xám, đỏ, xanh, vàng. Giao hỏa tốc 15 phút Phan Văn Hớn, Nguyễn Ảnh Thủ, Ngã 3 Giồng, KDC Bà Điểm, Tiền Lân, Hưng Lân. Cân đủ 12kg tại bếp, van Compact tự ngắt an toàn, ngọn lửa xanh gom nhiệt. Hotline 1900 9396.',
+    imageUrl: banners['giao-gas-xa-ba-diem'],
+    is_published: 0,
+    content: `
+<div class="quick-summary" style="background:#EFF6FF;border-left:5px solid #2563EB;padding:18px 20px;margin-bottom:28px;border-radius:8px;font-size:15px;line-height:1.7;color:#1E40AF;">
+  <strong>Dịch vụ giao gas hỏa tốc Xã Bà Điểm uy tín chuẩn PCCC (cửa ngõ kết nối Tây Bắc về Quận Tân Bình và Quận 12 - Huyện Hóc Môn):</strong> Chuyên cung cấp các dòng bình gas sạch chính hãng <strong>Sopet Gas One, Luxen Gas, Phoenix Gas</strong> với 4 màu sắc vỏ bình phong thủy: <em>vỏ xám công nghệ Nhật Bản, vỏ đỏ may mắn, vỏ xanh tươi mát, vỏ vàng cam nhiệt lượng lớn</em> (sở hữu van bấm Compact ngắt gas tự động và van ren POL). Phục vụ tận tâm các hộ gia đình, phố ẩm thực và xưởng sản xuất tại <em>trục đường Phan Văn Hớn, Nguyễn Ảnh Thủ, khu di tích Ngã 3 Giồng, KDC Bà Điểm, ấp Tiền Lân, Hưng Lân, Đông Lân</em>. Cam kết giao gas nhanh Xã Bà Điểm trong 15 phút, cân đủ 12kg tại bếp, van tự ngắt an toàn phòng chống cháy nổ. Xem ngay <a href="/gia-gas-hom-nay" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Bảng giá gas hôm nay</a> hoặc liên hệ <a href="/cua-hang" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Hệ thống cửa hàng Ngọc Gas</a> qua hotline: <a href="tel:19009396" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">1900 9396</a>.
+</div>
+
+<div class="article-banner-wrap" style="text-align:center;margin:24px 0 32px 0;">
+  <img src="${banners['giao-gas-xa-ba-diem']}" alt="Giao gas chính hãng Xã Bà Điểm Hóc Môn Phan Văn Hớn Ngã 3 Giồng" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+</div>
+
+<h2>1. Vị Thế Phố Thị Ẩm Thực Xã Bà Điểm &amp; Tiêu Chuẩn Năng Lượng Phục Vụ Nhanh</h2>
+<p>
+  Là vùng đất giàu truyền thống cách mạng gắn liền với địa danh <em>Ngã 3 Giồng</em> huyền thoại, <strong>Xã Bà Điểm</strong> ngày nay là trung tâm giao thương sầm uất bậc nhất kết nối Hóc Môn với Quận 12 và Tân Bình. Tuyến đường <em>Phan Văn Hớn</em> và <em>Nguyễn Ảnh Thủ</em> được mệnh danh là phố ẩm thực nhộn nhịp, tập trung hàng trăm nhà hàng, quán nướng, tiệm trà sữa và các khu dân cư mới phân lô khang trang.
+</p>
+<p>
+  Mật độ kinh doanh ăn uống đông đúc cùng lưu lượng giao thông cao trên trục Phan Văn Hớn đặt ra những yêu cầu cụ thể:
+</p>
+<ul>
+  <li><strong>Tốc độ giao gas hỏa tốc phục vụ giờ cao điểm quán ăn:</strong> Vào các khung giờ trưa và tối, quán ăn hết gas cần được đổi bình gas Xã Bà Điểm thần tốc trong 15 phút để khách không phải chờ đợi.</li>
+  <li><strong>Chất lượng ngọn lửa xanh gom nhiệt:</strong> Bếp khè và bếp đôi gia đình cần ngọn lửa có nhiệt trị cao 11.800 kcal/kg để xào nấu nhanh, không ám mùi khói khét vào món ăn.</li>
+  <li><strong>Hệ thống van tự ngắt bảo vệ gia đình:</strong> Nhà phố liền kề san sát đòi hỏi van điều áp phải có bi thép ngắt gas tự động khi ống dẫn bị chuột cắn hoặc tuột kẹp.</li>
+</ul>
+
+<h2>2. Bảng Tiêu Chuẩn An Toàn PCCC Cho Nhà Phố &amp; Quán Ăn Trục Phan Văn Hớn</h2>
+<p>
+  Nhằm bảo đảm phòng chống cháy nổ tại khu dân cư mật độ cao Xã Bà Điểm, Ngọc Gas triển khai chuẩn an toàn 4 lớp:
+</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;">
+    <thead>
+      <tr style="background:#1E40AF;color:#fff;">
+        <th style="padding:12px;border:1px solid #1D4ED8;">Hạng Mục Kiểm Soát PCCC</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Cơ Sở Sang Chiết Không Giấy Phép</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Hệ Thống Phân Phối Ngọc Gas Tại Bà Điểm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Thời gian phản ứng van ngắt tự động</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Van cơ không ngắt, khí tiếp tục phụt ra ngoài</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Bi thép Katsura kích hoạt ngắt kín dòng gas trong 0.5 giây khi có biến thiên áp</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Áp suất phá hủy ống dẫn khí mềm</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Ống nhựa mỏng chịu dưới 3 bar, dễ rạn nứt</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Ống cao su lưu hóa chịu áp 20 bar, bọc lưới thép inox bảo vệ chống xé rách</td>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Độ kín khít của gioăng cổ bình</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Gioăng tái chế chai cứng, thường xì nhẹ cổ bình</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Gioăng cao su NBR nguyên sinh chịu lạnh âm 30°C, đàn hồi hoàn hảo</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Quy chuẩn tem chống giả niêm phong</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Màng co bọc tay lỏng lẻo, không mã truy xuất</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Màng co nhiệt chính hãng dập nổi công nghệ cao kèm mã QR định danh bình</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Hệ Thống 3 Thương Hiệu Uy Tín &amp; 4 Màu Sắc Bình Gas Tại Xã Bà Điểm</h2>
+<p>
+  Ngọc Gas đem lại sự phong phú và an toàn tuyệt đối cho người dân Xã Bà Điểm:
+</p>
+<ul>
+  <li><strong>Sopet Gas One (Vỏ Xám Chuẩn Nhật):</strong> Sản phẩm số một về độ bền kết cấu và chỉ số tinh khiết, tỷ lệ cháy sạch tối đa giúp tiết kiệm đến 15% lượng khí tiêu thụ cho các gia đình KDC Bà Điểm và ấp Tiền Lân.</li>
+  <li><strong>Luxen Gas (Vỏ Xanh, Vỏ Đỏ, Vỏ Vàng):</strong> Ngọn lửa nhiệt lượng cao đạt ngưỡng 1.900°C, kiểm soát ngọn lửa nhạy bén giúp các nhà hàng ẩm thực và quán nướng lẩu Phan Văn Hớn chế biến món ăn ngon chuẩn vị.</li>
+  <li><strong>Phoenix Gas (Vỏ Vàng Cam, Vỏ Xám):</strong> Sức đẩy áp lực hơi bền bỉ, van khóa ren xoay chắc nịch phù hợp cho các bếp khè công suất lớn phục vụ tiệc cưới và quán ăn lưu lượng khách đông.</li>
+</ul>
+<p>
+  Tất cả bình gas 12kg đều có khối lượng tịnh đủ 12.0kg ± 0.1kg, vỏ từ 12.5kg - 14.0kg. Sản phẩm được bảo chứng bởi <strong>bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật</strong>. Hỗ trợ đổi vỏ ngang miễn phí 100% giữa 4 màu sắc xám, đỏ, xanh, vàng.
+</p>
+
+<h2>4. Cẩm Nang Kỹ Thuật: 4 Bước Xử Lý Khẩn Cấp Khi Ngửi Thấy Mùi Gas Nồng Nặc Trong Nhà Kín</h2>
+<p>
+  Khi đi làm về mở cửa hoặc sáng sớm bước vào bếp ngửi thấy mùi trứng thối nồng nặc (chất tạo mùi an toàn Ethyl Mercaptan), hãy bình tĩnh thực hiện đúng 4 bước sống còn:
+</p>
+<ol>
+  <li><strong>CẤM TUYỆT ĐỐI không bật tắt thiết bị điện:</strong> Không chạm vào công tắc đèn, không bật quạt hút mùi, không cắm rút phích điện và cấm dùng bật lửa hay gọi điện thoại trong gian bếp. Tia lửa điện cực nhỏ ở công tắc có thể kích nổ khối khí gas tích tụ ngay lập tức.</li>
+  <li><strong>Nhanh chóng khóa van cổ bình gas:</strong> Tiếp cận bình gas, xoay núm vặn theo chiều kim đồng hồ hoặc gạt chốt van bấm Compact về nấc đóng hoàn toàn để ngăn chặn nguồn rò rỉ.</li>
+  <li><strong>Mở toang toàn bộ cửa sổ và cửa đi:</strong> Dùng tay mở rộng các cánh cửa để gió trời thổi vào làm loãng nồng độ khí gas. Dùng bìa carton hoặc quạt nan quạt phẩy nhẹ sát sàn nhà hướng ra cửa (vì khí gas nặng hơn không khí nên chìm sát mặt đất).</li>
+  <li><strong>Rời khỏi nhà và gọi hotline kỹ thuật:</strong> Di chuyển ra khoảng sân thoáng cách xa gian bếp ít nhất 10 mét, dùng điện thoại gọi ngay cho Ngọc Gas qua hotline <strong>1900 9396</strong> để nhân viên cứu hộ mang thiết bị đo nồng độ đến xử lý an toàn.</li>
+</ol>
+
+<h2>5. Quy Trình Giao Gas Hỏa Tốc 5 Bước Tại Xã Bà Điểm</h2>
+<ol>
+  <li><strong>Tiếp nhận cuộc gọi và xác định định vị:</strong> Tổng đài ghi nhận đơn đặt hàng trên tuyến Phan Văn Hớn, Nguyễn Ảnh Thủ, KDC Bà Điểm, Ngã 3 Giồng hoặc các ấp Đông Lân, Hưng Lân.</li>
+  <li><strong>Xuất trạm hỏa tốc trong 15 phút:</strong> Nhân viên giao gas quen thuộc mọi lối tắt ngõ hẻm cơ động xuất phát ngay bằng xe chuyên dụng an toàn.</li>
+  <li><strong>Cân đối chứng công khai bằng cân điện tử:</strong> Khách hàng trực tiếp giám sát cân đủ 12.0kg gas nguyên chất trước khi nhân viên mang bình vào gian bếp.</li>
+  <li><strong>Lắp đặt chuẩn kỹ thuật và kiểm tra rò rỉ:</strong> Siết chặt khớp nối van điều áp, quét bọt xà phòng tại ren cổ bình và kiểm tra độ nhạy của bộ đánh lửa bếp gas.</li>
+  <li><strong>Bàn giao hóa đơn và dán tem hỗ trợ 24/7:</strong> Dán tem hotline 1900 9396 trên thân bình để hỗ trợ kỹ thuật bảo dưỡng và giải đáp thắc mắc kịp thời cho gia chủ.</li>
+</ol>
+
+<h2>6. Câu Hỏi Thường Gặp Của Cư Dân Xã Bà Điểm</h2>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Giao gas vào khu vực ngã ba Ngã 3 Giồng và đường Phan Văn Hớn có nhanh không?</h3>
+  <p style="margin:0;color:#374151;">Ngọc Gas có trạm giao hàng túc trực ngay ngã tư Bà Điểm, kỹ thuật viên có mặt chỉ trong 10 đến 15 phút bất kể khung giờ cao điểm.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Quán nướng trên đường Nguyễn Ảnh Thủ có được hỗ trợ mượn bình gas phụ không?</h3>
+  <p style="margin:0;color:#374151;">Có! Ngọc Gas hỗ trợ cho mượn vỏ bình sơ cua và lắp đặt van chia nhánh đôi cho các nhà hàng, quán ăn để đảm bảo không bị gián đoạn khi đang phục vụ khách.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Làm sao nhận biết van ngắt tự động Compact còn hoạt động tốt?</h3>
+  <p style="margin:0;color:#374151;">Kỹ thuật viên của Ngọc Gas sẽ thực hiện thao tác thử ngắt bi thép ngay tại bếp: khi tháo ống dẫn đột ngột, viên bi thép bên trong van sẽ nhảy 'tách' và khóa kín khí gas 100%.</p>
+</div>
+    `
+  },
+
+  // -------------------------------------------------------------
+  // ID 113: XÃ XUÂN THỚI THƯỢNG (HUYỆN HÓC MÔN)
+  // -------------------------------------------------------------
+  {
+    id: 113,
+    slug: 'giao-gas-xa-xuan-thoi-thuong',
+    title: 'Đổi Bình Gas Xã Xuân Thới Thượng (Hóc Môn) — Phan Văn Hớn & Dương Công Khi',
+    summary: 'Đại lý giao gas chính hãng Xã Xuân Thới Thượng (Huyện Hóc Môn). Cung cấp Sopet Gas One, Luxen Gas, Phoenix Gas vỏ xám, đỏ, xanh, vàng. Giao hỏa tốc 15 phút Phan Văn Hớn, Dương Công Khi, Trần Văn Mười, KDC Xuân Thới Thượng, Chợ Đại Hải. Cân đủ 12kg tại bếp, van tự ngắt an toàn, ngọn lửa xanh gom nhiệt. Hotline 1900 9396.',
+    imageUrl: banners['giao-gas-xa-xuan-thoi-thuong'],
+    is_published: 0,
+    content: `
+<div class="quick-summary" style="background:#EFF6FF;border-left:5px solid #2563EB;padding:18px 20px;margin-bottom:28px;border-radius:8px;font-size:15px;line-height:1.7;color:#1E40AF;">
+  <strong>Dịch vụ đổi bình gas chính hãng Xã Xuân Thới Thượng uy tín chuẩn PCCC (đô thị sinh thái nhà vườn cửa ngõ phía Tây - Huyện Hóc Môn):</strong> Chuyên phân phối các dòng bình gas sạch chính hãng <strong>Sopet Gas One, Luxen Gas, Phoenix Gas</strong> với 4 màu sắc vỏ bình phong thủy: <em>vỏ xám công nghệ Nhật Bản, vỏ đỏ may mắn, vỏ xanh tươi mát, vỏ vàng cam nhiệt lượng lớn</em> (sở hữu van bấm Compact ngắt gas tự động và van ren xoay POL). Phục vụ tận tâm các hộ gia đình, cơ sở nghề mộc và nhà vườn tại <em>trục đường Phan Văn Hớn nối dài, Dương Công Khi, Trần Văn Mười, KDC Xuân Thới Thượng, khu vực Chợ Đại Hải</em>. Cam kết giao gas nhanh Xã Xuân Thới Thượng trong 15 phút, cân đủ 12kg tại bếp, ngọn lửa xanh nhiệt cao không đen đáy nồi. Xem ngay <a href="/gia-gas-hom-nay" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Bảng giá gas hôm nay</a> hoặc liên hệ <a href="/cua-hang" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Hệ thống cửa hàng Ngọc Gas</a> qua hotline: <a href="tel:19009396" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">1900 9396</a>.
+</div>
+
+<div class="article-banner-wrap" style="text-align:center;margin:24px 0 32px 0;">
+  <img src="${banners['giao-gas-xa-xuan-thoi-thuong']}" alt="Giao gas chính hãng Xã Xuân Thới Thượng Hóc Môn Phan Văn Hớn Dương Công Khi" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+</div>
+
+<h2>1. Vị Thế Đô Thị Nhà Vườn Sinh Thái Xã Xuân Thới Thượng &amp; Tiêu Chuẩn Năng Lượng Gia Đình</h2>
+<p>
+  Trải dài trên vùng đất trù phú tiếp giáp giữa Hóc Môn và Huyện Bình Chánh, <strong>Xã Xuân Thới Thượng</strong> nổi bật với không gian nhà vườn thoáng đãng, các cơ sở tiểu thủ công nghiệp truyền thống và các tuyến giao thông huyết mạch như <em>Phan Văn Hớn nối dài, đường Dương Công Khi, đường Trần Văn Mười, KDC Xuân Thới Thượng và khu chợ sầm uất Đại Hải</em>.
+</p>
+<p>
+  Đặc thù nhà ở tại Xã Xuân Thới Thượng có khuôn viên sân vườn rộng rãi nhưng cũng tiềm ẩn nguy cơ từ chuột bọ và thời tiết hanh khô, đặt ra các tiêu chuẩn phục vụ:
+</p>
+<ul>
+  <li><strong>Phòng ngừa chuột bọ cắn phá dây dẫn gas trong nhà vườn:</strong> Hệ thống ống dẫn gas cần được bọc lưới inox hoặc sử dụng van ngắt tự động để tránh rò rỉ khí gas âm ỉ.</li>
+  <li><strong>Nhu cầu bình gas đủ ký 100%:</strong> Các gia đình nấu nướng nhiều cần bình gas chứa đủ 12kg khí gas sạch để tiết kiệm chi phí sinh hoạt hàng tháng.</li>
+  <li><strong>Giao nhận nhanh chóng vào các tuyến đường nhánh:</strong> Nhân viên giao hàng phải am hiểu các tuyến đường liên ấp để có mặt đổi bình gas Xã Xuân Thới Thượng trong vòng 15 phút.</li>
+</ul>
+
+<h2>2. Bảng Tiêu Chuẩn Kỹ Thuật: Ống Dẫn Gas Lưới Inox Chống Chuột Tại Nhà Vườn Xuân Thới Thượng</h2>
+<p>
+  Địa bàn có nhiều cây cối và vườn tược như Xã Xuân Thới Thượng tiềm ẩn nguy cơ chuột bọ cắn phá phụ kiện bếp gas. Ngọc Gas đưa ra bảng đối sánh chuyên biệt:
+</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;">
+    <thead>
+      <tr style="background:#1E40AF;color:#fff;">
+        <th style="padding:12px;border:1px solid #1D4ED8;">Cấu Kiện Ống Dẫn &amp; Khóa Khí</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Phụ Kiện Dây Dẫn Thông Thường</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Tiêu Chuẩn Lưới Inox 304 Của Ngọc Gas Tại Xuân Thới Thượng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Lớp áo bảo vệ bên ngoài</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Ống cao su trần, chuột gặm thủng sau 1 đêm</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Lưới bện sợi Inox 304 dày 0.8mm chống răng chuột và tác động cứa rách 100%</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Đai kẹp siết cổ ống (cổ dê)</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Kẹp sắt mạ kẽm dễ gỉ sét, lỏng ốc sau vài tháng</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Đai siết Inox dập nguyên khối, ốc vặn ren thép không gỉ giữ chặt tuyệt đối</td>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Độ dẻo dai lõi dẫn cao su NBR</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Dễ chai cứng và gãy nứt khi uốn cong</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cao su tổng hợp NBR đàn hồi cao, chịu nhiệt và chống thẩm thấu LPG</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Khối lượng khí cân thực tế</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Bị hao hụt từ 1.5kg đến 2.2kg</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cân điện tử đủ 12.0kg ± 0.1kg tại gian bếp gia chủ</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Hệ Thống 3 Thương Hiệu Uy Tín &amp; 4 Màu Sắc Bình Gas Tại Xã Xuân Thới Thượng</h2>
+<p>
+  Ngọc Gas đem lại sự phong phú và hài lòng tối đa cho mọi không gian bếp tại Xã Xuân Thới Thượng:
+</p>
+<ul>
+  <li><strong>Sopet Gas One (Vỏ Xám Chuẩn Nhật):</strong> Dòng sản phẩm tinh túy được tinh lọc triệt để, không khói muội, ngọn lửa xanh đều bảo vệ sức khỏe và không gian sống trong lành cho các gia đình nhà vườn truyền thống.</li>
+  <li><strong>Luxen Gas (Vỏ Xanh, Đỏ, Vàng):</strong> Tỷ lệ phối khí hoàn hảo giữa Propane và Butane, sinh nhiệt lượng dồi dào cho các buổi liên hoan gia đình, nấu nướng tiệc tùng tại khuôn viên sân vườn rộng rãi.</li>
+  <li><strong>Phoenix Gas (Vỏ Vàng, Vỏ Xám):</strong> Vỏ bình đúc áp lực cao chịu va đập cơ học tốt, dòng chảy khí ổn định phục vụ đắc lực cho các xưởng mộc, xưởng gia công cơ khí dọc đường Dương Công Khi.</li>
+</ul>
+<p>
+  Tất cả bình gas 12kg đều có khối lượng tịnh đủ 12.0kg ± 0.1kg, vỏ từ 12.5kg - 14.0kg. Sản phẩm được bảo chứng bởi <strong>bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật</strong>. Hỗ trợ đổi vỏ ngang miễn phí 100% giữa 4 màu sắc xám, đỏ, xanh, vàng.
+</p>
+
+<h2>4. Cẩm Nang Kỹ Thuật: Hướng Dẫn Kiểm Tra Độ Co Giãn Gioăng O-Ring Cổ Bình Gas Bằng Mắt Thường</h2>
+<p>
+  Vòng đệm cao su O-ring nằm ở miệng cổ bình gas là chi tiết quyết định sự kín khít khi lắp van điều áp. Trước khi thay bình mới, hãy kiểm tra theo các bước đơn giản:
+</p>
+<ol>
+  <li><strong>Tháo bỏ màng co bảo vệ cổ bình:</strong> Dùng tay xé màng co niêm phong trên nắp van, quan sát sâu vào bên trong lỗ cắm van của bình gas.</li>
+  <li><strong>Kiểm tra độ đen bóng và nguyên vẹn của gioăng:</strong> Một chiếc gioăng tốt phải có màu đen mờ đồng nhất, bề mặt trơn láng, không có vết nứt chân chim, không bị sứt mẻ vành tròn và ôm khít lấy rãnh kim loại.</li>
+  <li><strong>Thử độ đàn hồi bằng đầu ngón tay:</strong> Dùng đầu ngón tay ấn nhẹ vào bề mặt gioăng cao su, gioăng đạt chuẩn sẽ có độ nảy êm ái, không bị lún xẹp hoặc cứng đơ như nhựa tái chế.</li>
+  <li><strong>Yêu cầu thay thế nếu phát hiện dấu hiệu chai cứng:</strong> Nếu gioăng bị mòn vẹt hoặc biến dạng, hãy yêu cầu kỹ thuật viên Ngọc Gas thay mới một vòng gioăng O-ring dự phòng miễn phí trước khi kết nối van gas.</li>
+</ol>
+
+<h2>5. Quy Trình Giao Gas Hỏa Tốc 5 Bước Tại Xã Xuân Thới Thượng</h2>
+<ol>
+  <li><strong>Tiếp nhận cuộc gọi và định vị vườn ấp:</strong> Nhân viên xác định vị trí nhà khách hàng trên đường Phan Văn Hớn nối dài, Dương Công Khi, Trần Văn Mười hoặc Chợ Đại Hải.</li>
+  <li><strong>Cơ động xe máy chuyên dụng trong 15 phút:</strong> Kỹ thuật viên di chuyển nhanh chóng qua các tuyến đường nhánh liên ấp để có mặt đúng hẹn tại cổng nhà.</li>
+  <li><strong>Cân kiểm tra trọng lượng bằng cân điện tử:</strong> Thực hiện cân đối chứng công khai trước mặt khách, chứng minh đủ 12kg khí gas sạch không hao hụt.</li>
+  <li><strong>Lắp đặt và kiểm tra an toàn toàn diện:</strong> Kết nối van Compact, kiểm tra dây dẫn chống chuột và vệ sinh đầu đốt bếp gas sạch sẽ.</li>
+  <li><strong>Dán tem bảo hành và bàn giao biên nhận:</strong> Bàn giao hóa đơn, dán tem hotline 1900 9396 trực cứu hộ kỹ thuật miễn phí 24/7.</li>
+</ol>
+
+<h2>6. Câu Hỏi Thường Gặp Của Cư Dân Xã Xuân Thới Thượng</h2>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Nhà tôi ở sâu trong đường vườn cây đường Dương Công Khi có giao tới tận nơi không?</h3>
+  <p style="margin:0;color:#374151;">Ngọc Gas phục vụ giao gas tận bếp cho mọi hộ gia đình trên toàn bộ các ấp của Xã Xuân Thới Thượng, bất kể đường bê tông nông thôn hay hẻm đất, không phụ thu thêm phí.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Dây dẫn gas bọc lưới inox có bán kèm khi đổi bình không?</h3>
+  <p style="margin:0;color:#374151;">Kỹ thuật viên Ngọc Gas luôn mang theo dây gas bọc lưới Inox chính hãng đạt chuẩn PCCC. Khách hàng có nhu cầu thay thế sẽ được hỗ trợ lắp đặt và siết cổ dê miễn phí 100%.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Bình gas có được bảo hiểm chống cháy nổ không?</h3>
+  <p style="margin:0;color:#374151;">100% bình gas do Ngọc Gas phân phối đều có bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật, bảo vệ an toàn tối đa cho tổ ấm của bạn.</p>
+</div>
+    `
+  },
+
+  // -------------------------------------------------------------
+  // ID 114: XÃ TÂN THỚI NHÌ (HUYỆN HÓC MÔN)
+  // -------------------------------------------------------------
+  {
+    id: 114,
+    slug: 'giao-gas-xa-tan-thoi-nhi',
+    title: 'Đổi Bình Gas Xã Tân Thới Nhì (Hóc Môn) — Quốc Lộ 22 & Chợ Tân Hiệp',
+    summary: 'Đại lý giao gas chính hãng Xã Tân Thới Nhì (Huyện Hóc Môn). Cung cấp Sopet Gas One, Luxen Gas, Phoenix Gas đủ vỏ xám, đỏ, xanh, vàng. Giao hỏa tốc 15 phút Quốc Lộ 22, Dương Công Khi, Tân Thới Nhì 1, Chợ Tân Hiệp, KDC Tân Thới Nhì. Cân đủ 12kg tại bếp, van tự ngắt an toàn, ngọn lửa xanh gom nhiệt. Hotline 1900 9396.',
+    imageUrl: banners['giao-gas-xa-tan-thoi-nhi'],
+    is_published: 0,
+    content: `
+<div class="quick-summary" style="background:#EFF6FF;border-left:5px solid #2563EB;padding:18px 20px;margin-bottom:28px;border-radius:8px;font-size:15px;line-height:1.7;color:#1E40AF;">
+  <strong>Dịch vụ đổi bình gas chính hãng Xã Tân Thới Nhì uy tín chuẩn PCCC (cửa ngõ giao thương Quốc Lộ 22 hướng đi Củ Chi - Huyện Hóc Môn):</strong> Chuyên phân phối các dòng bình gas sạch chính hãng <strong>Sopet Gas One, Luxen Gas, Phoenix Gas</strong> với 4 màu sắc vỏ bình phong thủy: <em>vỏ xám công nghệ Nhật Bản, vỏ đỏ may mắn, vỏ xanh tươi mát, vỏ vàng cam nhiệt lượng lớn</em> (sẵn sàng hệ van bấm Compact ngắt gas tự động và van ren POL ren ngược). Phục vụ chu đáo các hộ gia đình, quán ăn dừng chân và kho xưởng tại <em>trục đại lộ Quốc Lộ 22, đường Dương Công Khi, đường Tân Thới Nhì 1 đến 10, khu vực Chợ Tân Hiệp, KDC Tân Thới Nhì</em>. Cam kết giao gas nhanh Xã Tân Thới Nhì trong 15 phút, cân đủ 12kg tại bếp, ngọn lửa xanh nhiệt cao không đen đáy nồi. Xem ngay <a href="/gia-gas-hom-nay" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Bảng giá gas hôm nay</a> hoặc liên hệ <a href="/cua-hang" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Hệ thống cửa hàng Ngọc Gas</a> qua hotline: <a href="tel:19009396" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">1900 9396</a>.
+</div>
+
+<div class="article-banner-wrap" style="text-align:center;margin:24px 0 32px 0;">
+  <img src="${banners['giao-gas-xa-tan-thoi-nhi']}" alt="Giao gas chính hãng Xã Tân Thới Nhì Hóc Môn Quốc Lộ 22 Chợ Tân Hiệp" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+</div>
+
+<h2>1. Vị Thế Cửa Ngõ Giao Thông Quốc Lộ 22 Xã Tân Thới Nhì &amp; Nhu Cầu Khí Đốt Đa Dạng</h2>
+<p>
+  Nằm án ngữ trên trục hành lang kinh tế Xuyên Á, <strong>Xã Tân Thới Nhì</strong> là địa bàn cửa ngõ quan trọng kết nối Hóc Môn với huyện Củ Chi và tỉnh Tây Ninh. Nơi đây tập trung lưu lượng phương tiện vận tải tấp nập trên tuyến <em>Quốc Lộ 22, chợ truyền thống Tân Hiệp sầm uất, các nhánh đường Tân Thới Nhì 1, 2, 3... cùng các cơ sở kho bãi và xóm dân cư đông đúc</em>.
+</p>
+<p>
+  Môi trường giao thông dày đặc xe tải nặng cùng mạng lưới nhà dân dọc quốc lộ kéo theo các yêu cầu khắt khe:
+</p>
+<ul>
+  <li><strong>Hệ thống van điều áp chịu rung chấn:</strong> Nhà ở mặt tiền Quốc Lộ 22 thường chịu rung lắc từ xe container qua lại, đòi hỏi mối nối van gas phải có ren đồng ren ngược chắc chắn, không bị lỏng ốc rò rỉ khí.</li>
+  <li><strong>Phục vụ quán cơm xe tải và quán ăn dừng chân:</strong> Các bếp khè cần nguồn khí nén áp lực khỏe, đun nấu nhanh để phục vụ các đoàn xe đường dài không gián đoạn.</li>
+  <li><strong>Giao hàng xuyên suốt ngày đêm:</strong> Đội ngũ giao nhận phải linh hoạt vượt dải phân cách quốc lộ để giao bình gas tới tận nơi trong 15 phút.</li>
+</ul>
+
+<h2>2. Bảng Tiêu Chuẩn Kỹ Thuật Van Điều Áp Ren Ngoài POL Chống Rung Chấn Tại Tân Thới Nhì</h2>
+<p>
+  Nhằm đảm bảo an toàn cho các hộ dân và quán ăn ven trục Quốc Lộ 22 chịu rung lắc xe cộ, Ngọc Gas áp dụng quy chuẩn van khóa chuyên biệt:
+</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;">
+    <thead>
+      <tr style="background:#1E40AF;color:#fff;">
+        <th style="padding:12px;border:1px solid #1D4ED8;">Đặc Tính Kỹ Thuật Khớp Nối</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Van Trôi Nổi Không Rõ Xuất Xứ</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Quy Chuẩn Van POL Ren Đồng Của Ngọc Gas Tại Tân Thới Nhì</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Vật liệu ren siết cổ bình</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Hợp kim gang pha kẽm giòn, dễ trờn ren khi rung lắc</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Đồng thau đúc nguyên khối ren ngược chiều kim đồng hồ, chống tự tháo lỏng 100%</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Độ dày màng cao su giảm áp</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Mỏng dưới 0.6mm, dễ rách khi áp suất bồn tăng</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Màng cao su cốt sợi gia cường dày 1.5mm chịu biến thiên áp suất cực đại</td>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Trọng lượng khí đối chứng</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Thiếu hụt từ 1.8kg đến 2.6kg</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cân đủ 12.0kg ± 0.1kg bằng cân điện tử ngay tại chân bếp khách hàng</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Áp lực thử bền vỏ bình thép</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Vỏ mục rỉ sét quá hạn kiểm định</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Thép SG255 dập nguội, kiểm định áp lực thủy lực 34 bar đạt chuẩn PCCC</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Hệ Thống 3 Thương Hiệu Uy Tín &amp; 4 Sắc Màu Bình Gas Tại Xã Tân Thới Nhì</h2>
+<p>
+  Đại lý giao gas chính hãng Xã Tân Thới Nhì cam kết cung cấp sản phẩm chuẩn chất lượng cao:
+</p>
+<ul>
+  <li><strong>Sopet Gas One (Vỏ Xám Chuẩn Nhật):</strong> Dòng sản phẩm lọc sạch tạp chất lưu huỳnh, bảo vệ sức khỏe và không gian sống trong lành cho các hộ gia đình ven Quốc Lộ 22 và đường Tân Thới Nhì 1.</li>
+  <li><strong>Luxen Gas (Vỏ Xanh Dương, Vỏ Đỏ, Vỏ Vàng):</strong> Tỷ lệ Propane/Butane cân đối chuẩn xác, ngọn lửa xanh tập trung nhiệt lượng giúp tiết kiệm thời gian đun nấu cho người nội trợ.</li>
+  <li><strong>Phoenix Gas (Vỏ Vàng Cam, Vỏ Xám):</strong> Dòng khí có nhiệt lượng dồi dào, áp suất phun ổn định thích hợp cho các bếp ăn công nghiệp và quán cơm bình dân phục vụ tài xế đường dài.</li>
+</ul>
+<p>
+  Tất cả bình gas 12kg đều có khối lượng tịnh đủ 12.0kg ± 0.1kg, vỏ từ 12.5kg - 14.0kg. Sản phẩm được bảo chứng bởi <strong>bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật</strong>. Hỗ trợ đổi vỏ ngang miễn phí 100% giữa 4 màu sắc xám, đỏ, xanh, vàng.
+</p>
+
+<h2>4. Cẩm Nang Kỹ Thuật: Hướng Dẫn Chỉnh Cửa Gió Sơ Cấp Dưới Đáy Bếp Khi Ngọn Lửa Bị Đỏ Ngọn</h2>
+<p>
+  Ngọn lửa bếp gas chuyển sang màu đỏ vàng bám muội đen đáy nồi thường do tỷ lệ hòa trộn khí gas và oxy không cân đối. Cách chỉnh lá gió như sau:
+</p>
+<ol>
+  <li><strong>Quan sát phía dưới bụng bếp gas:</strong> Cúi nhìn xuống gầm bếp gần vị trí họng dẫn khí vào mâm đồng, bạn sẽ thấy 2 lá kim loại mỏng hình quạt có cần gạt nhỏ (gọi là lá gió sơ cấp).</li>
+  <li><strong>Xác định nguyên nhân thiếu oxy:</strong> Lửa đỏ và muội đen là do thiếu không khí để đốt cháy hoàn toàn khí gas. Lúc này cần mở rộng khe hút gió.</li>
+  <li><strong>Gạt nhẹ cần chỉnh lá gió:</strong> Bật bếp ở mức lửa vừa, dùng tay gạt nhẹ cần lá gió từ từ sang trái hoặc phải để mở rộng khe hở đón gió. Quan sát ngọn lửa trên mặt bếp chuyển dần từ màu vàng đỏ sang xanh biếc hoàn toàn thì dừng lại.</li>
+  <li><strong>Siết nhẹ ốc hãm vị trí:</strong> Nếu có ốc cố định, siết nhẹ lại để tránh lá gió bị xê dịch khi lau chùi bếp hằng ngày.</li>
+</ol>
+
+<h2>5. Quy Trình Giao Gas Hỏa Tốc 5 Bước Tại Xã Tân Thới Nhì</h2>
+<ol>
+  <li><strong>Tiếp nhận nhanh qua Hotline 1900 9396:</strong> Xác nhận vị trí giao hàng trên trục Quốc Lộ 22, Chợ Tân Hiệp, đường Dương Công Khi hoặc các hẻm Tân Thới Nhì 1-10.</li>
+  <li><strong>Cơ động xe chuyên dụng trong 15 phút:</strong> Nhân viên di chuyển qua các điểm quay đầu dải phân cách an toàn, tiếp cận nhà khách hàng đúng hẹn.</li>
+  <li><strong>Cân đối chứng công khai bằng cân điện tử:</strong> Khách hàng trực tiếp kiểm tra khối lượng đủ 12kg gas nguyên chất trước khi tiến hành lắp đặt.</li>
+  <li><strong>Lắp ráp và kiểm tra độ kín toàn diện:</strong> Kết nối van ren POL hoặc Compact chắc chắn, quét bọt xà phòng thử kín và chỉnh lửa xanh miễn phí.</li>
+  <li><strong>Bàn giao hóa đơn và dán tem an toàn:</strong> Dán tem hotline 1900 9396 hỗ trợ kỹ thuật kiểm tra rò rỉ định kỳ 24/7.</li>
+</ol>
+
+<h2>6. Câu Hỏi Thường Gặp Của Cư Dân Xã Tân Thới Nhì</h2>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Quán ăn ven Quốc Lộ 22 hết gas vào ban đêm có được giao hỏa tốc không?</h3>
+  <p style="margin:0;color:#374151;">Ngọc Gas duy trì đội cơ động trực chiến 24/7 trên tuyến Quốc Lộ 22, sẵn sàng giao bình gas tận nơi chỉ sau 10 đến 15 phút nhận cuộc gọi.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Làm thế nào để phân biệt bình gas chính hãng với bình sang chiết lậu?</h3>
+  <p style="margin:0;color:#374151;">Bình gas chính hãng Ngọc Gas có màng co niêm phong nguyên vẹn, chữ dập nổi thương hiệu trên quai bình rõ nét, có tem chống giả QR code và luôn được cân điện tử đủ 12kg tại bếp.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Tôi đang có vỏ bình màu vàng có đổi sang Sopet Gas One xám được không?</h3>
+  <p style="margin:0;color:#374151;">Được đổi ngang 100% miễn phí! Bạn thoải mái lựa chọn vỏ bình xám Nhật Bản hoặc các màu đỏ, xanh, vàng mà không phải trả thêm tiền cọc vỏ.</p>
+</div>
+    `
+  },
+
+  // -------------------------------------------------------------
+  // ID 115: XÃ ĐÔNG THẠNH (HUYỆN HÓC MÔN)
+  // -------------------------------------------------------------
+  {
+    id: 115,
+    slug: 'giao-gas-xa-dong-thanh',
+    title: 'Đổi Bình Gas Xã Đông Thạnh (Hóc Môn) — Đặng Thúc Vịnh & Lê Văn Khương',
+    summary: 'Đại lý giao gas chính hãng Xã Đông Thạnh (Huyện Hóc Môn). Cung cấp Sopet Gas One, Luxen Gas, Phoenix Gas vỏ xám, đỏ, xanh, vàng. Giao hỏa tốc 15 phút Đặng Thúc Vịnh, Lê Văn Khương, Cầu Rạch Tra, KDC Đông Thạnh, Ấp 1, Ấp 2, Ấp 7. Cân đủ 12kg tại bếp, van tự ngắt an toàn, ngọn lửa xanh gom nhiệt. Hotline 1900 9396.',
+    imageUrl: banners['giao-gas-xa-dong-thanh'],
+    is_published: 0,
+    content: `
+<div class="quick-summary" style="background:#EFF6FF;border-left:5px solid #2563EB;padding:18px 20px;margin-bottom:28px;border-radius:8px;font-size:15px;line-height:1.7;color:#1E40AF;">
+  <strong>Dịch vụ đổi bình gas chính hãng Xã Đông Thạnh uy tín chuẩn PCCC (cửa ngõ kết nối Quận 12 và Bình Dương qua Cầu Rạch Tra - Huyện Hóc Môn):</strong> Chuyên cung ứng hỏa tốc các dòng bình gas sạch chính hãng <strong>Sopet Gas One, Luxen Gas, Phoenix Gas</strong> với 4 màu sắc vỏ bình phong thủy: <em>vỏ xám công nghệ Nhật Bản, vỏ đỏ may mắn, vỏ xanh tươi mát, vỏ vàng cam nhiệt lượng lớn</em> (sở hữu van bấm Compact ngắt gas tự động và van xoay POL). Phục vụ chu đáo hàng ngàn hộ gia đình, biệt thự vườn và nhà hàng ven sông tại <em>trục đại lộ Đặng Thúc Vịnh (Tỉnh Lộ 9), Lê Văn Khương, khu vực Cầu Rạch Tra, KDC Đông Thạnh, các Ấp 1, 2, 3, 4, 5, 6, 7</em>. Cam kết giao gas nhanh Xã Đông Thạnh trong 15 phút, cân đủ 12kg tại bếp, vỏ bình sơn tĩnh điện chống rỉ sét ven sông. Xem ngay <a href="/gia-gas-hom-nay" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Bảng giá gas hôm nay</a> hoặc liên hệ <a href="/cua-hang" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Hệ thống cửa hàng Ngọc Gas</a> qua hotline: <a href="tel:19009396" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">1900 9396</a>.
+</div>
+
+<div class="article-banner-wrap" style="text-align:center;margin:24px 0 32px 0;">
+  <img src="${banners['giao-gas-xa-dong-thanh']}" alt="Giao gas chính hãng Xã Đông Thạnh Hóc Môn Đặng Thúc Vịnh Lê Văn Khương" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+</div>
+
+<h2>1. Vị Thế Cửa Ngõ Ven Sông Xã Đông Thạnh &amp; Tiêu Chuẩn Năng Lượng Chống Ẩm Mòn</h2>
+<p>
+  Tọa lạc tại phía Đông Bắc Huyện Hóc Môn, <strong>Xã Đông Thạnh</strong> giữ vị trí nút giao chiến lược kết nối với Quận 12 và TP. Thuận An (tỉnh Bình Dương) thông qua cây cầu huyết mạch <em>Cầu Rạch Tra</em>. Tuyến đại lộ <em>Đặng Thúc Vịnh</em> vừa được mở rộng khang trang cùng trục <em>Lê Văn Khương</em> tạo nên diện mạo đô thị sầm uất với nhiều khu dân cư mới, quán ăn bờ sông và biệt thự vườn sinh thái.
+</p>
+<p>
+  Đặc thù địa hình tiếp giáp rạch Tra và sông Sài Gòn mang hơi nước và độ ẩm cao vào mùa mưa lũ, đòi hỏi các tiêu chí khắt khe:
+</p>
+<ul>
+  <li><strong>Vỏ bình gas phải chống chịu rỉ sét ăn mòn:</strong> Không khí ẩm ven sông rạch dễ làm mục chân đế và thân bình; bình gas phải được sơn tĩnh điện bảo vệ dày dặn.</li>
+  <li><strong>Nhu cầu gas sạch ngọn lửa xanh cho nhà hàng ven sông:</strong> Các quán ẩm thực bờ sông cần lửa lớn, nhiệt lượng cao để chế biến các món cá sông, lẩu đồng nhanh chóng mà không làm ố đen xoong chảo.</li>
+  <li><strong>Giao hàng nhanh chóng dọc theo trục Đặng Thúc Vịnh:</strong> Kỹ thuật viên phải có mặt trong 15 phút tại cả mặt tiền lẫn các con hẻm ven đê bao sông nước.</li>
+</ul>
+
+<h2>2. Bảng Quy Chuẩn Vỏ Bình Sơn Tĩnh Điện Chống Ăn Mòn Hơi Ẩm Sông Rạch Tại Đông Thạnh</h2>
+<p>
+  Bảo đảm an toàn tối đa trong điều kiện độ ẩm cao ven sông Sài Gòn và Rạch Tra, Ngọc Gas thiết lập chuẩn vỏ bình cao cấp:
+</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;">
+    <thead>
+      <tr style="background:#1E40AF;color:#fff;">
+        <th style="padding:12px;border:1px solid #1D4ED8;">Tiêu Chí Vỏ Bình &amp; Khí Nạp</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Bình Gas Sang Chiết Cũ Mục</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Chuẩn Vỏ Bình Sơn Tĩnh Điện Ngọc Gas Tại Đông Thạnh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Lớp sơn bảo vệ bề mặt thép</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Sơn xịt thủ công, rộp bong tróc sau 1 tháng ẩm</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Sơn bột tĩnh điện Polyester sấy nhiệt 200°C dày 80µm, kháng hơi ẩm muối triệt để</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Kết cấu chân đế chịu lực đáy bình</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Gỉ sét đọng nước làm mòn thủng đáy bình âm thầm</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Chân đế dập lỗ thoát nước chuyên dụng, chống ứ đọng ẩm mốc mặt sàn</td>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Chất lượng khí đốt đun nấu</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Lẫn nhiều tạp chất, lửa đỏ ám khói đen nồi</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Khí tinh khiết ngọn lửa xanh nhiệt lượng cao 11.800 kcal/kg gom nhiệt đáy chảo</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Khối lượng khí cân thực tế</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Bị bòn rút từ 2.0kg đến 2.8kg</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cân đủ 12.0kg ± 0.1kg bằng cân điện tử trước sự giám sát của chủ nhà</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Hệ Thống 3 Thương Hiệu Uy Tín &amp; 4 Màu Sắc Bình Gas Tại Xã Đông Thạnh</h2>
+<p>
+  Ngọc Gas đem lại sự phong phú và an tâm trọn vẹn cho các gian bếp tại Xã Đông Thạnh:
+</p>
+<ul>
+  <li><strong>Sopet Gas One (Vỏ Xám Chuẩn Nhật):</strong> Dòng sản phẩm số một về độ bền kết cấu và tiêu chuẩn khí sạch Nhật Bản, tối ưu lượng gas đun nấu cho gia đình trẻ tại KDC Đông Thạnh và các ấp ven rạch Tra.</li>
+  <li><strong>Luxen Gas (Vỏ Xanh, Đỏ, Vàng):</strong> Ba sắc màu tươi sáng mang phong thủy tài lộc cho gia chủ, ngọn lửa xanh biếc gom nhiệt đáy nồi giúp tiết kiệm đáng kể thời gian chế biến bữa cơm gia đình.</li>
+  <li><strong>Phoenix Gas (Vỏ Vàng, Vỏ Xám):</strong> Sức ép khí gas mạnh mẽ và ổn định, là sự lựa chọn tin cậy của các nhà hàng sinh thái ẩm thực cá sông và quán ăn đông khách quanh Cầu Rạch Tra.</li>
+</ul>
+<p>
+  Tất cả bình gas 12kg đều có khối lượng tịnh đủ 12.0kg ± 0.1kg, vỏ từ 12.5kg - 14.0kg. Sản phẩm được bảo chứng bởi <strong>bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật</strong>. Hỗ trợ đổi vỏ ngang miễn phí 100% giữa 4 màu sắc xám, đỏ, xanh, vàng.
+</p>
+
+<h2>4. Cẩm Nang Kỹ Thuật: Dấu Hiệu Ống Dẫn Gas Bị Lão Hóa Chân Chim &amp; Chu Kỳ 2 Năm Bắt Buộc Thay Mới</h2>
+<p>
+  Dây dẫn gas cao su là bộ phận chịu áp lực liên tục từ bình gas lên bếp. Sau thời gian sử dụng trong môi trường nóng ẩm, dây sẽ bị lão hóa:
+</p>
+<ol>
+  <li><strong>Quan sát các vết rạn nứt chân chim:</strong> Dùng tay uốn cong nhẹ đoạn dây cao su gần đầu nối van bếp và van bình. Nếu thấy xuất hiện các vết nứt li ti như sợi chỉ trên bề mặt cao su, đó là dấu hiệu dây đã bị chai cứng và bắt đầu thoái hóa.</li>
+  <li><strong>Kiểm tra độ nhớt dính hoặc phồng rộp:</strong> Khi dầu mỡ bắn vào lâu ngày làm mềm nhũn cao su, dây có thể bị phồng to cục bộ dưới áp lực của khí gas, tiềm ẩn nguy cơ bục nứt bất thình lình.</li>
+  <li><strong>Quy tắc vàng 2 năm thay mới:</strong> Theo khuyến cáo của Cục Cảnh sát PCCC, ngay cả khi nhìn bề ngoài dây vẫn còn nguyên vẹn, bạn vẫn BẮT BUỘC nên thay ống dẫn gas mềm định kỳ sau 2 năm sử dụng.</li>
+  <li><strong>Sử dụng ống dẫn bọc inox chuyên dụng:</strong> Khi thay mới, nên ưu tiên chọn loại dây cao su NBR có bọc lưới thép Inox 304 bên ngoài để vừa chống gập nứt vừa ngăn chuột cắn.</li>
+</ol>
+
+<h2>5. Quy Trình Giao Gas Hỏa Tốc 5 Bước Tại Xã Đông Thạnh</h2>
+<ol>
+  <li><strong>Tiếp nhận nhanh qua Hotline 1900 9396:</strong> Xác nhận địa chỉ tại Đặng Thúc Vịnh, Lê Văn Khương, KDC Đông Thạnh hoặc khu vực Cầu Rạch Tra.</li>
+  <li><strong>Xuất trạm hỏa tốc 15 phút:</strong> Nhân viên di chuyển nhanh trên đại lộ Đặng Thúc Vịnh mới mở rộng để có mặt tại nhà khách hàng đúng cam kết.</li>
+  <li><strong>Cân đối chứng công khai bằng cân điện tử:</strong> Khách hàng trực tiếp chứng kiến cân đủ 12kg gas nguyên chất trước khi tiến hành lắp đặt.</li>
+  <li><strong>Lắp đặt và quét bọt xà phòng thử kín:</strong> Kết nối van Compact, kiểm tra rò rỉ tại cổ bình và vệ sinh mâm đồng bếp gas sạch sẽ.</li>
+  <li><strong>Bàn giao hóa đơn và dán tem bảo hành:</strong> Dán tem hotline 1900 9396 hỗ trợ kỹ thuật và kiểm tra an toàn miễn phí 24/7.</li>
+</ol>
+
+<h2>6. Câu Hỏi Thường Gặp Của Cư Dân Xã Đông Thạnh</h2>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Giao gas khu vực chân Cầu Rạch Tra giáp Bình Dương có lâu không?</h3>
+  <p style="margin:0;color:#374151;">Ngọc Gas có trạm giao hàng ngay ngã ba Đông Thạnh kề cận Cầu Rạch Tra, cam kết giao gas nhanh chỉ từ 10 đến 15 phút sau khi đặt hàng.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Tôi đang có vỏ bình màu xanh có đổi sang Sopet Gas One xám được không?</h3>
+  <p style="margin:0;color:#374151;">Hoàn toàn được! Ngọc Gas áp dụng chính sách đổi vỏ ngang miễn phí giữa 4 màu sắc xám, đỏ, xanh, vàng mà không yêu cầu đóng thêm bất kỳ khoản tiền nào.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Kỹ thuật viên có hỗ trợ thay dây dẫn gas cũ bị rạn nứt không?</h3>
+  <p style="margin:0;color:#374151;">Có! Kỹ thuật viên luôn mang theo dây dẫn bọc inox chính hãng và hỗ trợ công thay thế, siết cổ dê, quét bọt kiểm tra rò rỉ hoàn toàn miễn phí.</p>
+</div>
+    `
+  },
+
+  // -------------------------------------------------------------
+  // ID 116: XÃ THỚI TAM THÔN (HUYỆN HÓC MÔN)
+  // -------------------------------------------------------------
+  {
+    id: 116,
+    slug: 'giao-gas-xa-thoi-tam-thon',
+    title: 'Đổi Bình Gas Xã Thới Tam Thôn (Hóc Môn) — Chợ Thới Tứ & Đặng Thúc Vịnh',
+    summary: 'Đại lý giao gas chính hãng Xã Thới Tam Thôn (Huyện Hóc Môn). Phân phối Sopet Gas One, Luxen Gas, Phoenix Gas vỏ xám, đỏ, xanh, vàng. Giao hỏa tốc 15 phút Chợ Thới Tứ, Đặng Thúc Vịnh, Tô Ký, Nguyễn Thị Ngâu, KDC Tam Đông, Thới Tứ. Cân đủ 12kg tại bếp, van tự ngắt an toàn, ngọn lửa xanh gom nhiệt. Hotline 1900 9396.',
+    imageUrl: banners['giao-gas-xa-thoi-tam-thon'],
+    is_published: 0,
+    content: `
+<div class="quick-summary" style="background:#EFF6FF;border-left:5px solid #2563EB;padding:18px 20px;margin-bottom:28px;border-radius:8px;font-size:15px;line-height:1.7;color:#1E40AF;">
+  <strong>Dịch vụ giao gas hỏa tốc Xã Thới Tam Thôn uy tín chuẩn PCCC (khu vực quần cư lâu đời sầm uất quanh Chợ Thới Tứ - Huyện Hóc Môn):</strong> Chuyên cung ứng các dòng bình gas sạch chính hãng <strong>Sopet Gas One, Luxen Gas, Phoenix Gas</strong> với 4 màu sắc vỏ bình phong thủy: <em>vỏ xám công nghệ Nhật Bản, vỏ đỏ may mắn, vỏ xanh tươi mát, vỏ vàng cam nhiệt lượng lớn</em> (trang bị hệ van bấm Compact ngắt gas tự động và van ren POL). Phục vụ chu đáo bà con tiểu thương và các hộ gia đình tại <em>trục đường Đặng Thúc Vịnh, Tô Ký, Nguyễn Thị Ngâu, khu vực Chợ Thới Tứ, ấp Thới Tứ, Tam Đông, Trung Đông</em>. Cam kết giao gas nhanh Xã Thới Tam Thôn trong 15 phút, cân đủ 12kg tại bếp, ngọn lửa xanh nhiệt cao không hao gas. Xem ngay <a href="/gia-gas-hom-nay" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Bảng giá gas hôm nay</a> hoặc liên hệ <a href="/cua-hang" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">Hệ thống cửa hàng Ngọc Gas</a> qua hotline: <a href="tel:19009396" style="color:#1D4ED8;font-weight:bold;text-decoration:underline;">1900 9396</a>.
+</div>
+
+<div class="article-banner-wrap" style="text-align:center;margin:24px 0 32px 0;">
+  <img src="${banners['giao-gas-xa-thoi-tam-thon']}" alt="Giao gas chính hãng Xã Thới Tam Thôn Hóc Môn Chợ Thới Tứ Đặng Thúc Vịnh" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+</div>
+
+<h2>1. Vị Thế Đô Thị Quần Cư Lâu Đời Xã Thới Tam Thôn &amp; Nhu Cầu Tiết Kiệm Năng Lượng</h2>
+<p>
+  Tọa lạc ở vị trí tiếp giáp giữa Thị trấn Hóc Môn và Quận 12, <strong>Xã Thới Tam Thôn</strong> là một trong những địa bàn có mật độ dân cư đông đúc bậc nhất huyện. Trung tâm giao thương sầm uất <em>Chợ Thới Tứ</em> cùng các tuyến giao thông trọng điểm như <em>Đặng Thúc Vịnh, Tô Ký, Nguyễn Thị Ngâu và các xóm ấp Tam Đông, Trung Đông</em> luôn nhộn nhịp hoạt động buôn bán và đời sống gia đình.
+</p>
+<p>
+  Đặc điểm khu dân cư truyền thống tại Thới Tam Thôn với nhiều thế hệ cùng sinh sống đặt ra những nhu cầu thiết thực:
+</p>
+<ul>
+  <li><strong>Hiệu quả kinh tế và tiết kiệm chi phí:</strong> Các gia đình nấu nướng hằng ngày cần bình gas có khí nén sạch, cháy kiệt hoàn toàn để một bình gas 12kg dùng bền bỉ từ 2.5 đến 3 tháng.</li>
+  <li><strong>An toàn tuyệt đối cho người lớn tuổi và trẻ nhỏ:</strong> Hệ thống bếp phải có van tự động ngắt gas khi gió thổi tắt lửa hoặc thức ăn trào ra ngoài.</li>
+  <li><strong>Dịch vụ giao nhận thân thiện và tận tâm:</strong> Thợ giao gas phải hỗ trợ bưng bê, kê đặt bình gas gọn gàng và lau chùi bếp gas cho các gia đình.</li>
+</ul>
+
+<h2>2. Bảng Tiêu Chuẩn Áp Suất Khí Đốt Tiết Kiệm Năng Lượng Cho Gia Đình Thới Tam Thôn</h2>
+<p>
+  Nhằm giúp bà con tiết kiệm chi phí sinh hoạt hàng tháng mà vẫn đảm bảo ngọn lửa nấu nhanh, Ngọc Gas chuẩn hóa các thông số kỹ thuật:
+</p>
+
+<div style="overflow-x:auto;margin:24px 0;">
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;">
+    <thead>
+      <tr style="background:#1E40AF;color:#fff;">
+        <th style="padding:12px;border:1px solid #1D4ED8;">Thông Số Tiết Kiệm Khí Đốt</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Bình Gas Tạp Nổi Thị Trường</th>
+        <th style="padding:12px;border:1px solid #1D4ED8;">Quy Chuẩn Gas Sạch Tiết Kiệm Của Ngọc Gas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Áp suất khí cấp đầu ra ổn định</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Chập chờn 1.5 - 4.5 kPa, hao tốn nhiên liệu</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cố định chuẩn 2.8 kPa (± 0.2 kPa), tối ưu hóa phản ứng cháy hoàn toàn</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Mức độ cháy kiệt lượng gas lỏng</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Còn thừa 1.0 - 1.5kg cặn nước không cháy được</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cháy kiệt 100% đến giọt cuối cùng, không lãng phí tiền của khách hàng</td>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Thời gian đun sôi 2 lít nước</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Mất từ 7 đến 9 phút do lửa đỏ tản nhiệt</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Chỉ mất 4.5 đến 5 phút nhờ ngọn lửa xanh biếc gom nhiệt đáy nồi</td>
+      </tr>
+      <tr>
+        <td style="padding:10px;border:1px solid #E2E8F0;font-weight:600;">Định lượng cân đối chứng điện tử</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#DC2626;">Cân ước lượng mắt thường hoặc dùng cân lò xo sai số</td>
+        <td style="padding:10px;border:1px solid #E2E8F0;color:#059669;font-weight:bold;">Cân điện tử số hiển thị rõ ràng đủ 12.0kg ± 0.1kg tại gian bếp</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Hệ Thống 3 Thương Hiệu Uy Tín &amp; 4 Màu Sắc Bình Gas Tại Xã Thới Tam Thôn</h2>
+<p>
+  Ngọc Gas đem lại sự phong phú và hài lòng tối đa cho mọi không gian bếp tại Xã Thới Tam Thôn:
+</p>
+<ul>
+  <li><strong>Sopet Gas One (Vỏ Xám Chuẩn Nhật):</strong> Dòng sản phẩm tinh túy được tinh lọc triệt để cặn bẩn, cháy kiệt hoàn toàn giúp tiết kiệm tới 15% chi phí năng lượng mỗi tháng cho người dân Thới Tam Thôn.</li>
+  <li><strong>Luxen Gas (Vỏ Xanh, Đỏ, Vàng):</strong> Vỏ bình đúc bằng thép chất lượng cao dày 2.6mm chịu va chạm tốt, lớp sơn phủ bền đẹp bảo vệ gian bếp gia đình luôn khang trang.</li>
+  <li><strong>Phoenix Gas (Vỏ Vàng, Vỏ Xám):</strong> Ngọn lửa dồi dào nhiệt lượng, áp suất hơi bền bỉ là người bạn đồng hành tin cậy của các quán phở, hủ tiếu truyền thống quanh Chợ Thới Tứ.</li>
+</ul>
+<p>
+  Tất cả bình gas 12kg đều có khối lượng tịnh đủ 12.0kg ± 0.1kg, vỏ từ 12.5kg - 14.0kg. Sản phẩm được bảo chứng bởi <strong>bảo hiểm trách nhiệm sản phẩm theo quy chuẩn an toàn PCCC và quy định hiện hành của pháp luật</strong>. Hỗ trợ đổi vỏ ngang miễn phí 100% giữa 4 màu sắc xám, đỏ, xanh, vàng.
+</p>
+
+<h2>4. Cẩm Nang Kỹ Thuật: Hướng Dẫn Vệ Sinh Khe Rãnh Mâm Đồng Chia Lửa Tránh Nghẹt Tia Lửa</h2>
+<p>
+  Mâm chia lửa bằng đồng thau sau vài tháng nấu nướng thường bị dầu mỡ và nước canh trào dính vào các khe rãnh nhỏ, làm lửa cháy không đều hoặc khó bắt lửa:
+</p>
+<ol>
+  <li><strong>Nhấc mâm đồng ra khỏi bếp khi đã nguội:</strong> Tắt bếp, chờ mâm đồng nguội hẳn rồi nhấc thẳng lên khỏi đế họng dẫn khí.</li>
+  <li><strong>Ngâm mâm đồng vào nước ấm pha giấm hoặc xà phòng:</strong> Ngâm trong khoảng 15 phút để làm mềm các mảng dầu mỡ cháy két lâu ngày bám quanh các khe lửa.</li>
+  <li><strong>Dùng bàn chải sắt hoặc bàn chải đánh răng cũ cọ sạch:</strong> Chải xuôi theo chiều các khe rãnh chia lửa để đẩy sạch muội than bám kẹt bên trong. Dùng que tăm thông sạch lỗ dẫn lửa phụ (lỗ mồi lửa cạnh kim sứ đánh điện).</li>
+  <li><strong>Lau thật khô ráo trước khi đặt lại vị trí cũ:</strong> Dùng khăn khô lau sạch hoặc sấy khô mâm đồng. Đặt mâm đúng khớp khuyên định vị trên họng bếp để ngọn lửa bốc lên đều đẹp và xanh biếc.</li>
+</ol>
+
+<h2>5. Quy Trình Giao Gas Hỏa Tốc 5 Bước Tại Xã Thới Tam Thôn</h2>
+<ol>
+  <li><strong>Tiếp nhận nhanh qua Hotline 1900 9396:</strong> Xác nhận địa chỉ tại Đặng Thúc Vịnh, Tô Ký, Chợ Thới Tứ hoặc các ấp Tam Đông, Trung Đông.</li>
+  <li><strong>Xuất trạm hỏa tốc 15 phút:</strong> Kỹ thuật viên di chuyển nhanh bằng xe chuyên dụng đến tận cửa nhà khách hàng.</li>
+  <li><strong>Cân đối chứng công khai bằng cân điện tử:</strong> Khách hàng trực tiếp kiểm tra khối lượng đủ 12kg gas nguyên chất trước khi lắp đặt.</li>
+  <li><strong>Lắp đặt và kiểm tra an toàn toàn diện:</strong> Kiểm tra rò rỉ van gas bằng bọt xà phòng, kiểm tra mâm đồng và tia lửa điện bếp gas.</li>
+  <li><strong>Bàn giao hóa đơn và dán tem bảo hành:</strong> Dán tem hotline 1900 9396 hỗ trợ kỹ thuật và kiểm tra an toàn miễn phí 24/7.</li>
+</ol>
+
+<h2>6. Câu Hỏi Thường Gặp Của Cư Dân Xã Thới Tam Thôn</h2>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Giao gas vào khu vực Chợ Thới Tứ giờ tan tầm có bị trễ không?</h3>
+  <p style="margin:0;color:#374151;">Ngọc Gas có trạm giao hàng ngay kề cận ngã tư Thới Tứ, nhân viên rành đường hẻm phụ nên luôn đảm bảo giao gas hỏa tốc đúng hẹn 10 đến 15 phút.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Một bình gas 12kg nấu cho gia đình 4 người thì dùng được bao lâu?</h3>
+  <p style="margin:0;color:#374151;">Với khí gas tinh khiết đủ 12kg của Ngọc Gas, gia đình 4 người nấu ăn 2 bữa mỗi ngày thường sử dụng bền bỉ từ 2.5 đến 3 tháng mới hết bình.</p>
+</div>
+<div class="faq-item" style="margin-bottom:16px;">
+  <h3 style="font-size:16px;color:#1E40AF;margin-bottom:6px;">Bếp gas khó đánh lửa vào buổi sáng nhân viên giao gas có sửa giúp không?</h3>
+  <p style="margin:0;color:#374151;">Có! Kỹ thuật viên Ngọc Gas luôn sẵn sàng kiểm tra kim sứ đánh lửa, vệ sinh đầu đốt và thay pin bếp gas âm hoàn toàn miễn phí khi giao gas.</p>
+</div>
+    `
+  }
+];
+
+// Tạo file module export
+const outputContent = `// Tự động tạo bởi build-cluster-hoc-mon.mjs
+export const hocMonArticles = ${JSON.stringify(articles, null, 2)};
+`;
+
+fs.writeFileSync(path.resolve('scripts/new-wards/cluster-hoc-mon.mjs'), outputContent, 'utf8');
+console.log('🎉 ĐÃ TẠO THÀNH CÔNG CLUSTER HÓC MÔN TẠI:', path.resolve('scripts/new-wards/cluster-hoc-mon.mjs'));
+console.log(`- Tổng số bài viết: ${articles.length} (IDs 111 đến 116)`);

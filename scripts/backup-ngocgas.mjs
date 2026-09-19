@@ -386,7 +386,29 @@ async function runBackup() {
   }
 
   // -------------------------------------------------------------
-  // PHẦN 5: TẠO BACKUP MANIFEST & TỔNG KẾT
+  // PHẦN 5: SAO CHÉP DỮ LIỆU ĐỊA GIỚI 34 TỈNH THÀNH (src/data/tinhthanh)
+  // -------------------------------------------------------------
+  console.log('\n🗺️  [5/5] ĐANG SAO LƯU DỮ LIỆU ĐỊA GIỚI 34 TỈNH THÀNH...');
+  const tinhThanhDir = path.join(ROOT_DIR, 'src', 'data', 'tinhthanh');
+  const tinhThanhBackupDir = path.join(backupDir, 'tinhthanh_data');
+  manifest.tinhthanh_data_files = [];
+  if (fs.existsSync(tinhThanhDir)) {
+    fs.mkdirSync(tinhThanhBackupDir, { recursive: true });
+    const ttFiles = fs.readdirSync(tinhThanhDir).filter(f => f.endsWith('.json'));
+    for (const tf of ttFiles) {
+      const src = path.join(tinhThanhDir, tf);
+      const dst = path.join(tinhThanhBackupDir, tf);
+      fs.copyFileSync(src, dst);
+      manifest.tinhthanh_data_files.push({
+        file: tf,
+        size: fs.statSync(src).size
+      });
+      console.log(`   ✅ Sao chép: src/data/tinhthanh/${tf} -> tinhthanh_data/${tf}`);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // PHẦN 6: TẠO BACKUP MANIFEST & TỔNG KẾT
   // -------------------------------------------------------------
   manifest.duration_ms = Date.now() - startTime;
   manifest.status = 'SUCCESS';
@@ -409,6 +431,7 @@ async function runBackup() {
   console.log(`   - Số file API & Feeds : ${Object.keys(manifest.api_endpoints).length} endpoints`);
   console.log(`   - Số file Media/Upload: ${manifest.media_files.total_found} files (${manifest.media_files.downloaded} tải mới, ${manifest.media_files.already_local} có sẵn)`);
   console.log(`   - Số file Data cục bộ : ${manifest.local_data_files.length} files`);
+  console.log(`   - Số file Địa Giới 2026: ${manifest.tinhthanh_data_files.length} files`);
   console.log(`   - File Manifest       : backups/${backupFolderName}/BACKUP_MANIFEST.json`);
   console.log('===============================================================');
 }

@@ -1,0 +1,569 @@
+[
+  {
+    "id": 1,
+    "name": "Hà Nội",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Thành phố Hà Nội",
+    "newSlug": "ha-noi",
+    "licensePlate": "29, 30, 31, 32, 33, 40",
+    "postalCode": "100000"
+  },
+  {
+    "id": 2,
+    "name": "Hải Phòng",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Thành phố Hải Phòng",
+    "newSlug": "hai-phong",
+    "licensePlate": "15, 16",
+    "postalCode": "180000"
+  },
+  {
+    "id": 3,
+    "name": "Hải Dương",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Thành phố Hải Phòng",
+    "newSlug": "hai-phong",
+    "licensePlate": "34",
+    "postalCode": "170000"
+  },
+  {
+    "id": 4,
+    "name": "Quảng Ninh",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Quảng Ninh",
+    "newSlug": "quang-ninh",
+    "licensePlate": "14",
+    "postalCode": "200000"
+  },
+  {
+    "id": 5,
+    "name": "Bắc Ninh",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Bắc Ninh",
+    "newSlug": "bac-ninh",
+    "licensePlate": "99",
+    "postalCode": "160000"
+  },
+  {
+    "id": 6,
+    "name": "Bắc Giang",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Bắc Ninh",
+    "newSlug": "bac-ninh",
+    "licensePlate": "98",
+    "postalCode": "260000"
+  },
+  {
+    "id": 7,
+    "name": "Hưng Yên",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Hưng Yên",
+    "newSlug": "hung-yen",
+    "licensePlate": "89",
+    "postalCode": "160000"
+  },
+  {
+    "id": 8,
+    "name": "Thái Bình",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Hưng Yên",
+    "newSlug": "hung-yen",
+    "licensePlate": "17",
+    "postalCode": "410000"
+  },
+  {
+    "id": 9,
+    "name": "Ninh Bình",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Ninh Bình",
+    "newSlug": "ninh-binh",
+    "licensePlate": "35",
+    "postalCode": "430000"
+  },
+  {
+    "id": 10,
+    "name": "Hà Nam",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Ninh Bình",
+    "newSlug": "ninh-binh",
+    "licensePlate": "90",
+    "postalCode": "400000"
+  },
+  {
+    "id": 11,
+    "name": "Nam Định",
+    "region": "Đồng bằng sông Hồng",
+    "mergedInto": "Tỉnh Ninh Bình",
+    "newSlug": "ninh-binh",
+    "licensePlate": "18",
+    "postalCode": "420000"
+  },
+  {
+    "id": 12,
+    "name": "Cao Bằng",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Cao Bằng",
+    "newSlug": "cao-bang",
+    "licensePlate": "11",
+    "postalCode": "270000"
+  },
+  {
+    "id": 13,
+    "name": "Điện Biên",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Điện Biên",
+    "newSlug": "dien-bien",
+    "licensePlate": "27",
+    "postalCode": "380000"
+  },
+  {
+    "id": 14,
+    "name": "Lai Châu",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Lai Châu",
+    "newSlug": "lai-chau",
+    "licensePlate": "25",
+    "postalCode": "390000"
+  },
+  {
+    "id": 15,
+    "name": "Lạng Sơn",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Lạng Sơn",
+    "newSlug": "lang-son",
+    "licensePlate": "12",
+    "postalCode": "240000"
+  },
+  {
+    "id": 16,
+    "name": "Lào Cai",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Lào Cai",
+    "newSlug": "lao-cai",
+    "licensePlate": "24",
+    "postalCode": "330000"
+  },
+  {
+    "id": 17,
+    "name": "Yên Bái",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Lào Cai",
+    "newSlug": "lao-cai",
+    "licensePlate": "21",
+    "postalCode": "320000"
+  },
+  {
+    "id": 18,
+    "name": "Phú Thọ",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Phú Thọ",
+    "newSlug": "phu-tho",
+    "licensePlate": "19",
+    "postalCode": "290000"
+  },
+  {
+    "id": 19,
+    "name": "Vĩnh Phúc",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Phú Thọ",
+    "newSlug": "phu-tho",
+    "licensePlate": "88",
+    "postalCode": "280000"
+  },
+  {
+    "id": 20,
+    "name": "Hòa Bình",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Phú Thọ",
+    "newSlug": "phu-tho",
+    "licensePlate": "28",
+    "postalCode": "350000"
+  },
+  {
+    "id": 21,
+    "name": "Sơn La",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Sơn La",
+    "newSlug": "son-la",
+    "licensePlate": "26",
+    "postalCode": "360000"
+  },
+  {
+    "id": 22,
+    "name": "Thái Nguyên",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Thái Nguyên",
+    "newSlug": "thai-nguyen",
+    "licensePlate": "20",
+    "postalCode": "250000"
+  },
+  {
+    "id": 23,
+    "name": "Bắc Kạn",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Thái Nguyên",
+    "newSlug": "thai-nguyen",
+    "licensePlate": "97",
+    "postalCode": "960000"
+  },
+  {
+    "id": 24,
+    "name": "Tuyên Quang",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Tuyên Quang",
+    "newSlug": "tuyen-quang",
+    "licensePlate": "22",
+    "postalCode": "300000"
+  },
+  {
+    "id": 25,
+    "name": "Hà Giang",
+    "region": "Trung du và miền núi phía Bắc",
+    "mergedInto": "Tỉnh Tuyên Quang",
+    "newSlug": "tuyen-quang",
+    "licensePlate": "23",
+    "postalCode": "310000"
+  },
+  {
+    "id": 26,
+    "name": "Thừa Thiên Huế",
+    "region": "Bắc Trung Bộ",
+    "mergedInto": "Thành phố Huế",
+    "newSlug": "hue",
+    "licensePlate": "75",
+    "postalCode": "530000"
+  },
+  {
+    "id": 27,
+    "name": "Hà Tĩnh",
+    "region": "Bắc Trung Bộ",
+    "mergedInto": "Tỉnh Hà Tĩnh",
+    "newSlug": "ha-tinh",
+    "licensePlate": "38",
+    "postalCode": "480000"
+  },
+  {
+    "id": 28,
+    "name": "Nghệ An",
+    "region": "Bắc Trung Bộ",
+    "mergedInto": "Tỉnh Nghệ An",
+    "newSlug": "nghe-an",
+    "licensePlate": "37",
+    "postalCode": "460000"
+  },
+  {
+    "id": 29,
+    "name": "Quảng Trị",
+    "region": "Bắc Trung Bộ",
+    "mergedInto": "Tỉnh Quảng Trị",
+    "newSlug": "quang-tri",
+    "licensePlate": "74",
+    "postalCode": "520000"
+  },
+  {
+    "id": 30,
+    "name": "Quảng Bình",
+    "region": "Bắc Trung Bộ",
+    "mergedInto": "Tỉnh Quảng Trị",
+    "newSlug": "quang-tri",
+    "licensePlate": "73",
+    "postalCode": "510000"
+  },
+  {
+    "id": 31,
+    "name": "Thanh Hóa",
+    "region": "Bắc Trung Bộ",
+    "mergedInto": "Tỉnh Thanh Hóa",
+    "newSlug": "thanh-hoa",
+    "licensePlate": "36",
+    "postalCode": "440000"
+  },
+  {
+    "id": 32,
+    "name": "Đà Nẵng",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Thành phố Đà Nẵng",
+    "newSlug": "da-nang",
+    "licensePlate": "43",
+    "postalCode": "550000"
+  },
+  {
+    "id": 33,
+    "name": "Quảng Nam",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Thành phố Đà Nẵng",
+    "newSlug": "da-nang",
+    "licensePlate": "92",
+    "postalCode": "560000"
+  },
+  {
+    "id": 34,
+    "name": "Khánh Hòa",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Tỉnh Khánh Hòa",
+    "newSlug": "khanh-hoa",
+    "licensePlate": "79",
+    "postalCode": "650000"
+  },
+  {
+    "id": 35,
+    "name": "Ninh Thuận",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Tỉnh Khánh Hòa",
+    "newSlug": "khanh-hoa",
+    "licensePlate": "85",
+    "postalCode": "660000"
+  },
+  {
+    "id": 36,
+    "name": "Quảng Ngãi",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Tỉnh Quảng Ngãi",
+    "newSlug": "quang-ngai",
+    "licensePlate": "76",
+    "postalCode": "570000"
+  },
+  {
+    "id": 37,
+    "name": "Kon Tum",
+    "region": "Tây Nguyên",
+    "mergedInto": "Tỉnh Quảng Ngãi",
+    "newSlug": "quang-ngai",
+    "licensePlate": "82",
+    "postalCode": "580000"
+  },
+  {
+    "id": 38,
+    "name": "Gia Lai",
+    "region": "Tây Nguyên",
+    "mergedInto": "Tỉnh Gia Lai",
+    "newSlug": "gia-lai",
+    "licensePlate": "81",
+    "postalCode": "600000"
+  },
+  {
+    "id": 39,
+    "name": "Bình Định",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Tỉnh Gia Lai",
+    "newSlug": "gia-lai",
+    "licensePlate": "77",
+    "postalCode": "590000"
+  },
+  {
+    "id": 40,
+    "name": "Đắk Lắk",
+    "region": "Tây Nguyên",
+    "mergedInto": "Tỉnh Đắk Lắk",
+    "newSlug": "dak-lak",
+    "licensePlate": "47",
+    "postalCode": "630000"
+  },
+  {
+    "id": 41,
+    "name": "Phú Yên",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Tỉnh Đắk Lắk",
+    "newSlug": "dak-lak",
+    "licensePlate": "78",
+    "postalCode": "620000"
+  },
+  {
+    "id": 42,
+    "name": "Lâm Đồng",
+    "region": "Tây Nguyên",
+    "mergedInto": "Tỉnh Lâm Đồng",
+    "newSlug": "lam-dong",
+    "licensePlate": "49",
+    "postalCode": "670000"
+  },
+  {
+    "id": 43,
+    "name": "Bình Thuận",
+    "region": "Duyên hải Nam Trung Bộ",
+    "mergedInto": "Tỉnh Lâm Đồng",
+    "newSlug": "lam-dong",
+    "licensePlate": "86",
+    "postalCode": "800000"
+  },
+  {
+    "id": 44,
+    "name": "Đắk Nông",
+    "region": "Tây Nguyên",
+    "mergedInto": "Tỉnh Lâm Đồng",
+    "newSlug": "lam-dong",
+    "licensePlate": "48",
+    "postalCode": "640000"
+  },
+  {
+    "id": 45,
+    "name": "TP. Hồ Chí Minh",
+    "region": "Đông Nam Bộ",
+    "mergedInto": "Thành phố Hồ Chí Minh",
+    "newSlug": "ho-chi-minh",
+    "licensePlate": "50, 51, 52, 53, 54, 55, 56, 57, 58, 59",
+    "postalCode": "700000"
+  },
+  {
+    "id": 46,
+    "name": "Bình Dương",
+    "region": "Đông Nam Bộ",
+    "mergedInto": "Thành phố Hồ Chí Minh",
+    "newSlug": "ho-chi-minh",
+    "licensePlate": "61",
+    "postalCode": "820000"
+  },
+  {
+    "id": 47,
+    "name": "Bà Rịa - Vũng Tàu",
+    "region": "Đông Nam Bộ",
+    "mergedInto": "Thành phố Hồ Chí Minh",
+    "newSlug": "ho-chi-minh",
+    "licensePlate": "72",
+    "postalCode": "790000"
+  },
+  {
+    "id": 48,
+    "name": "Đồng Nai",
+    "region": "Đông Nam Bộ",
+    "mergedInto": "Tỉnh Đồng Nai",
+    "newSlug": "dong-nai",
+    "licensePlate": "39, 60",
+    "postalCode": "810000"
+  },
+  {
+    "id": 49,
+    "name": "Bình Phước",
+    "region": "Đông Nam Bộ",
+    "mergedInto": "Tỉnh Đồng Nai",
+    "newSlug": "dong-nai",
+    "licensePlate": "93",
+    "postalCode": "830000"
+  },
+  {
+    "id": 50,
+    "name": "Tây Ninh",
+    "region": "Đông Nam Bộ",
+    "mergedInto": "Tỉnh Tây Ninh",
+    "newSlug": "tay-ninh",
+    "licensePlate": "70",
+    "postalCode": "840000"
+  },
+  {
+    "id": 51,
+    "name": "Long An",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Tây Ninh",
+    "newSlug": "tay-ninh",
+    "licensePlate": "62",
+    "postalCode": "850000"
+  },
+  {
+    "id": 52,
+    "name": "Cần Thơ",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Thành phố Cần Thơ",
+    "newSlug": "can-tho",
+    "licensePlate": "65",
+    "postalCode": "900000"
+  },
+  {
+    "id": 53,
+    "name": "Hậu Giang",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Thành phố Cần Thơ",
+    "newSlug": "can-tho",
+    "licensePlate": "95",
+    "postalCode": "910000"
+  },
+  {
+    "id": 54,
+    "name": "Sóc Trăng",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Thành phố Cần Thơ",
+    "newSlug": "can-tho",
+    "licensePlate": "83",
+    "postalCode": "950000"
+  },
+  {
+    "id": 55,
+    "name": "An Giang",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh An Giang",
+    "newSlug": "an-giang",
+    "licensePlate": "67",
+    "postalCode": "880000"
+  },
+  {
+    "id": 56,
+    "name": "Kiên Giang",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh An Giang",
+    "newSlug": "an-giang",
+    "licensePlate": "68",
+    "postalCode": "920000"
+  },
+  {
+    "id": 57,
+    "name": "Cà Mau",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Cà Mau",
+    "newSlug": "ca-mau",
+    "licensePlate": "69",
+    "postalCode": "970000"
+  },
+  {
+    "id": 58,
+    "name": "Bạc Liêu",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Cà Mau",
+    "newSlug": "ca-mau",
+    "licensePlate": "94",
+    "postalCode": "960000"
+  },
+  {
+    "id": 59,
+    "name": "Đồng Tháp",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Đồng Tháp",
+    "newSlug": "dong-thap",
+    "licensePlate": "66",
+    "postalCode": "870000"
+  },
+  {
+    "id": 60,
+    "name": "Tiền Giang",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Đồng Tháp",
+    "newSlug": "dong-thap",
+    "licensePlate": "63",
+    "postalCode": "860000"
+  },
+  {
+    "id": 61,
+    "name": "Vĩnh Long",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Vĩnh Long",
+    "newSlug": "vinh-long",
+    "licensePlate": "64",
+    "postalCode": "890000"
+  },
+  {
+    "id": 62,
+    "name": "Bến Tre",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Vĩnh Long",
+    "newSlug": "vinh-long",
+    "licensePlate": "71",
+    "postalCode": "930000"
+  },
+  {
+    "id": 63,
+    "name": "Trà Vinh",
+    "region": "Đồng bằng sông Cửu Long",
+    "mergedInto": "Tỉnh Vĩnh Long",
+    "newSlug": "vinh-long",
+    "licensePlate": "84",
+    "postalCode": "940000"
+  }
+]

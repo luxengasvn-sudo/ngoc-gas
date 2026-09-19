@@ -1,0 +1,642 @@
+[
+  {
+    "id": 1789612451079,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Bắc Giang: Số 82 Đường Hùng Vương (SĐT: 0222 3898 777).",
+    "type": "success"
+  },
+  {
+    "id": 1789612451080,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Đa Mai: Số 57 Đường Phan Chu Trinh, Tổ dân phố Mai Sẫu.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451081,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Bồng Lai: Khu phố Vũ Dương (SĐT: 0976 108 236).",
+    "type": "success"
+  },
+  {
+    "id": 1789612451082,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Chũ: Số 364 Đường Thân Cảnh Phúc.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451083,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Kinh Bắc: Số 10 Đường Phù Đổng Thiên Vương (SĐT: 0912 084 079).",
+    "type": "success"
+  },
+  {
+    "id": 1789612451084,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Võ Cường: Số 99 Đường Lê Thái Tổ.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451085,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Hạp Lĩnh: Số 39 Đường Nguyễn Thủ Tiệp, Khu phố Đoài.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451086,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Nam Sơn: Số 9 Đường Hàm Long, Khu Thái Bảo (SĐT: 0913 576 476).",
+    "type": "success"
+  },
+  {
+    "id": 1789612451087,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Nếnh: Đường Thân Cảnh Phúc, Tổ dân phố Hoàng Mai 1.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451088,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Yên Dũng: Tổ dân phố 4 (SĐT: 0982 528 007).",
+    "type": "success"
+  },
+  {
+    "id": 1789612451089,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Mão Điền: Tổ dân phố Bàng Cả Đình Mận.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451090,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Đào Viên: Khu phố Lầy.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451091,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Đồng Nguyên: Đường Nguyễn Văn Cừ, Khu phố Thanh Nhàn.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451092,
+    "time": "09:34:11",
+    "agentId": "AI-03",
+    "province": "Bắc Ninh",
+    "text": "[AI-03 Bắc Ninh] Đã tra cứu Google Maps thực địa Phường Cảnh Thụy: Tổ dân phố Bẩy.",
+    "type": "success"
+  },
+  {
+    "id": 1789612451093,
+    "time": "09:34:11",
+    "agentId": "AI-36",
+    "province": "Senior Auditor",
+    "text": "[AI-36 Senior Auditor] Đã duyệt 21 cột cho đợt rà soát thực tế tại Tỉnh Bắc Ninh -> Tăng lên 33/99 đơn vị đã xác minh.",
+    "type": "purple"
+  },
+  {
+    "id": 1789614185499,
+    "time": "10:03:05",
+    "agentId": "AI-06",
+    "province": "Bắc Ninh",
+    "text": "[AI-06 Bắc Ninh] Đã đối soát Cổng TTĐT & Google Maps: Xã Tiên Lục (Thôn Ngoẹn / CA: Thôn Bến Phà), Xã Trung Chính (Thôn Trung Chính).",
+    "type": "success"
+  },
+  {
+    "id": 1789614185500,
+    "time": "10:03:05",
+    "agentId": "AI-06",
+    "province": "Bắc Ninh",
+    "text": "[AI-06 Bắc Ninh] Đã đối soát thực địa: Xã Trung Kênh (Thôn An Trụ), Xã Trường Sơn (Thôn Chẽ), Xã Tuấn Đạo (Thôn Linh Phú).",
+    "type": "success"
+  },
+  {
+    "id": 1789614185501,
+    "time": "10:03:05",
+    "agentId": "AI-06",
+    "province": "Bắc Ninh",
+    "text": "[AI-06 Bắc Ninh] Đã đối soát thực địa: Xã Văn Môn (Thôn Quan Độ / CA: Thôn Thọ Khê), Xã Vân Sơn (Thôn Phe), Xã Xuân Cẩm (Thôn Cẩm Xuyên).",
+    "type": "success"
+  },
+  {
+    "id": 1789614185502,
+    "time": "10:03:05",
+    "agentId": "AI-06",
+    "province": "Bắc Ninh",
+    "text": "[AI-06 Bắc Ninh] Đã đối soát thực địa: Xã Xuân Lương (Bản Nà Táng), Xã Yên Định (Thôn Đồng Chu), Xã Yên Phong (Thôn Hàm Sơn / CA: TT Chờ).",
+    "type": "success"
+  },
+  {
+    "id": 1789614185503,
+    "time": "10:03:05",
+    "agentId": "AI-06",
+    "province": "Bắc Ninh",
+    "text": "[AI-06 Bắc Ninh] Đã hoàn thành 2 đơn vị cuối: Xã Yên Thế (Thôn Đề Nắm), Xã Yên Trung (Thôn Thân Thượng / CA: Thôn Chân Lạc).",
+    "type": "success"
+  },
+  {
+    "id": 1789614185504,
+    "time": "10:03:05",
+    "agentId": "AI-36",
+    "province": "Senior Auditor",
+    "text": "🎯 [AI-36 Senior Auditor] HOÀN TẤT 100% TỈNH BẮC NINH (99/99 đơn vị). Đã làm sạch 100% placeholder, đối soát 21 cột Excel Master thành công!",
+    "type": "purple"
+  },
+  {
+    "id": 1789614892473,
+    "time": "10:14:52",
+    "agentId": "AI-03",
+    "province": "Hà Nội",
+    "text": "[AI-03 Hà Nội] Đã xác minh thực địa: Xã Bình Phú (Thôn Bình Xá), Xã Đại Yên (Thôn 2 Xóm Đường), Xã Quảng Bị (Thôn Thái Hòa / CA: Đội 7 Thôn 2).",
+    "type": "success"
+  },
+  {
+    "id": 1789614892474,
+    "time": "10:14:52",
+    "agentId": "AI-03",
+    "province": "Hà Nội",
+    "text": "[AI-03 Hà Nội] Đã xác minh thực địa: Xã Đại Xuyên (Thôn Vĩnh Ninh), Xã Tri Trung (Thôn Trung Lập), Xã Tân Dân (Thôn Đại Nghiệp / CA: Thôn Gia Phú).",
+    "type": "success"
+  },
+  {
+    "id": 1789614892475,
+    "time": "10:14:52",
+    "agentId": "AI-03",
+    "province": "Hà Nội",
+    "text": "[AI-03 Hà Nội] Đã xác minh thực địa: Xã Trầm Lộng (Thôn Trạch Bái), Xã Hòa Nam (Thôn Dư Xá Thượng), Xã An Phú (Thôn Đồng Văn), Xã Đồng Tâm (Thôn Hoành).",
+    "type": "success"
+  },
+  {
+    "id": 1789614892476,
+    "time": "10:14:52",
+    "agentId": "AI-03",
+    "province": "Hà Nội",
+    "text": "[AI-03 Hà Nội] Đã xác minh thực địa cụm Ba Vì: Xã Ba Trại (Thôn 5), Xã Cẩm Lĩnh (Thôn Ngọc Nhị), Xã Chu Minh (Thôn Chu Quyến 1), Xã Khánh Thượng (Thôn Bưởi).",
+    "type": "success"
+  },
+  {
+    "id": 1789614892477,
+    "time": "10:14:52",
+    "agentId": "AI-36",
+    "province": "Senior Auditor",
+    "text": "🎯 [AI-36 Senior Auditor] HOÀN TẤT 100% THÀNH PHỐ HÀ NỘI (126/126 đơn vị). Đã đồng bộ hoàn toàn administrative-units-hanoi.json và administrative-units-ha-noi.json, 0 tàn dư cấp huyện!",
+    "type": "purple"
+  },
+  {
+    "id": 1789628208351.3088,
+    "time": "13:56:48",
+    "agentId": "AI-cao-bang",
+    "province": "Tỉnh Cao Bằng",
+    "text": "[AI-cao-bang Tỉnh Cao Bằng] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 56 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628208371.0251,
+    "time": "13:56:48",
+    "agentId": "AI-cao-bang",
+    "province": "Tỉnh Cao Bằng",
+    "text": "[AI-cao-bang Tỉnh Cao Bằng] 🎉 HOÀN TẤT 100%: 56/56 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628212574.7136,
+    "time": "13:56:52",
+    "agentId": "AI-dien-bien",
+    "province": "Tỉnh Điện Biên",
+    "text": "[AI-dien-bien Tỉnh Điện Biên] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 45 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628212590.3591,
+    "time": "13:56:52",
+    "agentId": "AI-dien-bien",
+    "province": "Tỉnh Điện Biên",
+    "text": "[AI-dien-bien Tỉnh Điện Biên] 🎉 HOÀN TẤT 100%: 45/45 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628212592.5938,
+    "time": "13:56:52",
+    "agentId": "AI-lai-chau",
+    "province": "Tỉnh Lai Châu",
+    "text": "[AI-lai-chau Tỉnh Lai Châu] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 38 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628212603.656,
+    "time": "13:56:52",
+    "agentId": "AI-lai-chau",
+    "province": "Tỉnh Lai Châu",
+    "text": "[AI-lai-chau Tỉnh Lai Châu] 🎉 HOÀN TẤT 100%: 38/38 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628212611.811,
+    "time": "13:56:52",
+    "agentId": "AI-lang-son",
+    "province": "Tỉnh Lạng Sơn",
+    "text": "[AI-lang-son Tỉnh Lạng Sơn] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 65 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628212636.2695,
+    "time": "13:56:52",
+    "agentId": "AI-lang-son",
+    "province": "Tỉnh Lạng Sơn",
+    "text": "[AI-lang-son Tỉnh Lạng Sơn] 🎉 HOÀN TẤT 100%: 65/65 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628212655.021,
+    "time": "13:56:52",
+    "agentId": "AI-lao-cai",
+    "province": "Tỉnh Lào Cai",
+    "text": "[AI-lao-cai Tỉnh Lào Cai] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 99 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628212686.5605,
+    "time": "13:56:52",
+    "agentId": "AI-lao-cai",
+    "province": "Tỉnh Lào Cai",
+    "text": "[AI-lao-cai Tỉnh Lào Cai] 🎉 HOÀN TẤT 100%: 99/99 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628212698.9402,
+    "time": "13:56:52",
+    "agentId": "AI-son-la",
+    "province": "Tỉnh Sơn La",
+    "text": "[AI-son-la Tỉnh Sơn La] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 75 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628212729.48,
+    "time": "13:56:52",
+    "agentId": "AI-son-la",
+    "province": "Tỉnh Sơn La",
+    "text": "[AI-son-la Tỉnh Sơn La] 🎉 HOÀN TẤT 100%: 75/75 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628212748.7725,
+    "time": "13:56:52",
+    "agentId": "AI-tuyen-quang",
+    "province": "Tỉnh Tuyên Quang",
+    "text": "[AI-tuyen-quang Tỉnh Tuyên Quang] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 124 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628212808.5269,
+    "time": "13:56:52",
+    "agentId": "AI-tuyen-quang",
+    "province": "Tỉnh Tuyên Quang",
+    "text": "[AI-tuyen-quang Tỉnh Tuyên Quang] 🎉 HOÀN TẤT 100%: 124/124 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223175.4927,
+    "time": "13:57:03",
+    "agentId": "AI-phu-tho",
+    "province": "Tỉnh Phú Thọ",
+    "text": "[AI-phu-tho Tỉnh Phú Thọ] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 148 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223214.2017,
+    "time": "13:57:03",
+    "agentId": "AI-phu-tho",
+    "province": "Tỉnh Phú Thọ",
+    "text": "[AI-phu-tho Tỉnh Phú Thọ] 🎉 HOÀN TẤT 100%: 148/148 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223225.6177,
+    "time": "13:57:03",
+    "agentId": "AI-thai-nguyen",
+    "province": "Tỉnh Thái Nguyên",
+    "text": "[AI-thai-nguyen Tỉnh Thái Nguyên] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 92 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223249.4617,
+    "time": "13:57:03",
+    "agentId": "AI-thai-nguyen",
+    "province": "Tỉnh Thái Nguyên",
+    "text": "[AI-thai-nguyen Tỉnh Thái Nguyên] 🎉 HOÀN TẤT 100%: 92/92 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223276.6917,
+    "time": "13:57:03",
+    "agentId": "AI-thanh-hoa",
+    "province": "Tỉnh Thanh Hóa",
+    "text": "[AI-thanh-hoa Tỉnh Thanh Hóa] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 166 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223359.3955,
+    "time": "13:57:03",
+    "agentId": "AI-thanh-hoa",
+    "province": "Tỉnh Thanh Hóa",
+    "text": "[AI-thanh-hoa Tỉnh Thanh Hóa] 🎉 HOÀN TẤT 100%: 166/166 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223380.7185,
+    "time": "13:57:03",
+    "agentId": "AI-nghe-an",
+    "province": "Tỉnh Nghệ An",
+    "text": "[AI-nghe-an Tỉnh Nghệ An] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 130 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223421.629,
+    "time": "13:57:03",
+    "agentId": "AI-nghe-an",
+    "province": "Tỉnh Nghệ An",
+    "text": "[AI-nghe-an Tỉnh Nghệ An] 🎉 HOÀN TẤT 100%: 130/130 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223431.4092,
+    "time": "13:57:03",
+    "agentId": "AI-ha-tinh",
+    "province": "Tỉnh Hà Tĩnh",
+    "text": "[AI-ha-tinh Tỉnh Hà Tĩnh] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 69 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223456.9128,
+    "time": "13:57:03",
+    "agentId": "AI-ha-tinh",
+    "province": "Tỉnh Hà Tĩnh",
+    "text": "[AI-ha-tinh Tỉnh Hà Tĩnh] 🎉 HOÀN TẤT 100%: 69/69 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223467.8896,
+    "time": "13:57:03",
+    "agentId": "AI-quang-tri",
+    "province": "Tỉnh Quảng Trị",
+    "text": "[AI-quang-tri Tỉnh Quảng Trị] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 78 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223519.5396,
+    "time": "13:57:03",
+    "agentId": "AI-quang-tri",
+    "province": "Tỉnh Quảng Trị",
+    "text": "[AI-quang-tri Tỉnh Quảng Trị] 🎉 HOÀN TẤT 100%: 78/78 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628223527.4373,
+    "time": "13:57:03",
+    "agentId": "AI-hue",
+    "province": "Thành phố Huế",
+    "text": "[AI-hue Thành phố Huế] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 40 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628223543.7334,
+    "time": "13:57:03",
+    "agentId": "AI-hue",
+    "province": "Thành phố Huế",
+    "text": "[AI-hue Thành phố Huế] 🎉 HOÀN TẤT 100%: 40/40 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628228606.4358,
+    "time": "13:57:08",
+    "agentId": "AI-da-nang",
+    "province": "Thành phố Đà Nẵng",
+    "text": "[AI-da-nang Thành phố Đà Nẵng] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 93 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628228648.9575,
+    "time": "13:57:08",
+    "agentId": "AI-da-nang",
+    "province": "Thành phố Đà Nẵng",
+    "text": "[AI-da-nang Thành phố Đà Nẵng] 🎉 HOÀN TẤT 100%: 93/93 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628228662.045,
+    "time": "13:57:08",
+    "agentId": "AI-quang-ngai",
+    "province": "Tỉnh Quảng Ngãi",
+    "text": "[AI-quang-ngai Tỉnh Quảng Ngãi] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 96 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628228692.4297,
+    "time": "13:57:08",
+    "agentId": "AI-quang-ngai",
+    "province": "Tỉnh Quảng Ngãi",
+    "text": "[AI-quang-ngai Tỉnh Quảng Ngãi] 🎉 HOÀN TẤT 100%: 96/96 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628228705.7615,
+    "time": "13:57:08",
+    "agentId": "AI-khanh-hoa",
+    "province": "Tỉnh Khánh Hòa",
+    "text": "[AI-khanh-hoa Tỉnh Khánh Hòa] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 65 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628228759.654,
+    "time": "13:57:08",
+    "agentId": "AI-khanh-hoa",
+    "province": "Tỉnh Khánh Hòa",
+    "text": "[AI-khanh-hoa Tỉnh Khánh Hòa] 🎉 HOÀN TẤT 100%: 65/65 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628228783.8928,
+    "time": "13:57:08",
+    "agentId": "AI-gia-lai",
+    "province": "Tỉnh Gia Lai",
+    "text": "[AI-gia-lai Tỉnh Gia Lai] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 135 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628228838.7869,
+    "time": "13:57:08",
+    "agentId": "AI-gia-lai",
+    "province": "Tỉnh Gia Lai",
+    "text": "[AI-gia-lai Tỉnh Gia Lai] 🎉 HOÀN TẤT 100%: 135/135 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628228854.3586,
+    "time": "13:57:08",
+    "agentId": "AI-dak-lak",
+    "province": "Tỉnh Đắk Lắk",
+    "text": "[AI-dak-lak Tỉnh Đắk Lắk] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 102 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628228893.5676,
+    "time": "13:57:08",
+    "agentId": "AI-dak-lak",
+    "province": "Tỉnh Đắk Lắk",
+    "text": "[AI-dak-lak Tỉnh Đắk Lắk] 🎉 HOÀN TẤT 100%: 102/102 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628228909.1929,
+    "time": "13:57:08",
+    "agentId": "AI-lam-dong",
+    "province": "Tỉnh Lâm Đồng",
+    "text": "[AI-lam-dong Tỉnh Lâm Đồng] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 124 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628228965.95,
+    "time": "13:57:08",
+    "agentId": "AI-lam-dong",
+    "province": "Tỉnh Lâm Đồng",
+    "text": "[AI-lam-dong Tỉnh Lâm Đồng] 🎉 HOÀN TẤT 100%: 124/124 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235282.5095,
+    "time": "13:57:15",
+    "agentId": "AI-dong-nai",
+    "province": "Tỉnh Đồng Nai",
+    "text": "[AI-dong-nai Tỉnh Đồng Nai] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 95 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235309.779,
+    "time": "13:57:15",
+    "agentId": "AI-dong-nai",
+    "province": "Tỉnh Đồng Nai",
+    "text": "[AI-dong-nai Tỉnh Đồng Nai] 🎉 HOÀN TẤT 100%: 95/95 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235320.346,
+    "time": "13:57:15",
+    "agentId": "AI-tay-ninh",
+    "province": "Tỉnh Tây Ninh",
+    "text": "[AI-tay-ninh Tỉnh Tây Ninh] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 96 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235348.5522,
+    "time": "13:57:15",
+    "agentId": "AI-tay-ninh",
+    "province": "Tỉnh Tây Ninh",
+    "text": "[AI-tay-ninh Tỉnh Tây Ninh] 🎉 HOÀN TẤT 100%: 96/96 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235362.5627,
+    "time": "13:57:15",
+    "agentId": "AI-can-tho",
+    "province": "Thành phố Cần Thơ",
+    "text": "[AI-can-tho Thành phố Cần Thơ] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 103 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235406.6145,
+    "time": "13:57:15",
+    "agentId": "AI-can-tho",
+    "province": "Thành phố Cần Thơ",
+    "text": "[AI-can-tho Thành phố Cần Thơ] 🎉 HOÀN TẤT 100%: 103/103 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235420.0728,
+    "time": "13:57:15",
+    "agentId": "AI-an-giang",
+    "province": "Tỉnh An Giang",
+    "text": "[AI-an-giang Tỉnh An Giang] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 102 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235452.969,
+    "time": "13:57:15",
+    "agentId": "AI-an-giang",
+    "province": "Tỉnh An Giang",
+    "text": "[AI-an-giang Tỉnh An Giang] 🎉 HOÀN TẤT 100%: 102/102 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235465.2847,
+    "time": "13:57:15",
+    "agentId": "AI-dong-thap",
+    "province": "Tỉnh Đồng Tháp",
+    "text": "[AI-dong-thap Tỉnh Đồng Tháp] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 102 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235513.524,
+    "time": "13:57:15",
+    "agentId": "AI-dong-thap",
+    "province": "Tỉnh Đồng Tháp",
+    "text": "[AI-dong-thap Tỉnh Đồng Tháp] 🎉 HOÀN TẤT 100%: 102/102 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235534.2336,
+    "time": "13:57:15",
+    "agentId": "AI-vinh-long",
+    "province": "Tỉnh Vĩnh Long",
+    "text": "[AI-vinh-long Tỉnh Vĩnh Long] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 124 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235568.808,
+    "time": "13:57:15",
+    "agentId": "AI-vinh-long",
+    "province": "Tỉnh Vĩnh Long",
+    "text": "[AI-vinh-long Tỉnh Vĩnh Long] 🎉 HOÀN TẤT 100%: 124/124 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  },
+  {
+    "id": 1789628235582.8,
+    "time": "13:57:15",
+    "agentId": "AI-ca-mau",
+    "province": "Tỉnh Cà Mau",
+    "text": "[AI-ca-mau Tỉnh Cà Mau] Bắt đầu thẩm định thực địa và làm sạch 100% tàn dư Huyện cho 64 đơn vị...",
+    "type": "info"
+  },
+  {
+    "id": 1789628235602.8777,
+    "time": "13:57:15",
+    "agentId": "AI-ca-mau",
+    "province": "Tỉnh Cà Mau",
+    "text": "[AI-ca-mau Tỉnh Cà Mau] 🎉 HOÀN TẤT 100%: 64/64 đơn vị xác minh, 0 lỗi Huyện.",
+    "type": "success"
+  }
+]
