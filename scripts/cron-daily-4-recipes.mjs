@@ -264,8 +264,146 @@ async function uploadDishImage(dish) {
   return '/images/recipe-default.jpg';
 }
 
+function stripTags(html) {
+  return String(html || '').replace(/<[^>]*>?/gm, '').trim();
+}
+
+export function transformRecipeTablesToDualLayout(contentHtml) {
+  if (!contentHtml || !contentHtml.includes('<table')) return contentHtml;
+
+  const tables = [...contentHtml.matchAll(/<table[\s\S]*?<\/table>/g)];
+  if (tables.length < 2) return contentHtml;
+
+  const t1 = tables[0][0];
+  const t2 = tables[1][0];
+
+  const parseTable1 = (tableHtml) => {
+    const tbodyMatch = tableHtml.match(/<tbody>([\s\S]*?)<\/tbody>/);
+    if (!tbodyMatch) return '';
+    const trs = [...tbodyMatch[1].matchAll(/<tr[\s\S]*?>([\s\S]*?)<\/tr>/g)];
+    let currentGroup = 'Nguyên liệu';
+    let cardsHtml = '<div class="recipe-cards-mobile">\n';
+    for (const tr of trs) {
+      const tds = [...tr[1].matchAll(/<td[\s\S]*?>([\s\S]*?)<\/td>/g)].map(td => td[1].trim());
+      if (tds.length < 3) continue;
+      let group, name, amount, note;
+      if (tds.length >= 4) {
+        currentGroup = stripTags(tds[0]) || currentGroup;
+        group = currentGroup;
+        name = tds[1];
+        amount = tds[2];
+        note = tds[3];
+      } else {
+        group = currentGroup;
+        name = tds[0];
+        amount = tds[1];
+        note = tds[2];
+      }
+      cardsHtml += `    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #ea580c; border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
+        <span style="font-weight: 700; color: #1e3a8a; font-size: 15.5px;">${name}</span>
+        <span style="background: #fff7ed; color: #ea580c; font-weight: 700; font-size: 13px; padding: 3px 10px; border-radius: 20px; border: 1px solid #fed7aa; white-space: nowrap;">${amount}</span>
+      </div>
+      <div style="margin-bottom: 6px;">
+        <span style="display: inline-block; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 11.5px; font-weight: 600;">${group}</span>
+      </div>
+      <div style="font-size: 13px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 8px 10px; border-radius: 8px; border: 1px dashed #e2e8f0;">
+        💡 <strong>Mẹo hay:</strong> ${note}
+      </div>
+    </div>\n`;
+    }
+    cardsHtml += '  </div>';
+    return cardsHtml;
+  };
+
+  const parseTable2 = (tableHtml) => {
+    const tbodyMatch = tableHtml.match(/<tbody>([\s\S]*?)<\/tbody>/);
+    if (!tbodyMatch) return '';
+    const trs = [...tbodyMatch[1].matchAll(/<tr[\s\S]*?>([\s\S]*?)<\/tr>/g)];
+    const icons = ['⚡', '🥩', '🥑', '🦴', '🌿', '💧'];
+    const colors = [
+      { text: '#ea580c', bg: '#fff7ed', border: '#fed7aa' },
+      { text: '#16a34a', bg: '#f0fdf4', border: '#bbf7d0' },
+      { text: '#2563eb', bg: '#eff6ff', border: '#bfdbfe' },
+      { text: '#9333ea', bg: '#faf5ff', border: '#e9d5ff' },
+      { text: '#d97706', bg: '#fffbeb', border: '#fde68a' },
+      { text: '#0284c7', bg: '#f0f9ff', border: '#bae6fd' }
+    ];
+    let cardsHtml = '<div class="nutrition-cards-mobile">\n';
+    trs.forEach((tr, i) => {
+      const tds = [...tr[1].matchAll(/<td[\s\S]*?>([\s\S]*?)<\/td>/g)].map(td => td[1].trim());
+      if (tds.length < 3) return;
+      const name = tds[0];
+      const amount = tds[1];
+      const benefit = tds[2];
+      const icon = icons[i % icons.length];
+      const color = colors[i % colors.length];
+      cardsHtml += `    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <span style="font-weight: 700; color: #1e3a8a; font-size: 15px;">${icon} ${name}</span>
+        <span style="font-weight: 800; color: ${color.text}; font-size: 15px; background: ${color.bg}; padding: 3px 10px; border-radius: 20px; border: 1px solid ${color.border};">${amount}</span>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #475569; line-height: 1.5;">${benefit}</p>
+    </div>\n`;
+    });
+    cardsHtml += '  </div>';
+    return cardsHtml;
+  };
+
+  const scopedCss = `
+<style>
+  .recipe-table-desktop { display: block; width: 100%; margin: 20px 0; }
+  .recipe-cards-mobile { display: none; }
+  .nutrition-table-desktop { display: block; width: 100%; margin: 20px 0; }
+  .nutrition-cards-mobile { display: none; }
+  @media (max-width: 768px) {
+    .recipe-table-desktop { display: none !important; }
+    .recipe-cards-mobile { display: flex !important; flex-direction: column; gap: 12px; margin: 16px 0 24px; }
+    .nutrition-table-desktop { display: none !important; }
+    .nutrition-cards-mobile { display: flex !important; flex-direction: column; gap: 12px; margin: 16px 0 24px; }
+    .table-scroll-hint-pill { display: none !important; }
+  }
+</style>
+`;
+
+  const cards1 = parseTable1(t1);
+  const cards2 = parseTable2(t2);
+
+  const replacement1 = `
+${scopedCss}
+<div class="recipe-table-desktop">
+  <div style="overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+    ${t1}
+  </div>
+</div>
+${cards1}
+`;
+
+  const replacement2 = `
+<div class="nutrition-table-desktop">
+  <div style="overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+    ${t2}
+  </div>
+</div>
+${cards2}
+`;
+
+  const idx2 = contentHtml.indexOf(t2);
+  if (idx2 !== -1) {
+    contentHtml = contentHtml.slice(0, idx2) + replacement2 + contentHtml.slice(idx2 + t2.length);
+  }
+  const idx1 = contentHtml.indexOf(t1);
+  if (idx1 !== -1) {
+    contentHtml = contentHtml.slice(0, idx1) + replacement1 + contentHtml.slice(idx1 + t1.length);
+  }
+
+  return contentHtml;
+}
+
 // 6. Xuất bản bài viết qua API
 async function publishPost(payload) {
+  const transformedContent = transformRecipeTablesToDualLayout(payload.contentHtml);
+
   const postRes = await fetch(`${BASE_URL}/api/posts`, {
     method: 'POST',
     headers: {
@@ -277,7 +415,7 @@ async function publishPost(payload) {
       slug: payload.slug,
       summary: payload.summary,
       excerpt: payload.summary,
-      content: payload.contentHtml,
+      content: transformedContent,
       image_url: payload.imageUrl,
       category: 'mon-an',
       is_published: 1

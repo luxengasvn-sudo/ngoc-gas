@@ -91,6 +91,12 @@ Cung cấp giá trị thực chiến hữu ích để giữ chân người đọ
   - Liên hệ: `<a href="/lien-he">Thông Tin Liên Hệ & Đặt Gas Hỏa Tốc</a>`.
 - **Khối Câu Hỏi Thường Gặp (FAQ)**: 3 – 5 câu hỏi đáp sát sườn với cư dân địa phương (ví dụ: quy định an toàn chung cư, cách gọi gas đêm, cách nhận biết nhân viên chính hãng).
 
+### 📌 Trụ Cột 10: Giao Diện Kép Dual-Layout Cho Bài Viết Món Ăn (Desktop Bảng vs Mobile Thẻ)
+Mọi bài viết thuộc chuyên mục **Món Ăn (`category: 'mon-an'`)** BẮT BUỘC tuân thủ hợp đồng giao diện kép:
+- **Desktop (màn hình >= 768px)**: Hiển thị bảng dạng `<table>` chuẩn mực trong container `.recipe-table-desktop` và `.nutrition-table-desktop`.
+- **Mobile (màn hình < 768px)**: Ẩn bảng và tự động chuyển sang danh sách **Thẻ Nguyên Liệu** (`.recipe-cards-mobile`: Tên in đậm, Định lượng pill cam, Phân nhóm, Mẹo chọn kèm icon 💡) và **Thẻ Dinh Dưỡng** (`.nutrition-cards-mobile`: Chỉ số to rõ, badge màu sắc).
+- **CẤM**: Tuyệt đối không để bảng trần trên mobile khiến người dùng phải vuốt ngang mất chữ hoặc mất ngữ cảnh.
+
 ---
 
 ## 🚫 III. BẢNG DANH MỤC CẤM KỴ TUYỆT ĐỐI (ZERO TOLERANCE)
