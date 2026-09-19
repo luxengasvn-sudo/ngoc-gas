@@ -16,6 +16,8 @@ export async function GET() {
     { loc: `${baseUrl}/san-pham`, priority: '0.9', changefreq: 'daily' },
     { loc: `${baseUrl}/cua-hang`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/tin-tuc`, priority: '0.8', changefreq: 'daily' },
+    { loc: `${baseUrl}/mon-an`, priority: '0.8', changefreq: 'daily' },
+    { loc: `${baseUrl}/tuyen-dung`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/gioi-thieu`, priority: '0.7', changefreq: 'monthly' },
     { loc: `${baseUrl}/lien-he`, priority: '0.7', changefreq: 'monthly' },
     { loc: `${baseUrl}/dieu-khoan`, priority: '0.5', changefreq: 'monthly' },

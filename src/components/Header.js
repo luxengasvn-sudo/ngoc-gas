@@ -109,6 +109,8 @@ export default function Header({ initialSettings }) {
     { id: "m4", name: 'Bảng Giá Gas', path: '/gia-gas-hom-nay' },
     { id: "m5", name: 'Cửa hàng', path: '/cua-hang' },
     { id: "m6", name: 'Tin tức', path: '/tin-tuc' },
+    { id: "m-mon-an", name: 'Món Ngon', path: '/mon-an' },
+    { id: "m-tuyen-dung", name: 'Tuyển Dụng', path: '/tuyen-dung' },
     { id: "m7", name: 'Liên hệ', path: '/lien-he' },
   ];
 

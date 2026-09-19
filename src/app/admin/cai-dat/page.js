@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Save, AlertCircle, CheckCircle2, Check, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, ArrowRight, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2, Compass, ShoppingBag, Store, TrendingUp, BookOpen, Users, MessageSquare, Flame, Sparkles, Eye, EyeOff, Link as LinkIcon, ExternalLink } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle2, Check, Upload, MapPin, Phone, Mail, Clock, ShieldAlert, Image as ImageIcon, Home, Info, HelpCircle, ArrowUp, ArrowDown, ArrowRight, Plus, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2, Compass, ShoppingBag, Store, TrendingUp, BookOpen, Users, MessageSquare, Flame, Sparkles, Eye, EyeOff, Link as LinkIcon, ExternalLink, Briefcase, DollarSign, ShieldCheck, Award } from 'lucide-react';
 import MediaLibraryModal from '@/components/MediaLibraryModal';
 
 function CollapsibleSection({ id, title, subtitle, isOpen, onToggle, toggleSwitch, children }) {
@@ -219,7 +219,14 @@ export default function AdminSettingsPage() {
     about_value_3_desc: 'Đảm bảo nguồn gas chính hãng từ các thương hiệu lớn như Petrolimex, Shell, đủ cân nặng, chất lượng ổn định.',
     about_cta_title: 'Đồng hành cùng sự phát triển của bạn',
     about_cta_desc: 'Hãy để Ngọc Gas mang đến giải pháp năng lượng tối ưu, an toàn nhất cho nhà bếp của bạn.',
-    about_cta_btn: 'Liên hệ ngay với chúng tôi'
+    about_cta_btn: 'Liên hệ ngay với chúng tôi',
+
+    // Recruitment page content
+    recruitment_hero_title: 'Cơ Hội Nghề Nghiệp & Việc Làm Thu Nhập Cao',
+    recruitment_hero_desc: 'Ngọc Gas liên tục tuyển dụng các vị trí Nhân viên giao gas, Kỹ thuật viên bảo trì và Nhân viên chăm sóc khách hàng tại khu vực Bình Dương, TP.HCM & Vũng Tàu. Công việc ổn định, đãi ngộ công bằng, phát triển bền vững.',
+    recruitment_benefits_title: 'Quyền Lợi & Phúc Lợi Tại Ngọc Gas',
+    recruitment_benefits_subtitle: 'Chúng tôi cam kết xây dựng môi trường làm việc minh bạch, an toàn và thu nhập xứng đáng với công sức đóng góp của bạn.',
+    recruitment_benefits_list: ''
   });
   
   const [loading, setLoading] = useState(true);
@@ -697,6 +704,93 @@ export default function AdminSettingsPage() {
     setNewBottomItem({ name: '', path: '/', icon: 'Home' });
   };
 
+  // --- RECRUITMENT BENEFITS MANAGEMENT STATE & HANDLERS ---
+  const DEFAULT_RECRUITMENT_BENEFITS = [
+    {
+      id: 'ben_1',
+      icon: 'DollarSign',
+      title: 'Thu Nhập Cạnh Tranh',
+      desc: 'Lương cơ bản + Thưởng năng suất giao hàng + Phụ cấp chuyên cần. Thu nhập từ 10 - 18 triệu/tháng.'
+    },
+    {
+      id: 'ben_2',
+      icon: 'ShieldCheck',
+      title: 'Bảo Hiểm & Phúc Lợi Đầy Đủ',
+      desc: 'Tham gia BHXH, BHYT, BHTN theo luật lao động; bảo hiểm tai nạn 24/7; thưởng lương tháng 13 và các dịp lễ tết.'
+    },
+    {
+      id: 'ben_3',
+      icon: 'Award',
+      title: 'Đào Tạo Kỹ Năng Miễn Phí',
+      desc: 'Được huấn luyện kỹ năng an toàn PCCC, kỹ thuật tháo lắp van gas tiêu chuẩn Nhật Bản và giao tiếp khách hàng.'
+    },
+    {
+      id: 'ben_4',
+      icon: 'Users',
+      title: 'Môi Trường Thân Thiện',
+      desc: 'Ban lãnh đạo tận tâm, đồng nghiệp hỗ trợ nhau như người nhà, trang bị đầy đủ đồng phục và bảo hộ lao động.'
+    }
+  ];
+
+  const getRecruitmentBenefitsList = () => {
+    try {
+      if (settings.recruitment_benefits_list) {
+        const arr = typeof settings.recruitment_benefits_list === 'string' 
+          ? JSON.parse(settings.recruitment_benefits_list) 
+          : settings.recruitment_benefits_list;
+        if (Array.isArray(arr) && arr.length > 0) return arr;
+      }
+    } catch (e) {}
+    return DEFAULT_RECRUITMENT_BENEFITS;
+  };
+
+  const handleSaveRecruitmentBenefits = (newList, successMsg = '🎉 Đã tự động lưu danh sách quyền lợi tuyển dụng thành công!') => {
+    const jsonStr = JSON.stringify(newList);
+    setSettings(prev => ({ ...prev, recruitment_benefits_list: jsonStr }));
+    const token = localStorage.getItem('ngoc_gas_admin_token');
+    fetch('/api/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ recruitment_benefits_list: jsonStr })
+    });
+    setSuccess(successMsg);
+    setShowSaveSuccessModal(true);
+  };
+
+  const handleAddRecruitmentBenefit = () => {
+    const current = [...getRecruitmentBenefitsList()];
+    const newItem = {
+      id: 'ben_' + Date.now(),
+      icon: 'Award',
+      title: 'Quyền lợi mới',
+      desc: 'Mô tả chi tiết quyền lợi và chế độ đãi ngộ...'
+    };
+    const updated = [...current, newItem];
+    handleSaveRecruitmentBenefits(updated, '🎉 Đã thêm quyền lợi mới và lưu thành công!');
+  };
+
+  const handleRemoveRecruitmentBenefit = (index) => {
+    const current = [...getRecruitmentBenefitsList()];
+    const updated = current.filter((_, idx) => idx !== index);
+    handleSaveRecruitmentBenefits(updated, '🗑️ Đã xóa quyền lợi thành công!');
+  };
+
+  const handleUpdateRecruitmentBenefit = (index, field, value) => {
+    const current = [...getRecruitmentBenefitsList()];
+    current[index] = { ...current[index], [field]: value };
+    setSettings(prev => ({ ...prev, recruitment_benefits_list: JSON.stringify(current) }));
+  };
+
+  const handleMoveRecruitmentBenefit = (index, direction) => {
+    const current = [...getRecruitmentBenefitsList()];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= current.length) return;
+    const temp = current[index];
+    current[index] = current[targetIndex];
+    current[targetIndex] = temp;
+    handleSaveRecruitmentBenefits(current, '🎉 Đã cập nhật thứ tự quyền lợi thành công!');
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSettings((prev) => ({ ...prev, [name]: value }));
@@ -1146,6 +1240,14 @@ export default function AdminSettingsPage() {
           >
             <Info size={15} style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }} />
             <span style={{ verticalAlign: 'middle' }}>Giao diện Giới thiệu</span>
+          </button>
+          <button 
+            type="button" 
+            onClick={() => setActiveTab('recruitment')} 
+            className={`status-tab-btn ${activeTab === 'recruitment' ? 'active' : ''}`}
+          >
+            <Briefcase size={15} style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }} />
+            <span style={{ verticalAlign: 'middle' }}>💼 Giao diện Tuyển Dụng</span>
           </button>
         </div>
 
@@ -3336,6 +3438,222 @@ export default function AdminSettingsPage() {
                   </div>
                 </CollapsibleSection>
 
+              </div>
+            )}
+
+            {/* ======================= TAB 5: RECRUITMENT PAGE ======================= */}
+            {activeTab === 'recruitment' && (
+              <div className="tab-pane animate-fade-in-up">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+                  <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                    💡 Quản lý nội dung trang Tuyển Dụng (/tuyen-dung) và khối Quyền Lợi &amp; Phúc Lợi nhân viên.
+                  </span>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      type="button"
+                      onClick={() => collapseAllTabSections(['rec_hero', 'rec_benefits'])}
+                      className="btn-outline-new"
+                      style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                    >
+                      <Minimize2 size={13} />
+                      <span>Thu nhỏ tất cả khối</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => expandAllTabSections(['rec_hero', 'rec_benefits'])}
+                      className="btn-outline-new"
+                      style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                    >
+                      <Maximize2 size={13} />
+                      <span>Mở rộng tất cả khối</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 1. Khối Hero Banner Tuyển Dụng */}
+                <CollapsibleSection
+                  id="rec_hero"
+                  title="1. Khối Hero Banner Đầu Trang Tuyển Dụng"
+                  subtitle={settings.recruitment_hero_title || 'Cơ Hội Nghề Nghiệp & Việc Làm Thu Nhập Cao'}
+                  isOpen={openSections.rec_hero !== false}
+                  onToggle={() => toggleSection('rec_hero')}
+                >
+                  <div className="form-group" style={{ marginBottom: '16px' }}>
+                    <label className="form-label-new">Tiêu đề chính Hero Banner</label>
+                    <input
+                      type="text"
+                      name="recruitment_hero_title"
+                      className="form-control-new"
+                      value={settings.recruitment_hero_title || ''}
+                      onChange={handleChange}
+                      placeholder="Cơ Hội Nghề Nghiệp & Việc Làm Thu Nhập Cao"
+                    />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label-new">Mô tả giới thiệu Hero Banner</label>
+                    <textarea
+                      name="recruitment_hero_desc"
+                      rows="3"
+                      className="form-control-new"
+                      value={settings.recruitment_hero_desc || ''}
+                      onChange={handleChange}
+                      placeholder="Mô tả cơ hội việc làm, môi trường và địa bàn hoạt động..."
+                    />
+                  </div>
+                </CollapsibleSection>
+
+                {/* 2. Khối Quyền Lợi & Phúc Lợi */}
+                <CollapsibleSection
+                  id="rec_benefits"
+                  title="2. Khối Quyền Lợi & Phúc Lợi Nhân Viên"
+                  subtitle={settings.recruitment_benefits_title || 'Quyền Lợi & Phúc Lợi Tại Ngọc Gas'}
+                  isOpen={openSections.rec_benefits !== false}
+                  onToggle={() => toggleSection('rec_benefits')}
+                >
+                  <div className="settings-grid-2" style={{ marginBottom: '24px' }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label-new">Tiêu đề khối</label>
+                      <input
+                        type="text"
+                        name="recruitment_benefits_title"
+                        className="form-control-new"
+                        value={settings.recruitment_benefits_title || ''}
+                        onChange={handleChange}
+                        placeholder="Quyền Lợi & Phúc Lợi Tại Ngọc Gas"
+                      />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label-new">Mô tả phụ</label>
+                      <input
+                        type="text"
+                        name="recruitment_benefits_subtitle"
+                        className="form-control-new"
+                        value={settings.recruitment_benefits_subtitle || ''}
+                        onChange={handleChange}
+                        placeholder="Cam kết môi trường làm việc minh bạch, an toàn..."
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px solid #E2E8F0', paddingBottom: '10px' }}>
+                    <div>
+                      <strong style={{ fontSize: '15px', color: '#0F172A' }}>
+                        Danh Sách Thẻ Quyền Lợi ({getRecruitmentBenefitsList().length} thẻ)
+                      </strong>
+                      <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748B' }}>
+                        Chỉnh sửa trực tiếp từng thẻ, thay đổi icon, hoặc bấm Thêm quyền lợi mới.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleAddRecruitmentBenefit}
+                      className="btn-add-album-new"
+                      style={{ padding: '8px 16px', fontSize: '13px' }}
+                    >
+                      <Plus size={16} />
+                      <span>Thêm quyền lợi</span>
+                    </button>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+                    {getRecruitmentBenefitsList().map((item, idx) => (
+                      <div
+                        key={item.id || idx}
+                        style={{
+                          background: '#F8FAFC',
+                          border: '1px solid #E2E8F0',
+                          borderRadius: '12px',
+                          padding: '16px',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '12px'
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontSize: '12px', fontWeight: '700', color: '#2563EB', background: '#EFF6FF', padding: '2px 8px', borderRadius: '4px' }}>
+                            Thẻ #{idx + 1}
+                          </span>
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            {idx > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => handleMoveRecruitmentBenefit(idx, 'up')}
+                                style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', borderRadius: '4px', padding: '4px 6px', cursor: 'pointer', color: '#475569' }}
+                                title="Di chuyển lên trước"
+                              >
+                                <ArrowUp size={13} />
+                              </button>
+                            )}
+                            {idx < getRecruitmentBenefitsList().length - 1 && (
+                              <button
+                                type="button"
+                                onClick={() => handleMoveRecruitmentBenefit(idx, 'down')}
+                                style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', borderRadius: '4px', padding: '4px 6px', cursor: 'pointer', color: '#475569' }}
+                                title="Di chuyển xuống sau"
+                              >
+                                <ArrowDown size={13} />
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveRecruitmentBenefit(idx)}
+                              style={{ background: '#FEF2F2', border: '1px solid #FCA5A5', color: '#DC2626', borderRadius: '4px', padding: '4px 8px', cursor: 'pointer', fontSize: '11px', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                              title="Xóa thẻ quyền lợi này"
+                            >
+                              <Trash2 size={13} />
+                              <span>Xóa</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 140px', gap: '10px' }}>
+                          <div>
+                            <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Tiêu đề quyền lợi</label>
+                            <input
+                              type="text"
+                              className="form-control-new"
+                              value={item.title || ''}
+                              onChange={(e) => handleUpdateRecruitmentBenefit(idx, 'title', e.target.value)}
+                              placeholder="vd: Thu Nhập Cạnh Tranh"
+                              style={{ fontSize: '13px', padding: '8px 12px' }}
+                            />
+                          </div>
+                          <div>
+                            <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Biểu tượng (Icon)</label>
+                            <select
+                              className="form-control-new"
+                              value={item.icon || 'Award'}
+                              onChange={(e) => handleUpdateRecruitmentBenefit(idx, 'icon', e.target.value)}
+                              style={{ fontSize: '13px', padding: '8px 10px', height: '37px' }}
+                            >
+                              <option value="DollarSign">💰 Lương / Thu nhập</option>
+                              <option value="ShieldCheck">🛡️ Bảo hiểm / An toàn</option>
+                              <option value="Award">🎖️ Đào tạo / Kỹ năng</option>
+                              <option value="Users">👥 Đồng nghiệp / Đội ngũ</option>
+                              <option value="Clock">⏰ Giờ giấc linh hoạt</option>
+                              <option value="MapPin">📍 Vị trí / Địa điểm</option>
+                              <option value="Briefcase">💼 Nghề nghiệp ổn định</option>
+                              <option value="CheckCircle">✅ Cam kết uy tín</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="form-label-new" style={{ fontSize: '12px', marginBottom: '4px' }}>Mô tả chi tiết</label>
+                          <textarea
+                            rows="2"
+                            className="form-control-new"
+                            value={item.desc || ''}
+                            onChange={(e) => handleUpdateRecruitmentBenefit(idx, 'desc', e.target.value)}
+                            placeholder="Mô tả mức lương, bảo hiểm, quyền lợi..."
+                            style={{ fontSize: '13px', padding: '8px 12px' }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CollapsibleSection>
               </div>
             )}
 

@@ -55,6 +55,8 @@ export const DEFAULT_HEADER_MENU = [
   { id: "m4", name: "Bảng Giá Gas", path: "/gia-gas-hom-nay", is_active: true },
   { id: "m5", name: "Cửa hàng", path: "/cua-hang", is_active: true },
   { id: "m6", name: "Tin tức", path: "/tin-tuc", is_active: true },
+  { id: "m-mon-an", name: "Món Ngon", path: "/mon-an", is_active: true },
+  { id: "m-tuyen-dung", name: "Tuyển Dụng", path: "/tuyen-dung", is_active: true },
   { id: "m7", name: "Liên hệ", path: "/lien-he", is_active: true }
 ];
 
@@ -76,13 +78,40 @@ export function parseHeaderMenu(jsonStrOrArr) {
   return [...DEFAULT_HEADER_MENU];
 }
 
-export function parseMobileBottomNav(jsonStrOrArr) {
-  if (Array.isArray(jsonStrOrArr)) return jsonStrOrArr;
+export const DEFAULT_RECRUITMENT_BENEFITS = [
+  {
+    id: 'ben_1',
+    icon: 'DollarSign',
+    title: 'Thu Nhập Cạnh Tranh',
+    desc: 'Lương cơ bản + Thưởng năng suất giao hàng + Phụ cấp chuyên cần. Thu nhập từ 10 - 18 triệu/tháng.'
+  },
+  {
+    id: 'ben_2',
+    icon: 'ShieldCheck',
+    title: 'Bảo Hiểm & Phúc Lợi Đầy Đủ',
+    desc: 'Tham gia BHXH, BHYT, BHTN theo luật lao động; bảo hiểm tai nạn 24/7; thưởng lương tháng 13 và các dịp lễ tết.'
+  },
+  {
+    id: 'ben_3',
+    icon: 'Award',
+    title: 'Đào Tạo Kỹ Năng Miễn Phí',
+    desc: 'Được huấn luyện kỹ năng an toàn PCCC, kỹ thuật tháo lắp van gas tiêu chuẩn Nhật Bản và giao tiếp khách hàng.'
+  },
+  {
+    id: 'ben_4',
+    icon: 'Users',
+    title: 'Môi Trường Thân Thiện',
+    desc: 'Ban lãnh đạo tận tâm, đồng nghiệp hỗ trợ nhau như người nhà, trang bị đầy đủ đồng phục và bảo hộ lao động.'
+  }
+];
+
+export function parseRecruitmentBenefits(jsonStrOrArr) {
+  if (Array.isArray(jsonStrOrArr) && jsonStrOrArr.length > 0) return jsonStrOrArr;
   try {
     const parsed = JSON.parse(jsonStrOrArr || '[]');
     if (Array.isArray(parsed) && parsed.length > 0) return parsed;
   } catch (e) {}
-  return [...DEFAULT_MOBILE_BOTTOM_NAV];
+  return [...DEFAULT_RECRUITMENT_BENEFITS];
 }
 
 export function parseSectionOrder(jsonStr) {
@@ -159,6 +188,16 @@ export async function getAllSettings() {
   }
   if (!merged.mobile_bottom_menu_items) {
     merged.mobile_bottom_menu_items = JSON.stringify(DEFAULT_MOBILE_BOTTOM_NAV);
+  }
+
+  if (!merged.recruitment_benefits_title) {
+    merged.recruitment_benefits_title = 'Quyền Lợi & Phúc Lợi Tại Ngọc Gas';
+  }
+  if (!merged.recruitment_benefits_subtitle) {
+    merged.recruitment_benefits_subtitle = 'Chúng tôi cam kết xây dựng môi trường làm việc minh bạch, an toàn và thu nhập xứng đáng với công sức đóng góp của bạn.';
+  }
+  if (!merged.recruitment_benefits_list) {
+    merged.recruitment_benefits_list = JSON.stringify(DEFAULT_RECRUITMENT_BENEFITS);
   }
 
   reg.settings = merged;

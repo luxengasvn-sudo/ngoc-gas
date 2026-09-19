@@ -213,11 +213,20 @@ export default function AdminPostsPage() {
   // Search & Filtering
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all'); // all | published | draft
+  const [categoryFilter, setCategoryFilter] = useState('all'); // all | tin-tuc | mon-an | tuyen-dung
 
   // Form State
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
+    category: 'tin-tuc',
+    job_meta: {
+      salary_min: '',
+      salary_max: '',
+      employment_type: 'FULL_TIME',
+      location: '7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương',
+      deadline: ''
+    },
     excerpt: '',
     content: '',
     image_url: '',
@@ -226,6 +235,16 @@ export default function AdminPostsPage() {
     meta_keywords: '',
     is_published: true
   });
+
+  const handleJobMetaChange = (field, val) => {
+    setFormData((prev) => ({
+      ...prev,
+      job_meta: {
+        ...(prev.job_meta || {}),
+        [field]: val
+      }
+    }));
+  };
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -297,6 +316,14 @@ export default function AdminPostsPage() {
     setFormData({
       title: '',
       slug: '',
+      category: 'tin-tuc',
+      job_meta: {
+        salary_min: '10000000',
+        salary_max: '18000000',
+        employment_type: 'FULL_TIME',
+        location: '7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương',
+        deadline: ''
+      },
       excerpt: '',
       content: '',
       image_url: '',
@@ -317,9 +344,21 @@ export default function AdminPostsPage() {
   const handleOpenEditModal = (post) => {
     setCurrentPost(post);
     const initialContent = post.content || '';
+    const parsedJobMeta = post.job_meta 
+      ? (typeof post.job_meta === 'object' ? post.job_meta : (() => { try { return JSON.parse(post.job_meta); } catch (e) { return null; } })())
+      : null;
+
     setFormData({
       title: post.title,
       slug: post.slug,
+      category: post.category || 'tin-tuc',
+      job_meta: parsedJobMeta || {
+        salary_min: '',
+        salary_max: '',
+        employment_type: 'FULL_TIME',
+        location: '7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương',
+        deadline: ''
+      },
       excerpt: post.excerpt || '',
       content: initialContent,
       image_url: post.image_url || '',
@@ -766,7 +805,12 @@ export default function AdminPostsPage() {
     if (statusFilter === 'published') matchesStatus = post.is_published === 1;
     else if (statusFilter === 'draft') matchesStatus = post.is_published === 0;
 
-    return matchesSearch && matchesStatus;
+    let matchesCategory = true;
+    if (categoryFilter !== 'all') {
+      matchesCategory = (post.category || 'tin-tuc') === categoryFilter;
+    }
+
+    return matchesSearch && matchesStatus && matchesCategory;
   });
 
   // SEO Fallbacks
@@ -839,6 +883,38 @@ export default function AdminPostsPage() {
               Bản nháp ({posts.filter(p => p.is_published === 0).length})
             </button>
           </div>
+
+          <div className="status-tabs-row" style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px dashed var(--border)' }}>
+            <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)', alignSelf: 'center', marginRight: '6px' }}>Chuyên mục:</span>
+            <button 
+              type="button" 
+              onClick={() => setCategoryFilter('all')} 
+              className={`status-tab-btn ${categoryFilter === 'all' ? 'active' : ''}`}
+            >
+              Tất cả chuyên mục
+            </button>
+            <button 
+              type="button" 
+              onClick={() => setCategoryFilter('tin-tuc')} 
+              className={`status-tab-btn ${categoryFilter === 'tin-tuc' ? 'active' : ''}`}
+            >
+              📰 Tin tức ({posts.filter(p => (p.category || 'tin-tuc') === 'tin-tuc').length})
+            </button>
+            <button 
+              type="button" 
+              onClick={() => setCategoryFilter('mon-an')} 
+              className={`status-tab-btn ${categoryFilter === 'mon-an' ? 'active' : ''}`}
+            >
+              🍳 Món ăn ({posts.filter(p => p.category === 'mon-an').length})
+            </button>
+            <button 
+              type="button" 
+              onClick={() => setCategoryFilter('tuyen-dung')} 
+              className={`status-tab-btn ${categoryFilter === 'tuyen-dung' ? 'active' : ''}`}
+            >
+              💼 Tuyển dụng ({posts.filter(p => p.category === 'tuyen-dung').length})
+            </button>
+          </div>
         </div>
 
         {/* Table list */}
@@ -853,10 +929,11 @@ export default function AdminPostsPage() {
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th style={{ width: '50%' }}>Tiêu đề bài viết</th>
-                  <th style={{ width: '20%' }}>Ngày đăng</th>
-                  <th style={{ width: '15%', textAlign: 'center' }}>Trạng thái</th>
-                  <th style={{ width: '15%', textAlign: 'right' }}>Thao tác</th>
+                  <th style={{ width: '42%' }}>Tiêu đề bài viết</th>
+                  <th style={{ width: '16%' }}>Chuyên mục</th>
+                  <th style={{ width: '16%' }}>Ngày đăng</th>
+                  <th style={{ width: '13%', textAlign: 'center' }}>Trạng thái</th>
+                  <th style={{ width: '13%', textAlign: 'right' }}>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -878,6 +955,23 @@ export default function AdminPostsPage() {
                           </div>
                         </div>
                       </td>
+                      <td>
+                        {post.category === 'mon-an' && (
+                          <span className="status-pill" style={{ background: '#FEF3C7', color: '#B45309', border: '1px solid #FDE68A' }}>
+                            🍳 Món ăn
+                          </span>
+                        )}
+                        {post.category === 'tuyen-dung' && (
+                          <span className="status-pill" style={{ background: '#EEF2FF', color: '#4338CA', border: '1px solid #C7D2FE' }}>
+                            💼 Tuyển dụng
+                          </span>
+                        )}
+                        {(!post.category || post.category === 'tin-tuc') && (
+                          <span className="status-pill" style={{ background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1' }}>
+                            📰 Tin tức
+                          </span>
+                        )}
+                      </td>
                       <td>{formatDate(post.created_at)}</td>
                       <td style={{ textAlign: 'center' }}>
                         <span className={`status-pill ${post.is_published === 1 ? 'active' : 'inactive'}`}>
@@ -896,7 +990,7 @@ export default function AdminPostsPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-secondary)' }}>
+                    <td colSpan="5" style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-secondary)' }}>
                       Không tìm thấy bài viết nào khớp với bộ lọc.
                     </td>
                   </tr>
@@ -943,6 +1037,22 @@ export default function AdminPostsPage() {
                         onChange={handleChange}
                         placeholder="Nhập tiêu đề hấp dẫn thu hút người đọc..."
                       />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="category" className="form-label-new">Chuyên mục bài viết *</label>
+                      <select
+                        id="category"
+                        name="category"
+                        className="form-control-new"
+                        value={formData.category || 'tin-tuc'}
+                        onChange={handleChange}
+                        style={{ fontWeight: '600', height: '42px' }}
+                      >
+                        <option value="tin-tuc">📰 Tin tức & Cẩm nang</option>
+                        <option value="mon-an">🍳 Món ngon vào bếp (Món Ăn)</option>
+                        <option value="tuyen-dung">💼 Tuyển dụng nhân sự</option>
+                      </select>
                     </div>
 
                     <div className="form-group">
@@ -1011,6 +1121,118 @@ export default function AdminPostsPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* TẦNG TRUNG GIAN: CẤU HÌNH GOOGLE FOR JOBS (KHI CHỌN CHUYÊN MỤC TUYỂN DỤNG) */}
+                {formData.category === 'tuyen-dung' && (
+                  <div className="form-section-card" style={{ marginBottom: '24px', border: '1.5px solid #93C5FD', background: '#F8FAFC', borderRadius: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '20px' }}>💼</span>
+                        <h3 className="section-card-title" style={{ margin: 0, color: '#1E3A8A' }}>
+                          Cấu hình Chuẩn Google for Jobs (Tìm việc làm trên Google)
+                        </h3>
+                      </div>
+                      <span style={{ fontSize: '12px', background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #DBEAFE', padding: '3px 10px', borderRadius: '6px', fontWeight: '700' }}>
+                        ✓ Tự động sinh Schema.org JobPosting
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+                      {/* Lương tối thiểu */}
+                      <div className="form-group" style={{ margin: 0 }}>
+                        <label className="form-label-new">Mức lương tối thiểu (VNĐ) *</label>
+                        <input
+                          type="number"
+                          className="form-control-new"
+                          value={formData.job_meta?.salary_min || ''}
+                          onChange={(e) => handleJobMetaChange('salary_min', e.target.value)}
+                          placeholder="vd: 10000000 (10 triệu)"
+                        />
+                      </div>
+
+                      {/* Lương tối đa */}
+                      <div className="form-group" style={{ margin: 0 }}>
+                        <label className="form-label-new">Mức lương tối đa (VNĐ) *</label>
+                        <input
+                          type="number"
+                          className="form-control-new"
+                          value={formData.job_meta?.salary_max || ''}
+                          onChange={(e) => handleJobMetaChange('salary_max', e.target.value)}
+                          placeholder="vd: 18000000 (18 triệu)"
+                        />
+                      </div>
+
+                      {/* Hình thức làm việc */}
+                      <div className="form-group" style={{ margin: 0 }}>
+                        <label className="form-label-new">Hình thức làm việc (Employment Type) *</label>
+                        <select
+                          className="form-control-new"
+                          value={formData.job_meta?.employment_type || 'FULL_TIME'}
+                          onChange={(e) => handleJobMetaChange('employment_type', e.target.value)}
+                        >
+                          <option value="FULL_TIME">Toàn thời gian (FULL_TIME)</option>
+                          <option value="PART_TIME">Bán thời gian (PART_TIME)</option>
+                          <option value="CONTRACT">Hợp đồng (CONTRACT)</option>
+                          <option value="TEMPORARY">Thời vụ (TEMPORARY)</option>
+                        </select>
+                      </div>
+
+                      {/* Hạn nộp hồ sơ */}
+                      <div className="form-group" style={{ margin: 0 }}>
+                        <label className="form-label-new">Hạn nộp hồ sơ (Valid Through)</label>
+                        <input
+                          type="date"
+                          className="form-control-new"
+                          value={formData.job_meta?.deadline || ''}
+                          onChange={(e) => handleJobMetaChange('deadline', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Địa điểm làm việc */}
+                    <div className="form-group" style={{ marginBottom: '16px' }}>
+                      <label className="form-label-new">Địa điểm làm việc cụ thể *</label>
+                      <input
+                        type="text"
+                        className="form-control-new"
+                        value={formData.job_meta?.location || ''}
+                        onChange={(e) => handleJobMetaChange('location', e.target.value)}
+                        placeholder="vd: 7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương"
+                      />
+                    </div>
+
+                    {/* Google Jobs Preview Box */}
+                    <div style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', borderRadius: '10px', padding: '16px' }}>
+                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
+                        👁️ Xem trước kết quả trên Google Việc Làm (Google Jobs Preview)
+                      </div>
+                      <div style={{ borderLeft: '4px solid #2563EB', paddingLeft: '12px' }}>
+                        <div style={{ fontSize: '16px', fontWeight: '700', color: '#1E40AF' }}>
+                          {formData.title || 'Tiêu đề vị trí tuyển dụng'}
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#475569', marginTop: '3px' }}>
+                          Ngọc Gas • {formData.job_meta?.location || '7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương'}
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+                          {(formData.job_meta?.salary_min || formData.job_meta?.salary_max) && (
+                            <span style={{ fontSize: '12px', background: '#DCFCE7', color: '#166534', padding: '3px 8px', borderRadius: '4px', fontWeight: '600' }}>
+                              💵 {formData.job_meta?.salary_min ? `${Number(formData.job_meta.salary_min).toLocaleString('vi-VN')} đ` : ''} 
+                              {formData.job_meta?.salary_max ? ` - ${Number(formData.job_meta.salary_max).toLocaleString('vi-VN')} đ` : ''} / tháng
+                            </span>
+                          )}
+                          <span style={{ fontSize: '12px', background: '#F1F5F9', color: '#475569', padding: '3px 8px', borderRadius: '4px' }}>
+                            {formData.job_meta?.employment_type === 'FULL_TIME' ? 'Toàn thời gian' : (formData.job_meta?.employment_type === 'PART_TIME' ? 'Bán thời gian' : 'Hợp đồng')}
+                          </span>
+                          {formData.job_meta?.deadline && (
+                            <span style={{ fontSize: '12px', background: '#FEF3C7', color: '#92400E', padding: '3px 8px', borderRadius: '4px' }}>
+                              ⏳ Hạn nộp: {formData.job_meta.deadline}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* TẦNG 2: KHUNG SOẠN THẢO BÀI VIẾT (FULL WIDTH 100%) */}
                 <div className="form-section-card" style={{ marginBottom: '24px', overflow: 'visible' }}>

@@ -61,6 +61,8 @@ async function initTables(pool) {
           id INT AUTO_INCREMENT PRIMARY KEY,
           title VARCHAR(255) NOT NULL,
           slug VARCHAR(255) NOT NULL UNIQUE,
+          category VARCHAR(50) DEFAULT 'tin-tuc',
+          job_meta JSON,
           excerpt TEXT,
           content LONGTEXT,
           image_url VARCHAR(500),
@@ -71,6 +73,14 @@ async function initTables(pool) {
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
       `);
+
+      // Safe column migration for posts category and job_meta
+      try {
+        await conn.query(`ALTER TABLE posts ADD COLUMN category VARCHAR(50) DEFAULT 'tin-tuc'`);
+      } catch (e) {}
+      try {
+        await conn.query(`ALTER TABLE posts ADD COLUMN job_meta JSON`);
+      } catch (e) {}
 
       await conn.query(`
         CREATE TABLE IF NOT EXISTS stores (

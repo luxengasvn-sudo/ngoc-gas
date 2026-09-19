@@ -147,6 +147,8 @@ export default function Footer({ initialSettings }) {
               <li><Link href="/gia-gas-hom-nay">Bảng giá gas hôm nay</Link></li>
               <li><Link href="/cua-hang">Hệ thống cửa hàng</Link></li>
               <li><Link href="/tin-tuc">Tin tức &amp; Khuyến mãi</Link></li>
+              <li><Link href="/mon-an">Món ngon vào bếp</Link></li>
+              <li><Link href="/tuyen-dung">Tuyển dụng nhân tài</Link></li>
               <li><Link href="/lien-he">Liên hệ hỗ trợ</Link></li>
             </ul>
           </div>
@@ -157,6 +159,7 @@ export default function Footer({ initialSettings }) {
               <li><Link href="/tin-tuc/huong-dan-kiem-tra-ro-ri-gas">Cẩm nang an toàn gas</Link></li>
               <li><Link href="/tin-tuc">Chính sách bảo hành bình</Link></li>
               <li><Link href="/lien-he">Quy trình giao nhận &amp; Cân gas</Link></li>
+              <li><Link href="/tuyen-dung">Cơ hội nghề nghiệp</Link></li>
               <li><Link href="/lien-he">Hỗ trợ sự cố khẩn cấp 24/7</Link></li>
             </ul>
           </div>

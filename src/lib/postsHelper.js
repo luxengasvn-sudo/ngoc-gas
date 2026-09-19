@@ -62,13 +62,25 @@ export async function getAllPosts() {
         merged.push(filePost);
       }
     });
-    memoryPostsCache = merged;
-    return merged;
+    const normalizePost = (p) => ({
+      ...p,
+      category: p.category || 'tin-tuc',
+      job_meta: p.job_meta ? (typeof p.job_meta === 'object' ? p.job_meta : (() => { try { return JSON.parse(p.job_meta); } catch (e) { return null; } })()) : null
+    });
+
+    const normalized = merged.map(normalizePost);
+    memoryPostsCache = normalized;
+    return normalized;
   }
 
   // If DB is empty/unavailable, fall back to file posts
-  memoryPostsCache = filePosts;
-  return filePosts;
+  const normalizedFilePosts = filePosts.map(p => ({
+    ...p,
+    category: p.category || 'tin-tuc',
+    job_meta: p.job_meta ? (typeof p.job_meta === 'object' ? p.job_meta : (() => { try { return JSON.parse(p.job_meta); } catch (e) { return null; } })()) : null
+  }));
+  memoryPostsCache = normalizedFilePosts;
+  return normalizedFilePosts;
 }
 
 export async function getPostByIdOrSlug(idOrSlug) {
@@ -82,10 +94,14 @@ export async function createPostData(postFields) {
   const maxId = all.reduce((max, p) => Math.max(max, Number(p.id) || 0), 0);
   const newId = maxId + 1;
 
+  const jobMeta = postFields.job_meta ? (typeof postFields.job_meta === 'object' ? postFields.job_meta : (() => { try { return JSON.parse(postFields.job_meta); } catch (e) { return null; } })()) : null;
+
   const newPost = {
     id: newId,
     title: postFields.title,
     slug: postFields.slug,
+    category: postFields.category || 'tin-tuc',
+    job_meta: jobMeta,
     excerpt: postFields.excerpt || '',
     content: postFields.content || '',
     image_url: postFields.image_url || '/images/sopet-xam.png',
@@ -100,12 +116,16 @@ export async function createPostData(postFields) {
   memoryPostsCache = all;
   savePostsToFile(all);
 
+  const jobMetaSql = jobMeta ? JSON.stringify(jobMeta) : null;
+
   try {
     const [res] = await db.query(
-      `INSERT INTO posts (title, slug, excerpt, content, image_url, meta_title, meta_description, meta_keywords, is_published) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `INSERT INTO posts (title, slug, category, job_meta, excerpt, content, image_url, meta_title, meta_description, meta_keywords, is_published) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
        ON DUPLICATE KEY UPDATE 
          title = VALUES(title), 
+         category = VALUES(category),
+         job_meta = VALUES(job_meta),
          excerpt = VALUES(excerpt), 
          content = VALUES(content), 
          image_url = VALUES(image_url), 
@@ -116,6 +136,8 @@ export async function createPostData(postFields) {
       [
         newPost.title,
         newPost.slug,
+        newPost.category,
+        jobMetaSql,
         newPost.excerpt,
         newPost.content,
         newPost.image_url,
@@ -140,10 +162,16 @@ export async function updatePostData(id, updateFields) {
   const index = all.findIndex(p => String(p.id) === String(id));
 
   let updatedPost = null;
+  const jobMeta = updateFields.job_meta !== undefined 
+    ? (typeof updateFields.job_meta === 'object' ? updateFields.job_meta : (() => { try { return JSON.parse(updateFields.job_meta); } catch (e) { return null; } })()) 
+    : (index !== -1 ? all[index].job_meta : null);
+
   if (index !== -1) {
     all[index] = {
       ...all[index],
-      ...updateFields
+      ...updateFields,
+      category: updateFields.category !== undefined ? updateFields.category : (all[index].category || 'tin-tuc'),
+      job_meta: jobMeta
     };
     updatedPost = all[index];
   } else {
@@ -152,6 +180,8 @@ export async function updatePostData(id, updateFields) {
       id: newId,
       title: updateFields.title || 'Bài viết mới',
       slug: updateFields.slug || `bai-viet-${newId}`,
+      category: updateFields.category || 'tin-tuc',
+      job_meta: jobMeta,
       excerpt: updateFields.excerpt || '',
       content: updateFields.content || '',
       image_url: updateFields.image_url || '/images/sopet-xam.png',
@@ -167,14 +197,19 @@ export async function updatePostData(id, updateFields) {
   memoryPostsCache = all;
   savePostsToFile(all);
 
+  const postCategory = updatedPost.category || updateFields.category || 'tin-tuc';
+  const jobMetaSql = jobMeta ? JSON.stringify(jobMeta) : null;
+
   try {
     const [updateResult] = await db.query(
       `UPDATE posts 
-       SET title = ?, slug = ?, excerpt = ?, content = ?, image_url = ?, meta_title = ?, meta_description = ?, meta_keywords = ?, is_published = ? 
+       SET title = ?, slug = ?, category = ?, job_meta = ?, excerpt = ?, content = ?, image_url = ?, meta_title = ?, meta_description = ?, meta_keywords = ?, is_published = ? 
        WHERE id = ?`,
       [
         updateFields.title,
         updateFields.slug,
+        postCategory,
+        jobMetaSql,
         updateFields.excerpt || '',
         updateFields.content || '',
         updateFields.image_url || '',
@@ -188,10 +223,12 @@ export async function updatePostData(id, updateFields) {
 
     if (updateResult && updateResult.affectedRows === 0) {
       await db.query(
-        `INSERT INTO posts (title, slug, excerpt, content, image_url, meta_title, meta_description, meta_keywords, is_published)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `INSERT INTO posts (title, slug, category, job_meta, excerpt, content, image_url, meta_title, meta_description, meta_keywords, is_published)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON DUPLICATE KEY UPDATE 
            title = VALUES(title), 
+           category = VALUES(category),
+           job_meta = VALUES(job_meta),
            excerpt = VALUES(excerpt), 
            content = VALUES(content), 
            image_url = VALUES(image_url), 
@@ -202,6 +239,8 @@ export async function updatePostData(id, updateFields) {
         [
           updateFields.title,
           updateFields.slug,
+          postCategory,
+          jobMetaSql,
           updateFields.excerpt || '',
           updateFields.content || '',
           updateFields.image_url || '',
