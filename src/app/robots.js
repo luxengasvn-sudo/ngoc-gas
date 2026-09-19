@@ -12,6 +12,7 @@ export default function robots() {
       `${baseUrl}/sitemap.xml`,
       `${baseUrl}/sitemap-gas.xml`,
       `${baseUrl}/sitemap-diagioi.xml`,
+      `${baseUrl}/tinh-thanh/sitemap-diagioi.xml`,
     ],
   };
 }
