@@ -119,7 +119,18 @@ export default function Header({ initialSettings }) {
     if (settings.header_menu_items) {
       const parsed = typeof settings.header_menu_items === 'string' ? JSON.parse(settings.header_menu_items) : settings.header_menu_items;
       if (Array.isArray(parsed) && parsed.length > 0) {
-        navLinks = parsed.filter(item => item && item.is_active !== false);
+        let fullList = [...parsed];
+        const hasMonAn = fullList.some(item => item && item.path === '/mon-an');
+        const hasTuyenDung = fullList.some(item => item && item.path === '/tuyen-dung');
+        if (!hasMonAn || !hasTuyenDung) {
+          const contactIdx = fullList.findIndex(item => item && (item.path === '/lien-he' || item.id === 'm7'));
+          const insertIdx = contactIdx !== -1 ? contactIdx : fullList.length;
+          const toAdd = [];
+          if (!hasMonAn) toAdd.push({ id: "m-mon-an", name: 'Món Ngon', path: '/mon-an', is_active: true });
+          if (!hasTuyenDung) toAdd.push({ id: "m-tuyen-dung", name: 'Tuyển Dụng', path: '/tuyen-dung', is_active: true });
+          fullList.splice(insertIdx, 0, ...toAdd);
+        }
+        navLinks = fullList.filter(item => item && item.is_active !== false);
       }
     }
   } catch (e) {}

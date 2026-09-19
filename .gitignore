@@ -52,5 +52,4 @@ CLAUDE.md
 data/*.json
 !data/*.default.json
 
-# User uploads (dynamic media — separate from code repository)
-public/uploads/*
+

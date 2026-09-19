@@ -548,6 +548,8 @@ export default function AdminSettingsPage() {
     { id: "m4", name: "Bảng Giá Gas", path: "/gia-gas-hom-nay", is_active: true },
     { id: "m5", name: "Cửa hàng", path: "/cua-hang", is_active: true },
     { id: "m6", name: "Tin tức", path: "/tin-tuc", is_active: true },
+    { id: "m-mon-an", name: "Món Ngon", path: "/mon-an", is_active: true },
+    { id: "m-tuyen-dung", name: "Tuyển Dụng", path: "/tuyen-dung", is_active: true },
     { id: "m7", name: "Liên hệ", path: "/lien-he", is_active: true }
   ];
 
@@ -567,7 +569,20 @@ export default function AdminSettingsPage() {
     try {
       if (settings.header_menu_items) {
         const arr = typeof settings.header_menu_items === 'string' ? JSON.parse(settings.header_menu_items) : settings.header_menu_items;
-        if (Array.isArray(arr) && arr.length > 0) return arr;
+        if (Array.isArray(arr) && arr.length > 0) {
+          let list = [...arr];
+          const hasMonAn = list.some(item => item && item.path === '/mon-an');
+          const hasTuyenDung = list.some(item => item && item.path === '/tuyen-dung');
+          if (!hasMonAn || !hasTuyenDung) {
+            const contactIdx = list.findIndex(item => item && (item.path === '/lien-he' || item.id === 'm7'));
+            const insertIdx = contactIdx !== -1 ? contactIdx : list.length;
+            const toAdd = [];
+            if (!hasMonAn) toAdd.push({ id: "m-mon-an", name: "Món Ngon", path: "/mon-an", is_active: true });
+            if (!hasTuyenDung) toAdd.push({ id: "m-tuyen-dung", name: "Tuyển Dụng", path: "/tuyen-dung", is_active: true });
+            list.splice(insertIdx, 0, ...toAdd);
+          }
+          return list;
+        }
       }
     } catch (e) {}
     return DEFAULT_HEADER_MENU;
