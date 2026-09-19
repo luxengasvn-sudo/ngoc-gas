@@ -2174,6 +2174,96 @@ body.has-promo-bar .main-content-wrapper {
   font-weight: 600;
 }
 
+/* ==========================================================================
+   POST CONTENT RESPONSIVE TABLES & CARDS (MOBILE UI/UX OPTIMIZED)
+   ========================================================================== */
+.post-content-body-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  background: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E2E8F0;
+  text-align: left;
+}
+
+.post-content-body-custom th {
+  background: #1E3A8A;
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 14px 18px;
+  border-bottom: 2px solid #0F172A;
+  font-size: 14.5px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.post-content-body-custom td {
+  padding: 13px 18px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #334155;
+  vertical-align: top;
+}
+
+.post-content-body-custom tr:last-child td {
+  border-bottom: none;
+}
+
+.post-content-body-custom tr:nth-child(even) td {
+  background-color: #F8FAFC;
+}
+
+.post-content-body-custom tr:hover td {
+  background-color: #FFF7ED;
+}
+
+/* Container cuộn ngang cảm ứng mượt mà */
+.post-content-body-custom div:has(> table),
+.post-content-body-custom [style*="overflow-x"],
+.table-responsive-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  margin: 24px 0 !important;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+/* Thanh cuộn ngang thanh lịch */
+.post-content-body-custom div:has(> table)::-webkit-scrollbar,
+.post-content-body-custom [style*="overflow-x"]::-webkit-scrollbar,
+.table-responsive-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.post-content-body-custom div:has(> table)::-webkit-scrollbar-track,
+.post-content-body-custom [style*="overflow-x"]::-webkit-scrollbar-track,
+.table-responsive-wrapper::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 10px;
+}
+
+.post-content-body-custom div:has(> table)::-webkit-scrollbar-thumb,
+.post-content-body-custom [style*="overflow-x"]::-webkit-scrollbar-thumb,
+.table-responsive-wrapper::-webkit-scrollbar-thumb {
+  background: #FDBA74;
+  border-radius: 10px;
+}
+
+.post-content-body-custom div:has(> table)::-webkit-scrollbar-thumb:hover,
+.post-content-body-custom [style*="overflow-x"]::-webkit-scrollbar-thumb:hover,
+.table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #EA580C;
+}
+
 .post-footer-nav-custom {
   margin-top: 40px;
   padding-top: 24px;
@@ -2233,6 +2323,36 @@ body.has-promo-bar .main-content-wrapper {
   .post-content-body-custom {
     font-size: 15.5px;
     line-height: 1.75;
+  }
+
+  /* Tối ưu hóa bảng cho Mobile: chống co nghẹt chữ thành dải dọc */
+  .post-content-body-custom table {
+    min-width: 600px !important;
+    font-size: 13.5px !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .post-content-body-custom th {
+    padding: 11px 13px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  .post-content-body-custom td {
+    padding: 11px 13px !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+  }
+
+  .post-content-body-custom div:has(> table),
+  .post-content-body-custom [style*="overflow-x"],
+  .table-responsive-wrapper {
+    margin: 18px 0 !important;
+    border-radius: 10px !important;
   }
 }
 

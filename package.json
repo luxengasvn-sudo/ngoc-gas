@@ -10,7 +10,8 @@
     "bot": "node scripts/telegram-bot/server.js",
     "audit": "node scripts/audit-project.js",
     "audit:agencies": "node scripts/qa-pipeline/ai-verifier/run-deep-audit.mjs",
-    "backup": "node scripts/backup-ngocgas.mjs"
+    "backup": "node scripts/backup-ngocgas.mjs",
+    "post:daily": "node scripts/cron-daily-4-recipes.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
