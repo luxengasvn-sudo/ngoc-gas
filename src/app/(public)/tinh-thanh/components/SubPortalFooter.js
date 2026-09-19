@@ -140,8 +140,6 @@ export default function SubPortalFooter() {
             <Link href="/tinh-thanh/dieu-khoan">Điều khoản & Bản quyền</Link>
             <span>•</span>
             <Link href="/lien-he">Liên hệ góp ý</Link>
-            <span>•</span>
-            <Link href="/lien-he" style={{ color: '#38bdf8', fontWeight: '800', textDecoration: 'none' }}>Hỗ trợ 24/7</Link>
           </div>
         </div>
       </div>

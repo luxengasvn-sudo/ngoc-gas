@@ -140,11 +140,12 @@
   color: #ea580c;
 }
 
-/* Hide global Ngọc Gas header, footer & mobile bottom nav inside /tinh-thanh sub-portal */
+/* Hide global Ngọc Gas header, footer, contact widget & mobile bottom nav inside /tinh-thanh sub-portal */
 body:has(.tt-portal-root) .promo-announcement-bar,
 body:has(.tt-portal-root) header.header,
 body:has(.tt-portal-root) footer.footer,
-body:has(.tt-portal-root) .bottom-nav-container {
+body:has(.tt-portal-root) .bottom-nav-container,
+body:has(.tt-portal-root) .mobile-contact-widget {
   display: none !important;
 }
 
