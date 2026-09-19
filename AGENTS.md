@@ -93,6 +93,12 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 12. QUY TẮC ĐỒNG BỘ BẢNG THỐNG KÊ GOOGLE SHEETS KHI XUẤT BẢN BÀI VIẾT (MANDATORY GOOGLE SHEETS SYNC)
+- **Bảng tính chính thức**: `https://docs.google.com/spreadsheets/d/1W5VTCZPxNHI30VbOJN0S-lnW9SyQKXtaB7CZ6ZwyNp0/edit`
+- **Hợp đồng thực thi**: Mỗi khi xuất bản bài viết mới qua API (danh mục `mon-an` hoặc `tin-tuc`), Agent BẮT BUỘC tự động cập nhật ngay bài viết đó (STT, Tiêu đề, Tóm tắt nội dung, Link bài viết, Trạng thái, Ngày đăng, Ảnh đại diện, Số từ) vào đúng tab tương ứng (`Món Ăn` hoặc `Tin Tức`) trên Google Sheet trên.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
