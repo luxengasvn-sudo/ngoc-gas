@@ -36,28 +36,16 @@ export default function PostCard({ post }) {
       <div className="post-card card">
         <Link href={postUrl} className="post-thumb-link">
           <div className="post-thumb-box">
-            {!imgError && (displayImg.startsWith('/images/') || displayImg.startsWith('/uploads/')) && !displayImg.endsWith('.webp') ? (
-              <picture>
-                <source srcSet={displayImg.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
-                <img 
-                  src={displayImg} 
-                  alt={post.title || 'Bài viết Ngọc Gas'} 
-                  className="post-thumb-img" 
-                  loading="lazy" 
-                  decoding="async"
-                  onError={() => setImgError(true)}
-                />
-              </picture>
-            ) : (
-              <img 
-                src={displayImg} 
-                alt={post.title || 'Bài viết Ngọc Gas'} 
-                className="post-thumb-img" 
-                loading="lazy" 
-                decoding="async"
-                onError={() => setImgError(true)}
-              />
-            )}
+            <img 
+              src={displayImg} 
+              alt={post.title || 'Bài viết Ngọc Gas'} 
+              className="post-thumb-img" 
+              loading="lazy" 
+              decoding="async"
+              onError={() => {
+                if (!imgError) setImgError(true);
+              }}
+            />
           </div>
         </Link>
 

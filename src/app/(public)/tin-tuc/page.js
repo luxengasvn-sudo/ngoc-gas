@@ -122,7 +122,7 @@ export default async function NewsPage({ searchParams }) {
 
   try {
     const all = await getAllPosts();
-    allLivePosts = all.filter(p => p.is_published == 1);
+    allLivePosts = all.filter(p => p.is_published == 1 && p.category !== 'mon-an' && p.category !== 'tuyen-dung');
     settings = await getAllSettings();
   } catch (error) {
     console.error('Error fetching posts or settings:', error);
