@@ -30,8 +30,12 @@ Hệ thống phân tầng 30 kênh Entity thành 5 nhóm nội dung độc lập
 | **Tier 1: Local & Maps** | Google Maps (Dĩ An, Cây Da, VietSing) | Cập nhật điểm giao nhanh, phục vụ tại chỗ 15 phút, an toàn PCCC, bình gas chính hãng đủ ký. | Link về bài viết + Link Bảng giá gas (`/gia-gas-hom-nay`) + Nút gọi Hotline `1900 9396`. |
 | **Tier 2: Social Networks** | 5 Fanpage Facebook, LinkedIn | Ngắn gọn, sinh động, bắt trend, thảo luận đời sống bếp núc/năng lượng, hình ảnh thực tế, hashtag địa phương (#NgocGas #GasDiAn). | Link bài viết gốc dưới comment hoặc trong caption, kêu gọi like/share/nhắn tin Zalo. |
 | **Tier 3: Web 2.0 & Blogs** | Blogger, WordPress, Tumblr | Bài viết Spinoff mở rộng (300 - 500 từ): Mẹo giữ lửa xanh tiết kiệm gas, bí quyết nấu nướng ngon không cháy đáy nồi, kiến thức tiêu dùng thông minh. | Gắn thẻ Canonical về bài gốc + 2 Contextual Backlink (1 link bài viết + 1 link bảng giá). |
-| **Tier 4: Tech & Docs APIs** | Telegra.ph, DEV.to, GitHub, GitLab, Rentry | Bản tóm lược dữ liệu chuẩn Markdown, cấu trúc dữ liệu JSON-LD/Schema, thông số kỹ thuật bình gas hoặc bảng thành phần dinh dưỡng món ăn. | Dẫn nguồn bài viết chính thức (`ngocgas.com`), Hotline 1900 9396. |
+| **Tier 4: Tech & Docs APIs** | Telegra.ph, DEV.to, Rentry | Bản tóm lược dữ liệu chuẩn Markdown, cấu trúc dữ liệu JSON-LD/Schema, thông số kỹ thuật bình gas hoặc bảng thành phần dinh dưỡng món ăn. | Dẫn nguồn bài viết chính thức (`ngocgas.com`), Hotline 1900 9396. |
 | **Tier 5: Q&A & Community** | Quora, Reddit, Disqus, Pinterest | Dạng câu hỏi - giải đáp (FAQ): *"Làm thế nào để...", "Tại sao...", "Nên chọn loại gas nào an toàn nhất?"*. Pinterest gán infographic/hình ảnh món ăn. | Link trích dẫn nguồn giải đáp chi tiết tại `ngocgas.com`. |
+
+> [!IMPORTANT]
+> **QUY TẮC BẢO VỆ MÃ NGUỒN (GITHUB / GITLAB EXCLUSION)**:
+> GitHub (`luxengasvn-sudo/ngoc-gas`) và GitLab (`ngoc-gas-group/ngocgas.com`) CHỈ đóng vai trò lưu trữ mã nguồn phần mềm website và tệp hồ sơ định danh thương hiệu tĩnh (`BRAND-ENTITY.md`). **CẤM TUYỆT ĐỐI** việc đẩy bài viết hay commit nội dung bài đăng hàng ngày vào kho Git để giữ cho lịch sử phiên bản và mã nguồn web luôn sạch sẽ, chuyên nghiệp.
 
 ---
 
@@ -61,8 +65,8 @@ Hệ thống phân tầng 30 kênh Entity thành 5 nhóm nội dung độc lập
          ▼                               ▼
  [Pha 1: API Tức Thì (3-5s)]     [Pha 2: Browser Automation (Chạy ngầm)]
  - Telegra.ph API                - Google Maps Updates (3 địa điểm)
- - Git Entity Docs (GitHub/GitLab)- 5 Fanpage Facebook
- - Rentry API                    - Blogger / WordPress / Tumblr
+ - Rentry API                    - 5 Fanpage Facebook
+ - DEV.to API / Markdown Pub     - Blogger / WordPress / Tumblr
          │                               │
          └──────────────┬────────────────┘
                         ▼
@@ -72,8 +76,8 @@ Hệ thống phân tầng 30 kênh Entity thành 5 nhóm nội dung độc lập
 
 ### Chi tiết 2 Pha:
 1. **Pha 1 - Fast REST API (Hoàn thành trong 3 - 5 giây)**:
-   - Sử dụng script Node.js gọi thẳng REST API của Telegra.ph, Rentry và tự động push commit cập nhật tài liệu thực thể lên GitHub/GitLab.
-   - Đảm bảo có ngay các backlink có thể index tức thì trong vài phút.
+   - Sử dụng script Node.js gọi thẳng REST API của Telegra.ph, Rentry, DEV.to để xuất bản nội dung tức thì.
+   - Đảm bảo có ngay các backlink có thể index tức thì trong vài phút mà không đụng chạm đến kho Git.
 
 2. **Pha 2 - Browser Automation Subagent (Chạy ngầm an toàn)**:
    - Chạy tuần tự qua các phiên đăng nhập sẵn trên trình duyệt (Google Business Profile, Facebook Meta Business Suite, Blogger...).
