@@ -34,9 +34,10 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
 11. **Rentry Brand Document**: [https://rentry.co/ngocgas](https://rentry.co/ngocgas)
 12. **Behance Adobe Portfolio**: [https://www.behance.net/gasngc](https://www.behance.net/gasngc)
 13. **Disqus Profile**: [https://disqus.com/by/gasngoc2/](https://disqus.com/by/gasngoc2/)
-14. **Quora Official Profile**: [https://www.quora.com/profile/Gas-Ng%E1%BB%8Dc](https://www.quora.com/profile/Gas-Ng%E1%BB%8Dc)
+14. **Quora Official Profile**: [https://quora.com/profile/Gas-Ng%E1%BB%8Dc](https://quora.com/profile/Gas-Ng%E1%BB%8Dc)
 15. **Reddit Community Identity**: [https://www.reddit.com/user/FeedbackConnect6518](https://www.reddit.com/user/FeedbackConnect6518)
 16. **SoundCloud Audio Hub**: [https://soundcloud.com/you](https://soundcloud.com/you)
+17. **Beacons.ai Official Brand Hub**: [https://beacons.ai/ngocgas](https://beacons.ai/ngocgas)
 
 ---
 
@@ -96,7 +97,8 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
     "https://disqus.com/by/gasngoc2/",
     "https://www.quora.com/profile/Gas-Ng%E1%BB%8Dc",
     "https://www.reddit.com/user/FeedbackConnect6518",
-    "https://soundcloud.com/you"
+    "https://soundcloud.com/you",
+    "https://beacons.ai/ngocgas"
   ]
 }
 ```
