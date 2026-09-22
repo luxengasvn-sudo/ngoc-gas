@@ -40,6 +40,7 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
 17. **Beacons.ai Official Brand Hub**: [https://beacons.ai/ngocgas](https://beacons.ai/ngocgas)
 18. **DEV Community Official**: [https://dev.to/ngocgas](https://dev.to/ngocgas)
 19. **GitLab Enterprise Hub**: [https://gitlab.com/ngoc-gas-group/ngocgas.com](https://gitlab.com/ngoc-gas-group/ngocgas.com)
+20. **LinkedIn Official Profile**: [https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/](https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/)
 
 ---
 
@@ -99,10 +100,11 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
     "https://disqus.com/by/gasngoc2/",
     "https://www.quora.com/profile/Gas-Ng%E1%BB%8Dc",
     "https://www.reddit.com/user/FeedbackConnect6518",
-    "https://soundcloud.com/you",
+    "https://soundcloud.com/xikaj3vq0wqc",
     "https://beacons.ai/ngocgas",
     "https://dev.to/ngocgas",
-    "https://gitlab.com/ngoc-gas-group/ngocgas.com"
+    "https://gitlab.com/ngoc-gas-group/ngocgas.com",
+    "https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/"
   ]
 }
 ```
