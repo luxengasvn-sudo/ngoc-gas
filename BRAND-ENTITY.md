@@ -41,6 +41,11 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
 18. **DEV Community Official**: [https://dev.to/ngocgas](https://dev.to/ngocgas)
 19. **GitLab Enterprise Hub**: [https://gitlab.com/ngoc-gas-group/ngocgas.com](https://gitlab.com/ngoc-gas-group/ngocgas.com)
 20. **LinkedIn Official Profile**: [https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/](https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/)
+21. **Facebook Official Fanpage**: [https://www.facebook.com/ngocgascom](https://www.facebook.com/ngocgascom)
+22. **Facebook Chi Nhánh Dĩ An**: [https://www.facebook.com/ngocgasdian](https://www.facebook.com/ngocgasdian)
+23. **Facebook Chi Nhánh KDC VietSing**: [https://www.facebook.com/ngocgaskdcvietsing](https://www.facebook.com/ngocgaskdcvietsing)
+24. **Facebook Chi Nhánh Cây Da**: [https://www.facebook.com/ngocgascayda](https://www.facebook.com/ngocgascayda)
+25. **Facebook Tuyển Dụng Ngọc Gas**: [https://www.facebook.com/tuyendungngocgas](https://www.facebook.com/tuyendungngocgas)
 
 ---
 
@@ -104,7 +109,12 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
     "https://beacons.ai/ngocgas",
     "https://dev.to/ngocgas",
     "https://gitlab.com/ngoc-gas-group/ngocgas.com",
-    "https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/"
+    "https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/",
+    "https://www.facebook.com/ngocgascom",
+    "https://www.facebook.com/ngocgasdian",
+    "https://www.facebook.com/ngocgaskdcvietsing",
+    "https://www.facebook.com/ngocgascayda",
+    "https://www.facebook.com/tuyendungngocgas"
   ]
 }
 ```
