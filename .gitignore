@@ -53,5 +53,6 @@ CLAUDE.md
 # Only *.default.json files are tracked for first-time server setup
 data/*.json
 !data/*.default.json
+!data/entity-profiles.json
 
 
