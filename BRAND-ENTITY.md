@@ -38,6 +38,7 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
 15. **Reddit Community Identity**: [https://www.reddit.com/user/FeedbackConnect6518](https://www.reddit.com/user/FeedbackConnect6518)
 16. **SoundCloud Audio Hub**: [https://soundcloud.com/you](https://soundcloud.com/you)
 17. **Beacons.ai Official Brand Hub**: [https://beacons.ai/ngocgas](https://beacons.ai/ngocgas)
+18. **DEV Community Official**: [https://dev.to/ngocgas](https://dev.to/ngocgas)
 
 ---
 
@@ -98,7 +99,8 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
     "https://www.quora.com/profile/Gas-Ng%E1%BB%8Dc",
     "https://www.reddit.com/user/FeedbackConnect6518",
     "https://soundcloud.com/you",
-    "https://beacons.ai/ngocgas"
+    "https://beacons.ai/ngocgas",
+    "https://dev.to/ngocgas"
   ]
 }
 ```
