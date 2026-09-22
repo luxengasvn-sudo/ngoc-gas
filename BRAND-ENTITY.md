@@ -31,6 +31,9 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
 8. **Gravatar Profile**: [https://gravatar.com/dutifullyfire986e728348](https://gravatar.com/dutifullyfire986e728348)
 9. **Telegra.ph Brand Hub**: [https://telegra.ph/Ngọc-Gas---Giao-Gas-Nhanh-Chính-Hãng-Dĩ-An-Bình-Dương-09-22](https://telegra.ph/Ngọc-Gas---Giao-Gas-Nhanh-Chính-Hãng-Dĩ-An-Bình-Dương-09-22)
 10. **GitHub Brand Repository**: [https://github.com/luxengasvn-sudo/ngoc-gas](https://github.com/luxengasvn-sudo/ngoc-gas)
+11. **Rentry Brand Document**: [https://rentry.co/ngocgas](https://rentry.co/ngocgas)
+12. **Behance Adobe Portfolio**: [https://www.behance.net/gasngc](https://www.behance.net/gasngc)
+13. **Disqus Profile**: [https://disqus.com/by/gasngoc2/](https://disqus.com/by/gasngoc2/)
 
 ---
 
@@ -84,7 +87,10 @@ Toàn bộ các kênh vệ tinh và hồ sơ định danh số chính thức c�
     "https://www.pinterest.com/gasngoc/",
     "https://gravatar.com/dutifullyfire986e728348",
     "https://telegra.ph/Ngọc-Gas---Giao-Gas-Nhanh-Chính-Hãng-Dĩ-An-Bình-Dương-09-22",
-    "https://github.com/luxengasvn-sudo/ngoc-gas"
+    "https://github.com/luxengasvn-sudo/ngoc-gas",
+    "https://rentry.co/ngocgas",
+    "https://www.behance.net/gasngc",
+    "https://disqus.com/by/gasngoc2/"
   ]
 }
 ```
