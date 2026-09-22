@@ -102,7 +102,7 @@ export async function createPostData(postFields) {
     slug: postFields.slug,
     category: postFields.category || 'tin-tuc',
     job_meta: jobMeta,
-    excerpt: postFields.excerpt || '',
+    excerpt: postFields.excerpt || postFields.summary || '',
     content: postFields.content || '',
     image_url: postFields.image_url || '/images/sopet-xam.png',
     meta_title: postFields.meta_title || postFields.title,
