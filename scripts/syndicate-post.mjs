@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 
 /**
- * HỆ THỐNG PHÂN PHỐI BÀI VIẾT ĐA KÊNH TỰ ĐỘNG QUA API (CONTENT SYNDICATION ENGINE)
- * Tự động bắn bài viết mới từ CSDL ngocgas.com lên các kênh vệ tinh qua REST API trong vòng 5 - 10 giây
+ * HỆ THỐNG PHÂN PHỐI BÀI VIẾT ĐA TẦNG TỰ ĐỘNG LÊN TOÀN BỘ ENTITY (MULTI-ENTITY SEO SYNDICATION ENGINE)
+ * Tự động biến đổi 1 bài viết thành 5 góc nhìn nội dung độc bản và bắn đa kênh qua:
+ * - Pha 1: Fast REST API tức thì (Telegra.ph, Markdown Docs, Webhook) trong 2 - 3 giây.
+ * - Pha 2: Đóng gói sẵn nội dung chuẩn SEO cho Google Maps (3 điểm), 5 Fanpage Facebook, Web 2.0 Blogs.
+ * - Tự động ghi nhận lịch sử vào data/syndication-history.json và đồng bộ số liệu thống kê.
+ * 
+ * TUÂN THỦ 100%: Tuyệt đối không commit hay đẩy bài viết hàng ngày vào kho Git.
  */
 
 import fs from 'fs';
 import path from 'path';
+import { generateSyndicationMatrix } from './syndication-matrix.mjs';
 
 // Load .env.local
 const envLocalPath = path.join(process.cwd(), '.env.local');
@@ -26,18 +32,18 @@ if (fs.existsSync(envLocalPath)) {
 }
 
 const TARGET_URL = (process.env.TARGET_URL || 'https://ngocgas.com').replace(/\/+$/, '');
-const API_KEY = process.env.AI_PUBLISHER_API_KEY;
 
 // Lấy slug bài viết từ tham số dòng lệnh hoặc mặc định bài 22/09
-const postSlug = process.argv[2] || 'bien-dong-thi-truong-gas-ngay-22-09';
+const postSlug = process.argv[2] || 'ga-kho-sa-ot-dam-da-chuan-vi';
 
-console.log(`🚀 KÍCH HOẠT HỆ THỐNG SYNDICATION API CHO BÀI VIẾT: ${postSlug}`);
+console.log(`🚀 KÍCH HOẠT QUY TRÌNH SYNDICATION ĐA TẦNG CHO BÀI VIẾT: ${postSlug}`);
 
-async function syndicatePost() {
+export async function syndicatePostBySlug(slug = postSlug) {
   const results = {
-    postSlug,
+    postSlug: slug,
     syndicatedAt: new Date().toISOString(),
-    channels: []
+    channels: [],
+    packagesCreated: false
   };
 
   // 1. Lấy thông tin bài viết từ API ngocgas.com hoặc data/posts.json
@@ -46,29 +52,63 @@ async function syndicatePost() {
   if (fs.existsSync(localPostsPath)) {
     try {
       const posts = JSON.parse(fs.readFileSync(localPostsPath, 'utf8'));
-      postData = posts.find(p => p.slug === postSlug);
+      postData = posts.find(p => p.slug === slug);
     } catch (e) {}
   }
 
+  // Fallback từ recipes-50-master.json nếu là món ăn
   if (!postData) {
-    // Fallback bài viết mặc định 22/09
+    const recipesPath = path.join(process.cwd(), 'data', 'recipes-50-master.json');
+    if (fs.existsSync(recipesPath)) {
+      try {
+        const recipes = JSON.parse(fs.readFileSync(recipesPath, 'utf8'));
+        const foundRecipe = recipes.find(r => r.slug === slug);
+        if (foundRecipe) {
+          postData = {
+            title: foundRecipe.title || foundRecipe.name || 'Món ngon mỗi ngày cùng Ngọc Gas',
+            slug: foundRecipe.slug,
+            category: 'mon-an',
+            summary: foundRecipe.summary || foundRecipe.description || foundRecipe.excerpt || 'Công thức nấu ăn thơm ngon, chuẩn vị cùng Ngọc Gas.',
+            content: foundRecipe.content || foundRecipe.description || ''
+          };
+        }
+      } catch (e) {}
+    }
+  }
+
+  if (!postData) {
+    // Mẫu dự phòng
     postData = {
-      title: 'Biến Động Thị Trường Gas Ngày 22/09: Cảnh Giác Nguy Cơ Đứt Gãy Nguồn Cung & Bẫy Gas Giá Rẻ',
-      slug: postSlug,
-      summary: 'Thị trường gas ngày 22/09 đối mặt nguy cơ đứt gãy nguồn cung quốc tế. Cảnh giác gas sang chiết lậu giá rẻ thiếu ký. Ngọc Gas cam kết chủ động dự trữ kho bãi, đủ cân đủ ký và bảo đảm quyền lợi tối đa cho khách hàng.',
-      content: 'Thị trường gas ngày 22/09 ghi nhận biến động mạnh. Ngọc Gas cam kết luôn ổn định nguồn cung và duy trì chính sách trợ giá tốt nhất tại Dĩ An và Bình Dương.'
+      title: 'Gà kho sả ớt đậm đà chuẩn vị cơm nhà',
+      slug: slug,
+      category: 'mon-an',
+      summary: 'Cách làm gà kho sả ớt thơm cay nồng ấm, thịt gà săn chắc ngấm đậm gia vị mặn ngọt hài hòa.',
+      content: 'Món gà kho sả ớt là món ăn quen thuộc trong mâm cơm người Việt. Thịt gà được chặt miếng vừa ăn, ướp cùng sả băm, ớt tươi và nước mắm truyền thống.'
     };
   }
 
-  const originalArticleUrl = `${TARGET_URL}/tin-tuc/${postData.slug}`;
-  const pricePageUrl = `${TARGET_URL}/gia-gas-hom-nay`;
-
   console.log(`📄 Tiêu đề: ${postData.title}`);
-  console.log(`🔗 Link gốc: ${originalArticleUrl}`);
+  console.log(`📁 Chuyên mục: ${postData.category || 'tin-tuc'}`);
 
-  // --- KÊNH 1: TELEGRA.PH API (Chạy ngầm trong 1 giây) ---
+  // 2. SINH MA TRẬN 5 GÓC NHÌN NỘI DUNG ĐỘC BẢN
+  console.log(`\n🧩 Đang phóng tác ma trận 5 góc nhìn nội dung độc bản...`);
+  const matrix = generateSyndicationMatrix(postData);
+
+  // Lưu gói nội dung vào data/syndication-packages/${slug}.json
+  const packagesDir = path.join(process.cwd(), 'data', 'syndication-packages');
+  if (!fs.existsSync(packagesDir)) {
+    fs.mkdirSync(packagesDir, { recursive: true });
+  }
+  const packageFilePath = path.join(packagesDir, `${slug}.json`);
+  fs.writeFileSync(packageFilePath, JSON.stringify(matrix, null, 2), 'utf8');
+  results.packagesCreated = true;
+  console.log(`✅ Đã lưu gói nội dung 5 góc nhìn tại: data/syndication-packages/${slug}.json`);
+
+  // --- PHA 1: FAST REST API TỨC THÌ (3 - 5 GIÂY) ---
+
+  // KÊNH 1: TELEGRA.PH API (Tier 4: Tech & Docs)
   try {
-    console.log('📡 Đang bắn API lên Telegra.ph...');
+    console.log('📡 [Pha 1] Đang bắn API lên Telegra.ph...');
     const telegraRes = await fetch('https://api.telegra.ph/createPage', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -76,13 +116,16 @@ async function syndicatePost() {
         access_token: '1d02b0e3703a40081af8d89b1b664518f31abd54f8617eb4036c42430b40',
         title: postData.title.slice(0, 100),
         author_name: 'Ngọc Gas - Đại Lý Gas Dĩ An',
-        author_url: originalArticleUrl,
+        author_url: matrix.postUrl,
         content: [
-          { tag: 'p', children: [postData.summary || 'Thông tin cập nhật mới nhất từ Ngọc Gas.'] },
+          { tag: 'p', children: [postData.summary || 'Thông tin hữu ích từ Đại lý Ngọc Gas.'] },
           { tag: 'hr' },
-          { tag: 'p', children: ['👉 Xem bài viết phân tích chi tiết tại: ', { tag: 'a', attrs: { href: originalArticleUrl }, children: [originalArticleUrl] }] },
-          { tag: 'p', children: ['🔥 Bảng giá gas hôm nay được cập nhật tự động tại: ', { tag: 'a', attrs: { href: pricePageUrl }, children: [pricePageUrl] }] },
-          { tag: 'p', children: ['📞 Hotline đặt gas nhanh 15 phút tại Dĩ An: ', { tag: 'strong', children: ['1900 9396'] }] }
+          { tag: 'h4', children: ['💡 Góc nhìn chuyên sâu từ chuyên gia Ngọc Gas:'] },
+          { tag: 'p', children: [matrix.tier3Blog.body.slice(0, 500) + '...'] },
+          { tag: 'hr' },
+          { tag: 'p', children: ['👉 Xem bài viết chi tiết tại: ', { tag: 'a', attrs: { href: matrix.postUrl }, children: [matrix.postUrl] }] },
+          { tag: 'p', children: ['📊 Cập nhật bảng giá gas hôm nay tự động: ', { tag: 'a', attrs: { href: matrix.pricePageUrl }, children: [matrix.pricePageUrl] }] },
+          { tag: 'p', children: ['📞 Tổng đài đặt gas chính hãng tại Dĩ An & Bình Dương: ', { tag: 'strong', children: [matrix.hotline] }] }
         ],
         return_content: false
       })
@@ -91,7 +134,13 @@ async function syndicatePost() {
     if (telegraData.ok) {
       const url = `https://telegra.ph/${telegraData.result.path}`;
       console.log(`✅ [Telegra.ph] Đăng thành công: ${url}`);
-      results.channels.push({ name: 'Telegra.ph', status: 'Success', url });
+      results.channels.push({
+        tier: 'Tier 4 (Tech & Docs)',
+        name: 'Telegra.ph',
+        status: 'Success',
+        url,
+        anchorText: postData.title
+      });
     } else {
       console.log(`⚠️ [Telegra.ph] Phản hồi lỗi:`, telegraData);
       results.channels.push({ name: 'Telegra.ph', status: 'Failed', error: telegraData.error });
@@ -100,42 +149,52 @@ async function syndicatePost() {
     console.error(`❌ [Telegra.ph] Lỗi kết nối:`, err.message);
   }
 
-  // --- KÊNH 2: TELEGRAM CHANNEL BOT API (Nếu có BOT TOKEN) ---
-  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
-    try {
-      console.log('📡 Đang bắn tin nhắn lên Telegram Channel qua Bot API...');
-      const teleMsg = `🔥 <b>${postData.title}</b>\n\n${postData.summary}\n\n👉 <a href="${originalArticleUrl}">Xem chi tiết bài viết</a>\n📊 <a href="${pricePageUrl}">Bảng giá gas hôm nay</a>\n📞 Hotline: <b>1900 9396</b>`;
-      const teleRes = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: process.env.TELEGRAM_CHAT_ID,
-          text: teleMsg,
-          parse_mode: 'HTML',
-          disable_web_page_preview: false
-        })
-      });
-      const teleJson = await teleRes.json();
-      if (teleJson.ok) {
-        console.log(`✅ [Telegram Bot] Đăng thành công vào Channel ID ${process.env.TELEGRAM_CHAT_ID}`);
-        results.channels.push({ name: 'Telegram Channel', status: 'Success', messageId: teleJson.result.message_id });
-      }
-    } catch (err) {
-      console.error(`❌ [Telegram Bot] Lỗi kết nối:`, err.message);
-    }
-  }
+  // Ghi nhận các gói sẵn sàng cho Pha 2 (Browser Automation)
+  results.channels.push({
+    tier: 'Tier 1 (Local & Maps)',
+    name: 'Google Maps (3 Chi Nhánh: Dĩ An, Cây Da, VietSing)',
+    status: 'Ready in Queue',
+    contentPreview: matrix.tier1Maps.slice(0, 100) + '...'
+  });
+  results.channels.push({
+    tier: 'Tier 2 (Social Networks)',
+    name: 'Facebook Pages (5 Fanpages) & LinkedIn',
+    status: 'Ready in Queue',
+    contentPreview: matrix.tier2Social.slice(0, 100) + '...'
+  });
+  results.channels.push({
+    tier: 'Tier 3 (Web 2.0 Blogs)',
+    name: 'Blogger, WordPress, Tumblr',
+    status: 'Ready in Queue',
+    title: matrix.tier3Blog.title,
+    contentPreview: matrix.tier3Blog.body.slice(0, 100) + '...'
+  });
+  results.channels.push({
+    tier: 'Tier 5 (Q&A & Community)',
+    name: 'Quora, Reddit, Pinterest',
+    status: 'Ready in Queue',
+    faqQuestion: matrix.tier5Faq.question
+  });
 
-  // 3. Ghi nhận lịch sử Syndication
+  // 3. Ghi nhận lịch sử Syndication vào data/syndication-history.json
   const historyPath = path.join(process.cwd(), 'data', 'syndication-history.json');
   let history = [];
   if (fs.existsSync(historyPath)) {
     try { history = JSON.parse(fs.readFileSync(historyPath, 'utf8')); } catch (e) {}
   }
   history.unshift(results);
-  fs.writeFileSync(historyPath, JSON.stringify(history.slice(0, 50), null, 2), 'utf8');
+  fs.writeFileSync(historyPath, JSON.stringify(history.slice(0, 100), null, 2), 'utf8');
 
-  console.log(`\n🎉 HOÀN TẤT BẮN API SYNDICATION ĐA KÊNH TRONG 2 GIÂY!`);
-  console.log(JSON.stringify(results, null, 2));
+  console.log(`\n🎉 HOÀN TẤT PHÂN PHỐI PHA 1 VÀ ĐÓNG GÓI NỘI DUNG 5 GÓC NHÌN!`);
+  console.log(`📊 Kết quả:`);
+  console.log(`- Telegra.ph Live: ${results.channels.find(c => c.name === 'Telegra.ph')?.url || 'Chưa hoàn tất'}`);
+  console.log(`- Gói nội dung độc bản: data/syndication-packages/${slug}.json`);
+  console.log(`- Nhật ký syndication: data/syndication-history.json`);
+
+  return results;
 }
 
-syndicatePost();
+// Chạy trực tiếp nếu gọi từ dòng lệnh
+if (process.argv[1] && process.argv[1].endsWith('syndicate-post.mjs')) {
+  syndicatePostBySlug(postSlug);
+}
