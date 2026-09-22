@@ -99,6 +99,16 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 13. QUY TẮC TỰ ĐỘNG ĐĂNG BÀI LÊN GOOGLE BUSINESS / GOOGLE MAPS (MANDATORY GOOGLE MAPS PUBLISHING)
+- **Kỹ năng chuẩn hóa**: Áp dụng kỹ năng [.agents/skills/google-maps-publisher/SKILL.md](file:///d:/Antigravity/Ng%E1%BB%8Dc%20Gas/.agents/skills/google-maps-publisher/SKILL.md).
+- **Hợp đồng thực thi**: Mỗi khi User yêu cầu *"đăng google map"*, *"cập nhật google map"*, Agent BẮT BUỘC kích hoạt quy trình tự động qua `browser_subagent` để đăng thông tin cập nhật đồng loạt cho toàn bộ **3 địa điểm Google Business Profile** của Ngọc Gas:
+  1. **Ngọc Gas - Giao gas nhanh chính hãng - Dĩ An** (7 Nguyễn Trung Trực, TP. Dĩ An)
+  2. **Cửa hàng Ngọc Gas - Đường D5 An Phú** (Kiot 5, Đường D5, KDC Vietsing, Thuận An)
+  3. **Ngọc Gas - Giao gas nhanh chính hãng - Cây Da** (7/14 Đường Cây Da, KP. Tân Phú 1, P. Tân Đông Hiệp)
+- **Quy chuẩn bài đăng**: Kèm ảnh minh họa chuẩn nhận diện, cam kết bình gas chính hãng đủ ký, hotline duy nhất `1900 9396`, nút bấm CTA *"Tìm hiểu thêm"* trỏ link `https://ngocgas.com/gia-gas-hom-nay`, và chụp ảnh màn hình lưu vào artifact làm bằng chứng thực nghiệm.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
