@@ -1,77 +1,59 @@
-# Kế Hoạch Tinh Chỉnh Giao Diện (Fix UI) Chuẩn 1:1 Theo TinhThanhVN.com
+# Kế Hoạch Triển Khai Workflow Rà Soát & Nâng Cấp Nội Dung Trang Công An Tỉnh Thành Theo Chuẩn SEO Băng Tâm
 
-> [!IMPORTANT]
-> **MỤC TIÊU**: Chuyển đổi toàn bộ phong cách giao diện từ Dark Mode sang giao diện **Sáng - Sang Trọng - Chuẩn Xác 1:1** như trang gốc `tinhthanhvn.com/province/ho-chi-minh/phuong-di-an`, giữ nguyên 100% tính năng bản đồ OpenStreetMap và dữ liệu địa giới, tiện ích công cộng.
-
----
-
-## 🎨 1. Chi Tiết Thay Đổi Thiết Kế UI Giống Hệt TinhThanh
-
-### 1.1. Nền & Màu Sắc Tổng Thể (Background & Theme)
-- **Hiện tại**: Nền tối đen `slate-950/900`, thẻ đen.
-- **Sau khi chỉnh (Chuẩn TinhThanh)**: 
-  - Nền trang chính: `bg-gradient-to-br from-sky-50 via-white to-sky-100/50` với hoa văn lưới tinh tế.
-  - Thẻ nội dung: Nền trắng tinh khiết `bg-white`, viền mờ `border-slate-200`, đổ bóng nhẹ `shadow-sm`, bo góc tròn `rounded-2xl`.
-
-### 1.2. Khối Hero Banner Đô Thị (Cover Picture + Glassmorphism Cards)
-- **Cover Image Banner**: Chiều cao `380px - 460px`, viền `border-2 border-white rounded-2xl shadow-xl overflow-hidden relative`.
-- **Thẻ Glassmorphism Góc Trên Trái (Title Card)**:
-  - `bg-white/80 backdrop-blur-md border border-white rounded-xl shadow-lg p-3 lg:p-4`.
-  - Icon ghim bản đồ màu cam `text-orange-700`.
-  - Tiêu đề H1: `phường Dĩ An` (`text-2xl lg:text-4xl font-extrabold text-orange-700 capitalize`).
-  - Dòng phụ: `TP Hồ Chí Minh • Thành phố Dĩ An (cũ)` với liên kết màu xanh dương `text-blue-700`.
-- **Thẻ Glassmorphism Góc Trên Phải (Ward Code)**:
-  - `Mã phường: #25942` kèm icon địa cầu (`text-orange-700 font-black text-lg`).
-- **Thẻ Glassmorphism Góc Dưới Trái (Merge Units)**:
-  - `Sáp nhập từ 3 đơn vị:` kèm icon Merge màu xanh.
-  - Danh sách badge: `Phường An Bình`, `Phường Dĩ An`, `Phường Tân Đông Hiệp` (`bg-amber-100 text-orange-700 border-amber-300 font-semibold px-3 py-1 rounded-lg text-xs`).
-- **Góc Dưới Phải (Action Buttons)**:
-  - Nút `CHỈ ĐƯỜNG tới UBND phường Dĩ An` (gradient cam-vàng `from-orange-500 via-amber-500 to-yellow-400 text-white font-black px-6 py-3 rounded-xl shadow-lg uppercase text-xs`).
-  - Nút `Xem Bản Đồ Số`.
-
-### 1.3. Khối 4 Thẻ Thống Kê Nổi Bật (4 Colorful Stat Cards)
-- Khối `Thống kê phường Dĩ An` gồm 4 thẻ màu pastel chuẩn TinhThanh:
-  1. 🟩 **Diện tích**: Thẻ xanh lá `bg-green-100 border-gray-100`, icon box `bg-green-500 text-white`, số liệu: `21.38 km²`.
-  2. 🟪 **Dân số (2026)**: Thẻ hồng phấn `bg-pink-100 border-gray-100`, icon box `bg-pink-500 text-white`, số liệu: `227.817 người`.
-  3. 🟧 **Mật độ dân số**: Thẻ cam `bg-orange-100 border-gray-100`, icon box `bg-orange-500 text-white`, số liệu: `10.656 người/km²`.
-  4. 🟦 **Đơn vị sáp nhập**: Thẻ xanh dương `bg-blue-100 border-gray-100`, icon box `bg-blue-500 text-white`, số liệu: `3 đơn vị`.
-
-### 1.4. Khối Bài Viết "Thông Tin Phường Dĩ An"
-- Header thẻ gradient: `from-orange-500 via-amber-500 to-yellow-400 text-white p-4 rounded-t-xl` kèm hoa văn SVG grid và icon `lucide-map-pin-house`.
-- Bảng thông tin chi tiết:
-  - Trụ sở UBND: `10 Trung tâm hành chính, phường Dĩ An...` (kèm nút chỉ đường).
-  - Trụ sở Công An: `Số 57 Tuyến Phố An Ninh, phường Dĩ An...` (trực ban 24/7, hotline 113).
-  - Biển số xe: `61, 50 - 59`.
-  - Mã bưu chính: `75306 / 820000`.
-  - Tọa độ địa lý: `10.9034°B, 106.759°Đ`.
-
-### 1.5. Khối Bản Đồ Số OpenStreetMap
-- Header: `Bản Đồ Số phường Dĩ An - thành phố Hồ Chí Minh`.
-- Iframe OpenStreetMap nhúng trực tiếp layer Mapnik toàn cầu với viền xám mềm, bo góc dưới `rounded-b-xl`.
-- Footer: `Bản đồ số hiện đang trong quá trình hoàn thiện. Nguồn: OpenStreetMap (https://nominatim.openstreetmap.org/)` kèm link relation OSM và nút chỉ đường.
-
-### 1.6. Khối "Khám Phá Bản Đồ Số & Dịch Vụ Tiện Ích"
-- Viền gradient viền mỏng 2px `from-orange-500 via-amber-500 to-yellow-400`.
-- Nút lớn `Xem Bản Đồ Tiện Ích phường Dĩ An`.
-- Lưới các thẻ tiện ích: Y tế, Trường học, Bưu điện, Cây xăng & Điểm Giao Gas Ngọc Gas 15 phút, Chợ / Siêu thị, Căn hộ / Chung cư.
-
-### 1.7. Các Khối Còn Lại
-- **Dân số & Biểu đồ mật độ**: Phân tích quy mô cư dân, đối soát chuẩn NQ 112.
-- **Định hướng phát triển 2026 - 2030**: Tầm nhìn hạ tầng & chuyển đổi số.
-- **Cổng thông tin & Cổng dịch vụ công**: 4 thủ tục cốt lõi (Cư trú, Sổ đỏ, Biển số xe, Hộ tịch).
-- **Giải đáp nhanh (FAQ)**: Accordion 8 câu hỏi phổ biến.
+> **Yêu cầu của User:** *"tập trung ở tỉnh thành. ưu tiên trước Công AN"*. Ứng dụng toàn diện bộ skill SEO tiếng Việt từ repo [`ibangtam/skill-seo-co-ban`](https://github.com/ibangtam/skill-seo-co-ban) để nâng cấp từng trang Công An trong phân hệ `/tinh-thanh`: **vẫn lưu giữ toàn bộ nội dung cũ** (địa chỉ, số điện thoại trực ban 113, hotline, Fanpage tích xanh, link Google Maps POI) **nhưng cải tiến mới toàn diện về cấu trúc bài viết SEO chuẩn E-E-A-T**.
 
 ---
 
-## 🛠️ 2. Tệp Sẽ Được Chỉnh Sửa
-- **[MODIFY] `src/app/(public)/tinh-thanh/province/[provinceSlug]/[wardSlug]/page.js`**: Tinh chỉnh toàn bộ markup và class CSS sang đúng chuẩn màu sắc, thẻ, banner và layout của `tinhthanhvn.com`.
-- **[MODIFY] `src/app/(public)/tinh-thanh/ban-do-tien-ich/[...params]/page.js`**: Tinh chỉnh giao diện trang bản đồ tiện ích số sang theme sáng chuẩn TinhThanh.
+## 1. Tiêu Chuẩn Nâng Cấp Theo Repo `skill-seo-co-ban`
+
+Mỗi trang Công An cấp Xã/Phường và cấp Tỉnh sẽ được nâng cấp bài viết chuyên sâu đạt tối thiểu **85/100 điểm** theo 8 tiêu chí của Băng Tâm:
+
+### A. Quy tắc Đoạn Mở Đầu (Sapo 3 phần)
+- **Đoạn 1 (40–60 từ):** Trả lời trực diện vào câu hỏi tìm kiếm cốt lõi: Tên đơn vị Công An, địa chỉ trụ sở, số điện thoại trực ban 24/7, và thẩm quyền tiếp nhận thủ tục cư trú/an ninh trật tự tại địa bàn.
+- **Đoạn 2 (30–60 từ):** Hướng dẫn phân định hình thức nộp hồ sơ (trực tiếp tại quầy tiếp dân hoặc trực tuyến qua Cổng Dịch vụ công Quốc gia / ứng dụng VNeID).
+- **Đoạn 3 (2–3 dòng):** Tóm lược các nội dung hướng dẫn chính trong bài.
+- **Cấm tuyệt đối văn phong sáo rỗng:** "Trong bài viết này...", "Hãy cùng tìm hiểu...", "Bạn có bao giờ...".
+
+### B. Cấu Trúc Khung Bài Viết Chuẩn H2/H3
+1. **`1. Chức Năng, Thẩm Quyền & Nhiệm Vụ Quản Lý Địa Bàn` (H2):**
+   - Câu đầu tiên trả lời thẳng trong 40–60 từ.
+   - Thẩm quyền quản lý cư trú, an ninh trật tự, cấp định danh điện tử, tuần tra kiểm soát, và tiếp nhận tin báo tố giác tội phạm.
+2. **`2. Hướng Dẫn Quy Trình Thực Hiện Thủ Tục Hành Chính Công An Thường Gặp` (H2):**
+   - Đăng ký thường trú / tạm trú trực tuyến (DVC BCA).
+   - Kích hoạt tài khoản định danh điện tử VNeID mức 2.
+   - Xác nhận thông tin cư trú (CT07).
+   - Tiếp nhận xử lý tin báo an ninh trật tự, phản ánh dân sinh.
+3. **`3. Cảnh Báo An Ninh: Phòng Chống Lừa Đảo Giả Danh Công An Qua Mạng` (H2 - Mục ★ Khác biệt):**
+   - Nguyên tắc bảo vệ người dân: Cán bộ Công an **KHÔNG LÀM VIỆC QUA ĐIỆN THOẠI**, **KHÔNG YÊU CẦU CHUYỂN TIỀN**, **KHÔNG GỬI LINK CÀI APP LẠ**.
+   - Kênh xác thực chính thống: Cổng Thông tin điện tử Bộ Công An & Fanpage Tích Xanh được liên kết trực tiếp trên trang.
+4. **`4. Hướng Dẫn An Toàn PCCC Dân Cư & Sử Dụng Khí Đốt Hóa Lỏng (LPG)` (H2):**
+   - Khuyến cáo an toàn cháy nổ bếp gas gia đình, quy chuẩn bình gas chính hãng, số điện thoại khẩn cấp PCCC 114, hotline hỗ trợ kỹ thuật gas `1900 9396`.
+5. **`5. Câu Hỏi Thường Gặp Khi Đến Làm Việc Tại Trụ Sở Công An (FAQ)` (H2):**
+   - 5 câu hỏi thực tế của người dân, mỗi câu trả lời súc tích 40–80 từ.
+
+### C. Kỷ Luật Lọc Dấu Văn Máy & Chặn Từ Tuyệt Đối
+- Áp dụng bộ lọc 14 dấu hiệu (`loc-dau-van-may.md`).
+- Chặn 100% từ tuyệt đối theo Luật Quảng cáo: "nhất, số 1, hàng đầu, tốt nhất..." -> thay bằng thông số đo lường được.
+- Đầy đủ Schema JSON-LD `GovernmentOffice` / `PoliceStation` + `FAQPage` + `BreadcrumbList`.
 
 ---
 
-## 🧪 3. Kế Hoạch Xác Minh (Verification)
-1. **Kiểm tra biên dịch**: Chạy `npm run build` đạt Exit Code 0.
-2. **Kiểm tra an toàn CSDL**: Chạy `node scratch/verify-db-integrity.mjs` bảo vệ 100% CSDL MySQL.
-3. **Kiểm thử trực quan trình duyệt (Browser Subagent)**:
-   - Chụp ảnh so sánh trực tiếp giữa `http://localhost:3000/tinh-thanh/province/ho-chi-minh/phuong-di-an` và `https://tinhthanhvn.com/province/ho-chi-minh/phuong-di-an`.
-   - Đảm bảo màu sắc, banner glassmorphism, 4 thẻ thống kê màu pastel và khối bản đồ OpenStreetMap giống 100%.
+## 2. Kế Hoạch Triển Khai Mã Nguồn
+
+1. **Xây dựng Component Bài Viết SEO Chuyên Sâu**:
+   - Tệp mới: `src/app/(public)/tinh-thanh/components/AgencySeoArticle.js`
+   - Nhận props dữ liệu động của cơ quan: `agency`, `unit`, `province`.
+   - Sinh bài viết chuyên sâu chuẩn mực theo đúng bộ khung của Băng Tâm.
+2. **Tích hợp vào Trang Chi Tiết Cơ Quan Cấp Xã/Phường**:
+   - Tệp: `src/app/(public)/tinh-thanh/province/[provinceSlug]/[wardSlug]/co-quan/[agencySlug]/page.js`
+   - Bổ sung khối bài viết SEO chuyên sâu phía dưới bảng thủ tục hành chính.
+   - Inject Schema JSON-LD `FAQPage` và `GovernmentOffice` vào trang.
+3. **Tích hợp vào Trang Cơ Quan Đầu Não Cấp Tỉnh**:
+   - Tệp: `src/app/(public)/tinh-thanh/province/[provinceSlug]/co-quan-nha-nuoc/page.js`
+   - Bổ sung khối bài viết SEO chuyên sâu về Công An Tỉnh/Thành phố.
+4. **Viết Script Workflow Tự Động Kiểm Toán & Chấm Điểm 8 Tiêu Chí**:
+   - Tệp: `scripts/workflow-seo-audit-police.py` (chạy qua `run_workflow`)
+   - Tự động quét các trang Công An trên hệ thống, kiểm tra độ dài từ (>= 1.500 từ), Sapo 40-60 từ, 0 dấu hiệu văn máy, 0 từ tuyệt đối, Schema đầy đủ.
+5. **Kiểm Thử Thực Nghiệm (RULE 5 & 9)**:
+   - Chạy `npm run build` xác nhận Exit Code 0.
+   - Fetch live routes xác nhận HTTP 200 và cấu trúc bài viết hoàn chỉnh.

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAllPosts, createPostData } from '@/lib/postsHelper';
 import { requireRole } from '@/lib/auth';
+import { notifyGoogleIndex } from '@/lib/googleIndexing';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -41,6 +42,13 @@ export async function POST(request) {
     }
 
     const newPost = await createPostData(body);
+
+    // Tự động thông báo Google Indexing API nếu bài viết được xuất bản
+    if (newPost && (newPost.is_published == 1 || newPost.is_published === true)) {
+      notifyGoogleIndex(`https://ngocgas.com/tin-tuc/${newPost.slug}`).catch(err => {
+        console.warn('⚠️ [POST /api/posts] Google Indexing API ping error:', err.message);
+      });
+    }
 
     return NextResponse.json({
       success: true,

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import provincesData from '@/data/tinhthanh/provinces-34.json';
 import { getProvincialAgencies, getProvinceUnits } from '@/lib/tinhthanhUnitsHelper';
+import AgencySeoArticle from '@/app/(public)/tinh-thanh/components/AgencySeoArticle';
 
 export async function generateMetadata({ params }) {
   const { provinceSlug } = await params;
@@ -166,7 +167,7 @@ export default async function ProvincialAgenciesPage({ params }) {
                   {/* Dual Google Maps Buttons */}
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     <a
-                      href={agency.googleDirectionsUrl || agency.googleMapsUrl}
+                      href={agency.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
@@ -182,7 +183,7 @@ export default async function ProvincialAgenciesPage({ params }) {
                         textDecoration: 'none'
                       }}
                     >
-                      <span>↗ Chỉ đường Google Maps</span>
+                      <span>📍 Xem Địa Điểm Google Maps</span>
                     </a>
 
                     <a
@@ -268,7 +269,14 @@ export default async function ProvincialAgenciesPage({ params }) {
           })}
         </div>
 
-        {/* 4. KHÁM PHÁ CƠ QUAN TẠI CÁC XÃ/PHƯỜNG */}
+        {/* 4. BÀI VIẾT CHUYÊN SÂU CHUẨN SEO BĂNG TÂM CẤP TỈNH */}
+        <AgencySeoArticle
+          agency={agencies.find(a => a.agencySlug === 'cong-an') || agencies[1]}
+          unit={{ name: `Toàn Tỉnh ${province.name}`, slug: province.slug }}
+          province={province}
+        />
+
+        {/* 5. KHÁM PHÁ CƠ QUAN TẠI CÁC XÃ/PHƯỜNG */}
         <section style={{
           backgroundColor: '#ffffff',
           borderRadius: '16px',

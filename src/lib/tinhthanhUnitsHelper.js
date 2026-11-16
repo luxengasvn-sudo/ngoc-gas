@@ -34,6 +34,7 @@ import ninhbinhUnitsData from '@/data/tinhthanh/administrative-units-ninh-binh.j
 import laichauUnitsData from '@/data/tinhthanh/administrative-units-lai-chau.json';
 import provincesData from '@/data/tinhthanh/provinces-34.json';
 import policeFanpagesData from '@/data/tinhthanh/police-verified-fanpages.json';
+import ubndProvincesData from '@/data/tinhthanh/ubnd-verified-provinces.json';
 
 // Coordinates mapping for all 34 provinces in Vietnam 2026
 export const PROVINCE_COORDINATES = {
@@ -348,13 +349,15 @@ const province = provinceObj || provincesData.find(p => p.slug === provinceSlug)
         phone: `${phonePrefix} 3822 xxxx`,
         workingHours: 'Thứ 2 - Thứ 6 (07:30 - 17:00)',
         lat,
-        lng
+        lng,
+        googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + unitName + ', ' + province.name)}`,
+        googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + unitName + ', ' + province.name)}`
       },
       police: {
         name: `Công An ${unitName}`,
         address: `Đường Trung tâm Hành chính, ${unitName}, ${district}, ${province.name}`,
-        phone: `${phonePrefix} 3822 xxxx`,
-        hotline: '113 / Trực ban 24/7'
+        phone: '113',
+        hotline: '113 (Trực ban 24/7)'
       },
       hospitals: [
         {
@@ -396,13 +399,16 @@ const province = provinceObj || provincesData.find(p => p.slug === provinceSlug)
  */
 export function findUnitBySlug(provinceSlug, wardSlug) {
   const units = getProvinceUnits(provinceSlug);
+  const cleanSlug = wardSlug?.replace(/^giao-gas-/, '');
   return units.find(u => 
     u.wardSlug === wardSlug || 
     u.slug === wardSlug || 
     u.slug === `giao-gas-${wardSlug}` ||
-    u.wardSlug === wardSlug?.replace(/^giao-gas-/, '')
+    u.wardSlug === cleanSlug ||
+    (Array.isArray(u.legacySlugs) && (u.legacySlugs.includes(wardSlug) || u.legacySlugs.includes(cleanSlug)))
   ) || null;
 }
+
 
 /**
  * Finds a unit by slug or generates a standard synthetic unit fallback.
@@ -450,13 +456,15 @@ export function getOrSynthesizeWardUnit(provinceSlug, wardSlug, provinceObj = nu
       phone: `${phonePrefix} 3822 xxxx`,
       workingHours: 'Thứ 2 - Thứ 6 (07:30 - 17:00)',
       lat,
-      lng
+      lng,
+      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + fullName + ', ' + province.name)}`,
+      googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + fullName + ', ' + province.name)}`
     },
     police: {
       name: `Công An ${fullName}`,
       address: `Số 18 Tuyến Phố An Ninh, ${fullName}, ${province.center}, ${province.name}`,
-      phone: `${phonePrefix} 3823 xxxx`,
-      hotline: '113 / Trực ban 24/7',
+      phone: '113',
+      hotline: '113 (Trực ban 24/7)',
       lat: Number((lat + 0.001).toFixed(4)),
       lng: Number((lng + 0.0015).toFixed(4))
     },
@@ -635,9 +643,7 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
       : (agencySlug === 'cong-an' ? `Công an ${unit.name}, ${province.name}` : `${agency.name || agency.shortName || districtLabel}, ${province.name}`);
 
     const safeMapsUrl = agency.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(poiQuery)}`;
-    const safeDirectionsUrl = (!agency.googleDirectionsUrl || isCoordinateTarget)
-      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(poiQuery)}`
-      : agency.googleDirectionsUrl;
+    const safeDirectionsUrl = safeMapsUrl;
 
     agency = {
       ...agency,
@@ -649,7 +655,7 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
     const provPolice = policeFanpagesData.provinces[provinceSlug];
     const mpsPolice = policeFanpagesData.national.mps;
     const vneidPolice = policeFanpagesData.national.vneid;
-    const districtKey = unit.district ? unit.district.toLowerCase().replace(/^(quận|huyện|thành phố|tp\.|tx\.)\s*/i, '').trim().replace(/\s+/g, '-') : '';
+    const districtKey = unit.district ? unit.district.toLowerCase().replace(/^(khu vực|quận|huyện|thành phố|tp\.|tx\.)\s*/i, '').trim().replace(/\s+/g, '-') : '';
     const distPolice = Object.entries(policeFanpagesData.districts).find(([key]) => key.includes(districtKey) || (districtKey && key.endsWith(districtKey)))?.[1];
 
     const policeFb = unit.police?.facebook || distPolice?.url || provPolice?.url || mpsPolice.url;
@@ -672,9 +678,7 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
         lat,
         lng,
         googleMapsUrl: unit.ubnd?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + unit.name + ', ' + province.name)}`,
-        googleDirectionsUrl: (unit.ubnd?.googleDirectionsUrl && !/destination=\d+\.\d+,\d+\.\d+/.test(unit.ubnd.googleDirectionsUrl))
-          ? unit.ubnd.googleDirectionsUrl
-          : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('UBND ' + unit.name + ', ' + province.name)}`,
+        googleDirectionsUrl: unit.ubnd?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + unit.name + ', ' + province.name)}`,
         keyProcedures: [
           { title: 'Đăng ký khai sinh, khai tử, kết hôn', time: 'Trong ngày (Khai sinh/tử) - 03 ngày (Kết hôn)', fee: 'Miễn phí' },
           { title: 'Chứng thực bản sao từ bản chính, chữ ký', time: 'Giải quyết ngay trong ngày', fee: 'Theo biểu mức quy định' },
@@ -692,8 +696,8 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
         badge: 'An ninh Trật tự',
         level: 'Cơ quan Công an Nhân dân cấp Xã/Phường',
         address: unit.police?.address || `Liền kề Trụ sở UBND, ${unit.name}, ${province.name}`,
-        phone: unit.police?.phone && !unit.police.phone.includes('xxxx') ? unit.police.phone : '',
-        hotline: unit.police?.hotline || distPolice?.hotline || provPolice?.hotline || '113 / Trực ban 24/7',
+        phone: '113',
+        hotline: '113 (Trực ban 24/7)',
         facebook: policeFb,
         facebookName: policeFbName,
         facebookBadge: 'verified_blue',
@@ -705,10 +709,8 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
         administrativeCode: `${unit.administrativeCode || '89001'}-CA`,
         lat: Number((lat + 0.0008).toFixed(4)),
         lng: Number((lng + 0.0006).toFixed(4)),
-        googleMapsUrl: unit.police?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Công an ' + unit.name + ', ' + province.name)}`,
-        googleDirectionsUrl: (unit.police?.googleDirectionsUrl && !/destination=\d+\.\d+,\d+\.\d+/.test(unit.police.googleDirectionsUrl))
-          ? unit.police.googleDirectionsUrl
-          : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Công an ' + unit.name + ', ' + province.name)}`,
+        googleMapsUrl: unit.police?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((unit.police?.name || ('Công An ' + unit.name)) + ', ' + province.name)}`,
+        googleDirectionsUrl: unit.police?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((unit.police?.name || ('Công An ' + unit.name)) + ', ' + province.name)}`,
         keyProcedures: [
           { title: 'Đăng ký thường trú, tạm trú, khai báo lưu trú', time: '03 - 07 ngày làm việc', fee: 'Theo quy định Bộ Công An' },
           { title: 'Kích hoạt định danh điện tử VNeID mức 2', time: 'Giải quyết ngay tại quầy', fee: 'Miễn phí' },
@@ -725,14 +727,14 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
         icon: '🏦',
         badge: 'Ngân sách Nhà nước',
         level: `Cơ quan Quản lý Tài chính - Ngân sách Nhà nước phụ trách ${unit.name}`,
-        address: `Trục Trung tâm Hành chính - Tài chính, ${unit.district ? unit.district + ', ' : ''}${province.name}`,
-        phone: `${phonePrefix} 3824 1000`,
+        address: `Khu Hành chính Kho bạc, ${districtLabel}, ${province.name}`,
+        phone: '',
         workingHours: 'Thứ 2 - Thứ 6: Sáng 07:30 - 11:30 | Chiều 13:30 - 16:30',
         administrativeCode: `KB-${provinceSlug.toUpperCase()}`,
         lat: Number((lat + 0.0015).toFixed(4)),
         lng: Number((lng - 0.0012).toFixed(4)),
         googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Kho bạc nhà nước ' + districtLabel + ', ' + province.name)}`,
-        googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Kho bạc nhà nước ' + districtLabel + ', ' + province.name)}`,
+        googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Kho bạc nhà nước ' + districtLabel + ', ' + province.name)}`,
         keyProcedures: [
           { title: 'Nộp tiền phạt vi phạm hành chính, giao thông', time: 'Xác nhận biên lai điện tử tức thì', fee: 'Theo quyết định xử phạt' },
           { title: 'Nộp thuế đất, lệ phí trước bạ, nghĩa vụ tài chính', time: 'Hạch toán trong ngày', fee: 'Theo thông báo cơ quan thuế' },
@@ -748,14 +750,14 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
         icon: '⚖️',
         badge: 'Cơ quan Xét xử',
         level: `Cơ quan Xét xử Sơ thẩm có thẩm quyền thụ lý địa bàn ${unit.name}`,
-        address: `Đại lộ Tư Pháp, Trung tâm Hành chính ${unit.district ? unit.district + ', ' : ''}${province.name}`,
-        phone: `${phonePrefix} 3825 1000`,
+        address: `Khu Hành chính Tòa án, ${districtLabel}, ${province.name}`,
+        phone: '',
         workingHours: 'Thứ 2 - Thứ 6: Sáng 07:30 - 11:30 | Chiều 13:30 - 17:00',
         administrativeCode: `TA-${provinceSlug.toUpperCase()}`,
         lat: Number((lat - 0.0014).toFixed(4)),
         lng: Number((lng + 0.0015).toFixed(4)),
         googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tòa án nhân dân ' + districtLabel + ', ' + province.name)}`,
-        googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Tòa án nhân dân ' + districtLabel + ', ' + province.name)}`,
+        googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tòa án nhân dân ' + districtLabel + ', ' + province.name)}`,
         keyProcedures: [
           { title: 'Tiếp nhận đơn khởi kiện dân sự, kinh doanh, lao động', time: '03 - 08 ngày xem xét thụ lý', fee: 'Theo biểu mức án phí TAND' },
           { title: 'Giải quyết yêu cầu công nhận thuận tình ly hôn', time: 'Theo trình tự luật tố tụng dân sự', fee: '300.000 VNĐ' },
@@ -771,15 +773,15 @@ export function getAgencyDetails(provinceSlug, wardSlug, agencySlug) {
         icon: '📜',
         badge: 'Công tố & Kiểm sát Tư pháp',
         level: `Cơ quan Thực hành Quyền Công tố và Kiểm sát Tư pháp thụ lý ${unit.name}`,
-        address: `Đại lộ Tư Pháp, Khu Phố Cơ Quan Nội Chính, ${unit.district ? unit.district + ', ' : ''}${province.name}`,
-        phone: `${phonePrefix} 3826 1000`,
+        address: `Khu Hành chính Viện Kiểm sát, ${districtLabel}, ${province.name}`,
+        phone: '',
         hotline: `Đường dây nóng tiếp nhận tố giác: ${phonePrefix} 3826 9999`,
         workingHours: 'Thứ 2 - Thứ 6: Sáng 07:30 - 11:30 | Chiều 13:30 - 17:00',
         administrativeCode: `VKS-${provinceSlug.toUpperCase()}`,
         lat: Number((lat - 0.0018).toFixed(4)),
         lng: Number((lng - 0.0016).toFixed(4)),
         googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Viện kiểm sát nhân dân ' + districtLabel + ', ' + province.name)}`,
-        googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Viện kiểm sát nhân dân ' + districtLabel + ', ' + province.name)}`,
+        googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Viện kiểm sát nhân dân ' + districtLabel + ', ' + province.name)}`,
         keyProcedures: [
           { title: 'Tiếp nhận tố giác, tin báo về tội phạm và kiến nghị khởi tố', time: 'Trực ban nghiệp vụ tiếp nhận 24/7', fee: 'Miễn phí' },
           { title: 'Tiếp công dân khiếu nại, tố cáo trong hoạt động tư pháp', time: 'Giờ hành chính các ngày làm việc', fee: 'Miễn phí' },
@@ -814,44 +816,46 @@ export function getProvincialAgencies(provinceSlug) {
   const phonePrefix = PROVINCE_PHONE_PREFIX[provinceSlug] || '028';
   const coords = PROVINCE_COORDINATES[provinceSlug] || { lat: 21.0285, lng: 105.8542 };
   const center = province.center || province.name;
+  const ubndData = ubndProvincesData?.provinces?.[province.slug] || ubndProvincesData?.provinces?.[provinceSlug];
 
   const agencies = [
     {
       slug: 'ubnd-tinh',
       agencySlug: 'ubnd',
-      name: `Ủy Ban Nhân Dân ${province.name}`,
-      shortName: `UBND ${province.name}`,
+      name: ubndData?.name || `Ủy Ban Nhân Dân ${province.name}`,
+      shortName: ubndData?.shortName || `UBND ${province.name}`,
       icon: '🏛️',
       badge: 'Cơ quan Hành chính Đầu não',
       level: 'Cơ quan Chấp hành của HĐND cấp Tỉnh/Thành phố',
-      address: `Trung tâm Hành chính Tỉnh, ${center}`,
-      phone: `${phonePrefix} 3822 0001`,
-      workingHours: 'Thứ 2 - Thứ 6 (Sáng 07:30 - 11:30 | Chiều 13:30 - 17:00)',
+      address: ubndData?.address || `Trung tâm Hành chính Tỉnh, ${center}`,
+      phone: ubndData?.phone || `${phonePrefix} 3822 0001`,
+      website: ubndData?.website || '',
+      workingHours: ubndData?.workingHours || 'Thứ 2 - Thứ 6 (Sáng 07:30 - 11:30 | Chiều 13:30 - 17:00)',
       lat: coords.lat,
       lng: coords.lng,
-      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Ủy ban nhân dân ' + province.name)}`,
-      googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Ủy ban nhân dân ' + province.name)}`,
+      googleMapsUrl: ubndData?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((ubndData?.name || ('Ủy ban nhân dân ' + province.name)) + (ubndData?.address ? (', ' + ubndData.address) : ''))}`,
+      googleDirectionsUrl: ubndData?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((ubndData?.name || ('Ủy ban nhân dân ' + province.name)) + (ubndData?.address ? (', ' + ubndData.address) : ''))}`,
       description: `Cơ quan hành chính nhà nước cao nhất tại địa phương, lãnh đạo toàn diện công tác kinh tế, xã hội, quốc phòng - an ninh trên địa bàn ${province.name}.`
     },
     {
       slug: 'cong-an-tinh',
       agencySlug: 'cong-an',
-      name: `Công An ${province.name}`,
+      name: policeFanpagesData.provinces[province.slug]?.name || `Công An ${province.name}`,
       shortName: `Công An ${province.name}`,
       icon: '🛡️',
       badge: 'An ninh Trật tự Cấp Tỉnh',
       level: 'Công an Tỉnh / Thành phố trực thuộc Trung ương',
       address: policeFanpagesData.provinces[province.slug]?.address || `Trụ sở Công An Tỉnh, Đại lộ An Ninh, ${center}`,
-      phone: policeFanpagesData.provinces[province.slug]?.hotline || `${phonePrefix} 3823 0001`,
-      hotline: '113 / Trực ban 24/7',
+      phone: '113',
+      hotline: '113 (Trực ban 24/7)',
       facebook: policeFanpagesData.provinces[province.slug]?.url || policeFanpagesData.national.mps.url,
       facebookName: policeFanpagesData.provinces[province.slug]?.name || policeFanpagesData.national.mps.name,
       facebookBadge: 'verified_blue',
       workingHours: 'Trực ban 24/24 | Tiếp nhận hồ sơ: Thứ 2 - Thứ 6 (Giờ hành chính)',
       lat: Number((coords.lat + 0.003).toFixed(4)),
       lng: Number((coords.lng + 0.002).toFixed(4)),
-      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Công an ' + province.name)}`,
-      googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(policeFanpagesData.provinces[province.slug]?.address || ('Công an ' + province.name))}`,
+      googleMapsUrl: policeFanpagesData.provinces[province.slug]?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((policeFanpagesData.provinces[province.slug]?.name || ('Công An ' + province.name)) + (policeFanpagesData.provinces[province.slug]?.address ? (', ' + policeFanpagesData.provinces[province.slug].address) : ''))}`,
+      googleDirectionsUrl: policeFanpagesData.provinces[province.slug]?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((policeFanpagesData.provinces[province.slug]?.name || ('Công An ' + province.name)) + (policeFanpagesData.provinces[province.slug]?.address ? (', ' + policeFanpagesData.provinces[province.slug].address) : ''))}`,
       description: `Bảo vệ an ninh quốc gia, giữ gìn trật tự an toàn xã hội, đấu tranh phòng chống tội phạm trên toàn địa bàn ${province.name}.`
     },
     {
@@ -868,7 +872,7 @@ export function getProvincialAgencies(provinceSlug) {
       lat: Number((coords.lat + 0.004).toFixed(4)),
       lng: Number((coords.lng - 0.003).toFixed(4)),
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Kho bạc nhà nước ' + province.name)}`,
-      googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Kho bạc nhà nước ' + province.name)}`,
+      googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Kho bạc nhà nước ' + province.name)}`,
       description: `Thực hiện quản lý quỹ ngân sách nhà nước, các quỹ tài chính nhà nước và tổng kế toán nhà nước trên địa bàn tỉnh.`
     },
     {
@@ -885,7 +889,7 @@ export function getProvincialAgencies(provinceSlug) {
       lat: Number((coords.lat - 0.003).toFixed(4)),
       lng: Number((coords.lng + 0.004).toFixed(4)),
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tòa án nhân dân ' + province.name)}`,
-      googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Tòa án nhân dân ' + province.name)}`,
+      googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tòa án nhân dân ' + province.name)}`,
       description: `Cơ quan xét xử phúc thẩm và sơ thẩm các vụ án hình sự, dân sự, hôn nhân gia đình, kinh doanh thương mại, hành chính theo thẩm quyền luật định.`
     },
     {
@@ -903,13 +907,15 @@ export function getProvincialAgencies(provinceSlug) {
       lat: Number((coords.lat - 0.004).toFixed(4)),
       lng: Number((coords.lng - 0.004).toFixed(4)),
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Viện kiểm sát nhân dân ' + province.name)}`,
-      googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Viện kiểm sát nhân dân ' + province.name)}`,
+      googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Viện kiểm sát nhân dân ' + province.name)}`,
       description: `Thực hành quyền công tố, kiểm sát hoạt động tư pháp, bảo vệ pháp luật, bảo vệ quyền con người, quyền công dân trên toàn địa bàn ${province.name}.`
     }
   ];
 
   return { province, agencies };
 }
+
+export const getProvinceAgencies = getProvincialAgencies;
 
 export const PROVINCE_UNITS_DATA_MAP = {
   'ha-noi': hanoiUnitsData,

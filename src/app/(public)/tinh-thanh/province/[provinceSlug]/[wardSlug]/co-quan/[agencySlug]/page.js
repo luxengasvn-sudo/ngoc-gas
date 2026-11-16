@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAgencyDetails } from '@/lib/tinhthanhUnitsHelper';
 import InteractiveWardMap from '@/app/(public)/tinh-thanh/components/InteractiveWardMap';
+import AgencySeoArticle from '@/app/(public)/tinh-thanh/components/AgencySeoArticle';
 
 export async function generateMetadata({ params }) {
   const { provinceSlug, wardSlug, agencySlug } = await params;
@@ -9,9 +10,27 @@ export async function generateMetadata({ params }) {
   if (!data) return { title: 'Cơ Quan Không Tồn Tại' };
 
   const { agency, unit, province } = data;
+  const isPolice = agencySlug === 'cong-an';
+  const phone = isPolice ? '113' : (agency.phone && !agency.phone.includes('xxxx') ? agency.phone : (agency.hotline || ''));
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ngocgas.com';
+  const canonicalUrl = `${baseUrl}/tinh-thanh/province/${province.slug}/${unit.wardSlug || unit.slug}/co-quan/${agency.slug}`;
+
   return {
-    title: `${agency.name} - Địa Chỉ, SĐT, Giờ Làm Việc & Bản Đồ | ${unit.name}, ${province.name}`,
-    description: `Thông tin chính thức về ${agency.name} tại ${unit.name}, ${province.name}. Địa chỉ: ${agency.address}, SĐT: ${agency.phone}, giờ làm việc, thủ tục hành chính và chỉ đường Google Maps.`
+    title: isPolice
+      ? `${agency.name} - Trụ Sở, SĐT Trực Ban 113 & Thủ Tục Cư Trú | ${unit.name}, ${province.name}`
+      : `${agency.name} - Địa Chỉ, SĐT, Giờ Làm Việc & Bản Đồ | ${unit.name}, ${province.name}`,
+    description: isPolice
+      ? `Thông tin chính thống về ${agency.name} tại ${unit.name}, ${province.name}. Địa chỉ: ${agency.address}, SĐT trực ban 24/7: 113, hướng dẫn thủ tục cư trú, định danh VNeID mức 2 và bản đồ Google Maps.`
+      : `Thông tin chính thức về ${agency.name} tại ${unit.name}, ${province.name}. Địa chỉ: ${agency.address}, SĐT: ${phone || 'Liên hệ trực tiếp'}, giờ làm việc, thủ tục hành chính và chỉ đường Google Maps.`,
+    alternates: {
+      canonical: canonicalUrl
+    },
+    openGraph: {
+      title: `${agency.name} - ${unit.name}, ${province.name}`,
+      description: `Tra cứu thông tin chính thức về ${agency.name} tại ${unit.name}, ${province.name}. Địa chỉ, SĐT trực ban 24/7, thủ tục VNeID và bản đồ số Google Maps.`,
+      url: canonicalUrl,
+      type: 'article'
+    }
   };
 }
 
@@ -24,6 +43,8 @@ export default async function AgencyDetailPage({ params }) {
   }
 
   const { agency, unit, province, sisterAgencies } = data;
+  const isPolice = agencySlug === 'cong-an' || agency.type === 'cong-an';
+  const phone = isPolice ? '113' : (agency.phone && !agency.phone.includes('xxxx') ? agency.phone : '');
 
   // Custom unit object positioned at agency coordinates for InteractiveWardMap
   const mapUnit = {
@@ -188,7 +209,7 @@ export default async function AgencyDetailPage({ params }) {
             {/* DUAL GOOGLE MAPS ACTION BUTTONS */}
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
               <a
-                href={agency.googleDirectionsUrl || agency.googleMapsUrl || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((agency.name || '') + ', ' + (agency.address || province.name))}`}
+                href={agency.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((agency.name || '') + ', ' + (agency.address || province.name))}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -205,8 +226,7 @@ export default async function AgencyDetailPage({ params }) {
                   boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
                 }}
               >
-                <span>↗</span>
-                <span>Chỉ đường Google Maps</span>
+                <span>📍 Xem Địa Điểm Google Maps</span>
               </a>
 
               <a
@@ -307,9 +327,32 @@ export default async function AgencyDetailPage({ params }) {
               <div style={{ display: 'flex', gap: '12px' }}>
                 <span style={{ fontSize: '18px', flexShrink: 0 }}>🚨</span>
                 <div>
-                  <div style={{ fontSize: '11px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase' }}>Đường dây nóng & Hỗ trợ trực tuyến</div>
-                  <div style={{ fontSize: '13px', fontWeight: '700', color: '#334155', marginTop: '2px' }}>
-                    113 (Trực ban Công an 24/7) · Cổng Dịch vụ công Quốc gia
+                  <div style={{ fontSize: '11px', fontWeight: '800', color: isPolice ? '#dc2626' : '#94a3b8', textTransform: 'uppercase' }}>
+                    {isPolice ? 'Tổng đài khẩn cấp & Trực ban an ninh 24/7' : 'Đường dây nóng & Hỗ trợ trực tuyến'}
+                  </div>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: '#334155', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <a
+                      href="tel:113"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        backgroundColor: '#fee2e2',
+                        color: '#dc2626',
+                        padding: '3px 10px',
+                        borderRadius: '6px',
+                        border: '1px solid #fecaca',
+                        textDecoration: 'none',
+                        fontWeight: '800',
+                        fontSize: '13px'
+                      }}
+                      title="Bấm gọi khẩn cấp 113"
+                    >
+                      📞 113
+                    </a>
+                    <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>
+                      (Trực ban Công an 24/24 toàn quốc) · Cổng Dịch vụ công Quốc gia
+                    </span>
                   </div>
                 </div>
               </div>
@@ -329,8 +372,8 @@ export default async function AgencyDetailPage({ params }) {
                 </div>
               )}
 
-              {/* Row: Đường dây nóng khẩn cấp (nếu có) */}
-              {agency.hotline && (
+              {/* Row: Đường dây nóng khẩn cấp cho cơ quan khác nếu có */}
+              {!isPolice && agency.hotline && (
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <span style={{ fontSize: '18px', flexShrink: 0 }}>🚨</span>
                   <div>
@@ -529,7 +572,14 @@ export default async function AgencyDetailPage({ params }) {
           </div>
         </section>
 
-        {/* 6. LIÊN KẾT CƠ QUAN ĐẦU NÃO CẤP TỈNH */}
+        {/* 6. BÀI VIẾT CHUYÊN SÂU CHUẨN SEO BĂNG TÂM (E-E-A-T, SAPO 40-60 TỪ, FAQ & SCHEMA) */}
+        <AgencySeoArticle
+          agency={agency}
+          unit={unit}
+          province={province}
+        />
+
+        {/* 7. LIÊN KẾT CƠ QUAN ĐẦU NÃO CẤP TỈNH */}
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: '14px',

@@ -34,61 +34,293 @@
     }
   },
   "provinces": {
-    "ho-chi-minh": {
-      "name": "Công an Thành phố Hồ Chí Minh",
-      "url": "https://www.facebook.com/catphochiminhofficial",
-      "badge": "verified_blue",
-      "hotline": "113 / 069.3187.111",
-      "address": "Số 268 Trần Hưng Đạo, Phường Cầu Ông Lãnh, Quận 1, TP. Hồ Chí Minh"
-    },
-    "binh-duong": {
-      "name": "Công an tỉnh Bình Dương",
-      "url": "https://www.facebook.com/conganbinhduong",
-      "badge": "verified_blue",
-      "hotline": "113 / 0274.3822.444",
-      "address": "Số 681 Cách Mạng Tháng Tám, Phường Chánh Nghĩa, TP. Thủ Dầu Một, Tỉnh Bình Dương"
-    },
-    "ba-ria-vung-tau": {
-      "name": "Công an tỉnh Bà Rịa - Vũng Tàu",
-      "url": "https://www.facebook.com/conganbrvt",
-      "badge": "verified_blue",
-      "hotline": "113 / 0254.3852.115",
-      "address": "Số 15 Trường Chinh, Phường Phước Trung, TP. Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu"
-    },
     "ha-noi": {
       "name": "Công an thành phố Hà Nội",
       "url": "https://www.facebook.com/ConganThudo",
       "badge": "verified_blue",
       "hotline": "113 / 069.2196.777",
-      "address": "Số 87 Trần Hưng Đạo, Quận Hoàn Kiếm, TP. Hà Nội"
-    },
-    "da-nang": {
-      "name": "Công an thành phố Đà Nẵng",
-      "url": "https://www.facebook.com/catpdanang",
-      "badge": "verified_blue",
-      "hotline": "113 / 069.4260.111",
-      "address": "Số 47 Lý Tự Trọng, Quận Hải Châu, TP. Đà Nẵng"
-    },
-    "dong-nai": {
-      "name": "Công an tỉnh Đồng Nai",
-      "url": "https://www.facebook.com/congan.dongnai",
-      "badge": "verified_blue",
-      "hotline": "113 / 0251.3820.100",
-      "address": "Số 161 Phạm Văn Thuận, Phường Tân Tiến, TP. Biên Hòa, Tỉnh Đồng Nai"
-    },
-    "can-tho": {
-      "name": "Công an thành phố Cần Thơ",
-      "url": "https://www.facebook.com/conganthanhphocantho",
-      "badge": "verified_blue",
-      "hotline": "113 / 069.3672.111",
-      "address": "Số 9B Trần Phú, Phường Cái Khế, Quận Ninh Kiều, TP. Cần Thơ"
+      "address": "Số 87 Trần Hưng Đạo, Phường Cửa Nam, Quận Hoàn Kiếm, TP. Hà Nội",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20th%C3%A0nh%20ph%E1%BB%91%20H%C3%A0%20N%E1%BB%99i%2C%20S%E1%BB%91%2087%20Tr%E1%BA%A7n%20H%C6%B0ng%20%C4%90%E1%BA%A1o%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BB%ADa%20Nam%2C%20Qu%E1%BA%ADn%20Ho%C3%A0n%20Ki%E1%BA%BFm%2C%20TP.%20H%C3%A0%20N%E1%BB%99i"
     },
     "hai-phong": {
       "name": "Công an thành phố Hải Phòng",
       "url": "https://www.facebook.com/ConganTPHaiPhong",
       "badge": "verified_blue",
       "hotline": "113 / 069.2785.111",
-      "address": "Số 4 Lê Đại Hành, Quận Hồng Bàng, TP. Hải Phòng"
+      "address": "Số 4 Lê Đại Hành, Phường Minh Khai, Quận Hồng Bàng, TP. Hải Phòng",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20th%C3%A0nh%20ph%E1%BB%91%20H%E1%BA%A3i%20Ph%C3%B2ng%2C%20S%E1%BB%91%204%20L%C3%AA%20%C4%90%E1%BA%A1i%20H%C3%A0nh%2C%20Ph%C6%B0%E1%BB%9Dng%20Minh%20Khai%2C%20Qu%E1%BA%ADn%20H%E1%BB%93ng%20B%C3%A0ng%2C%20TP.%20H%E1%BA%A3i%20Ph%C3%B2ng"
+    },
+    "quang-ninh": {
+      "name": "Công an tỉnh Quảng Ninh",
+      "url": "https://www.facebook.com/conganquangninh",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.2808.112",
+      "address": "Số 439 Nguyễn Văn Cừ, Phường Hồng Hà, TP. Hạ Long, Tỉnh Quảng Ninh",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Qu%E1%BA%A3ng%20Ninh%2C%20S%E1%BB%91%20439%20Nguy%E1%BB%85n%20V%C4%83n%20C%E1%BB%AB%2C%20Ph%C6%B0%E1%BB%9Dng%20H%E1%BB%93ng%20H%C3%A0%2C%20TP.%20H%E1%BA%A1%20Long%2C%20T%E1%BB%89nh%20Qu%E1%BA%A3ng%20Ninh"
+    },
+    "bac-ninh": {
+      "name": "Công an tỉnh Bắc Ninh",
+      "url": "https://www.facebook.com/conganbacninh",
+      "badge": "verified_blue",
+      "hotline": "113 / 0222.3822.404",
+      "address": "Đường Hùng Vương, Phường Tân Tiến, Tỉnh Bắc Ninh",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20B%E1%BA%AFc%20Ninh%2C%20%C4%90%C6%B0%E1%BB%9Dng%20H%C3%B9ng%20V%C6%B0%C6%A1ng%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20Ti%E1%BA%BFn%2C%20T%E1%BB%89nh%20B%E1%BA%AFc%20Ninh"
+    },
+    "hung-yen": {
+      "name": "Công an tỉnh Hưng Yên",
+      "url": "https://www.facebook.com/conganhungyen",
+      "badge": "verified_blue",
+      "hotline": "113 / 0221.3863.023",
+      "address": "Số 45 Hải Thượng Lãn Ông, Phường Phố Hiến, Tỉnh Hưng Yên",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20H%C6%B0ng%20Y%C3%AAn%2C%20S%E1%BB%91%2045%20H%E1%BA%A3i%20Th%C6%B0%E1%BB%A3ng%20L%C3%A3n%20%C3%94ng%2C%20Ph%C6%B0%E1%BB%9Dng%20Ph%E1%BB%91%20Hi%E1%BA%BFn%2C%20T%E1%BB%89nh%20H%C6%B0ng%20Y%C3%AAn"
+    },
+    "ninh-binh": {
+      "name": "Công an tỉnh Ninh Bình",
+      "url": "https://www.facebook.com/conganninhbinh",
+      "badge": "verified_blue",
+      "hotline": "113 / 0229.3871.097",
+      "address": "Số 60 Trương Hán Siêu, Phường Phúc Thành, Tỉnh Ninh Bình",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Ninh%20B%C3%ACnh%2C%20S%E1%BB%91%2060%20Tr%C6%B0%C6%A1ng%20H%C3%A1n%20Si%C3%AAu%2C%20Ph%C6%B0%E1%BB%9Dng%20Ph%C3%BAc%20Th%C3%A0nh%2C%20T%E1%BB%89nh%20Ninh%20B%C3%ACnh"
+    },
+    "cao-bang": {
+      "name": "Công an tỉnh Cao Bằng",
+      "url": "https://www.facebook.com/congancaobangofficial",
+      "badge": "verified_blue",
+      "hotline": "113 / 0206.3852.113",
+      "address": "Tổ 5, Phường Tân Giang, TP. Cao Bằng, Tỉnh Cao Bằng",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Cao%20B%E1%BA%B1ng%2C%20T%E1%BB%95%205%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20Giang%2C%20TP.%20Cao%20B%E1%BA%B1ng%2C%20T%E1%BB%89nh%20Cao%20B%E1%BA%B1ng"
+    },
+    "dien-bien": {
+      "name": "Công an tỉnh Điện Biên",
+      "url": "https://www.facebook.com/congandienbien",
+      "badge": "verified_blue",
+      "hotline": "113 / 0215.3825.113",
+      "address": "Số 312 Võ Nguyên Giáp, Phường Him Lam, TP. Điện Biên Phủ, Tỉnh Điện Biên",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20%C4%90i%E1%BB%87n%20Bi%C3%AAn%2C%20S%E1%BB%91%20312%20V%C3%B5%20Nguy%C3%AAn%20Gi%C3%A1p%2C%20Ph%C6%B0%E1%BB%9Dng%20Him%20Lam%2C%20TP.%20%C4%90i%E1%BB%87n%20Bi%C3%AAn%20Ph%E1%BB%A7%2C%20T%E1%BB%89nh%20%C4%90i%E1%BB%87n%20Bi%C3%AAn"
+    },
+    "lai-chau": {
+      "name": "Công an tỉnh Lai Châu",
+      "url": "https://www.facebook.com/conganlaichau",
+      "badge": "verified_blue",
+      "hotline": "113 / 0213.3876.113",
+      "address": "Đường Nguyễn Hữu Thọ, Tổ 16, Phường Tân Phong, TP. Lai Châu, Tỉnh Lai Châu",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Lai%20Ch%C3%A2u%2C%20%C4%90%C6%B0%E1%BB%9Dng%20Nguy%E1%BB%85n%20H%E1%BB%AFu%20Th%E1%BB%8D%2C%20T%E1%BB%95%2016%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20Phong%2C%20TP.%20Lai%20Ch%C3%A2u%2C%20T%E1%BB%89nh%20Lai%20Ch%C3%A2u"
+    },
+    "lang-son": {
+      "name": "Công an tỉnh Lạng Sơn",
+      "url": "https://www.facebook.com/conganlangson",
+      "badge": "verified_blue",
+      "hotline": "113 / 0205.3812.113",
+      "address": "Số 15 Hoàng Văn Thụ, Phường Chi Lăng, TP. Lạng Sơn, Tỉnh Lạng Sơn",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20L%E1%BA%A1ng%20S%C6%A1n%2C%20S%E1%BB%91%2015%20Ho%C3%A0ng%20V%C4%83n%20Th%E1%BB%A5%2C%20Ph%C6%B0%E1%BB%9Dng%20Chi%20L%C4%83ng%2C%20TP.%20L%E1%BA%A1ng%20S%C6%A1n%2C%20T%E1%BB%89nh%20L%E1%BA%A1ng%20S%C6%A1n"
+    },
+    "lao-cai": {
+      "name": "Công an tỉnh Lào Cai",
+      "url": "https://www.facebook.com/conganlaocai",
+      "badge": "verified_blue",
+      "hotline": "113 / 0214.3869.113",
+      "address": "Số 506 Điện Biên, Phường Duyên Hải, TP. Lào Cai, Tỉnh Lào Cai",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20L%C3%A0o%20Cai%2C%20S%E1%BB%91%20506%20%C4%90i%E1%BB%87n%20Bi%C3%AAn%2C%20Ph%C6%B0%E1%BB%9Dng%20Duy%C3%AAn%20H%E1%BA%A3i%2C%20TP.%20L%C3%A0o%20Cai%2C%20T%E1%BB%89nh%20L%C3%A0o%20Cai"
+    },
+    "phu-tho": {
+      "name": "Công an tỉnh Phú Thọ",
+      "url": "https://www.facebook.com/conganphutho",
+      "badge": "verified_blue",
+      "hotline": "113 / 0210.3846.113",
+      "address": "Số 51 Trần Phú, Phường Tân Dân, TP. Việt Trì, Tỉnh Phú Thọ",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Ph%C3%BA%20Th%E1%BB%8D%2C%20S%E1%BB%91%2051%20Tr%E1%BA%A7n%20Ph%C3%BA%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20D%C3%A2n%2C%20TP.%20Vi%E1%BB%87t%20Tr%C3%AC%2C%20T%E1%BB%89nh%20Ph%C3%BA%20Th%E1%BB%8D"
+    },
+    "son-la": {
+      "name": "Công an tỉnh Sơn La",
+      "url": "https://www.facebook.com/congansonla",
+      "badge": "verified_blue",
+      "hotline": "113 / 0212.3852.113",
+      "address": "Số 678 Lê Duẩn, Phường Chiềng Sinh, TP. Sơn La, Tỉnh Sơn La",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20S%C6%A1n%20La%2C%20S%E1%BB%91%20678%20L%C3%AA%20Du%E1%BA%A9n%2C%20Ph%C6%B0%E1%BB%9Dng%20Chi%E1%BB%81ng%20Sinh%2C%20TP.%20S%C6%A1n%20La%2C%20T%E1%BB%89nh%20S%C6%A1n%20La"
+    },
+    "thai-nguyen": {
+      "name": "Công an tỉnh Thái Nguyên",
+      "url": "https://www.facebook.com/conganthainguyen",
+      "badge": "verified_blue",
+      "hotline": "113 / 0208.3855.113",
+      "address": "Số 238 Bắc Kạn, Phường Hoàng Văn Thụ, TP. Thái Nguyên, Tỉnh Thái Nguyên",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Th%C3%A1i%20Nguy%C3%AAn%2C%20S%E1%BB%91%20238%20B%E1%BA%AFc%20K%E1%BA%A1n%2C%20Ph%C6%B0%E1%BB%9Dng%20Ho%C3%A0ng%20V%C4%83n%20Th%E1%BB%A5%2C%20TP.%20Th%C3%A1i%20Nguy%C3%AAn%2C%20T%E1%BB%89nh%20Th%C3%A1i%20Nguy%C3%AAn"
+    },
+    "tuyen-quang": {
+      "name": "Công an tỉnh Tuyên Quang",
+      "url": "https://www.facebook.com/congantuyenquang",
+      "badge": "verified_blue",
+      "hotline": "113 / 0207.3822.113",
+      "address": "Tổ 11, Phường An Tường, TP. Tuyên Quang, Tỉnh Tuyên Quang",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Tuy%C3%AAn%20Quang%2C%20T%E1%BB%95%2011%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20T%C6%B0%E1%BB%9Dng%2C%20TP.%20Tuy%C3%AAn%20Quang%2C%20T%E1%BB%89nh%20Tuy%C3%AAn%20Quang"
+    },
+    "hue": {
+      "name": "Công an thành phố Huế",
+      "url": "https://www.facebook.com/congantphue",
+      "badge": "verified_blue",
+      "hotline": "113 / 0234.3822.113",
+      "address": "Số 27 Trần Cao Vân, Phường Phú Hội, TP. Huế",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20th%C3%A0nh%20ph%E1%BB%91%20Hu%E1%BA%BF%2C%20S%E1%BB%91%2027%20Tr%E1%BA%A7n%20Cao%20V%C3%A2n%2C%20Ph%C6%B0%E1%BB%9Dng%20Ph%C3%BA%20H%E1%BB%99i%2C%20TP.%20Hu%E1%BA%BF"
+    },
+    "ha-tinh": {
+      "name": "Công an tỉnh Hà Tĩnh",
+      "url": "https://www.facebook.com/ConganHaTinh.Official",
+      "badge": "verified_blue",
+      "hotline": "113 / 0239.3856.113",
+      "address": "Số 04 Nguyễn Thiếp, Phường Tân Giang, TP. Hà Tĩnh, Tỉnh Hà Tĩnh",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20H%C3%A0%20T%C4%A9nh%2C%20S%E1%BB%91%2004%20Nguy%E1%BB%85n%20Thi%E1%BA%BFp%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20Giang%2C%20TP.%20H%C3%A0%20T%C4%A9nh%2C%20T%E1%BB%89nh%20H%C3%A0%20T%C4%A9nh"
+    },
+    "nghe-an": {
+      "name": "Công an tỉnh Nghệ An",
+      "url": "https://www.facebook.com/congannghean",
+      "badge": "verified_blue",
+      "hotline": "113 / 0238.3844.113",
+      "address": "Số 07 Trường Thi, Phường Trường Thi, TP. Vinh, Tỉnh Nghệ An",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Ngh%E1%BB%87%20An%2C%20S%E1%BB%91%2007%20Tr%C6%B0%E1%BB%9Dng%20Thi%2C%20Ph%C6%B0%E1%BB%9Dng%20Tr%C6%B0%E1%BB%9Dng%20Thi%2C%20TP.%20Vinh%2C%20T%E1%BB%89nh%20Ngh%E1%BB%87%20An"
+    },
+    "quang-tri": {
+      "name": "Công an tỉnh Quảng Trị",
+      "url": "https://www.facebook.com/conganquangtri",
+      "badge": "verified_blue",
+      "hotline": "113 / 0233.3852.113",
+      "address": "Số 06 Nguyễn Văn Linh, Phường Đồng Hới, Tỉnh Quảng Trị",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Qu%E1%BA%A3ng%20Tr%E1%BB%8B%2C%20S%E1%BB%91%2006%20Nguy%E1%BB%85n%20V%C4%83n%20Linh%2C%20Ph%C6%B0%E1%BB%9Dng%20%C4%90%E1%BB%93ng%20H%E1%BB%9Bi%2C%20T%E1%BB%89nh%20Qu%E1%BA%A3ng%20Tr%E1%BB%8B"
+    },
+    "thanh-hoa": {
+      "name": "Công an tỉnh Thanh Hóa",
+      "url": "https://www.facebook.com/conganthanhhoa",
+      "badge": "verified_blue",
+      "hotline": "113 / 0237.3852.113",
+      "address": "Số 15A Hạc Thành, Phường Hạc Thành, Tỉnh Thanh Hóa",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Thanh%20H%C3%B3a%2C%20S%E1%BB%91%2015A%20H%E1%BA%A1c%20Th%C3%A0nh%2C%20Ph%C6%B0%E1%BB%9Dng%20H%E1%BA%A1c%20Th%C3%A0nh%2C%20T%E1%BB%89nh%20Thanh%20H%C3%B3a"
+    },
+    "da-nang": {
+      "name": "Công an thành phố Đà Nẵng",
+      "url": "https://www.facebook.com/catpdanang",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.4260.111",
+      "address": "Số 47 Lý Tự Trọng, Phường Thạch Thang, Quận Hải Châu, TP. Đà Nẵng",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20th%C3%A0nh%20ph%E1%BB%91%20%C4%90%C3%A0%20N%E1%BA%B5ng%2C%20S%E1%BB%91%2047%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20Ph%C6%B0%E1%BB%9Dng%20Th%E1%BA%A1ch%20Thang%2C%20Qu%E1%BA%ADn%20H%E1%BA%A3i%20Ch%C3%A2u%2C%20TP.%20%C4%90%C3%A0%20N%E1%BA%B5ng"
+    },
+    "khanh-hoa": {
+      "name": "Công an tỉnh Khánh Hòa",
+      "url": "https://www.facebook.com/congan.khanhhoa",
+      "badge": "verified_blue",
+      "hotline": "113 / 0258.3822.113",
+      "address": "Số 80 Trần Phú, Phường Lộc Thọ, TP. Nha Trang, Tỉnh Khánh Hòa",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Kh%C3%A1nh%20H%C3%B2a%2C%20S%E1%BB%91%2080%20Tr%E1%BA%A7n%20Ph%C3%BA%2C%20Ph%C6%B0%E1%BB%9Dng%20L%E1%BB%99c%20Th%E1%BB%8D%2C%20TP.%20Nha%20Trang%2C%20T%E1%BB%89nh%20Kh%C3%A1nh%20H%C3%B2a"
+    },
+    "quang-ngai": {
+      "name": "Công an tỉnh Quảng Ngãi",
+      "url": "https://www.facebook.com/conganquangngai",
+      "badge": "verified_blue",
+      "hotline": "113 / 0255.3822.113",
+      "address": "Số 174 Hùng Vương, Phường Trần Phú, TP. Quảng Ngãi, Tỉnh Quảng Ngãi",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Qu%E1%BA%A3ng%20Ng%C3%A3i%2C%20S%E1%BB%91%20174%20H%C3%B9ng%20V%C6%B0%C6%A1ng%2C%20Ph%C6%B0%E1%BB%9Dng%20Tr%E1%BA%A7n%20Ph%C3%BA%2C%20TP.%20Qu%E1%BA%A3ng%20Ng%C3%A3i%2C%20T%E1%BB%89nh%20Qu%E1%BA%A3ng%20Ng%C3%A3i"
+    },
+    "dak-lak": {
+      "name": "Công an tỉnh Đắk Lắk",
+      "url": "https://www.facebook.com/congan.daklak",
+      "badge": "verified_blue",
+      "hotline": "113 / 0262.3852.113",
+      "address": "Số 58 Nguyễn Tất Thành, Phường Tự An, TP. Buôn Ma Thuột, Tỉnh Đắk Lắk",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20%C4%90%E1%BA%AFk%20L%E1%BA%AFk%2C%20S%E1%BB%91%2058%20Nguy%E1%BB%85n%20T%E1%BA%A5t%20Th%C3%A0nh%2C%20Ph%C6%B0%E1%BB%9Dng%20T%E1%BB%B1%20An%2C%20TP.%20Bu%C3%B4n%20Ma%20Thu%E1%BB%99t%2C%20T%E1%BB%89nh%20%C4%90%E1%BA%AFk%20L%E1%BA%AFk"
+    },
+    "gia-lai": {
+      "name": "Công an tỉnh Gia Lai",
+      "url": "https://www.facebook.com/congangialai",
+      "badge": "verified_blue",
+      "hotline": "113 / 0269.3822.113",
+      "address": "Số 267A Trần Phú, Phường Diên Hồng, TP. Pleiku, Tỉnh Gia Lai",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20Gia%20Lai%2C%20S%E1%BB%91%20267A%20Tr%E1%BA%A7n%20Ph%C3%BA%2C%20Ph%C6%B0%E1%BB%9Dng%20Di%C3%AAn%20H%E1%BB%93ng%2C%20TP.%20Pleiku%2C%20T%E1%BB%89nh%20Gia%20Lai"
+    },
+    "lam-dong": {
+      "name": "Công an tỉnh Lâm Đồng",
+      "url": "https://www.facebook.com/conganlamdong",
+      "badge": "verified_blue",
+      "hotline": "113 / 0263.3822.113",
+      "address": "Số 04 Trần Bình Trọng, Phường Cam Ly, TP. Đà Lạt, Tỉnh Lâm Đồng",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20L%C3%A2m%20%C4%90%E1%BB%93ng%2C%20S%E1%BB%91%2004%20Tr%E1%BA%A7n%20B%C3%ACnh%20Tr%E1%BB%8Dng%2C%20Ph%C6%B0%E1%BB%9Dng%20Cam%20Ly%2C%20TP.%20%C4%90%C3%A0%20L%E1%BA%A1t%2C%20T%E1%BB%89nh%20L%C3%A2m%20%C4%90%E1%BB%93ng"
+    },
+    "ho-chi-minh": {
+      "name": "Công an Thành phố Hồ Chí Minh",
+      "url": "https://www.facebook.com/catphochiminhofficial",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.3187.111",
+      "address": "Số 268 Trần Hưng Đạo, Phường Cầu Ông Lãnh, Quận 1, TP. Hồ Chí Minh",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20S%E1%BB%91%20268%20Tr%E1%BA%A7n%20H%C6%B0ng%20%C4%90%E1%BA%A1o%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20%C3%94ng%20L%C3%A3nh%2C%20Qu%E1%BA%ADn%201%2C%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh"
+    },
+    "dong-nai": {
+      "name": "Công an tỉnh Đồng Nai",
+      "url": "https://www.facebook.com/congan.dongnai",
+      "badge": "verified_blue",
+      "hotline": "113 / 0251.3820.100",
+      "address": "Số 161 Phạm Văn Thuận, Phường Tân Tiến, TP. Biên Hòa, Tỉnh Đồng Nai",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20%C4%90%E1%BB%93ng%20Nai%2C%20S%E1%BB%91%20161%20Ph%E1%BA%A1m%20V%C4%83n%20Thu%E1%BA%ADn%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20Ti%E1%BA%BFn%2C%20TP.%20Bi%C3%AAn%20H%C3%B2a%2C%20T%E1%BB%89nh%20%C4%90%E1%BB%93ng%20Nai"
+    },
+    "tay-ninh": {
+      "name": "Công an tỉnh Tây Ninh",
+      "url": "https://www.facebook.com/congantayninh",
+      "badge": "verified_blue",
+      "hotline": "113 / 0276.3822.113",
+      "address": "Số 599 Hùng Vương, Phường Long An, Tỉnh Tây Ninh",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20T%C3%A2y%20Ninh%2C%20S%E1%BB%91%20599%20H%C3%B9ng%20V%C6%B0%C6%A1ng%2C%20Ph%C6%B0%E1%BB%9Dng%20Long%20An%2C%20T%E1%BB%89nh%20T%C3%A2y%20Ninh"
+    },
+    "can-tho": {
+      "name": "Công an thành phố Cần Thơ",
+      "url": "https://www.facebook.com/conganthanhphocantho",
+      "badge": "verified_blue",
+      "hotline": "113 / 069.3672.111",
+      "address": "Số 9B Trần Phú, Phường Cái Khế, Quận Ninh Kiều, TP. Cần Thơ",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20th%C3%A0nh%20ph%E1%BB%91%20C%E1%BA%A7n%20Th%C6%A1%2C%20S%E1%BB%91%209B%20Tr%E1%BA%A7n%20Ph%C3%BA%2C%20Ph%C6%B0%E1%BB%9Dng%20C%C3%A1i%20Kh%E1%BA%BF%2C%20Qu%E1%BA%ADn%20Ninh%20Ki%E1%BB%81u%2C%20TP.%20C%E1%BA%A7n%20Th%C6%A1"
+    },
+    "an-giang": {
+      "name": "Công an tỉnh An Giang",
+      "url": "https://www.facebook.com/conganangiang",
+      "badge": "verified_blue",
+      "hotline": "113 / 0296.3852.113",
+      "address": "Số 1333 Trần Hưng Đạo, Phường Mỹ Long, TP. Long Xuyên, Tỉnh An Giang",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20An%20Giang%2C%20S%E1%BB%91%201333%20Tr%E1%BA%A7n%20H%C6%B0ng%20%C4%90%E1%BA%A1o%2C%20Ph%C6%B0%E1%BB%9Dng%20M%E1%BB%B9%20Long%2C%20TP.%20Long%20Xuy%C3%AAn%2C%20T%E1%BB%89nh%20An%20Giang"
+    },
+    "ca-mau": {
+      "name": "Công an tỉnh Cà Mau",
+      "url": "https://www.facebook.com/congancamau",
+      "badge": "verified_blue",
+      "hotline": "113 / 0290.3831.113",
+      "address": "Số 47 Bùi Thị Trường, Phường Tân Thành, Tỉnh Cà Mau",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20C%C3%A0%20Mau%2C%20S%E1%BB%91%2047%20B%C3%B9i%20Th%E1%BB%8B%20Tr%C6%B0%E1%BB%9Dng%2C%20Ph%C6%B0%E1%BB%9Dng%20T%C3%A2n%20Th%C3%A0nh%2C%20T%E1%BB%89nh%20C%C3%A0%20Mau"
+    },
+    "dong-thap": {
+      "name": "Công an tỉnh Đồng Tháp",
+      "url": "https://www.facebook.com/congandongthap",
+      "badge": "verified_blue",
+      "hotline": "113 / 0277.3851.113",
+      "address": "Số 27 Lý Thường Kiệt, Phường 1, TP. Cao Lãnh, Tỉnh Đồng Tháp",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20%C4%90%E1%BB%93ng%20Th%C3%A1p%2C%20S%E1%BB%91%2027%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t%2C%20Ph%C6%B0%E1%BB%9Dng%201%2C%20TP.%20Cao%20L%C3%A3nh%2C%20T%E1%BB%89nh%20%C4%90%E1%BB%93ng%20Th%C3%A1p"
+    },
+    "vinh-long": {
+      "name": "Công an tỉnh Vĩnh Long",
+      "url": "https://www.facebook.com/conganvinhlong",
+      "badge": "verified_blue",
+      "hotline": "113 / 0270.3822.113",
+      "address": "Số 71/22A Phó Cơ Điều, Phường Phước Hậu, Tỉnh Vĩnh Long",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20V%C4%A9nh%20Long%2C%20S%E1%BB%91%2071%2F22A%20Ph%C3%B3%20C%C6%A1%20%C4%90i%E1%BB%81u%2C%20Ph%C6%B0%E1%BB%9Dng%20Ph%C6%B0%E1%BB%9Bc%20H%E1%BA%ADu%2C%20T%E1%BB%89nh%20V%C4%A9nh%20Long"
+    },
+    "binh-duong": {
+      "name": "Công an tỉnh Bình Dương",
+      "url": "https://www.facebook.com/conganbinhduong",
+      "badge": "verified_blue",
+      "hotline": "113 / 0274.3822.444",
+      "address": "Số 681 Cách Mạng Tháng Tám, Phường Chánh Nghĩa, TP. Thủ Dầu Một, Tỉnh Bình Dương",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20B%C3%ACnh%20D%C6%B0%C6%A1ng%2C%20S%E1%BB%91%20681%20C%C3%A1ch%20M%E1%BA%A1ng%20Th%C3%A1ng%20T%C3%A1m%2C%20Ph%C6%B0%E1%BB%9Dng%20Ch%C3%A1nh%20Ngh%C4%A9a%2C%20TP.%20Th%E1%BB%A7%20D%E1%BA%A7u%20M%E1%BB%99t%2C%20T%E1%BB%89nh%20B%C3%ACnh%20D%C6%B0%C6%A1ng"
+    },
+    "ba-ria-vung-tau": {
+      "name": "Công an tỉnh Bà Rịa - Vũng Tàu",
+      "url": "https://www.facebook.com/conganbrvt",
+      "badge": "verified_blue",
+      "hotline": "113 / 0254.3852.115",
+      "address": "Số 15 Trường Chinh, Phường Phước Trung, TP. Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20an%20t%E1%BB%89nh%20B%C3%A0%20R%E1%BB%8Ba%20-%20V%C5%A9ng%20T%C3%A0u%2C%20S%E1%BB%91%2015%20Tr%C6%B0%E1%BB%9Dng%20Chinh%2C%20Ph%C6%B0%E1%BB%9Dng%20Ph%C6%B0%E1%BB%9Bc%20Trung%2C%20TP.%20B%C3%A0%20R%E1%BB%8Ba%2C%20T%E1%BB%89nh%20B%C3%A0%20R%E1%BB%8Ba%20-%20V%C5%A9ng%20T%C3%A0u"
     }
   },
   "districts": {

@@ -15,31 +15,37 @@ export default function ProductCard({ product }) {
   const hasSale = product.sale_price && Number(product.sale_price) > 0;
   const isHot = product.is_featured === 1;
 
+  const getFallbackImage = () => {
+    const nameLower = (product.name || '').toLowerCase();
+    if (nameLower.includes('45kg')) return '/images/luxen-45.png';
+    if (nameLower.includes('luxen')) return '/images/luxen-gas.png';
+    if (nameLower.includes('phoenix')) return '/images/phoenix-xam.png';
+    return '/images/sopet-xam.png';
+  };
+
+  const displayImage = (product.image_url && product.image_url.trim() !== '') 
+    ? product.image_url.trim() 
+    : getFallbackImage();
+
   return (
     <>
       <div className="product-card card">
         <Link href={productUrl} className="card-image-link" onClick={() => trackClick('product_card_click', product.name)}>
           <div className="product-image-container">
-            {product.image_url ? (
-              <picture>
-                {(product.image_url.startsWith('/images/') || product.image_url.startsWith('/uploads/')) && (
-                  <source srcSet={product.image_url.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
-                )}
-                <img 
-                  src={product.image_url} 
-                  alt={product.name} 
-                  className="product-card-img" 
-                  width="240"
-                  height="220"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-            ) : (
-              <div className="product-placeholder-image">
-                <Flame size={48} className="placeholder-icon" />
-              </div>
-            )}
+            <picture>
+              {(displayImage.startsWith('/images/') || displayImage.startsWith('/uploads/')) && (
+                <source srcSet={displayImage.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+              )}
+              <img 
+                src={displayImage} 
+                alt={product.name} 
+                className="product-card-img" 
+                width="240"
+                height="220"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             
             <div className="badge-group">
               <div className="category-badge">{product.category_name || 'Gas'}</div>

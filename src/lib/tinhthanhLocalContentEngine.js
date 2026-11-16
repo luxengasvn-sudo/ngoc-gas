@@ -226,7 +226,7 @@ export function generateWardSeoArticle(unit, province) {
   const archetype = getWardArchetype(unit);
   const density = unit.density || (unit.population && unit.areaKm2 ? Math.round(unit.population / unit.areaKm2) : 1000);
   const ubndAddr = unit.ubnd?.address || `Khu trung tâm hành chính ${unit.name}, ${unit.district || province.center}, ${province.name}`;
-  const ubndPhone = unit.ubnd?.phone && !unit.ubnd.phone.includes('xxxx') ? unit.ubnd.phone : '1900 9396 (Tổng đài hỗ trợ dân sinh)';
+  const ubndPhone = unit.ubnd?.phone && !unit.ubnd.phone.includes('xxxx') ? unit.ubnd.phone : 'Bộ phận Một Cửa UBND hoặc Cổng DVC Quốc gia (dichvucong.gov.vn)';
   const oldUnitsList = unit.oldUnits && unit.oldUnits.length > 0 ? unit.oldUnits.join(', ') : `các khu vực địa giới phụ cận của ${unit.name}`;
 
   // 1. Phân hóa đoạn mở bài (Lead Paragraphs)
@@ -274,7 +274,7 @@ export function generateWardSeoArticle(unit, province) {
  */
 export function generateWardSchema(unit, province) {
   const ubndAddr = unit.ubnd?.address || `Trụ sở UBND ${unit.name}, ${unit.district || province.center}, ${province.name}`;
-  const ubndPhone = unit.ubnd?.phone && !unit.ubnd.phone.includes('xxxx') ? unit.ubnd.phone : '19009396';
+  const ubndPhone = unit.ubnd?.phone && !unit.ubnd.phone.includes('xxxx') ? unit.ubnd.phone : null;
   const url = `https://ngocgas.com/tinh-thanh/province/${province.slug}/${unit.wardSlug || unit.slug}`;
 
   return {
@@ -286,7 +286,7 @@ export function generateWardSchema(unit, province) {
         "name": `Ủy Ban Nhân Dân ${unit.name}`,
         "description": `Trụ sở Ủy Ban Nhân Dân ${unit.name}, cơ quan hành chính nhà nước cấp cơ sở thuộc ${province.name}. Phục vụ nhân dân tiếp nhận và giải quyết các thủ tục hành chính công.`,
         "url": url,
-        "telephone": ubndPhone,
+        ...(ubndPhone ? { "telephone": ubndPhone } : {}),
         "address": {
           "@type": "PostalAddress",
           "streetAddress": ubndAddr,

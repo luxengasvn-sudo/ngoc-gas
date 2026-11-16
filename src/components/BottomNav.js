@@ -75,6 +75,11 @@ export default function BottomNav({ initialSettings }) {
     return pathname.startsWith(path);
   };
 
+  // Do not render bottom nav inside independent sub-portals like /tinh-thanh
+  if (pathname && pathname.startsWith('/tinh-thanh')) {
+    return null;
+  }
+
   if (!navItems || navItems.length === 0) return null;
 
   return (

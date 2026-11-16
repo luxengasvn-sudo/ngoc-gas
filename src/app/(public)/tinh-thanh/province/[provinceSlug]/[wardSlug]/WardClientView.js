@@ -93,14 +93,12 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
     lat: ubndRaw.lat || unit.lat || 10.9034,
     lng: ubndRaw.lng || unit.lng || 106.759,
     googleMapsUrl: ubndRaw.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ubndPoiQuery)}`,
-    googleDirectionsUrl: (!ubndRaw.googleDirectionsUrl || isUbndCoordTarget)
-      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ubndPoiQuery)}`
-      : ubndRaw.googleDirectionsUrl
+    googleDirectionsUrl: ubndRaw.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ubndPoiQuery)}`
   };
 
   // Phân cấp tra cứu Fanpage Tích Xanh Công An
   const provPolice = policeFanpagesData?.provinces?.[provinceSlug];
-  const districtKey = unit.district ? unit.district.toLowerCase().replace(/^(quận|huyện|thành phố|tp\.|tx\.)\s*/i, '').trim().replace(/\s+/g, '-') : '';
+  const districtKey = unit.district ? unit.district.toLowerCase().replace(/^(khu vực|quận|huyện|thành phố|tp\.|tx\.)\s*/i, '').trim().replace(/\s+/g, '-') : '';
   const distPolice = policeFanpagesData?.districts ? Object.entries(policeFanpagesData.districts).find(([key]) => key.includes(districtKey) || (districtKey && key.endsWith(districtKey)))?.[1] : null;
 
   const policeFb = unit.police?.facebook || distPolice?.url || provPolice?.url || 'https://www.facebook.com/mpsgov';
@@ -113,16 +111,14 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
     ...policeRaw,
     name: policeRaw.name || `Công An ${unit.name}`,
     address: policeRaw.address || `Liền kề Trụ sở UBND ${unit.name}, ${province.name}`,
-    phone: policeRaw.phone && !policeRaw.phone.includes('xxxx') ? policeRaw.phone : '',
-    hotline: policeRaw.hotline || distPolice?.hotline || provPolice?.hotline || '113 / Trực ban 24/7',
+    phone: '113',
+    hotline: '113 (Trực ban 24/7)',
     facebook: policeFb,
     facebookName: policeFbName,
     lat: policeRaw.lat || Number(((unit.lat || 10.9034) + 0.001).toFixed(4)),
     lng: policeRaw.lng || Number(((unit.lng || 106.759) + 0.0015).toFixed(4)),
     googleMapsUrl: policeRaw.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(policePoiQuery)}`,
-    googleDirectionsUrl: (!policeRaw.googleDirectionsUrl || isPoliceCoordTarget)
-      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(policePoiQuery)}`
-      : policeRaw.googleDirectionsUrl
+    googleDirectionsUrl: policeRaw.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(policePoiQuery)}`
   };
 
   const agencies = unit.agencies || {};
@@ -132,7 +128,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
     address: `Khu hành chính tài chính ${districtLabel}, ${province.name}`,
     phone: '',
     workingHours: 'Thứ 2 - Thứ 6 (07:30 - 11:30 | 13:30 - 16:30)',
-    googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Kho bạc nhà nước ' + districtLabel + ', ' + province.name)}`,
+    googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Kho bạc nhà nước ' + districtLabel + ', ' + province.name)}`,
     googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Kho bạc nhà nước ' + districtLabel + ', ' + province.name)}`
   };
 
@@ -141,7 +137,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
     address: `Khu hành chính tư pháp ${districtLabel}, ${province.name}`,
     phone: '',
     workingHours: 'Thứ 2 - Thứ 6 (07:30 - 11:30 | 13:30 - 17:00)',
-    googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Tòa án nhân dân ' + districtLabel + ', ' + province.name)}`,
+    googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tòa án nhân dân ' + districtLabel + ', ' + province.name)}`,
     googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tòa án nhân dân ' + districtLabel + ', ' + province.name)}`
   };
 
@@ -151,7 +147,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
     phone: '',
     hotline: '113 / Cổng tư pháp',
     workingHours: 'Thứ 2 - Thứ 6 (07:30 - 11:30 | 13:30 - 17:00)',
-    googleDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Viện kiểm sát nhân dân ' + districtLabel + ', ' + province.name)}`,
+    googleDirectionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Viện kiểm sát nhân dân ' + districtLabel + ', ' + province.name)}`,
     googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Viện kiểm sát nhân dân ' + districtLabel + ', ' + province.name)}`
   };
 
@@ -188,7 +184,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
 
   const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${minLng}%2C${minLat}%2C${maxLng}%2C${maxLat}&layer=mapnik&marker=${currentLat}%2C${currentLng}`;
   const osmDirectUrl = `https://www.openstreetmap.org/?mlat=${currentLat}&mlon=${currentLng}#map=16/${currentLat}/${currentLng}`;
-  const googleDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${currentLat},${currentLng}`;
+  const googleDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(unit.name + ', ' + province.name)}`;
 
   // Neighboring wards
   const neighboringWards = useMemo(() => {
@@ -203,11 +199,11 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
       });
     }
 
-    const cleanDist = (unit.district || '').replace(/^(Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+    const cleanDist = (unit.district || '').replace(/^(khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
     const provUnits = getProvinceUnits(provinceSlug, province);
     const sameDist = provUnits.filter(u => {
       if (u.wardSlug === wardSlug || u.slug === wardSlug) return false;
-      const uDist = (u.district || '').replace(/^(Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+      const uDist = (u.district || '').replace(/^(khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
       return uDist === cleanDist || (cleanDist && uDist.includes(cleanDist));
     });
 
@@ -256,7 +252,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                   </h1>
                 </div>
                 <p className="tt-hero-subtitle" style={{ marginTop: '4px', fontSize: '13px' }}>
-                  <strong style={{ color: '#0284c7' }}>{province.name}</strong> · <span style={{ color: '#64748b' }}>{unit.district} (cũ)</span>
+                  <strong style={{ color: '#0284c7' }}>{province.name}</strong> · <span style={{ color: '#64748b' }}>{unit.district?.startsWith('Khu vực') ? unit.district : `${unit.district} (cũ)`}</span>
                 </p>
               </div>
 
@@ -402,7 +398,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
               </h2>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#475569', marginBottom: '18px' }}>
                 <span>🏛️</span>
-                <strong style={{ color: '#dc2626' }}>{province.name}</strong> · <span>{unit.district} (cũ)</span>
+                <strong style={{ color: '#dc2626' }}>{province.name}</strong> · <span>{unit.district?.startsWith('Khu vực') ? unit.district : `${unit.district} (cũ)`}</span>
               </div>
 
               <div className="tt-info-grid-2x2">
@@ -461,7 +457,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                   OpenStreetMap ↗
                 </a>
                 <a href={googleDirectionsUrl} target="_blank" rel="noopener noreferrer" className="tt-btn-primary" style={{ fontSize: '12px', padding: '6px 12px' }}>
-                  Chỉ đường ↗
+                  📍 Xem Trên Google Maps
                 </a>
               </div>
             </div>
@@ -526,7 +522,7 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
               </div>
             </div>
 
-            {/* BOX VỊ TRÍ UBND & NÚT CHỈ ĐƯỜNG */}
+            {/* BOX VỊ TRÍ UBND & NÚT XEM ĐỊA ĐIỂM GOOGLE MAPS */}
             <div className="tt-ubnd-cta-box">
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <span style={{ fontSize: '32px' }}>🏛️</span>
@@ -542,24 +538,14 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
 
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 <a
-                  href={ubnd.googleDirectionsUrl || ubnd.googleMapsUrl}
+                  href={ubnd.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="tt-btn-primary"
                   style={{ padding: '12px 18px', fontSize: '13px' }}
                 >
-                  <span>↗</span>
-                  <span>CHỈ ĐƯỜNG TỚI UBND</span>
-                </a>
-                <a
-                  href={ubnd.googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tt-btn-white"
-                  style={{ padding: '12px 18px', fontSize: '13px', border: '1px solid #cbd5e1' }}
-                >
                   <span>📍</span>
-                  <span>XEM GOOGLE MAPS</span>
+                  <span>Xem Địa Điểm Google Maps</span>
                 </a>
               </div>
             </div>
@@ -610,21 +596,12 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                 <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #dcfce7' }}>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
                     <a
-                      href={ubnd.googleDirectionsUrl || ubnd.googleMapsUrl}
+                      href={ubnd.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#15803d', textDecoration: 'none' }}
                     >
-                      <span>↗ Chỉ đường</span>
-                    </a>
-                    <span style={{ color: '#cbd5e1' }}>|</span>
-                    <a
-                      href={ubnd.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#0284c7', textDecoration: 'none' }}
-                    >
-                      <span>📍 Google Maps</span>
+                      <span>📍 Xem Địa Điểm Google Maps</span>
                     </a>
                   </div>
                   <Link
@@ -658,8 +635,24 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                       An ninh 24/7
                     </span>
                   </div>
-                  <div style={{ fontSize: '12px', color: '#64748b', marginTop: '6px' }}>
-                    🚨 <strong>Đường dây nóng khẩn cấp:</strong> <strong style={{ color: '#dc2626' }}>113 (Trực ban 24/7)</strong>
+                  <div style={{ fontSize: '12px', color: '#64748b', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span>🚨</span>
+                    <span><strong>Trực ban An ninh 24/7:</strong></span>
+                    <a
+                      href="tel:113"
+                      style={{
+                        color: '#dc2626',
+                        fontWeight: '800',
+                        textDecoration: 'none',
+                        backgroundColor: '#fee2e2',
+                        padding: '1px 6px',
+                        borderRadius: '4px',
+                        border: '1px solid #fecaca'
+                      }}
+                      title="Bấm gọi khẩn cấp 113"
+                    >
+                      📞 113
+                    </a>
                   </div>
                   {police.facebook && (
                     <div style={{ fontSize: '12px', marginTop: '6px' }}>
@@ -679,21 +672,12 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                 <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #dbeafe' }}>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
                     <a
-                      href={police.googleDirectionsUrl || police.googleMapsUrl}
+                      href={police.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#1d4ed8', textDecoration: 'none' }}
                     >
-                      <span>↗ Chỉ đường</span>
-                    </a>
-                    <span style={{ color: '#cbd5e1' }}>|</span>
-                    <a
-                      href={police.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#0284c7', textDecoration: 'none' }}
-                    >
-                      <span>📍 Google Maps</span>
+                      <span>📍 Xem Địa Điểm Google Maps</span>
                     </a>
                   </div>
                   <Link
@@ -735,21 +719,12 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                 <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #fde68a' }}>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
                     <a
-                      href={treasury.googleDirectionsUrl}
+                      href={treasury.googleMapsUrl || treasury.googleDirectionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#b45309', textDecoration: 'none' }}
                     >
-                      <span>↗ Chỉ đường</span>
-                    </a>
-                    <span style={{ color: '#cbd5e1' }}>|</span>
-                    <a
-                      href={treasury.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#0284c7', textDecoration: 'none' }}
-                    >
-                      <span>📍 Google Maps</span>
+                      <span>📍 Xem Địa Điểm Google Maps</span>
                     </a>
                   </div>
                   <Link
@@ -791,21 +766,12 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                 <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #ddd6fe' }}>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
                     <a
-                      href={court.googleDirectionsUrl}
+                      href={court.googleMapsUrl || court.googleDirectionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#7c3aed', textDecoration: 'none' }}
                     >
-                      <span>↗ Chỉ đường</span>
-                    </a>
-                    <span style={{ color: '#cbd5e1' }}>|</span>
-                    <a
-                      href={court.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#0284c7', textDecoration: 'none' }}
-                    >
-                      <span>📍 Google Maps</span>
+                      <span>📍 Xem Địa Điểm Google Maps</span>
                     </a>
                   </div>
                   <Link
@@ -847,21 +813,12 @@ export default function WardClientView({ province, provinceSlug, wardSlug, initi
                 <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #fecdd3' }}>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
                     <a
-                      href={procuracy.googleDirectionsUrl}
+                      href={procuracy.googleMapsUrl || procuracy.googleDirectionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#be123c', textDecoration: 'none' }}
                     >
-                      <span>↗ Chỉ đường</span>
-                    </a>
-                    <span style={{ color: '#cbd5e1' }}>|</span>
-                    <a
-                      href={procuracy.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: '#0284c7', textDecoration: 'none' }}
-                    >
-                      <span>📍 Google Maps</span>
+                      <span>📍 Xem Địa Điểm Google Maps</span>
                     </a>
                   </div>
                   <Link

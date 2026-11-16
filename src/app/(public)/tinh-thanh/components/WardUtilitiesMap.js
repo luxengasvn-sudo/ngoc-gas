@@ -191,7 +191,7 @@ export default function WardUtilitiesMap({
 
       const marker = L.marker([lat, lng], { icon: customIcon });
 
-      const googleDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+      const googleMapsUrl = poi.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(poi.name + (poi.address ? (', ' + poi.address) : ''))}`;
 
       const popupContent = `
         <div style="font-family: inherit; width: 260px; padding: 4px;">
@@ -211,12 +211,12 @@ export default function WardUtilitiesMap({
           </div>
           <div style="display: flex; gap: 6px; margin-top: 8px;">
             <a
-              href="${googleDirectionsUrl}"
+              href="${googleMapsUrl}"
               target="_blank"
               rel="noopener noreferrer"
               style="flex: 1; text-align: center; padding: 6px 10px; background: #ea580c; color: #ffffff; border-radius: 6px; font-size: 11px; font-weight: 800; text-decoration: none;"
             >
-              Chỉ đường Google Maps ↗
+              📍 Xem Địa Điểm Google Maps
             </a>
           </div>
           <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #e2e8f0; font-size: 10px; color: #2563eb; font-weight: 700; display: flex; justify-content: space-between;">

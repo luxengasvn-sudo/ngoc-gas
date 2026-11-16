@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import provincesData from '@/data/tinhthanh/provinces-34.json';
@@ -89,6 +90,23 @@ export default function SubPortalNavbar() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const handleHeaderSearch = (e) => {
     e.preventDefault();
@@ -250,6 +268,10 @@ export default function SubPortalNavbar() {
             <Link href="/tinh-thanh/tra-cuu-ma-buu-chinh" className="tt-nav-item tt-nav-item-highlight-orange">
               Mã Bưu Chính
             </Link>
+
+            <Link href="/tinh-thanh/benh-vien" className="tt-nav-item" style={{ color: '#0284c7', fontWeight: '700' }}>
+              🏥 Bệnh Viện
+            </Link>
           </nav>
 
           {/* Search Box on Navbar */}
@@ -270,31 +292,42 @@ export default function SubPortalNavbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
-      {isMobileMenuOpen && (
+      {/* Mobile Menu Drawer - Rendered via Portal directly to body to avoid transform containing-block trap */}
+      {mounted && isMobileMenuOpen && createPortal(
         <div
           style={{
             position: 'fixed',
-            inset: 0,
-            zIndex: 999,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            display: 'flex'
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100dvh',
+            zIndex: 999999,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(3px)',
+            display: 'flex',
+            animation: 'fadeIn 0.2s ease-out'
           }}
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div
             style={{
-              width: '290px',
+              width: '300px',
+              maxWidth: '85vw',
               backgroundColor: '#ffffff',
               height: '100%',
-              padding: '20px',
-              overflowY: 'auto'
+              padding: '24px 20px',
+              overflowY: 'auto',
+              boxShadow: '4px 0 24px rgba(0, 0, 0, 0.2)',
+              display: 'flex',
+              flexDirection: 'column'
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '14px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px', marginBottom: '18px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <svg width="26" height="26" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M24 4C14.0589 4 6 12.0589 6 22C6 32.5 21.5 43.2 23.1 44.3C23.65 44.68 24.35 44.68 24.9 44.3C26.5 43.2 42 32.5 42 22C42 12.0589 33.9411 4 24 4Z"
                     fill="#1e40af"
@@ -308,34 +341,68 @@ export default function SubPortalNavbar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <strong style={{ fontSize: '18px', display: 'flex', alignItems: 'baseline' }}>
+                <strong style={{ fontSize: '19px', display: 'flex', alignItems: 'baseline' }}>
                   <span style={{ color: '#0f172a' }}>ĐịaGiới</span>
                   <span style={{ color: '#d97706', marginLeft: '1px' }}>VN</span>
                 </strong>
               </div>
-              <button onClick={() => setIsMobileMenuOpen(false)} style={{ border: 'none', background: 'none', fontSize: '20px', cursor: 'pointer' }}>✕</button>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  border: 'none',
+                  background: '#f1f5f9',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '16px',
+                  color: '#475569',
+                  cursor: 'pointer'
+                }}
+                aria-label="Đóng menu"
+              >
+                ✕
+              </button>
             </div>
 
-            <form onSubmit={handleHeaderSearch} style={{ marginBottom: '16px', display: 'flex' }}>
+            <form onSubmit={handleHeaderSearch} style={{ marginBottom: '20px', display: 'flex' }}>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Tìm xã, phường..."
-                style={{ flex: 1, padding: '8px', border: '1px solid #cbd5e1', borderRadius: '6px 0 0 6px', fontSize: '13px' }}
+                placeholder="Tìm xã, phường, tỉnh..."
+                style={{ flex: 1, padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '8px 0 0 8px', fontSize: '13px', outline: 'none' }}
               />
-              <button type="submit" style={{ padding: '8px 12px', backgroundColor: '#0284c7', color: '#ffffff', border: 'none', borderRadius: '0 6px 6px 0' }}>🔍</button>
+              <button type="submit" style={{ padding: '10px 14px', backgroundColor: '#0284c7', color: '#ffffff', border: 'none', borderRadius: '0 8px 8px 0', cursor: 'pointer' }}>
+                🔍
+              </button>
             </form>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px', fontWeight: '600' }}>
-              <Link href="/tinh-thanh" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#1e293b', textDecoration: 'none' }}>🏠 Trang chủ tra cứu</Link>
-              <Link href="/tinh-thanh/tra-cuu-sap-nhap" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#16a34a', textDecoration: 'none' }}>🔍 Tra Cứu Sáp Nhập</Link>
-              <Link href="/tinh-thanh/34-tinh-thanh" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#1e293b', textDecoration: 'none' }}>📍 34 Tỉnh Thành Mới</Link>
-              <Link href="/tinh-thanh/tinh-thanh-cu" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#1e293b', textDecoration: 'none' }}>🏛️ 63 Tỉnh Thành Cũ</Link>
-              <Link href="/tinh-thanh/tra-cuu-ma-buu-chinh" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#ea580c', textDecoration: 'none' }}>📮 Mã Bưu Chính</Link>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', fontWeight: '600' }}>
+              <Link href="/tinh-thanh" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', backgroundColor: '#f8fafc', color: '#1e293b', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>🏠</span> <span>Trang chủ tra cứu</span>
+              </Link>
+              <Link href="/tinh-thanh/benh-vien" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', backgroundColor: '#f0f9ff', color: '#0369a1', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: '700' }}>
+                <span>🏥</span> <span>Danh Mục Bệnh Viện</span>
+              </Link>
+              <Link href="/tinh-thanh/tra-cuu-sap-nhap" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', backgroundColor: '#f0fdf4', color: '#16a34a', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>🔍</span> <span>Tra Cứu Sáp Nhập</span>
+              </Link>
+              <Link href="/tinh-thanh/34-tinh-thanh" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', backgroundColor: '#f8fafc', color: '#1e293b', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>📍</span> <span>34 Tỉnh Thành Mới</span>
+              </Link>
+              <Link href="/tinh-thanh/tinh-thanh-cu" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', backgroundColor: '#f8fafc', color: '#1e293b', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>🏛️</span> <span>63 Tỉnh Thành Cũ</span>
+              </Link>
+              <Link href="/tinh-thanh/tra-cuu-ma-buu-chinh" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', backgroundColor: '#fff7ed', color: '#ea580c', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>📮</span> <span>Mã Bưu Chính</span>
+              </Link>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );

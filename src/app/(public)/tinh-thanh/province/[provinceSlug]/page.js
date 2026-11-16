@@ -35,7 +35,7 @@ export default async function ProvinceDetailPage({ params }) {
   const maxLng = (centerLng + delta).toFixed(4);
   const maxLat = (centerLat + delta).toFixed(4);
 
-  const googleDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${centerLat},${centerLng}`;
+  const googleDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(province.name)}`;
   const phoneCode = PROVINCE_PHONE_PREFIX[provinceSlug] || '028';
 
   // 10 Stats computation for hero grid
@@ -135,7 +135,7 @@ export default async function ProvinceDetailPage({ params }) {
                   className="tt-btn-primary"
                   style={{ fontSize: '12px', padding: '6px 14px' }}
                 >
-                  Chỉ đường Google Maps ↗
+                  📍 Xem Địa Điểm Google Maps
                 </a>
               </div>
 

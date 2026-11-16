@@ -1,6 +1,6 @@
 import { getAllSettings } from '@/lib/settingsHelper';
 import Link from 'next/link';
-import { Flame, Shield, Users, Heart, Award, ArrowRight } from 'lucide-react';
+import { Flame, Shield, Users, Heart, Award, ArrowRight, MapPin, ExternalLink } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -118,6 +118,88 @@ export default async function AboutPage() {
               <Heart size={36} className="value-icon" />
               <h4>{settings.about_value_3_title}</h4>
               <p>{settings.about_value_3_desc}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Official Branches & Entity Verification */}
+      <section className="section-padding branches-entity-section" style={{ backgroundColor: 'var(--bg-card)' }}>
+        <div className="container">
+          <div className="section-title-wrapper" style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 className="section-title">Hệ Thống Điểm Giao Gas &amp; Hồ Sơ Định Danh Doanh Nghiệp</h2>
+            <p className="section-subtitle">
+              Ngọc Gas xây dựng hệ sinh thái số minh bạch, cam kết 100% bình gas chính hãng đủ ký, bảo hiểm PCCC và giao siêu tốc 15 phút tại Dĩ An &amp; Bình Dương.
+            </p>
+          </div>
+          <div className="grid-3">
+            <div className="card branch-card" style={{ padding: '24px', borderRadius: '12px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <MapPin className="text-primary" size={24} />
+                <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>Trụ Sở Chính Dĩ An</h3>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+                <strong>Địa chỉ:</strong> 7 Nguyễn Trung Trực, Phường Dĩ An, TP. Dĩ An, Tỉnh Bình Dương
+              </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+                <strong>Hotline:</strong> 1900 9396 (Hỗ trợ 24/7)
+              </p>
+              <a 
+                href="https://www.google.com/maps/place/Ng%E1%BB%8Dc+Gas+-+Giao+gas+nhanh+ch%C3%ADnh+h%C3%A3ng+-+D%C4%A9+An/data=!4m2!3m1!1s0x0:0x87aafab9287822cc" 
+                target="_blank" 
+                rel="noopener noreferrer me" 
+                className="btn btn-outline-primary"
+                style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13.5px', padding: '8px 16px' }}
+              >
+                <span>Xem trên Google Maps</span>
+                <ExternalLink size={14} />
+              </a>
+            </div>
+
+            <div className="card branch-card" style={{ padding: '24px', borderRadius: '12px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <MapPin className="text-primary" size={24} />
+                <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>Chi Nhánh Cây Da</h3>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+                <strong>Địa chỉ:</strong> 7/14 Đường Cây Da, Khu phố Tân Phú 1, Phường Tân Đông Hiệp, Dĩ An
+              </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+                <strong>Hotline:</strong> 1900 9396 (Giao nhanh 15 phút)
+              </p>
+              <a 
+                href="https://www.google.com/maps/place/Ng%E1%BB%8Dc+Gas+-+Giao+gas+nhanh+ch%C3%ADnh+h%C3%A3ng+-+C%C3%A2y+Da/data=!4m2!3m1!1s0x0:0xdb05b7c2cd1d4cd9" 
+                target="_blank" 
+                rel="noopener noreferrer me" 
+                className="btn btn-outline-primary"
+                style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13.5px', padding: '8px 16px' }}
+              >
+                <span>Xem trên Google Maps</span>
+                <ExternalLink size={14} />
+              </a>
+            </div>
+
+            <div className="card branch-card" style={{ padding: '24px', borderRadius: '12px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <MapPin className="text-primary" size={24} />
+                <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>Chi Nhánh KDC VietSing</h3>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+                <strong>Địa chỉ:</strong> Kiot 5, Đường D5, KDC VietSing, Phường An Phú, Thuận An
+              </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+                <strong>Hotline:</strong> 1900 9396 (Phục vụ KCN &amp; Hộ gia đình)
+              </p>
+              <a 
+                href="https://www.google.com/maps/place/C%E1%BB%ADa+h%C3%A0ng+Ng%E1%BB%8Dc+Gas+-+%C4%90%C6%B0%E1%BB%9Dng+D5+An+Ph%C3%BA+(C%E1%BB%ADa+h%C3%A0ng+Gas+Vietsing+Visip)/data=!4m2!3m1!1s0x0:0x96898a80c390391a" 
+                target="_blank" 
+                rel="noopener noreferrer me" 
+                className="btn btn-outline-primary"
+                style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13.5px', padding: '8px 16px' }}
+              >
+                <span>Xem trên Google Maps</span>
+                <ExternalLink size={14} />
+              </a>
             </div>
           </div>
         </div>

@@ -109,6 +109,62 @@ Mọi Agent AI làm việc trên dự án **Ngọc Gas** BẮT BUỘC tuân th�
 
 ---
 
+## 📌 14. QUY TẮC TỰ ĐỘNG THÔNG BÁO GOOGLE INDEXING API (MANDATORY GOOGLE INDEXING PROTOCOL)
+- **Hạ tầng chính thức**: Service Account `ngocgas-index-bot@ngocgas-indexing.iam.gserviceaccount.com` (Đã cấp quyền Owner trên Google Search Console thuộc tính `sc-domain:ngocgas.com`).
+- **Hợp đồng thực thi**: Mỗi khi có bài viết mới được tạo, cập nhật trạng thái xuất bản (`is_published: 1`), hoặc phân phối đa tầng (Syndication), hệ thống BẮT BUỘC tự động gửi yêu cầu lập chỉ mục tức thì tới Googlebot (`POST https://indexing.googleapis.com/v3/urlNotifications:publish`).
+- **Định tuyến URL chuẩn**: 100% URL ping index cho bài viết phải có dạng `https://ngocgas.com/tin-tuc/${slug}`.
+- **Xử lý xóa bài**: Khi xóa bài viết đã xuất bản, hệ thống BẮT BUỘC gửi thông báo `URL_DELETED` để Googlebot gỡ chỉ mục nhanh chóng.
+
+---
+
+## 📌 15. QUY TẮC PHÂN PHỐI BÀI VIẾT VỆ TINH WEB 2.0 XOAY VÒNG (MANDATORY WEB 2.0 SYNDICATION PROTOCOL)
+- **Hợp đồng thực thi**: Mỗi khi xuất bản một bài viết mới trên `ngocgas.com` (chuyên mục `tin-tuc` hoặc `mon-an`), Agent BẮT BUỘC tự động chuyển tiếp thực hiện phân phối 1 bài viết vệ tinh độc bản lên 1 kênh Web 2.0 theo cơ chế xoay vòng luân phiên (Round-Robin).
+- **Danh mục 6 kênh xoay vòng**:
+  1. `Blogger` (DA 99): `ngocgascom.blogspot.com`
+  2. `WordPress.com` (DA 93): `ngocgas.wordpress.com`
+  3. `Google Sites` (DA 100): `sites.google.com/view/ngocgas`
+  4. `Tumblr` (DA 96): `ngocgas.tumblr.com`
+  5. `Pinterest Business` (DA 94): `pinterest.com/gasngoc`
+  6. `Telegra.ph` (DA 91): `telegra.ph`
+- **Quản lý con trỏ xoay vòng**: Trạng thái xoay vòng được theo dõi và cập nhật liên tục tại `data/satellite-articles/rotation-state.json`.
+- **Mô hình liên kết kép bắt buộc**:
+  1. *Link trọng tâm*: Trỏ về `https://ngocgas.com/gia-gas-hom-nay` (*CẤM dán số tiền cố định*).
+  2. *Link trích dẫn nguồn*: Trỏ về bài viết gốc mới xuất bản (`https://ngocgas.com/tin-tuc/${slug}` hoặc `https://ngocgas.com/mon-an/${slug}`).
+- **Chuẩn thương hiệu**: Hotline duy nhất `1900 9396`, 3 thương hiệu chính hãng `Sopet Gas One, Phoenix Gas, Luxen Gas`, trụ sở số 1 tại `7 Nguyễn Trung Trực, Phường Dĩ An, Tỉnh Bình Dương`.
+- **Bằng chứng thực nghiệm & Đồng bộ**: Phải kiểm tra URL live trả về HTTP 200 (hoặc ảnh chụp màn hình) và đồng bộ đường link bài Web 2.0 vào Google Sheets theo dõi.
+
+---
+
+## 📌 16. QUY TẮC BẮT BUỘC ĐẨY ẢNH LÊN MÁY CHỦ LIVE QUA API UPLOAD (MANDATORY LIVE MEDIA UPLOAD CONTRACT)
+- **CẤM DÙNG ĐƯỜNG DẪN ẢNH CỤC BỘ**: Agent CẤM TUYỆT ĐỐI việc gán trực tiếp đường dẫn tĩnh nội bộ (như `/images/...` hoặc file mới tạo ở local máy tính) vào `image_url` của bài viết khi xuất bản lên hệ thống live.
+- **BẮT BUỘC GỌI API UPLOAD LÊN MÁY CHỦ LIVE**: 100% hình ảnh bài viết mới tạo (ảnh AI, ảnh chụp món ăn, banner địa phương) BẮT BUỘC phải được upload lên máy chủ qua `POST ${TARGET_URL}/api/upload` (với `x-api-key: process.env.AI_PUBLISHER_API_KEY`).
+- **GÁN URL ĐÃ UPLOAD & PURGE CACHE**: Chỉ sử dụng `uploadJson.url` (dạng `/uploads/...jpg`) trả về từ API máy chủ thật để gán vào `image_url` của bài viết, sau đó tự động gọi `POST /api/cache` (`action: 'purge'`) để làm mới bộ nhớ đệm máy chủ.
+- **KIỂM THỬ HTTP 200 TRỰC TIẾP TRÊN LIVE TRƯỚC KHI BÁO CÁO**: Trước khi báo cáo hoàn thành, Agent BẮT BUỘC phải chạy lệnh kiểm thử fetch đường dẫn ảnh trực tiếp `https://ngocgas.com${liveImageUrl}` và xác nhận kết quả trả về đúng `HTTP Status: 200 (image/jpeg hoặc image/png)`. CẤM TUYỆT ĐỐI để xảy ra lỗi 404 khiến giao diện web rơi vào cơ chế fallback hình bình gas xám (`/images/sopet-xam.png`).
+- **QUY CHUẨN DUYỆT KẾ HOẠCH BẮT BUỘC**: Mọi kế hoạch đăng bài mới trình User duyệt BẮT BUỘC phải có đầy đủ 2 thông số:
+  1. *Quy cách ảnh banner*: Kích thước 1200x675 (16:9), nội dung chi tiết, cam kết đẩy qua API upload.
+  2. *Số lượng từ dự kiến*: Từ 1.500 đến 2.200 từ (Mã HTML >= 6.500 ký tự).
+
+---
+
+## 📌 17. QUY TẮC CHUẨN FORM BÁO CÁO DIGITAL MARKETING ĐỊNH KỲ (MANDATORY DIGITAL MARKETING REPORT STANDARD)
+- **Kỹ năng chuẩn hóa**: Áp dụng kỹ năng [.agents/skills/digital-report-generator/SKILL.md](file:///d:/Antigravity/Ng%E1%BB%8Dc%20Gas/.agents/skills/digital-report-generator/SKILL.md) và tài liệu quy chuẩn [docs/CHUAN_FORM_BAO_CAO_DIGITAL_MARKETING_NGOC_GAS.md](file:///d:/Antigravity/Ng%E1%BB%8Dc%20Gas/docs/CHUAN_FORM_BAO_CAO_DIGITAL_MARKETING_NGOC_GAS.md).
+- **Hợp đồng thực thi**: Mọi báo cáo hiệu quả Digital Marketing định kỳ (tháng/quý) của Ngọc Gas BẮT BUỘC xuất ra định dạng Excel (`.xlsx`) theo đúng chuẩn 7 Sheet cao cấp (Executive Dashboard):
+  1. `Sheet 1: Tổng Quan KPI`: Executive Summary, thanh điều hướng tương tác 2 chiều, 4 Thẻ KPI Cards nổi bật, Bảng chỉ số tổng hợp MoM (Google Search, Maps, Facebook, Web, Entity), Bảng 4 trụ cột chiến lược T+1, và Biểu đồ trực quan SVG High-Res nhúng.
+  2. `Sheet 2: GSC - Từ Khóa Cốt Lõi`: Số liệu thực từ Google Search Console API. BẮT BUỘC lọc sạch 100% các từ khóa rác và từ khóa tỉnh thành ngoài phạm vi kinh doanh; chỉ giữ lại từ khóa thương mại, bảng giá, thương hiệu, gas dân dụng & công nghiệp.
+  3. `Sheet 3: GSC - Trang Đích & Xu Hướng Ngày`: Danh sách URL đích kinh doanh gas cốt lõi (CẤM đưa các trang tiện ích `/tinh-thanh` vào), kèm bảng phân tích hiệu suất theo từng ngày trong tháng.
+  4. `Sheet 4: Google Maps 3 Điểm`: Số liệu xác thực 100% từ Google Business Profile cho cả 3 chi nhánh (Dĩ An, VietSing D5, Cây Da) gồm: Lượt xem, Chỉ đường, Cuộc gọi, Đánh giá 5.0 ⭐, Link Google Maps trực tiếp, và Biểu đồ SVG so sánh trực quan 3 chi nhánh.
+  5. `Sheet 5: Facebook - 5 Fanpage Hệ Thống`: Đo lường toàn diện 5 Fanpage chính thức (1 Brand, 3 Chi nhánh cơ sở, 1 Tuyển dụng) gồm Tiếp cận, Tương tác, Chuyển đổi đặt gas/gọi, kèm Bảng kế hoạch nội dung 4 trụ cột tháng tiếp theo.
+  6. `Sheet 6: Số Bài Viết Đã Viết`: Danh mục toàn bộ bài viết live thực tế từ CSDL MySQL (Món ăn, Tin tức cụm gas, Tuyển dụng) kèm đường link live, ngày đăng, số từ và trạng thái ping Google Index.
+  7. `Sheet 7: Hệ Thống 33 Entity & Link`: Danh sách đầy đủ 33 Entity/Social/Web 2.0 NAP, Domain Authority (DA), đường link profile trực tiếp, trạng thái xác thực và ghi chú quản trị.
+- **Tiêu chuẩn thiết kế mỹ thuật & UX**:
+  - Font: `Segoe UI` xuyên suốt toàn bộ workbook.
+  - Bảng màu nhận diện: Navy `#1E3A8A`, Blue Primary `#2563EB`, Orange Flame `#EA580C`, Facebook Blue `#1877F2`, Slate `#475569`.
+  - Cố định dòng tiêu đề (`freezePanes: { ySplit: N }`), kẻ viền `thinBorder`, căn lề chuẩn mực (STT/Số căn giữa, Doanh thu/Chỉ số căn phải, Văn bản căn trái).
+  - Thanh điều hướng nội bộ 2 chiều: Nút tab tại Sheet 1 nhảy đến từng Sheet và nút `🔙 Về Trang Tổng Quan KPI` ở hàng 1 của mọi sheet con.
+  - Tự động hóa xử lý khóa tệp (`EBUSY`): Khi file chính đang mở trong Excel, tự động lưu bản phụ `_V2.xlsx` và sao lưu vào `docs/` để không bao giờ bị lỗi crash script.
+
+---
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 

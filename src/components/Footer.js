@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Clock, Flame } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Flame, Globe } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { trackClick } from '@/lib/analytics';
 
@@ -157,8 +157,8 @@ export default function Footer({ initialSettings }) {
             <h4 className="footer-title">Hỗ Trợ Khách Hàng</h4>
             <ul className="footer-links">
               <li><Link href="/tin-tuc/huong-dan-kiem-tra-ro-ri-gas">Cẩm nang an toàn gas</Link></li>
-              <li><Link href="/tin-tuc">Chính sách bảo hành bình</Link></li>
-              <li><Link href="/lien-he">Quy trình giao nhận &amp; Cân gas</Link></li>
+              <li><Link href="/chinh-sach-doi-tra">Chính sách bảo hành &amp; Đổi trả</Link></li>
+              <li><Link href="/chinh-sach-giao-hang">Chính sách giao hàng &amp; Cân gas</Link></li>
               <li><Link href="/tuyen-dung">Cơ hội nghề nghiệp</Link></li>
               <li><Link href="/lien-he">Hỗ trợ sự cố khẩn cấp 24/7</Link></li>
             </ul>
@@ -190,6 +190,71 @@ export default function Footer({ initialSettings }) {
                 <span>{settings.working_hours}</span>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Entity Authority Network Bar */}
+        <div className="footer-entity-section">
+          <div className="container">
+            <div className="footer-entity-grid">
+              <div className="entity-locations-col">
+                <span className="entity-section-label">
+                  <MapPin size={16} className="inline-icon" /> Điểm Giao Gas &amp; Cửa Hàng Google Maps:
+                </span>
+                <div className="entity-branch-links">
+                  <a 
+                    href="https://www.google.com/maps/place/Ng%E1%BB%8Dc+Gas+-+Giao+gas+nhanh+ch%C3%ADnh+h%C3%A3ng+-+D%C4%A9+An/data=!4m2!3m1!1s0x0:0x87aafab9287822cc"
+                    target="_blank" 
+                    rel="noopener noreferrer me"
+                    className="entity-branch-pill"
+                    title="Google Maps: 7 Nguyễn Trung Trực, Dĩ An"
+                  >
+                    <span className="branch-dot"></span>
+                    <strong>Trụ sở Dĩ An:</strong> 7 Nguyễn Trung Trực
+                  </a>
+                  <a 
+                    href="https://www.google.com/maps/place/Ng%E1%BB%8Dc+Gas+-+Giao+gas+nhanh+ch%C3%ADnh+h%C3%A3ng+-+C%C3%A2y+Da/data=!4m2!3m1!1s0x0:0xdb05b7c2cd1d4cd9"
+                    target="_blank" 
+                    rel="noopener noreferrer me"
+                    className="entity-branch-pill"
+                    title="Google Maps: 7/14 Cây Da, P. Tân Đông Hiệp"
+                  >
+                    <span className="branch-dot"></span>
+                    <strong>CN Cây Da:</strong> 7/14 Đ. Cây Da
+                  </a>
+                  <a 
+                    href="https://www.google.com/maps/place/C%E1%BB%ADa+h%C3%A0ng+Ng%E1%BB%8Dc+Gas+-+%C4%90%C6%B0%E1%BB%9Dng+D5+An+Ph%C3%BA+(C%E1%BB%ADa+h%C3%A0ng+Gas+Vietsing+Visip)/data=!4m2!3m1!1s0x0:0x96898a80c390391a"
+                    target="_blank" 
+                    rel="noopener noreferrer me"
+                    className="entity-branch-pill"
+                    title="Google Maps: Kiot 5, Đường D5, KDC VietSing, Thuận An"
+                  >
+                    <span className="branch-dot"></span>
+                    <strong>CN VietSing:</strong> Kiot 5, KDC VietSing
+                  </a>
+                </div>
+              </div>
+
+              <div className="entity-profiles-col">
+                <span className="entity-section-label">
+                  <Globe size={16} className="inline-icon" /> Mạng Lưới Định Danh Số (Brand Entity):
+                </span>
+                <div className="entity-profile-tags">
+                  <a href="https://sites.google.com/view/ngocgas" target="_blank" rel="noopener noreferrer me" className="entity-tag">Google Sites</a>
+                  <a href="https://www.youtube.com/@ngocgas" target="_blank" rel="noopener noreferrer me" className="entity-tag">YouTube @ngocgas</a>
+                  <a href="https://ngocgascom.blogspot.com" target="_blank" rel="noopener noreferrer me" className="entity-tag">Blogger</a>
+                  <a href="https://ngocgas.wordpress.com" target="_blank" rel="noopener noreferrer me" className="entity-tag">WordPress</a>
+                  <a href="https://www.tumblr.com/ngocgas" target="_blank" rel="noopener noreferrer me" className="entity-tag">Tumblr</a>
+                  <a href="https://www.pinterest.com/gasngoc/" target="_blank" rel="noopener noreferrer me" className="entity-tag">Pinterest</a>
+                  <a href="https://www.linkedin.com/in/gas-ng%E1%BB%8Dc-ab341b439/" target="_blank" rel="noopener noreferrer me" className="entity-tag">LinkedIn</a>
+                  <a href="https://ngocgas.substack.com" target="_blank" rel="noopener noreferrer me" className="entity-tag">Substack</a>
+                  <a href="https://ngocgas.hashnode.dev" target="_blank" rel="noopener noreferrer me" className="entity-tag">Hashnode</a>
+                  <a href="https://beacons.ai/ngocgas" target="_blank" rel="noopener noreferrer me" className="entity-tag">Beacons Hub</a>
+                  <a href="https://about.me/ngocgasdian" target="_blank" rel="noopener noreferrer me" className="entity-tag">About.me</a>
+                  <a href="https://telegra.ph/Ngọc-Gas---Giao-Gas-Nhanh-Chính-Hãng-Dĩ-An-Bình-Dương-09-22" target="_blank" rel="noopener noreferrer me" className="entity-tag">Telegra.ph</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -410,6 +475,103 @@ export default function Footer({ initialSettings }) {
         .zalo-text-icon-new {
           font-family: var(--font-inter), sans-serif;
           letter-spacing: -0.5px;
+        }
+
+        /* Entity Authority Network Bar */
+        .footer-entity-section {
+          background-color: rgba(0, 0, 0, 0.25);
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+          padding: 24px 0;
+        }
+
+        .footer-entity-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 28px;
+        }
+
+        @media (max-width: 900px) {
+          .footer-entity-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+        }
+
+        .entity-section-label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13.5px;
+          font-weight: 700;
+          color: #F8FAFC;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          margin-bottom: 12px;
+        }
+
+        .inline-icon {
+          color: var(--primary);
+        }
+
+        .entity-branch-links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .entity-branch-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.85);
+          font-size: 13px;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .entity-branch-pill:hover {
+          background: rgba(245, 183, 49, 0.15);
+          border-color: rgba(245, 183, 49, 0.4);
+          color: #FFF;
+          transform: translateY(-1px);
+        }
+
+        .branch-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+        }
+
+        .entity-profile-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .entity-tag {
+          display: inline-flex;
+          align-items: center;
+          padding: 4px 10px;
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.04);
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 12.5px;
+          text-decoration: none;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          transition: all 0.2s ease;
+        }
+
+        .entity-tag:hover {
+          background: rgba(255, 255, 255, 0.12);
+          color: var(--primary);
+          border-color: rgba(245, 183, 49, 0.3);
         }
       `}</style>
     </>

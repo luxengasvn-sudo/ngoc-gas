@@ -144,6 +144,7 @@
 body:has(.tt-portal-root) .promo-announcement-bar,
 body:has(.tt-portal-root) header.header,
 body:has(.tt-portal-root) footer.footer,
+body:has(.tt-portal-root) .bottom-nav,
 body:has(.tt-portal-root) .bottom-nav-container,
 body:has(.tt-portal-root) .mobile-contact-widget {
   display: none !important;
@@ -2842,4 +2843,46 @@ body:has(.tt-portal-root) .main-content-wrapper {
   background-color: #0284c7;
   color: #ffffff;
   border-color: #0284c7;
+}
+
+/* ========================================================
+   HOSPITAL DIRECTORY & DETAIL STYLES
+   ======================================================== */
+.tt-hospital-article-content h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  border-left: 4px solid #0284c7;
+  padding-left: 12px;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.tt-hospital-article-content h3:first-child {
+  margin-top: 0;
+}
+
+.tt-hospital-article-content p {
+  color: #334155;
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 0 0 14px 0;
+}
+
+.tt-hospital-article-content ul {
+  padding-left: 20px;
+  margin: 0 0 18px 0;
+}
+
+.tt-hospital-article-content li {
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.tt-hospital-article-content strong {
+  color: #0f172a;
+  font-weight: 700;
 }

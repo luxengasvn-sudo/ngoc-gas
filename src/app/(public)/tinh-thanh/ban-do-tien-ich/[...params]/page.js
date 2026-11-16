@@ -133,8 +133,8 @@ export default function BanDoTienIchPage({ params }) {
   const police = useMemo(() => unit.police || {
     name: `Công An ${unit.name}`,
     address: `Tuyến Phố An Ninh, ${unit.name}, ${unit.district}`,
-    phone: '028 3823 xxxx',
-    hotline: '113 / Trực ban 24/7',
+    phone: '113',
+    hotline: '113 (Trực ban 24/7)',
     lat: Number(((unit.lat || 10.9034) + 0.001).toFixed(4)),
     lng: Number(((unit.lng || 106.759) + 0.0015).toFixed(4))
   }, [unit]);
@@ -365,13 +365,13 @@ export default function BanDoTienIchPage({ params }) {
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', color: '#475569', borderTop: '1px solid #f1f5f9', paddingTop: '8px' }}>
                         <span>🕒 Giờ hành chính</span>
                         <a
-                          href={`https://www.google.com/maps/dir/?api=1&destination=${poi.lat},${poi.lng}`}
+                          href={poi.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(poi.name + ', ' + poi.address)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           style={{ color: '#0284c7', fontWeight: '700', textDecoration: 'none' }}
                         >
-                          Chỉ đường ↗
+                          📍 Xem vị trí ↗
                         </a>
                       </div>
                     </div>

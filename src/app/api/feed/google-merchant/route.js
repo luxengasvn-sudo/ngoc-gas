@@ -111,7 +111,12 @@ ${formattedSalePrice ? `      <g:sale_price>${formattedSalePrice}</g:sale_price>
       <g:identifier_exists>no</g:identifier_exists>
       <g:shipping>
         <g:country>VN</g:country>
-        <g:service>Giao Gas Nhanh 15 Phút Tận Nơi</g:service>
+        <g:service>Giao Gas Hỏa Tốc 10-15 Phút Tận Bếp</g:service>
+        <g:price>0 VND</g:price>
+      </g:shipping>
+      <g:shipping>
+        <g:country>VN</g:country>
+        <g:service>Giao Gas Tiêu Chuẩn 30 Phút</g:service>
         <g:price>0 VND</g:price>
       </g:shipping>
     </item>`;

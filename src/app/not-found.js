@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Flame, PhoneCall, Home, Tag, Store, FileText } from 'lucide-react';
+import { Flame, PhoneCall, Home, Tag, Store, FileText, MapPin, Cross } from 'lucide-react';
 import { getAllSettings } from '@/lib/settingsHelper';
 
 export const dynamic = 'force-dynamic';
@@ -241,6 +241,46 @@ export default async function NotFound() {
             >
               <FileText size={16} color="#F59E0B" />
               Tin tức
+            </Link>
+
+            <Link
+              href="/tinh-thanh"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 14px',
+                backgroundColor: '#F0F9FF',
+                borderRadius: '10px',
+                fontSize: '14px',
+                color: '#0369A1',
+                textDecoration: 'none',
+                fontWeight: '600',
+                border: '1px solid #BAE6FD'
+              }}
+            >
+              <MapPin size={16} color="#0284C7" />
+              Cổng Địa Giới VN
+            </Link>
+
+            <Link
+              href="/tinh-thanh/benh-vien"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 14px',
+                backgroundColor: '#FEF2F2',
+                borderRadius: '10px',
+                fontSize: '14px',
+                color: '#B91C1C',
+                textDecoration: 'none',
+                fontWeight: '600',
+                border: '1px solid #FECACA'
+              }}
+            >
+              <Cross size={16} color="#DC2626" />
+              Bệnh viện & Cấp cứu
             </Link>
           </div>
         </div>

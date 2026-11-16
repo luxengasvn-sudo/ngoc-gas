@@ -328,5 +328,38 @@
     "nap_verified": true,
     "updated_at": "2026-09-22T09:35:00+07:00",
     "notes": "Google Business Profile: Kiot 5, Đường D5, KDC VietSing, An Phú, Thuận An. CID: 10847353463140006170. Hotline 1900 9396"
+  },
+  {
+    "id": 31,
+    "name": "Substack Official Publication",
+    "category": "High Authority Newsletter & Blog (DA 92)",
+    "url": "https://ngocgas.substack.com",
+    "account": "gasngoc2@gmail.com",
+    "status": "Hoàn thành",
+    "nap_verified": true,
+    "updated_at": "2026-09-22T16:30:00+07:00",
+    "notes": "Trang blog chính thức Ngọc Gas trên Substack, tự động đồng bộ bài viết chuẩn SEO và cẩm nang an toàn nhà bếp."
+  },
+  {
+    "id": 32,
+    "name": "Hashnode Publication",
+    "category": "High DA Tech & Web Blog (DA 88)",
+    "url": "https://ngocgas.hashnode.dev",
+    "account": "gasngoc2@gmail.com",
+    "status": "Hoàn thành",
+    "nap_verified": true,
+    "updated_at": "2026-09-22T17:00:00+07:00",
+    "notes": "Publication chính thức Ngọc Gas trên Hashnode, chuẩn SEO Markdown, hỗ trợ Canonical URL trỏ về ngocgas.com."
+  },
+  {
+    "id": 33,
+    "name": "Webflow VIP Satellite",
+    "category": "Web 2.0 VIP / High Authority (DA 93)",
+    "url": "https://ngoc-gas.webflow.io",
+    "account": "gasngoc2@gmail.com",
+    "status": "Hoàn thành",
+    "nap_verified": true,
+    "updated_at": "2026-09-25T09:25:00+07:00",
+    "notes": "Trang Web 2.0 VIP chính thức trên nền tảng Webflow, đầy đủ nhận diện logo Đảo Ngọc, Hotline 1900 9396, liên kết bảng giá gas hôm nay https://ngocgas.com/gia-gas-hom-nay"
   }
 ]

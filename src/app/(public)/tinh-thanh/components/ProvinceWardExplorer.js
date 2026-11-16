@@ -14,7 +14,7 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
   // Extract unique clean districts for filter dropdown
   const districtOptions = useMemo(() => {
     const raw = wardList.map(w => w.district).filter(Boolean);
-    const cleaned = [...new Set(raw.map(d => d.replace(/^(Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim()))];
+    const cleaned = [...new Set(raw.map(d => d.replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim()))];
     return cleaned.sort((a, b) => a.localeCompare(b, 'vi'));
   }, [wardList]);
 
@@ -29,7 +29,7 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
 
       // District filter
       if (selectedDistrict !== 'ALL') {
-        const uDist = (u.district || '').replace(/^(Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+        const uDist = (u.district || '').replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
         if (uDist !== selectedDistrict) return false;
       }
 
@@ -273,9 +273,8 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
             const isDacKhu = u.type === 'Đặc khu' || u.name?.startsWith('Đặc khu');
 
             return (
-              <Link
+              <div
                 key={u.id || cleanSlug}
-                href={`/tinh-thanh/province/${province.slug}/${cleanSlug}`}
                 className="tt-prov-ward-card"
                 style={{
                   display: 'flex',
@@ -284,7 +283,6 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
                   padding: '14px',
                   borderRadius: '12px',
                   border: '1px solid #e2e8f0',
-                  textDecoration: 'none',
                   backgroundColor: '#ffffff',
                   transition: 'all 0.2s ease-in-out',
                   gap: '10px'
@@ -292,9 +290,13 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
               >
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <strong style={{ fontSize: '15px', color: '#0f172a', fontWeight: '800' }}>
+                    <Link
+                      href={`/tinh-thanh/province/${province.slug}/${cleanSlug}`}
+                      style={{ fontSize: '15px', color: '#0f172a', fontWeight: '800', textDecoration: 'none' }}
+                      className="tt-prov-ward-title-link"
+                    >
                       {u.name}
-                    </strong>
+                    </Link>
                     <span
                       style={{
                         fontSize: '11px',
@@ -341,7 +343,6 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
                       href={u.ubnd?.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('UBND ' + u.name + ', ' + (province?.name || ''))}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
                       style={{ fontSize: '10px', color: '#15803d', fontWeight: '800', textDecoration: 'none', whiteSpace: 'nowrap', backgroundColor: '#dcfce7', padding: '2px 6px', borderRadius: '4px', border: '1px solid #bbf7d0' }}
                       title="Mở Google Maps ghim vị trí UBND"
                     >
@@ -365,9 +366,15 @@ export default function ProvinceWardExplorer({ wardList = [], province }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed #f1f5f9', paddingTop: '8px', fontSize: '11px', color: '#475569' }}>
                   <span>📐 {typeof u.areaKm2 === 'number' ? u.areaKm2.toLocaleString('vi-VN') : u.areaKm2} km²</span>
                   <span>👥 {u.population ? (u.population >= 1000 ? `${(u.population / 1000).toFixed(1)}k` : u.population) : '--'} dân</span>
-                  <span style={{ color: '#ea580c', fontWeight: '800', fontSize: '14px' }}>→</span>
+                  <Link
+                    href={`/tinh-thanh/province/${province.slug}/${cleanSlug}`}
+                    style={{ color: '#ea580c', fontWeight: '800', fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '2px' }}
+                  >
+                    <span>Chi tiết</span>
+                    <span>→</span>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

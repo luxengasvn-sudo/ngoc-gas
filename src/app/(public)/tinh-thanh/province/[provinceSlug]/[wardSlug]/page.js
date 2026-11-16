@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import provincesData from '@/data/tinhthanh/provinces-34.json';
 import { getOrSynthesizeWardUnit } from '@/lib/tinhthanhUnitsHelper';
 import {
@@ -32,6 +32,11 @@ export default async function WardDetailPage({ params }) {
 
   const unit = getOrSynthesizeWardUnit(provinceSlug, wardSlug, province);
   if (!unit) notFound();
+
+  // Tự động chuyển hướng vĩnh viễn (308/301 Permanent Redirect) từ slug cũ sang slug phường mới sau sáp nhập
+  if (unit.slug && unit.slug !== wardSlug) {
+    permanentRedirect(`/tinh-thanh/province/${provinceSlug}/${unit.slug}`);
+  }
 
   const seoArticle = generateWardSeoArticle(unit, province);
   const schemaJson = generateWardSchema(unit, province);

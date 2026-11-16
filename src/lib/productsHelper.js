@@ -69,6 +69,17 @@ export async function getAllProducts() {
   if (dbProducts.length > 0) {
     let merged = [...dbProducts];
 
+    // Fallback Guard: If any DB product has empty/missing image_url, retrieve image_url from fileProducts
+    merged = merged.map(p => {
+      if (!p.image_url || String(p.image_url).trim() === '') {
+        const fileMatch = fileProducts.find(fp => String(fp.id) === String(p.id) || fp.slug === p.slug);
+        if (fileMatch && fileMatch.image_url && String(fileMatch.image_url).trim() !== '') {
+          return { ...p, image_url: fileMatch.image_url.trim() };
+        }
+      }
+      return p;
+    });
+
     // Add any file-only products that don't exist in DB (edge case: DB empty or new items in JSON)
     fileProducts.forEach(fileProd => {
       const existsInDb = merged.some(p => String(p.id) === String(fileProd.id) || p.slug === fileProd.slug);
@@ -153,6 +164,9 @@ export async function updateProductData(id, updateFields) {
     all[index] = {
       ...all[index],
       ...updateFields,
+      image_url: (updateFields.image_url && String(updateFields.image_url).trim() !== '')
+        ? updateFields.image_url.trim()
+        : (all[index].image_url || ''),
       gas_type: updateFields.gas_type !== undefined ? (updateFields.gas_type || null) : all[index].gas_type
     };
     updatedProduct = all[index];
@@ -186,6 +200,24 @@ export async function updateProductData(id, updateFields) {
 
   // Sync to MySQL in background
   try {
+    const finalName = updateFields.name !== undefined ? updateFields.name : (oldProduct ? oldProduct.name : '');
+    const finalSlug = updateFields.slug !== undefined ? updateFields.slug : (oldProduct ? oldProduct.slug : '');
+    const finalShortDesc = updateFields.short_description !== undefined ? updateFields.short_description : (oldProduct ? oldProduct.short_description : '');
+    const finalDesc = updateFields.description !== undefined ? updateFields.description : (oldProduct ? oldProduct.description : '');
+    const finalPrice = updateFields.price !== undefined ? (updateFields.price === '' || updateFields.price === null ? null : Number(updateFields.price)) : (oldProduct ? oldProduct.price : null);
+    const finalSalePrice = updateFields.sale_price !== undefined ? (updateFields.sale_price === '' || updateFields.sale_price === null ? null : Number(updateFields.sale_price)) : (oldProduct ? oldProduct.sale_price : null);
+    const finalImageUrl = (updateFields.image_url && String(updateFields.image_url).trim() !== '')
+      ? updateFields.image_url.trim()
+      : (oldProduct && oldProduct.image_url ? oldProduct.image_url : '');
+    const finalImages = updateFields.images !== undefined ? (typeof updateFields.images === 'string' ? updateFields.images : JSON.stringify(updateFields.images)) : (oldProduct ? (typeof oldProduct.images === 'string' ? oldProduct.images : JSON.stringify(oldProduct.images)) : '[]');
+    const finalCategoryId = updateFields.category_id !== undefined ? (updateFields.category_id ? Number(updateFields.category_id) : null) : (oldProduct ? oldProduct.category_id : null);
+    const finalIsFeatured = updateFields.is_featured !== undefined ? (updateFields.is_featured ? 1 : 0) : (oldProduct ? oldProduct.is_featured : 0);
+    const finalIsActive = updateFields.is_active !== undefined ? (updateFields.is_active ? 1 : 0) : (oldProduct ? oldProduct.is_active : 1);
+    const finalRatingValue = updateFields.rating_value !== undefined ? Number(updateFields.rating_value) : (oldProduct ? oldProduct.rating_value : 4.9);
+    const finalRatingCount = updateFields.rating_count !== undefined ? Number(updateFields.rating_count) : (oldProduct ? oldProduct.rating_count : 86);
+    const finalReviewsJson = updateFields.reviews_json !== undefined ? (typeof updateFields.reviews_json === 'string' ? updateFields.reviews_json : JSON.stringify(updateFields.reviews_json)) : (oldProduct ? oldProduct.reviews_json : '[]');
+    const finalGasType = updateFields.gas_type !== undefined ? (updateFields.gas_type || null) : (oldProduct ? oldProduct.gas_type : null);
+
     await db.query(
       `UPDATE products 
        SET name = ?, 
@@ -205,21 +237,21 @@ export async function updateProductData(id, updateFields) {
            gas_type = ?
        WHERE id = ?`,
       [
-        updateFields.name,
-        updateFields.slug,
-        updateFields.short_description || '',
-        updateFields.description || '',
-        updateFields.price ?? null,
-        updateFields.sale_price ?? null,
-        updateFields.image_url || '',
-        updateFields.images || '[]',
-        updateFields.category_id || null,
-        updateFields.is_featured ? 1 : 0,
-        updateFields.is_active ? 1 : 0,
-        updateFields.rating_value !== undefined ? Number(updateFields.rating_value) : 4.9,
-        updateFields.rating_count !== undefined ? Number(updateFields.rating_count) : 86,
-        updateFields.reviews_json || '[]',
-        updateFields.gas_type !== undefined ? (updateFields.gas_type || null) : (oldProduct ? oldProduct.gas_type : null),
+        finalName,
+        finalSlug,
+        finalShortDesc,
+        finalDesc,
+        finalPrice,
+        finalSalePrice,
+        finalImageUrl,
+        finalImages,
+        finalCategoryId,
+        finalIsFeatured,
+        finalIsActive,
+        finalRatingValue,
+        finalRatingCount,
+        finalReviewsJson,
+        finalGasType,
         id
       ]
     );

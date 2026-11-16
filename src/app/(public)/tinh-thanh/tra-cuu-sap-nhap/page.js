@@ -59,7 +59,7 @@ function TraCuuContent() {
       : allSearchUnits.filter(u => u.provinceSlug === selectedProvince);
 
     const raw = unitsPool.map(w => w.district).filter(Boolean);
-    const cleaned = [...new Set(raw.map(d => d.replace(/^(Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim()))];
+    const cleaned = [...new Set(raw.map(d => d.replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim()))];
     return cleaned.sort((a, b) => a.localeCompare(b, 'vi'));
   }, [selectedProvince]);
 
@@ -84,7 +84,7 @@ function TraCuuContent() {
 
       // District filter
       if (selectedDistrict !== 'all') {
-        const uDist = (u.district || '').replace(/^(Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+        const uDist = (u.district || '').replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
         if (uDist !== selectedDistrict) return false;
       }
 

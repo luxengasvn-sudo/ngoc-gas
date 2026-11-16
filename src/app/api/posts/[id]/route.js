@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getPostByIdOrSlug, updatePostData, deletePostData } from '@/lib/postsHelper';
 import { requireRole } from '@/lib/auth';
+import { notifyGoogleIndex } from '@/lib/googleIndexing';
 
 export async function GET(request, { params }) {
   try {
@@ -44,6 +45,13 @@ export async function PUT(request, { params }) {
 
     const updatedPost = await updatePostData(id, body);
 
+    // Tự động thông báo Google Indexing API nếu bài viết ở trạng thái xuất bản
+    if (updatedPost && (updatedPost.is_published == 1 || updatedPost.is_published === true)) {
+      notifyGoogleIndex(`https://ngocgas.com/tin-tuc/${updatedPost.slug}`, 'URL_UPDATED').catch(err => {
+        console.warn('⚠️ [PUT /api/posts/[id]] Google Indexing API ping error:', err.message);
+      });
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Cập nhật bài viết thành công',
@@ -66,7 +74,15 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = await params;
+    const existingPost = await getPostByIdOrSlug(id);
     await deletePostData(id);
+
+    // Tự động thông báo Google Indexing API gỡ URL nếu bài viết trước đó đã xuất bản
+    if (existingPost && (existingPost.is_published == 1 || existingPost.is_published === true)) {
+      notifyGoogleIndex(`https://ngocgas.com/tin-tuc/${existingPost.slug}`, 'URL_DELETED').catch(err => {
+        console.warn('⚠️ [DELETE /api/posts/[id]] Google Indexing API delete error:', err.message);
+      });
+    }
 
     return NextResponse.json({
       success: true,

@@ -328,8 +328,8 @@ export default function DieuKhoanTinhThanhPage() {
               </div>
 
               <div style={{ padding: '12px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                <div style={{ fontWeight: '700', fontSize: '13px', color: '#0f172a', marginBottom: '4px' }}>📞 Tiếp Nhận Đóng Góp Dữ Liệu</div>
-                <div style={{ fontSize: '12px', color: '#64748b' }}>Đường dây nóng 1900 9396 và kênh liên hệ tiếp nhận ý kiến đóng góp chuẩn hóa dữ liệu số 24/7.</div>
+                <div style={{ fontWeight: '700', fontSize: '13px', color: '#0f172a', marginBottom: '4px' }}>📬 Tiếp Nhận Đóng Góp Dữ Liệu</div>
+                <div style={{ fontSize: '12px', color: '#64748b' }}>Kênh tiếp nhận ý kiến đóng góp chuẩn hóa dữ liệu số qua biểu mẫu trực tuyến và hộp thư điện tử 24/7.</div>
               </div>
             </div>
           </div>

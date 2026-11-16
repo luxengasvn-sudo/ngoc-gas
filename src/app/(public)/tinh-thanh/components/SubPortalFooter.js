@@ -84,6 +84,9 @@ export default function SubPortalFooter() {
                 <Link href="/tinh-thanh/tra-cuu-sap-nhap">Tra Cứu Sáp Nhập 3.320 Đơn Vị</Link>
               </li>
               <li>
+                <Link href="/tinh-thanh/benh-vien">🏥 Danh Mục Bệnh Viện & Cấp Cứu</Link>
+              </li>
+              <li>
                 <Link href="/tinh-thanh/tra-cuu-ma-buu-chinh">Tra cứu Mã Bưu Chính</Link>
               </li>
               <li>

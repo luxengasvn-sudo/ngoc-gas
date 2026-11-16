@@ -18,6 +18,12 @@ export async function GET() {
     <loc>${baseUrl}/sitemap-diagioi.xml</loc>
     <lastmod>${now}</lastmod>
   </sitemap>
+
+  <!-- Sitemap 3: Toàn Bộ 3.480+ Trụ Sở Công An Xã/Phường & Tỉnh Thành Toàn Quốc 2026 -->
+  <sitemap>
+    <loc>${baseUrl}/sitemap-cong-an.xml</loc>
+    <lastmod>${now}</lastmod>
+  </sitemap>
 </sitemapindex>`;
 
   return new Response(xml, {
