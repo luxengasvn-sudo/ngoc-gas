@@ -27,8 +27,8 @@ export async function GET() {
       
       // Look for data file
       const possibleFiles = [
-        path.join(dataDir, `administrative-units-${slug}.json`),
-        path.join(dataDir, `administrative-units-${slug.replace(/-/g, '')}.json`)
+        path.join(/*turbopackIgnore: true*/ dataDir, `administrative-units-${slug}.json`),
+        path.join(/*turbopackIgnore: true*/ dataDir, `administrative-units-${slug.replace(/-/g, '')}.json`)
       ];
       
       let units = [];
@@ -153,7 +153,7 @@ export async function GET() {
 
     // Shared server-side log stream
     let serverLogs = [];
-    const logsFile = path.join(dataDir, 'ai-workflow-logs.json');
+    const logsFile = path.join(/*turbopackIgnore: true*/ dataDir, 'ai-workflow-logs.json');
     if (fs.existsSync(logsFile)) {
       try {
         serverLogs = JSON.parse(fs.readFileSync(logsFile, 'utf8'));

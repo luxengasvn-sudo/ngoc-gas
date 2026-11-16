@@ -2,6 +2,19 @@
 const nextConfig = {
   output: 'standalone',
   compress: true,
+  outputFileTracingExcludes: {
+    '*': [
+      './backups/**',
+      './scratch/**',
+      './docs/**',
+      './scripts/**',
+      './.git/**',
+      './.gitnexus/**',
+      './.agents/**',
+      './Bộ từ khóa Gas/**',
+      './public/uploads/**',
+    ],
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days cache

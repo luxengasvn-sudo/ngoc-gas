@@ -1,0 +1,39 @@
+# Version control
+.git
+.gitignore
+.gitnexus
+
+# Dependencies & Build artifacts
+node_modules
+.next
+out
+build
+coverage
+
+# Scratch & development logs
+.agents
+.claude
+.gemini
+.user_uploaded
+scratch
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Heavy documentation & local data
+docs
+backups
+Bộ từ khóa Gas
+
+# Large temporary datasets (Excel / CSV / Raw crawl)
+*.xlsx
+*.xls
+*.csv
+*.tsv
+
+# Environment and sensitive keys (Docker will receive env vars from PaaS platform)
+.env*
+*service-account*.json
+*credentials*.json
