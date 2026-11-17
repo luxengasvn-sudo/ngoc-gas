@@ -70,8 +70,15 @@ function TraCuuContent() {
       : allSearchUnits.filter(u => u.provinceSlug === selectedProvince);
 
     const raw = unitsPool.map(w => w.district).filter(Boolean);
-    const cleaned = [...new Set(raw.map(d => d.replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim()))];
-    return cleaned.sort((a, b) => a.localeCompare(b, 'vi'));
+    const cleaned = [...new Set(raw.map(d => {
+      const clean = d.replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+      // Nếu là số thuần túy (ví dụ 1, 10, 11, 12... ở TP.HCM) -> hiển thị đầy đủ là "Quận X"
+      if (/^\d+$/.test(clean)) {
+        return `Quận ${clean}`;
+      }
+      return clean;
+    }))];
+    return cleaned.sort((a, b) => a.localeCompare(b, 'vi', { numeric: true, sensitivity: 'base' }));
   }, [selectedProvince]);
 
   const handleProvinceChange = (newProv) => {
@@ -95,7 +102,10 @@ function TraCuuContent() {
 
       // District filter
       if (selectedDistrict !== 'all') {
-        const uDist = (u.district || '').replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+        let uDist = (u.district || '').replace(/^(Khu vực|Huyện|Quận|Thị xã|TP\.)\s*/i, '').trim();
+        if (/^\d+$/.test(uDist)) {
+          uDist = `Quận ${uDist}`;
+        }
         if (uDist !== selectedDistrict) return false;
       }
 
@@ -109,9 +119,26 @@ function TraCuuContent() {
         ? u.name.toLowerCase() === q 
         : u.name.toLowerCase().includes(q);
 
-      const districtMatch = isExactMatch 
-        ? (u.district || '').toLowerCase() === q 
-        : (u.district || '').toLowerCase().includes(q);
+      // Smart District match: hỗ trợ tìm theo quận huyện cũ (ví dụ: quận 12, q12, bắc tân uyên...)
+      let districtMatch = false;
+      if (u.district) {
+        const dLower = u.district.toLowerCase();
+        if (isExactMatch) {
+          districtMatch = dLower === q;
+        } else {
+          districtMatch = dLower.includes(q);
+          if (!districtMatch) {
+            const numMatch = u.district.match(/(?:khu vực|quận|q\.?)\s*(\d+)\b/i);
+            if (numMatch) {
+              const num = numMatch[1];
+              const qDistrictRegex = new RegExp('(?:qu[ậa]n|q\\.?)\\s*' + num + '\\b', 'i');
+              if (qDistrictRegex.test(q)) {
+                districtMatch = true;
+              }
+            }
+          }
+        }
+      }
 
       const provMatch = (u.provinceName || u.province || '').toLowerCase().includes(q);
 
@@ -328,15 +355,12 @@ function TraCuuContent() {
                     outline: 'none'
                   }}
                 >
-                  <option value="all">Tất Cả 34 Tỉnh Thành ({allSearchUnits.length} đơn vị)</option>
-                  {provincesData.map(p => {
-                    const count = allSearchUnits.filter(u => u.provinceSlug === p.slug).length;
-                    return (
-                      <option key={p.slug} value={p.slug}>
-                        {p.name} ({count} đơn vị)
-                      </option>
-                    );
-                  })}
+                  <option value="all">Tất Cả 34 Tỉnh Thành</option>
+                  {provincesData.map(p => (
+                    <option key={p.slug} value={p.slug}>
+                      {p.name}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -383,7 +407,7 @@ function TraCuuContent() {
                     outline: 'none'
                   }}
                 >
-                  <option value="all">Tất cả quận / huyện ({districtOptions.length})</option>
+                  <option value="all">Tất cả quận / huyện</option>
                   {districtOptions.map(d => (
                     <option key={d} value={d}>{d}</option>
                   ))}
