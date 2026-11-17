@@ -274,13 +274,13 @@ export default function SubPortalNavbar() {
             </Link>
           </nav>
 
-          {/* Search Box on Navbar */}
+          {/* Search Box on Navbar (Hiển thị cả trên Mobile & Desktop) */}
           <form onSubmit={handleHeaderSearch} className="tt-nav-search-form">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Nhập Tên phường xã, tên tỉnh..."
+              placeholder="Tìm xã, tỉnh..."
               className="tt-nav-search-input"
             />
             <button type="submit" className="tt-nav-search-btn" aria-label="Tìm kiếm">
