@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import provincesData from '@/data/tinhthanh/provinces-34.json';
 import { getAllSearchUnits } from '@/lib/tinhthanhUnitsHelper';
-import TraCuuInteractiveMap from '@/app/(public)/tinh-thanh/components/TraCuuInteractiveMap';
 
 const allSearchUnits = getAllSearchUnits();
 
@@ -47,10 +46,22 @@ function TraCuuContent() {
   const [selectedDistrict, setSelectedDistrict] = useState(initialDistrict);
   const [onlyMergers, setOnlyMergers] = useState(initialMerger);
   const [isExactMatch, setIsExactMatch] = useState(false);
-  const [viewMode, setViewMode] = useState('card'); // 'card' | 'table' | 'map'
-  const [selectedUnit, setSelectedUnit] = useState(null);
+  const [viewMode, setViewMode] = useState('card'); // 'card' | 'table'
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
+
+  // Auto-scroll to results if initial query exists
+  useEffect(() => {
+    if (initialQuery && initialQuery.trim()) {
+      const timer = setTimeout(() => {
+        const resultsEl = document.getElementById('search-results-section');
+        if (resultsEl) {
+          resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [initialQuery]);
 
   // Extract unique clean districts for filter dropdown (filtered by selected province)
   const districtOptions = useMemo(() => {
@@ -144,14 +155,6 @@ function TraCuuContent() {
     }
   };
 
-  const handleLocateUnit = (unit) => {
-    setSelectedUnit(unit);
-    const mapElement = document.getElementById('interactive-map-section');
-    if (mapElement) {
-      mapElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
-
   const handleClearFilters = () => {
     setKeyword('');
     setSelectedProvince('all');
@@ -160,7 +163,6 @@ function TraCuuContent() {
     setOnlyMergers(false);
     setIsExactMatch(false);
     setCurrentPage(1);
-    setSelectedUnit(null);
   };
 
   const getPaginationPages = () => {
@@ -193,38 +195,39 @@ function TraCuuContent() {
           <span className="tt-breadcrumb-active">Tra Cứu Sáp Nhập</span>
         </div>
 
-        {/* 1. HERO BANNER CHUẨN 1:1 TINHTHANHVN */}
-        <div className="tt-tc-hero">
-          <div className="tt-tc-hero-content">
-            {/* Red Vietnam Map Silhouette */}
-            <div className="tt-tc-hero-svg">
-              <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-                <path
-                  d="M50 10 C58 12, 65 20, 68 28 C70 34, 62 42, 58 48 C54 54, 56 62, 60 70 C65 78, 62 88, 56 96 C50 104, 52 114, 58 122 C64 130, 68 140, 62 148 C56 156, 44 164, 38 172 C32 180, 26 188, 22 192 C18 190, 20 180, 24 170 C28 160, 38 150, 42 140 C46 130, 44 120, 38 110 C32 100, 34 90, 40 80 C46 70, 48 60, 44 50 C40 40, 36 30, 40 20 C42 15, 46 10, 50 10 Z"
-                  fill="#dc2626"
-                  opacity="0.9"
-                />
-                <circle cx="56" cy="35" r="4" fill="#fbbf24" />
-                <circle cx="62" cy="85" r="3" fill="#fbbf24" />
-                <circle cx="48" cy="142" r="4" fill="#fbbf24" />
-              </svg>
-            </div>
-
-            {/* Titles & Description */}
-            <div className="tt-tc-hero-titles">
-              <h1 className="tt-tc-hero-title-yellow">
-                Tra Cứu Sáp Nhập Hành Chính
+        {/* 1. COMPACT HERO HEADER - TINH GỌN, RA THẲNG NỘI DUNG */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          borderRadius: '16px',
+          border: '1px solid #e2e8f0',
+          padding: '16px 20px',
+          marginBottom: '18px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+            <div>
+              <h1 style={{ fontSize: '22px', fontWeight: '900', color: '#0f172a', margin: '0 0 4px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ color: '#ea580c' }}>🔍</span>
+                <span>Tra Cứu Sáp Nhập Hành Chính 2026</span>
               </h1>
-              <div className="tt-tc-hero-title-green">
-                34 Tỉnh Thành & 3.320 Phường Xã Mới
-              </div>
-              <p className="tt-tc-hero-desc">
-                Dữ liệu cập nhật theo <strong>Nghị quyết sáp nhập mới nhất</strong> của Ủy ban Thường vụ Quốc hội. Hỗ trợ tra cứu chi tiết thay đổi địa giới hành chính, diện tích, dân số và các tiện ích công cộng dân sinh sau sáp nhập.
+              <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
+                Cập nhật địa giới mới <strong>34 Tỉnh Thành & 3.320 Phường Xã</strong> theo Nghị quyết UBTV Quốc hội
               </p>
-              <div className="tt-tc-hero-badge">
-                <span>•</span>
-                <span>Dữ liệu chính thức áp dụng từ 01/07/2025 - Cập nhật mới liên tục 2026</span>
-              </div>
+            </div>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#fff7ed',
+              border: '1px solid #fed7aa',
+              color: '#c2410c',
+              padding: '5px 12px',
+              borderRadius: '9999px',
+              fontSize: '12px',
+              fontWeight: '700'
+            }}>
+              <span>•</span>
+              <span>Áp dụng từ 01/07/2025</span>
             </div>
           </div>
         </div>
@@ -404,8 +407,9 @@ function TraCuuContent() {
             {/* Filter Summary & Action Buttons */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', paddingTop: '12px', borderTop: '1px solid #f1f5f9' }}>
               <div style={{ fontSize: '13px', color: '#475569' }}>
-                Tìm thấy <strong style={{ color: '#ea580c', fontSize: '15px' }}>{filteredUnits.length}</strong> đơn vị hành chính phù hợp.
-                {filteredUnits.length > 0 && <span> (Đang xem trang {currentPage} / {totalPages})</span>}
+                Tìm thấy <strong style={{ color: '#ea580c', fontSize: '15px' }}>{filteredUnits.length}</strong> đơn vị hành chính phù hợp
+                {keyword && <span> cho từ khóa <strong style={{ color: '#2563eb' }}>&ldquo;{keyword}&rdquo;</strong></span>}
+                {filteredUnits.length > 0 && <span> (Trang {currentPage}/{totalPages})</span>}.
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
@@ -477,49 +481,13 @@ function TraCuuContent() {
                   >
                     📋 Bảng
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => setViewMode('map')}
-                    style={{
-                      padding: '5px 12px',
-                      borderRadius: '6px',
-                      border: 'none',
-                      cursor: 'pointer',
-                      fontSize: '12px',
-                      fontWeight: '800',
-                      backgroundColor: viewMode === 'map' ? '#2563eb' : 'transparent',
-                      color: viewMode === 'map' ? '#ffffff' : '#475569'
-                    }}
-                  >
-                    🗺️ Bản đồ
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 3. INTERACTIVE MAP SECTION */}
-        <div id="interactive-map-section" className="tt-tc-map-container">
-          <div className="tt-tc-map-header">
-            <h3 style={{ fontSize: '16px', fontWeight: '900', color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🗺️</span>
-              <span>Bản Đồ Phân Bố {filteredUnits.length} Đơn Vị Hành Chính Tra Cứu</span>
-            </h3>
-            <span style={{ fontSize: '12px', color: '#64748b' }}>
-              Click ghim để xem chi tiết • Nút `Định vị 📍` trên thẻ để bay tới xã/phường
-            </span>
-          </div>
-
-          <TraCuuInteractiveMap
-            units={paginatedUnits}
-            selectedUnit={selectedUnit}
-            onSelectUnit={(u) => setSelectedUnit(u)}
-            height={viewMode === 'map' ? '620px' : '440px'}
-          />
-        </div>
-
-        {/* 4. RESULTS PRESENTATION SECTION */}
+        {/* 3. KHUNG KẾT QUẢ HIỂN THỊ TRỰC DIỆN NGAY DƯỚI TÌM KIẾM */}
         <div id="search-results-section">
           {/* A. CARD VIEW */}
           {viewMode === 'card' && (
@@ -530,7 +498,7 @@ function TraCuuContent() {
                 const typeBadgeClass = isPhuong ? 'tt-tc-badge-phuong' : (isXã ? 'tt-tc-badge-xa' : 'tt-tc-badge-dackhu');
 
                 return (
-                  <div key={u.uniqueId} className="tt-tc-card" style={{ borderColor: selectedUnit?.uniqueId === u.uniqueId ? '#ea580c' : '#e2e8f0', borderLeftColor: selectedUnit?.uniqueId === u.uniqueId ? '#ea580c' : '#2563eb' }}>
+                  <div key={u.uniqueId} className="tt-tc-card">
                     <div className="tt-tc-card-top">
                       <div>
                         <h4 className="tt-tc-card-heading">
@@ -620,19 +588,12 @@ function TraCuuContent() {
 
                       {/* Action buttons */}
                       <div className="tt-tc-btn-group">
-                        <button
-                          type="button"
-                          onClick={() => handleLocateUnit(u)}
-                          className="tt-tc-pin-btn"
-                          title="Định vị xã/phường trên bản đồ"
-                        >
-                          📍 Bản đồ
-                        </button>
                         <Link
                           href={`/tinh-thanh/province/${u.provinceSlug}/${u.slug}`}
                           className="tt-tc-detail-btn"
+                          style={{ width: '100%', justifyContent: 'center', padding: '9px 16px', fontSize: '13px' }}
                         >
-                          <span>Xem Chi Tiết</span>
+                          <span>Xem Chi Tiết & Dịch Vụ</span>
                           <span>➔</span>
                         </Link>
                       </div>
@@ -661,7 +622,7 @@ function TraCuuContent() {
                 </thead>
                 <tbody>
                   {paginatedUnits.map((u, idx) => (
-                    <tr key={u.uniqueId} style={{ backgroundColor: selectedUnit?.uniqueId === u.uniqueId ? '#fff7ed' : 'transparent' }}>
+                    <tr key={u.uniqueId}>
                       <td style={{ color: '#94a3b8', fontFamily: 'monospace' }}>
                         {(currentPage - 1) * itemsPerPage + idx + 1}
                       </td>
@@ -713,37 +674,21 @@ function TraCuuContent() {
                         </span>
                       </td>
                       <td style={{ textAlign: 'right' }}>
-                        <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
-                          <button
-                            type="button"
-                            onClick={() => handleLocateUnit(u)}
-                            style={{
-                              padding: '6px 10px',
-                              borderRadius: '8px',
-                              border: '1px solid #cbd5e1',
-                              backgroundColor: '#ffffff',
-                              fontSize: '11px',
-                              fontWeight: '700',
-                              cursor: 'pointer'
-                            }}
-                          >
-                            📍 Ghim
-                          </button>
-                          <Link
-                            href={`/tinh-thanh/province/${u.provinceSlug}/${u.slug}`}
-                            style={{
-                              padding: '6px 12px',
-                              borderRadius: '8px',
-                              backgroundColor: '#2563eb',
-                              color: '#ffffff',
-                              fontWeight: '700',
-                              fontSize: '12px',
-                              textDecoration: 'none'
-                            }}
-                          >
-                            Chi tiết ↗
-                          </Link>
-                        </div>
+                        <Link
+                          href={`/tinh-thanh/province/${u.provinceSlug}/${u.slug}`}
+                          style={{
+                            display: 'inline-block',
+                            padding: '6px 14px',
+                            borderRadius: '8px',
+                            backgroundColor: '#2563eb',
+                            color: '#ffffff',
+                            fontWeight: '700',
+                            fontSize: '12px',
+                            textDecoration: 'none'
+                          }}
+                        >
+                          Chi tiết ↗
+                        </Link>
                       </td>
                     </tr>
                   ))}

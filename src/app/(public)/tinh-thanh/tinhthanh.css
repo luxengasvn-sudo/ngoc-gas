@@ -2267,7 +2267,7 @@ body:has(.tt-portal-root) .main-content-wrapper {
   padding: 4px;
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .tt-tc-filter-inner {
