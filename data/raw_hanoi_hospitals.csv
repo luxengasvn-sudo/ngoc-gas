@@ -1,0 +1,113 @@
+STT;Tên bệnh viện;Tuyến;Ghi chú
+1;Bệnh viện Bạch Mai;Tuyến 1;Trung ương và tương đương
+2;Bệnh viện Bệnh Nhiệt Đới Trung Ương;Tuyến 1;Trung ương và tương đương
+3;Bệnh viện Châm Cứu Trung Ương;Tuyến 1;Trung ương và tương đương
+4;Bệnh viện Da Liễu Trung Ương;Tuyến 1;Trung ương và tương đương
+5;Bệnh viện Hữu Nghị Việt Đức;Tuyến 1;Trung ương và tương đương
+6;Bệnh viện K;Tuyến 1;Trung ương và tương đương
+7;Bệnh viện Lão Khoa Trung Ương;Tuyến 1;Trung ương và tương đương
+8;Bệnh viện Mắt Trung Ương;Tuyến 1;Trung ương và tương đương
+9;Bệnh viện Nhi Trung Ương;Tuyến 1;Trung ương và tương đương
+10;Bệnh viện Phổi Trung Ương;Tuyến 1;Trung ương và tương đương
+11;Bệnh viện Phụ Sản Trung Ương;Tuyến 1;Trung ương và tương đương
+12;Bệnh viện Răng Hàm Mặt Trung Ương Hà Nội;Tuyến 1;Trung ương và tương đương
+13;Bệnh viện Tai Mũi Họng Trung Ương;Tuyến 1;Trung ương và tương đương
+14;Bệnh viện Tâm Thần Trung Ương 1;Tuyến 1;Trung ương và tương đương
+15;Viện Huyết Học – Truyền Máu Trung Ương;Tuyến 1;Trung ương và tương đương
+16;Bệnh viện E;Tuyến 1;Trung ương và tương đương
+17;Bệnh viện Hữu Nghị Việt Xô;Tuyến 1;Trung ương và tương đương
+18;Bệnh viện Nội Tiết Trung ương;Tuyến 1;Trung ương và tương đương
+19;Bệnh viện Y Học Cổ Truyền Trung Ương;Tuyến 1;Trung ương và tương đương
+20;Bệnh viện 103 (Học viện Quân y);Tuyến 1;Trung ương và tương đương
+21;Bệnh viện 198 (Bộ Công An);Tuyến 1;Trung ương và tương đương
+22;Bệnh viện Bưu Điện;Tuyến 1;Trung ương và tương đương
+23;Bệnh viện Nông Nghiệp;Tuyến 1;Trung ương và tương đương
+24;Viện Bỏng Quốc gia;Tuyến 1;Trung ương và tương đương
+25;Bệnh viện TƯ Quân đội 108;Tuyến 1;Trung ương và tương đương
+26;Viện Y học cổ truyền Quân đội;Tuyến 1;Trung ương và tương đương
+27;Bệnh viện 354 (Tổng cục Hậu cần);Tuyến 1;Trung ương và tương đương
+28;Bệnh viện 105 Sơn Tây (Tổng cục Hậu cần);Tuyến 1;Trung ương và tương đương
+29;Viện Y học Phóng xạ và U bướu Quân đội;Tuyến 1;Trung ương và tương đương
+30;Viện Y học hàng không;Tuyến 1;Trung ương và tương đương
+31;Bệnh viện Thể thao (Tổng cục TDTT);Tuyến 1;Trung ương và tương đương
+32;Bệnh viện Đại học Y Hà Nội;Tuyến 1;Trung ương và tương đương
+33;Bệnh viện Đại học Quốc gia Hà Nội;Tuyến 1;Trung ương và tương đương
+34;Bệnh viện Giao Thông Vận Tải;Tuyến 1;Trung ương và tương đương
+35;Bệnh viện Xây dựng;Tuyến 1;Trung ương và tương đương
+36;Viện Kiểm nghiệm thuốc;Tuyến 1;Trung ương và tương đương
+37;Bệnh viện Đa Khoa Xanh Pôn;Tuyến 2;Thành phố và tương đương
+38;Bệnh viện Đa Khoa Y Học Cổ Truyền Hà Nội;Tuyến 2;Thành phố và tương đương
+39;Bệnh viện Da Liễu Hà Nội;Tuyến 2;Thành phố và tương đương
+40;Bệnh viện Điều Dưỡng Và Phục Hồi Chức Năng Hà Nội;Tuyến 2;Thành phố và tương đương
+41;Bệnh viện Hữu Nghị Việt Nam Cuba;Tuyến 2;Thành phố và tương đương
+42;Bệnh viện Mắt Hà Đông;Tuyến 2;Thành phố và tương đương
+43;Bệnh viện Mắt Hà Nội;Tuyến 2;Thành phố và tương đương
+44;Bệnh viện Nam Thăng Long;Tuyến 2;Thành phố và tương đương
+45;Bệnh viện Phụ Sản Hà Nội;Tuyến 2;Thành phố và tương đương
+46;Bệnh viện Tâm Thần Hà Nội;Tuyến 2;Thành phố và tương đương
+47;Bệnh viện Thận Hà Nội;Tuyến 2;Thành phố và tương đương
+48;Bệnh viện Tim Hà Nội;Tuyến 2;Thành phố và tương đương
+49;Bệnh viện Ung Bướu Hà Nội;Tuyến 2;Thành phố và tương đương
+50;Bệnh viện Y Học Cổ Truyền Hà Đông;Tuyến 2;Thành phố và tương đương
+51;Bệnh viện Bắc Thăng Long;Tuyến 2;Thành phố và tương đương
+52;Bệnh viện Đa Khoa Đống Đa;Tuyến 2;Thành phố và tương đương
+53;Bệnh viện Đa Khoa Quận Hà Đông;Tuyến 2;Thành phố và tương đương
+54;Bệnh viện Đa Khoa Đức Giang;Tuyến 2;Thành phố và tương đương
+55;Bệnh viện Hòe Nhai;Tuyến 2;Thành phố và tương đương
+56;Bệnh viện Đa khoa Thanh Xuân;Tuyến 2;Thành phố và tương đương
+57;Bệnh viện Phổi Hà Nội;Tuyến 2;Theo nguồn tham khảo
+58;Bệnh viện đa khoa Thanh Trì;Tuyến 2;Theo nguồn tham khảo
+59;Bệnh viện Đa Khoa Sóc Sơn;Tuyến 3;Quận/huyện và tương đương
+60;Bệnh viện Đa Khoa thị xã Sơn Tây;Tuyến 3;Quận/huyện và tương đương
+61;Bệnh viện Đa Khoa Đông Anh;Tuyến 3;Quận/huyện và tương đương
+62;Bệnh viện Huyện Ba Vì;Tuyến 3;Quận/huyện và tương đương
+63;Bệnh viện Đa Khoa Chương Mỹ;Tuyến 3;Quận/huyện và tương đương
+64;Bệnh viện Đa Khoa Huyện Đan Phượng;Tuyến 3;Quận/huyện và tương đương
+65;Bệnh viện Huyện Hoài Đức;Tuyến 3;Quận/huyện và tương đương
+66;Bệnh viện Đa khoa Hà Đông;Tuyến 3;Tuyến tỉnh, tương đương Tuyến 3
+67;Bệnh viện Đa khoa Vân Đình;Tuyến 3;Tuyến tỉnh, tương đương Tuyến 3
+68;Bệnh viện Quân Y 105;Tuyến 3;Tuyến tỉnh, tương đương Tuyến 3
+69;Bệnh viện đa khoa huyện Chương Mỹ;Tuyến 3;Tuyến huyện
+70;Bệnh viện đa khoa huyện Phúc Thọ;Tuyến 3;Tuyến huyện
+71;Bệnh viện đa khoa huyện Quốc Oai;Tuyến 3;Tuyến huyện
+72;Bệnh viện đa khoa huyện Thạch Thất;Tuyến 3;Tuyến huyện
+73;Bệnh viện đa khoa huyện Thường Tín;Tuyến 3;Tuyến huyện
+74;Bệnh viện An Việt;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+75;Bệnh viện đa khoa 16A Hà Đông;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+76;Bệnh viện đa khoa Bảo Sơn 2;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+77;Bệnh viện đa khoa Hồng Ngọc;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+78;Bệnh viện đa khoa MEDLATEC;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+79;Bệnh viện Đa khoa Phương Đông;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+80;Bệnh viện đa khoa Quốc tế Thu Cúc;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+81;Bệnh viện đa khoa quốc tế Vinmec Time City;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+82;Bệnh viện đa khoa Thăng Long;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+83;Bệnh viện đa khoa Thiên Đức;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+84;Bệnh viện đa khoa tư nhân Hà Nội;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+85;Bệnh viện đa khoa tư nhân Hà Thành;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+86;Bệnh viện đa khoa Tư nhân Tràng An;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+87;Bệnh viện ĐK Bắc Hà;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+88;Bệnh viện Đông Đô;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+89;Bệnh viện mắt Ánh Sáng;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+90;Bệnh Viện mắt quốc tế Việt-Nga;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+91;Bệnh viện mắt Việt Nhật;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+92;Bệnh viện Phụ Sản An Thịnh;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+93;Bệnh viện ung bướu Hưng Việt;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+94;BV đa khoa tư nhân Hồng Hà;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+95;BV Hy vọng Mới;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+96;BV mắt Sài Gòn - Hà Nội;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+97;BV Phụ sản HN 2 - TĐ Cotec HealthCare;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+98;BV Tâm Anh;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+99;BV Trí Đức;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+100;BV Việt Pháp;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+101;BV Y Học cổ truyền Nam Á;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+102;BVCK Nội Khánh Lương;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+103;BVĐKTN Bảo Long;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+104;BVĐK quốc tế DOLIFE (Trung Tín);Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+105;BV chuyên khoa Nam học và hiếm muộn Hà Nội;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+106;BV Ung Bướu Việt Nhật;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+107;Bệnh viện Tâm Thần Mỹ Đức;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+108;Bệnh viện Y Học Cổ Truyền Việt Nam;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+109;Bệnh viện Y Học Cổ Truyền Thành Phố Hà Nội – Bộ Công An;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+110;Bệnh viện ngành Than – khoáng sản;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+111;Bệnh viện nông nghiệp Khu Vực 1 – Bộ Nông Nghiệp;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng
+112;Bệnh viện Y học Cổ Truyền Bộ Công An;Tư nhân/Chuyên khoa khác;Không phân tuyến hành chính rõ ràng

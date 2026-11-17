@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllHospitals, getHospitalBySlug, getRelatedHospitals } from '@/lib/tinhthanhHospitalsHelper';
+import HospitalSeoArticle, { getHospitalFaqs } from '@/app/(public)/tinh-thanh/components/HospitalSeoArticle';
 
 export async function generateStaticParams() {
   const hospitals = getAllHospitals();
@@ -52,6 +53,7 @@ export default async function HospitalDetailPage({ params }) {
   }
 
   const relatedHospitals = getRelatedHospitals(hospital.slug, 3);
+  const faqs = getHospitalFaqs(hospital);
 
   // Schema JSON-LD chuẩn y tế
   const jsonLd = {
@@ -80,12 +82,31 @@ export default async function HospitalDetailPage({ params }) {
     }))
   };
 
+  const faqJsonLd = faqs && faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.map(f => ({
+      '@type': 'Question',
+      'name': f.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': f.answer
+      }
+    }))
+  } : null;
+
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '24px 0 60px 0' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
 
       <div className="tt-container" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 16px' }}>
         {/* 1. BREADCRUMBS */}
@@ -312,16 +333,8 @@ export default async function HospitalDetailPage({ params }) {
             </span>
           </div>
 
-          {/* Render Nội dung bài viết */}
-          <div
-            className="tt-hospital-article-content"
-            style={{
-              fontSize: '15px',
-              lineHeight: '1.8',
-              color: '#334155'
-            }}
-            dangerouslySetInnerHTML={{ __html: hospital.content }}
-          />
+          {/* Render Nội dung bài viết Chuẩn SEO Băng Tâm E-E-A-T */}
+          <HospitalSeoArticle hospital={hospital} />
 
           {/* Ghi chú cấp cứu khẩn cấp */}
           <div style={{

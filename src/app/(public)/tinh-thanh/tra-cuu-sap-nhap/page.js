@@ -213,50 +213,15 @@ function TraCuuContent() {
   return (
     <div style={{ padding: '24px 0 60px 0' }}>
       <div className="tt-container">
-        {/* Breadcrumb */}
+        {/* Breadcrumb & SEO H1 Heading */}
         <div className="tt-breadcrumb" style={{ marginBottom: '16px' }}>
           <Link href="/">🏠 Trang chủ</Link>
           <span className="tt-breadcrumb-separator">/</span>
           <Link href="/tinh-thanh">Địa Giới 2026</Link>
           <span className="tt-breadcrumb-separator">/</span>
-          <span className="tt-breadcrumb-active">Tra Cứu Sáp Nhập</span>
-        </div>
-
-        {/* 1. COMPACT HERO HEADER - TINH GỌN, RA THẲNG NỘI DUNG */}
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '16px',
-          border: '1px solid #e2e8f0',
-          padding: '16px 20px',
-          marginBottom: '18px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-            <div>
-              <h1 style={{ fontSize: '22px', fontWeight: '900', color: '#0f172a', margin: '0 0 4px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#ea580c' }}>🔍</span>
-                <span>Tra Cứu Sáp Nhập Hành Chính 2026</span>
-              </h1>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
-                Cập nhật địa giới mới <strong>34 Tỉnh Thành & 3.320 Phường Xã</strong> theo Nghị quyết UBTV Quốc hội
-              </p>
-            </div>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: '#fff7ed',
-              border: '1px solid #fed7aa',
-              color: '#c2410c',
-              padding: '5px 12px',
-              borderRadius: '9999px',
-              fontSize: '12px',
-              fontWeight: '700'
-            }}>
-              <span>•</span>
-              <span>Áp dụng từ 01/07/2025</span>
-            </div>
-          </div>
+          <h1 style={{ display: 'inline', fontSize: 'inherit', fontWeight: 'inherit', margin: 0 }} className="tt-breadcrumb-active">
+            Tra Cứu Sáp Nhập
+          </h1>
         </div>
 
         {/* 2. SEARCH & MULTI-LEVEL FILTER CONTAINER */}
@@ -578,49 +543,16 @@ function TraCuuContent() {
                       </div>
                     </div>
 
-                    {/* 4 Bottom Sub-boxes */}
-                    <div className="tt-tc-bottom-grid">
-                      {/* Mã xã */}
-                      <div className="tt-tc-subbox tt-tc-subbox-amber">
-                        <span className="tt-tc-subbox-label">
-                          <span>🌐</span> Mã xã:
-                        </span>
-                        <span className="tt-tc-subbox-val" style={{ color: '#b45309' }}>
-                          {u.administrativeCode || u.postalCode || '25909'}
-                        </span>
-                      </div>
-
-                      {/* Diện tích */}
-                      <div className="tt-tc-subbox tt-tc-subbox-green">
-                        <span className="tt-tc-subbox-label">
-                          <span>📈</span> Diện tích:
-                        </span>
-                        <span className="tt-tc-subbox-val" style={{ color: '#15803d' }}>
-                          {u.areaKm2 ? `${u.areaKm2} km²` : '---'}
-                        </span>
-                      </div>
-
-                      {/* Dân số */}
-                      <div className="tt-tc-subbox tt-tc-subbox-pink">
-                        <span className="tt-tc-subbox-label">
-                          <span>👥</span> Dân số:
-                        </span>
-                        <span className="tt-tc-subbox-val" style={{ color: '#be185d' }}>
-                          {u.population ? `${u.population.toLocaleString('vi-VN')} người` : '---'}
-                        </span>
-                      </div>
-
-                      {/* Action buttons */}
-                      <div className="tt-tc-btn-group">
-                        <Link
-                          href={`/tinh-thanh/province/${u.provinceSlug}/${u.slug}`}
-                          className="tt-tc-detail-btn"
-                          style={{ width: '100%', justifyContent: 'center', padding: '9px 16px', fontSize: '13px' }}
-                        >
-                          <span>Xem Chi Tiết & Dịch Vụ</span>
-                          <span>➔</span>
-                        </Link>
-                      </div>
+                    {/* Action button - Tinh gọn */}
+                    <div style={{ marginTop: '14px' }}>
+                      <Link
+                        href={`/tinh-thanh/province/${u.provinceSlug}/${u.slug}`}
+                        className="tt-tc-detail-btn"
+                        style={{ width: '100%', justifyContent: 'center', padding: '10px 16px', fontSize: '13px', borderRadius: '10px' }}
+                      >
+                        <span>Xem Chi Tiết & Dịch Vụ</span>
+                        <span>➔</span>
+                      </Link>
                     </div>
                   </div>
                 );
