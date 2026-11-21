@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import 'leaflet/dist/leaflet.css';
 
 // 34 Provinces coordinate map and metadata for Vietnam 2026
 const PROVINCE_COORDINATES = {
@@ -99,10 +100,23 @@ const SEA_LABELS = [
   }
 ];
 
+// Khung toạ độ bao phủ toàn vẹn lãnh thổ Việt Nam (đất liền + Hoàng Sa & Trường Sa)
+const VIETNAM_BOUNDS = [
+  [8.18, 102.14],
+  [23.39, 114.50]
+];
+
 const TILE_PROVIDERS = {
+  google: {
+    name: 'Google Maps (Chuẩn)',
+    url: 'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    attribution: '&copy; Google Maps'
+  },
   osm: {
     name: 'Đường Phố (OSM)',
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    subdomains: ['a', 'b', 'c'],
     attribution: '&copy; OpenStreetMap contributors'
   },
   satellite: {
@@ -110,18 +124,14 @@ const TILE_PROVIDERS = {
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri World Imagery'
   },
-  google: {
-    name: 'Google Maps',
-    url: 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-    attribution: '&copy; Google Maps'
-  },
   topo: {
     name: 'Địa Hình (Topo)',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    subdomains: ['a', 'b', 'c'],
     attribution: '&copy; OpenTopoMap'
   },
   esriStreet: {
-    name: 'Đường Phố Cũ (Esri)',
+    name: 'Đường Phố Chi Tiết (Esri)',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri Street'
   }
@@ -140,7 +150,7 @@ export default function NationalProvincesMap({
   const islandsGroupRef = useRef(null);
   const markersBySlugRef = useRef({});
 
-  const [activeLayer, setActiveLayer] = useState('osm');
+  const [activeLayer, setActiveLayer] = useState('google');
   const [showLayerSelector, setShowLayerSelector] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -161,9 +171,10 @@ export default function NationalProvincesMap({
       return;
     }
 
-    // Default Vietnam bounds covering mainland and both Hoang Sa & Truong Sa archipelagoes
-    const defaultCenter = [15.2, 110.0];
+    // Default Vietnam center and zoom
+    const defaultCenter = [16.0, 107.5];
     const defaultZoom = 6;
+    let resizeObserver = null;
 
     if (!mapInstanceRef.current) {
       const map = L.map(mapContainerRef.current, {
@@ -177,9 +188,11 @@ export default function NationalProvincesMap({
 
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-      // Base tile layer
-      tileLayerRef.current = L.tileLayer(TILE_PROVIDERS.osm.url, {
-        attribution: TILE_PROVIDERS.osm.attribution,
+      // Base tile layer (Google Maps chuẩn tiếng Việt mặc định)
+      const initProvider = TILE_PROVIDERS.google;
+      tileLayerRef.current = L.tileLayer(initProvider.url, {
+        attribution: initProvider.attribution,
+        subdomains: initProvider.subdomains || 'abc',
         maxZoom: 19
       }).addTo(map);
 
@@ -187,14 +200,37 @@ export default function NationalProvincesMap({
       islandsGroupRef.current = L.featureGroup().addTo(map);
       mapInstanceRef.current = map;
 
-      setTimeout(() => {
-        if (mapInstanceRef.current) {
-          mapInstanceRef.current.invalidateSize();
-        }
-      }, 200);
+      // Fit bounds bao quát toàn vẹn bản đồ Việt Nam
+      try {
+        map.fitBounds(VIETNAM_BOUNDS, { padding: [15, 15], maxZoom: 6 });
+      } catch {
+        // Fallback giữ nguyên center
+      }
+
+      // ResizeObserver tự động căn chuẩn lại khung nhìn Leaflet khi container thay đổi kích thước
+      if (typeof ResizeObserver !== 'undefined' && mapContainerRef.current) {
+        resizeObserver = new ResizeObserver(() => {
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.invalidateSize();
+          }
+        });
+        resizeObserver.observe(mapContainerRef.current);
+      }
+
+      // Kích hoạt nhiều nấc thời gian để đảm bảo CSS layout hoàn tất việc dàn trang
+      [100, 300, 600, 1200].forEach(delay => {
+        setTimeout(() => {
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.invalidateSize();
+          }
+        }, delay);
+      });
     }
 
     return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -212,10 +248,11 @@ export default function NationalProvincesMap({
       return;
     }
 
-    const provider = TILE_PROVIDERS[activeLayer] || TILE_PROVIDERS.osm;
+    const provider = TILE_PROVIDERS[activeLayer] || TILE_PROVIDERS.google;
     mapInstanceRef.current.removeLayer(tileLayerRef.current);
     tileLayerRef.current = L.tileLayer(provider.url, {
       attribution: provider.attribution,
+      subdomains: provider.subdomains || 'abc',
       maxZoom: 19
     }).addTo(mapInstanceRef.current);
   }, [activeLayer]);
@@ -424,9 +461,8 @@ export default function NationalProvincesMap({
     });
 
     return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
+      if (islandsGroupRef.current) {
+        islandsGroupRef.current.clearLayers();
       }
     };
   }, [isMounted]);
@@ -437,7 +473,11 @@ export default function NationalProvincesMap({
     const map = mapInstanceRef.current;
 
     if (selectedRegion === 'all') {
-      map.flyTo([15.2, 110.0], 6, { duration: 1.2 });
+      try {
+        map.fitBounds(VIETNAM_BOUNDS, { padding: [15, 15], maxZoom: 6, duration: 1.2 });
+      } catch {
+        map.flyTo([16.0, 107.5], 6, { duration: 1.2 });
+      }
       return;
     }
 
@@ -480,17 +520,23 @@ export default function NationalProvincesMap({
 
   const handleResetVietnamView = () => {
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo([15.2, 110.0], 6, { duration: 1.2 });
+      try {
+        mapInstanceRef.current.fitBounds(VIETNAM_BOUNDS, { padding: [15, 15], maxZoom: 6, duration: 1.2 });
+      } catch {
+        mapInstanceRef.current.flyTo([16.0, 107.5], 6, { duration: 1.2 });
+      }
     }
   };
 
   const handleToggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
-    setTimeout(() => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.invalidateSize();
-      }
-    }, 200);
+    [100, 300, 500].forEach(delay => {
+      setTimeout(() => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize();
+        }
+      }, delay);
+    });
   };
 
   return (

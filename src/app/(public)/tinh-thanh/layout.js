@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import './tinhthanh.css';
 import Script from 'next/script';
 import SubPortalNavbar from './components/SubPortalNavbar';

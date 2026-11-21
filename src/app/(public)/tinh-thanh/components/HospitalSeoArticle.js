@@ -1,4 +1,5 @@
 import React from 'react';
+import DataFeedbackSection from './DataFeedbackSection';
 
 /**
  * Hàm băm chuỗi số học cố định (Deterministic Hash)
@@ -523,6 +524,9 @@ export default function HospitalSeoArticle({ hospital }) {
           </p>
         </div>
       </section>
+
+      {/* 9. LƯU Ý PHÁP LÝ & TIẾP NHẬN BÁO LỖI THÔNG TIN */}
+      <DataFeedbackSection itemName={hospitalName} itemAddress={address} itemType="bệnh viện / cơ sở y tế" />
     </article>
   );
 }

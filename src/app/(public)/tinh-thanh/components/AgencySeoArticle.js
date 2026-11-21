@@ -1,4 +1,5 @@
 import React from 'react';
+import DataFeedbackSection from './DataFeedbackSection';
 
 /**
  * Hàm băm chuỗi số học cố định (Deterministic Hash)
@@ -722,6 +723,13 @@ export default function AgencySeoArticle({ agency, unit, province }) {
           </a>
         </div>
       </div>
+
+      {/* LƯU Ý PHÁP LÝ & TIẾP NHẬN BÁO LỖI THÔNG TIN */}
+      <DataFeedbackSection
+        itemName={agencyTitle}
+        itemAddress={address}
+        itemType={isPolice ? 'cơ quan công an' : 'trụ sở cơ quan hành chính'}
+      />
     </article>
   );
 }

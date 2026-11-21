@@ -1,12 +1,20 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import 'leaflet/dist/leaflet.css';
 
 // 5 Tile Providers for Ward Utilities Map
 const TILE_PROVIDERS = {
+  google: {
+    name: 'Google Maps (Chuẩn)',
+    url: 'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    attribution: '&copy; Google Maps'
+  },
   osm: {
     name: 'Đường Phố (OSM)',
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    subdomains: ['a', 'b', 'c'],
     attribution: '&copy; OpenStreetMap contributors'
   },
   satellite: {
@@ -14,14 +22,10 @@ const TILE_PROVIDERS = {
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri World Imagery'
   },
-  google: {
-    name: 'Google Maps',
-    url: 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-    attribution: '&copy; Google Maps'
-  },
   topo: {
     name: 'Địa Hình (Topo)',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    subdomains: ['a', 'b', 'c'],
     attribution: '&copy; OpenTopoMap'
   },
   esriStreet: {
@@ -54,7 +58,7 @@ export default function WardUtilitiesMap({
   const markersGroupRef = useRef(null);
   const markersByKeyRef = useRef({});
 
-  const [activeLayer, setActiveLayer] = useState('osm');
+  const [activeLayer, setActiveLayer] = useState('google');
   const [showLayerSelector, setShowLayerSelector] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -90,8 +94,10 @@ export default function WardUtilitiesMap({
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
       // Base tile layer
-      tileLayerRef.current = L.tileLayer(TILE_PROVIDERS.osm.url, {
-        attribution: TILE_PROVIDERS.osm.attribution,
+      const initProvider = TILE_PROVIDERS.google;
+      tileLayerRef.current = L.tileLayer(initProvider.url, {
+        attribution: initProvider.attribution,
+        subdomains: initProvider.subdomains || 'abc',
         maxZoom: 19
       }).addTo(map);
 
@@ -123,10 +129,11 @@ export default function WardUtilitiesMap({
       return;
     }
 
-    const provider = TILE_PROVIDERS[activeLayer] || TILE_PROVIDERS.osm;
+    const provider = TILE_PROVIDERS[activeLayer] || TILE_PROVIDERS.google;
     mapInstanceRef.current.removeLayer(tileLayerRef.current);
     tileLayerRef.current = L.tileLayer(provider.url, {
       attribution: provider.attribution,
+      subdomains: provider.subdomains || 'abc',
       maxZoom: 19
     }).addTo(mapInstanceRef.current);
   }, [activeLayer]);
